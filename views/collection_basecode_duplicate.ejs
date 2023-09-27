@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate')%>
+
+<h1> My Collection </h1>
+    
+<div>
+    <a href="/new">Add a New Piece!</a>
+
+</div>
+
+
+
+    <% for (let piece of artpieces) { %>
+
+                    <% for (let img of piece.images) { %>
+                        <img class="" src="<%= img.url %>">
+                    <% break } %>   
+                </div>
+                <div class="">
+                    <div class="">
+                        <h5 class=""> <%= piece.title %> </h5>
+                        <p class=""> <%= piece.artist  %> </p>
+                        <p class="">
+                            <small class=""> <%= piece.year %></small>
+                        </p>
+                        <a href="/collection/<%= piece._id %> " class="">View <%= piece.title  %> </a>
+                    </div>
+                </div>
+            </div>
+       </div>
+    <%  } %>
+
+
+
+
+</body>
+</html>
