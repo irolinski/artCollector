@@ -15,14 +15,14 @@
             </select>
 
         <label for="categories">Manage Categories:</label>
-            <label for="#checkbox1"> For Sale </label>
-            <input type="checkbox" name="show" value="forSale" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
-            <label for="#checkbox2"> Size </label>
-            <input type="checkbox" name="show" value="size" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('size')) { %> checked="checked" <% } %> />
-            <label for="#checkbox3"> Acquired </label>
-            <input type="checkbox" name="show" value="acquired" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
-            <label for="#checkbox4"> Medium </label>
-            <input type="checkbox" name="show" value="medium" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('medium')) { %> checked="checked" <% } %>/>
+        <label for="#checkbox1"> Acquired </label>
+        <input type="checkbox" name="show" value="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
+        <label for="#checkbox2"> For Sale </label>
+        <input type="checkbox" name="show" value="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
+        <label for="#checkbox3"> Archival </label>
+        <input type="checkbox" name="show" value="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
+
+
 
 
 
@@ -45,17 +45,15 @@
 
             <th>Year</th>
 
-            <% if (queryString.includes('medium')){ %> <th>Medium</th> <% } %>
+            <th>Medium / Size</th> 
 
-            <% if (queryString.includes('size')){ %> <th>Size</th> <% } %>
+            <th>Added</th>
 
             <% if (queryString.includes('acquired')){ %> <th>Acquired</th> <% } %>
 
             <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
 
-            <th>Added</th>
-
-            <th>Archival</th>
+            <% if(queryString.includes('arch-col')){ %> <th>Archival</th> %> <% } %>
 
 
         </tr>
@@ -84,18 +82,22 @@
                         <% } %>
                     <% break } %>
 
-                    <% if (queryString.includes('medium')){ %>
-                         <td><%=  piece.medium %></td> <% } %>
-                    
-                    <% if (queryString.includes('size')){ %>
+                   
+                    <td><%= piece.medium %> <br>                     
                         <% for (let s of piece.size) { %>
-                            <% if (s.z === undefined){ %>
-                                <td> <%= `${s.x} x ${s.x} ${s.unit}` %> </td>
-                        <%  } else { %>
-                            <td><%= `${s.x} x ${s.y} x ${s.z} ${s.unit}` %></td>
-                            <% } %>
-                        <% break } %>
-                    <% } %>
+                        <% if (s.z === undefined){ %>
+                             <%=  `${s.x} x ${s.x} ${s.unit}` %> 
+                    <%  } else { %>
+                        <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                        <% } %>
+                    <% break } %>
+                    </td>
+                
+            
+
+
+
+                    <td><%=  moment (piece.createdAt).fromNow() %></td>
 
                     <% if (queryString.includes('acquired')){ %> 
                         <td><%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%></td>
@@ -105,9 +107,10 @@
                         <td><%=  piece.forSale %></td>
                     <% } %>
 
-                    <td><%=  moment (piece.createdAt).fromNow() %></td>
-
+                    <% if (queryString.includes('arch-col')) { %>
                     <td><%=  piece.archival %></td>
+                    <% } %>
+
 
                 </tr>
         <% } %>
@@ -125,6 +128,10 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": [2, 4]}
+            ],
+            order: [[5, 'desc']],
 
         language: {
             //customize pagination prev and next buttons: use arrows instead of words

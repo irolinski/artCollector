@@ -59,24 +59,24 @@ app.get('/new', (req, res) => {
 
 app.get('/makeArtPiece', async (req, res) => {
     const piece = new ArtPiece({
-    title: 'Baking a cake (or flick)',
-    artist: 'Man from Truman Show',
-    medium: 'Stone or something',
+    title: 'Baking a steak (or or or or)',
+    artist: 'Man from Turman Gown',
+    medium: 'Baloons',
     year: [
-        {year_finished: 1993}
+        {year_finished: 2010}
         
     ],
     images: [
         {url: 'https://source.unsplash.com/random/?duck,attacking'} 
     ],
     size: [
-        {x: 25, y: 252, z:300, unit:'in'}
+        {x: 255, y: 222, z:300, unit:'in'}
     ],
-    owner: 'Museum of Ducks',
-    holder: 'Museum of Puss',
-    acquiration_date: new Date("1600-01-21T11:25"),
-    archival: true,
-    forSale: false,
+    owner: 'Museum of Crooks',
+    holder: 'Museum of Drooqs',
+    acquiration_date: new Date("1800-05-21T11:25"),
+    archival: false,
+    forSale: true,
     description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',
     user_id: 's8799fasfafas99944999' })
    
