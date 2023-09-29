@@ -24,6 +24,8 @@
             <label for="#checkbox4"> Medium </label>
             <input type="checkbox" name="show" value="medium" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('medium')) { %> checked="checked" <% } %>/>
 
+
+
 </form>
 </div>
 
@@ -51,6 +53,8 @@
 
             <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
 
+            <th>Added</th>
+
             <th>Archival</th>
 
 
@@ -58,7 +62,7 @@
     </thead>
     <tbody>
 
-        <% for (let piece of artPieces) { %>
+        <% for (let piece of artPieces) { console.log(piece)%>
         
             
                 <tr>
@@ -101,6 +105,8 @@
                         <td><%=  piece.forSale %></td>
                     <% } %>
 
+                    <td><%=  moment (piece.createdAt).fromNow() %></td>
+
                     <td><%=  piece.archival %></td>
 
                 </tr>
@@ -119,10 +125,7 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-        //disable sorting on last column
-        "columnDefs": [
-            { "orderable": false, "targets": [ 2, 5, 6, 7, 8] },
-        ],
+
         language: {
             //customize pagination prev and next buttons: use arrows instead of words
             'paginate': {
@@ -142,22 +145,6 @@
         })  
     }); 
 </script>
-<!-- 
-<script>
-    const table = $('#example').DataTable();
- 
-    const filteredData = table
-        .columns( )
-        .data()
-        .flatten()
-        .filter( function ( value, index ) {
-            return value > 20 ? true : false;
-        } );
-</script> -->
-
-<!-- filter pseudo code  -->
-
-<!-- if adress contains 'archival = hide' if piece.archival !== false -->
 
 
 </body>
