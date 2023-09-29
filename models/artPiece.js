@@ -6,17 +6,18 @@ const imageSchema = new Schema({
     filename: String
 });
 
-// const dateSchema = new Schema({
-//     day: Number,
-//     month: Number,
-//     year: Number
-// })
 
 const yearSchema = new Schema({
     year_finished: Number,
     year_started: Number
 })
 
+const sizeSchema = new Schema({
+    x: Number,
+    y: Number,
+    z: Number,
+    unit: String
+})
 
 
 const artPieceSchema = new Schema({
@@ -25,8 +26,7 @@ const artPieceSchema = new Schema({
     medium: String,
     year: [yearSchema],
     images: [imageSchema],
-    size_x: Number,
-    size_y: Number,
+    size: [sizeSchema],
     owner: String,
     holder: String,
     acquiration_date: Date,

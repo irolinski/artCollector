@@ -34,8 +34,10 @@ app.get('/homepage', (req, res) => {
 });
 
 app.get('/collection', async (req, res) => {
+
+    let queryString = JSON.stringify(req.query);
     const archivalStatus = req.query.archival;
-   
+
     let artPieces = await ArtPiece.find({});
     const archivalPieces = await ArtPiece.find({ archival: {$in: [ 'true' ]}});
 
@@ -45,7 +47,7 @@ app.get('/collection', async (req, res) => {
         artPieces = archivalPieces
     }
 
-    res.render('collection', { artPieces, moment: moment, archivalStatus })
+    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString })
 });
 
 app.get('/new', (req, res) => {
@@ -57,21 +59,22 @@ app.get('/new', (req, res) => {
 
 app.get('/makeArtPiece', async (req, res) => {
     const piece = new ArtPiece({
-    title: 'Blue bear (or something)',
-    artist: 'Gus Karkans',
-    medium: 'Crayon on Paper',
+    title: 'Baking a cake (or flick)',
+    artist: 'Man from Truman Show',
+    medium: 'Stone or something',
     year: [
-        {year_finished: 2003}
+        {year_finished: 1993}
         
     ],
     images: [
-        {url: 'https://source.unsplash.com/random/?red,painting,old'} 
+        {url: 'https://source.unsplash.com/random/?duck,attacking'} 
     ],
-    size_x: 221,
-    size_y: 153,
-    owner: 'Me',
-    holder: 'Me',
-    acquiration_date: new Date("2023-02-25T11:25"),
+    size: [
+        {x: 25, y: 252, z:300, unit:'in'}
+    ],
+    owner: 'Museum of Ducks',
+    holder: 'Museum of Puss',
+    acquiration_date: new Date("1600-01-21T11:25"),
     archival: true,
     forSale: false,
     description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',
