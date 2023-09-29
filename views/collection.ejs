@@ -1,11 +1,29 @@
 <% layout('layouts/boilerplate')%>
 
 <h1> My Collection </h1>
+
     
 <div>
-    <a href="/new">Add a New Piece!</a>
+    <a href="/new">Add a New Piece!</a>  
+<form>
+        <label for="archival" >Archival:</label>
+            <select name="archival" id="archival" onchange="this.form.submit()">
+                <option value="hide" <% if (archivalStatus === 'hide') { %> selected="selected" <% } %> >Hide</option>
+                <option value="show" <% if (archivalStatus === 'show') { %> selected="selected" <% } %>>Show</option>
+                <option value="showOnly" <% if (archivalStatus === 'showOnly') { %> selected="selected" <% } %>>Show Only</option>
+
+            </select>
+</form>
+
+
 
 </div>
+
+
+
+
+
+
 
 <table id="example" class="table table-striped" style="width:100%">
     <thead>
@@ -16,25 +34,95 @@
             <th>Year</th>
             <th>Medium</th>
             <th>Acquired</th>
-            <th>Archival</th>
             <th>For Sale</th>
+            <th>Archival</th>
+
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><img src="https://iiif.micr.io/TZCqF/full/1280,/0/default.jpg" style="max-width:100px; width:100%"> </td>
-            <td>Van Gogh</td>
-            <td>Sunflowers</td>
-            <td>1888</td>
-            <td>Oil on Canvas</td>
-            <td>1932-11-11</td>
-            <td>No</td>
-            <td>No</td>
 
-        </tr>
+        <% for (let piece of artPieces) { %>
+        
+            
+                <% for (let img of piece.images) { %>
+                <tr>
+                    <td><img src="<%= img.url %>" style="max-width:100px; width:100%"> </td>
+                <% break } %>   
 
+                    <td><%= piece.artist %></td>
+
+                    <td><%=  piece.title %></td>
+
+                    <% for (let y of piece.year) { %>
+                        <% if (y.year_started !== undefined){ %>
+                            <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
+                    <%  } else { %>
+                        <td><%= y.year_finished %></td>
+                        <% } %>
+                    <% break } %>
+
+                    <td><%=  piece.medium %></td>
+
+                    <td><%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%></td>
+
+                    <td><%=  piece.forSale %></td>
+                    <td><%=  piece.archival %></td>
+
+                </tr>
+        <% } %>
     </tbody>
 </table>
+
+<!-- jQuery -->
+<script src='https://code.jquery.com/jquery-3.7.0.js'></script>
+
+<!-- Data Table JS -->
+<script src='https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js'></script>
+<script src='https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js'></script>
+<script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+        //disable sorting on last column
+        "columnDefs": [
+            { "orderable": false, "targets": [0, 6, 7] }
+        ],
+        language: {
+            //customize pagination prev and next buttons: use arrows instead of words
+            'paginate': {
+            'previous': '<span class="fa fa-chevron-left"></span>',
+            'next': '<span class="fa fa-chevron-right"></span>'
+            },
+            //customize number of elements to be displayed
+            "lengthMenu": 'Display <select class="form-control input-sm">'+
+            '<option value="10">10</option>'+
+            '<option value="20">20</option>'+
+            '<option value="30">30</option>'+
+            '<option value="40">40</option>'+
+            '<option value="50">50</option>'+
+            '<option value="-1">All</option>'+
+            '</select> results'
+        }
+        })  
+    }); 
+</script>
+<!-- 
+<script>
+    const table = $('#example').DataTable();
+ 
+    const filteredData = table
+        .columns( )
+        .data()
+        .flatten()
+        .filter( function ( value, index ) {
+            return value > 20 ? true : false;
+        } );
+</script> -->
+
+<!-- filter pseudo code  -->
+
+<!-- if adress contains 'archival = hide' if piece.archival !== false -->
 
 
 </body>

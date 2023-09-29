@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const ejsMate = require ('ejs-mate');
+const moment = require('moment');
+const $ = require('jquery');
 
 const app = express();
 
@@ -20,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/artCollection',
     console.log(err)
 });
 const ArtPiece = require('./models/artPiece.js');
+const { constants } = require('buffer');
 
 
 
@@ -31,8 +34,18 @@ app.get('/homepage', (req, res) => {
 });
 
 app.get('/collection', async (req, res) => {
-    const artpieces = await ArtPiece.find({});
-    res.render('collection', {artpieces})
+    const archivalStatus = req.query.archival;
+   
+    let artPieces = await ArtPiece.find({});
+    const archivalPieces = await ArtPiece.find({ archival: {$in: [ 'true' ]}});
+
+    if (archivalStatus === 'hide') {
+        artPieces = await ArtPiece.find({ archival: !{$in: [ 'true' ]}})
+    } if (archivalStatus === 'showOnly') {
+        artPieces = archivalPieces
+    }
+
+    res.render('collection', { artPieces, moment: moment, archivalStatus })
 });
 
 app.get('/new', (req, res) => {
@@ -42,27 +55,31 @@ app.get('/new', (req, res) => {
 
 // ------- PIECE GENERATOR -------
 
-// app.get('/makeArtPiece', async (req, res) => {
-//     const piece = new ArtPiece({
-//     title: 'Water Lilies (or something)',
-//     artist: 'Monet Claude',
-//     technique: 'Oil on Canvas',
-//     year: 1858,
-//     images: [
-//         {url: 'https://source.unsplash.com/random/?impressionistic,painting'} 
-//     ],
-//     size_x: 121,
-//     size_y: 253,
-//     owner: 'Italy',
-//     holder: 'Italy',
-//     acquiration_date: 22-0o1-1833,
-//     archival: false,
-//     description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',
-//     user_id: 's8799fasfafas99944999' })
+app.get('/makeArtPiece', async (req, res) => {
+    const piece = new ArtPiece({
+    title: 'Blue bear (or something)',
+    artist: 'Gus Karkans',
+    medium: 'Crayon on Paper',
+    year: [
+        {year_finished: 2003}
+        
+    ],
+    images: [
+        {url: 'https://source.unsplash.com/random/?red,painting,old'} 
+    ],
+    size_x: 221,
+    size_y: 153,
+    owner: 'Me',
+    holder: 'Me',
+    acquiration_date: new Date("2023-02-25T11:25"),
+    archival: true,
+    forSale: false,
+    description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',
+    user_id: 's8799fasfafas99944999' })
    
-//     await piece.save(); 
-//     res.send(piece)
-//     })
+    await piece.save(); 
+    res.send(piece)
+    })
 
 // ------- END -------
 
