@@ -15,8 +15,6 @@
             </select>
 
         <label for="categories">Manage Categories:</label>
-        <label for="#checkbox1"> Medium / Size </label>
-        <input type="checkbox" name="show" value="medium" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('medium')) { %> checked="checked" <% } %>/>
         <label for="#checkbox1"> Acquired </label>
         <input type="checkbox" name="show" value="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
         <label for="#checkbox2"> For Sale </label>
@@ -47,9 +45,9 @@
 
             <th>Year</th>
 
-            <th>Added</th>
+            <th>Medium / Size</th> 
 
-            <% if (queryString.includes('medium')){ %> <th>Medium</th> <% } %>
+            <th>Added</th>
 
             <% if (queryString.includes('acquired')){ %> <th>Acquired</th> <% } %>
 
@@ -84,19 +82,22 @@
                         <% } %>
                     <% break } %>
 
-                    <td><%=  moment (piece.createdAt).fromNow() %></td>
+                   
+                    <td><%= piece.medium %> <br>                     
+                        <% for (let s of piece.size) { %>
+                        <% if (s.z === undefined){ %>
+                             <%=  `${s.x} x ${s.x} ${s.unit}` %> 
+                    <%  } else { %>
+                        <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                        <% } %>
+                    <% break } %>
+                    </td>
+                
+            
 
-                   <% if (queryString.includes('medium')){  %>                 
-                        <td><%= piece.medium %> <br>                     
-                            <% for (let s of piece.size) { %>
-                            <% if (s.z === undefined){ %>
-                                <%=  `${s.x} x ${s.x} ${s.unit}` %> 
-                        <%  } else { %>
-                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
-                            <% } %>
-                        <% break } %>
-                        </td>
-                    <% } %>
+
+
+                    <td><%=  moment (piece.createdAt).fromNow() %></td>
 
                     <% if (queryString.includes('acquired')){ %> 
                         <td><%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%></td>
@@ -128,9 +129,9 @@
     $(document).ready(function() {
         $('#example').DataTable({
             "columnDefs": [
-                { "orderable": false, "targets": 2}
+                { "orderable": false, "targets": [2, 4]}
             ],
-            order: [[4, 'desc']],
+            order: [[5, 'desc']],
 
         language: {
             //customize pagination prev and next buttons: use arrows instead of words
