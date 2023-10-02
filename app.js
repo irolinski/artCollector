@@ -26,7 +26,9 @@ const { constants } = require('buffer');
 
 
 
-
+app.use(
+    express.static(path.join(__dirname, "node_modules/bootstrap/dist/"))
+  );
 
 
 app.get('/homepage', (req, res) => {
@@ -72,9 +74,17 @@ app.get('/makeArtPiece', async (req, res) => {
     size: [
         {x: 255, y: 222, z:300, unit:'in'}
     ],
-    owner: 'Museum of Crooks',
-    holder: 'Museum of Drooqs',
+    owner: [
+        {name: 'Michael Stokes', contact_info: 'phone number: 8333 333 333'}
+    ],
+    holder: [
+        {name: 'Michael Stokes', contact_info: 'phone number: 8333 333 333'}
+],
     acquiration_date: new Date("1800-05-21T11:25"),
+
+    price: [
+        {price: 244, currency: '$'}
+    ],
     archival: false,
     forSale: true,
     description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',

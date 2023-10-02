@@ -1,2 +1,210 @@
-this is our new page
+<% layout('layouts/boilerplate')%>
 
+
+
+
+<div class="row">
+  <h1 class="text-center">Add a new piece</h1>
+  <div class="col-8 offset-2">
+
+<form class="row g-3" action="/collection" method="POST" enctype="multipart/form-data" novalidate>
+  
+<!-- Artist name -->
+<div class="col-md-6">
+    <label for="artist" class="form-label">Artist name:</label>
+    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name">
+    <div class="invalid-feedback">
+        Entering a name is required!
+    </div>
+</div>
+<div class="col-md-6"></div>
+
+<!-- Title, Year -->
+<div class="col-md-6">
+    <label for="title" class="form-label">Title:</label>
+    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?">
+    <div class="invalid-feedback">
+        Entering a title is required!
+    </div>
+</div>
+<div class="col-md-6">
+    <label for="year_finished" class="form-label">Year:</label>
+    <input type="number" class="form-control" id="year_finished" name="year.year_finished" placeholder="Year of origin">
+    <div class="invalid-feedback">
+        Entering a Year is required!
+    </div>
+</div>
+
+<div class="col-md-7"></div>
+<div class="form-check col-md-5">
+  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear">
+  <label class="form-check-label" for="multiyear">
+    Is it a multi-year work? 
+  </label>
+</div>
+
+<!-- Medium -->
+
+<div class="col-md-6">
+    <label for="medium" class="form-label">Medium:</label>
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?">
+    <div class="invalid-feedback">
+        Entering piece medium is required!
+    </div>
+</div>
+
+<!-- to be unhidden with the checkbox above-->
+<div class="col-md-6">
+    <label for="year_started" class="form-label">Year Started:</label>
+    <input type="number" class="form-control" id="year_started" name="year.year_started" placeholder="Year of origin">
+</div>
+
+<!-- Size -->
+
+<label for="size.x" class="form-label">Size:</label>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.x" name="size.x" placeholder="Width">
+        </div>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.y" name="size.y" placeholder="Height">
+        </div>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.z" name="size.z" placeholder="Depth">
+        </div>
+
+
+<div class=" col-md-2">
+  <select class="form-select" aria-label="Small select example">
+    <option selected>Unit</option>
+    <option value="cm">cm</option>
+    <option value="in">in</option>
+  </select>
+</div>
+<div class="col-md-4"></div>
+
+
+<!-- For sale checkbox, Price -->
+
+<div class="col-md-1"></div>
+        <div class="form-check col-md-4">
+          <label class="form-check-label" for="is_forsale">
+            Is it, possibly, for sale?
+          </label>
+          <input class="form-check-input" type="checkbox" name="is_forsale" value="" id="is_forsale">
+        </div>
+        
+
+<div class="col-md-4">
+  <input type="number" class="form-control" id="price" name="price" placeholder="Price">
+</div>
+
+<div class=" col-md-2">
+  <select class="form-select" aria-label="Small select example">
+    <option value="cm"> PLN </option>
+    <option value="in"> &#x20AC; </option>
+    <option value="in"> 	&#36; </option>
+  </select>
+</div>
+
+
+<!-- Description -->
+
+<div class="col-md-12">
+  <label for="description" class="form-label"> Description / Additional info: </label>
+  <input type="text" class="form-control" id="description" name="description">
+  </div>
+
+
+
+<!-- Owner  -->
+
+<label for="owner-check" class="form-check-label">Owner:</label>
+<div class="form-check col-md-4" name="owner-check">
+  <label class="form-check-label" for="self-owned">
+    I am the owner of this piece
+  </label>
+  <input class="form-check-input" type="checkbox" name="self-owned" value="self-owned" id="self-owned">
+</div>
+
+<div class="form-check col-md-6">
+  <label class="form-check-label" for="else-owned">
+    Someone else is the owner of this piece
+  </label>
+  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned">
+</div>
+
+    <!-- if someone else is the owner  -->
+
+<div class="form-check col-md-5">
+<input type="text" class="form-control" name="owner" id="owner" placeholder="Owner name">
+</div>
+
+
+<div class="form-check col-md-6">
+  <input type="text" class="form-control" name="owner_contact" id="owner_contact" placeholder="Contact info">
+</div>
+
+<div class="col-md-1"></div>
+
+
+  <!-- If I am the owner -->
+
+      <!-- Date of acquiration -->
+     
+      <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
+      <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
+      <input type="date" class="form-control" name="date-field" />
+      </div>
+
+
+<!-- Holder -->
+
+<label for="holder-check" class="form-check-label">Holder:</label>
+<div class="form-check col-md-4" name="holder-check">
+  <label class="form-check-label" for="self-owned">
+    I am the holder of this piece
+  </label>
+  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
+</div>
+
+<div class="form-check col-md-6">
+  <label class="form-check-label" for="else-held">
+    Someone else is the holder of this piece
+  </label>
+  <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held">
+</div>
+
+
+
+    <!-- If someone else is the holder  -->
+
+<div class="form-check col-md-5">
+  <input type="text" class="form-control" name="holder" id="holder" placeholder="Holder name">
+</div>
+
+<div class="form-check col-md-6">
+  <input type="text" class="form-control" name="holder_contact" id="holder_contact" placeholder="Contact info">
+</div>
+
+<div class="col-md-1"></div>
+
+
+<!-- Archival checkbox -->
+
+<div class="col-md-7"></div>
+<div class="form-check col-md-5">
+  <input class="form-check-input" type="checkbox" value="" name="archival-check" id="archival-check">
+  <label class="form-check-label" for="archival-check">
+      Mark this release as archival
+  </label>
+</div>
+
+
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
+
+</div>
+</div>
