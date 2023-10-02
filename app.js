@@ -59,22 +59,22 @@ app.get('/new', (req, res) => {
 
 app.get('/makeArtPiece', async (req, res) => {
     const piece = new ArtPiece({
-    title: 'Baking a steak (or or or or)',
-    artist: 'Man from Turman Gown',
-    medium: 'Baloons',
+    title: 'Wonder if a steak will work (or or or or)',
+    artist: 'Man from Bureau Gown',
+    medium: 'Tears on math homework',
     year: [
-        {year_finished: 2010}
+        {year_finished: 2014}
         
     ],
     images: [
         {url: 'https://source.unsplash.com/random/?duck,attacking'} 
     ],
     size: [
-        {x: 255, y: 222, z:300, unit:'in'}
+        {x: 25, y: 22, unit:'cm'}
     ],
-    owner: 'Museum of Crooks',
+    owner: 'Dan Crooks',
     holder: 'Museum of Drooqs',
-    acquiration_date: new Date("1800-05-21T11:25"),
+    acquiration_date: new Date("1800-05-21"),
     archival: false,
     forSale: true,
     description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',

@@ -19,6 +19,15 @@ const sizeSchema = new Schema({
     unit: String
 })
 
+const ownerSchema = new Schema({
+    name: String,
+    contact_info: String,
+})
+
+const holderSchema = new Schema({
+    name: String,
+    contact_info: String,
+})
 
 const artPieceSchema = new Schema({
     title: String,
@@ -27,8 +36,8 @@ const artPieceSchema = new Schema({
     year: [yearSchema],
     images: [imageSchema],
     size: [sizeSchema],
-    owner: String,
-    holder: String,
+    owner: [ownerSchema],
+    holder: [holderSchema],
     acquiration_date: Date,
     archival: Boolean,
     description: String,

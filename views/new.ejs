@@ -1,2 +1,132 @@
-this is our new page
+<% layout('layouts/boilerplate')%>
 
+
+<form class="row g-3" action="/collection" method="POST" enctype="multipart/form-data" novalidate>
+
+<!-- Artist name -->
+<div class="col-md-6">
+    <label for="artist" class="form-label">Artist name</label>
+    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name">
+    <div class="invalid-feedback">
+        Entering a name is required!
+    </div>
+</div>
+<div class="col-md-6"></div>
+<!-- Title, Year -->
+<div class="col-md-6">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?">
+    <div class="invalid-feedback">
+        Entering a title is required!
+    </div>
+</div>
+<div class="col-md-6">
+    <label for="year_finished" class="form-label">Year</label>
+    <input type="number" class="form-control" id="year_finished" name="year.year_finished" placeholder="Year of origin">
+    <div class="invalid-feedback">
+        Entering a Year is required!
+    </div>
+</div>
+
+<div class="col-md-6"></div>
+<div class="form-check col-md-6">
+  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    Default checkbox
+  </label>
+</div>
+
+<!-- Medium -->
+
+<div class="col-md-6">
+    <label for="medium" class="form-label">Medium</label>
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?">
+    <div class="invalid-feedback">
+        Entering piece medium is required!
+    </div>
+</div>
+
+<!-- to be unhidden with the checkbox above-->
+<div class="col-md-6">
+    <label for="year_started" class="form-label">Year Started</label>
+    <input type="number" class="form-control" id="year_started" name="year.year_started" placeholder="Year of origin">
+
+</div>
+
+<!-- Size -->
+
+
+<label for="size.x" class="form-label">Size</label>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.x" name="size.x" placeholder="Width">
+        </div>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.y" name="size.y" placeholder="Height">
+        </div>
+        <div class="col-md-2"> 
+            <input type="number" class="form-control" id="size.z" name="size.z" placeholder="Depth">
+        </div>
+
+        <div class="form-check col-md-6"></div>
+
+        <div class="form-check col-md-6">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Default checkbox
+          </label>
+        </div>
+        
+
+
+<!-- For sale checkbox, Price -->
+
+
+<!-- Description -->
+
+<!-- Owner, Holder -->
+<!-- Date of acquiration -->
+
+<!-- Archival checkbox -->
+
+
+
+
+    <div class="col-md-6">
+      <label for="inputPassword4" class="form-label">Password</label>
+      <input type="password" class="form-control" id="inputPassword4">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress" class="form-label">Address</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="col-12">
+      <label for="inputAddress2" class="form-label">Address 2</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="col-md-6">
+      <label for="inputCity" class="form-label">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="col-md-4">
+      <label for="inputState" class="form-label">State</label>
+      <select id="inputState" class="form-select">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label for="inputZip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Check me out
+        </label>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
