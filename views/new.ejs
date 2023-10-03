@@ -7,7 +7,7 @@
   <h1 class="text-center">Add a new piece</h1>
   <div class="col-8 offset-2">
 
-<form class="row g-3" action="/collection" method="POST" enctype="multipart/form-data" novalidate>
+<form class="row g-3" action="/collection" method="POST" >
   
 <!-- Artist name -->
 <div class="col-md-6">
@@ -29,19 +29,24 @@
 </div>
 <div class="col-md-6">
     <label for="year_finished" class="form-label">Year:</label>
-    <input type="number" class="form-control" id="year_finished" name="year.year_finished" placeholder="Year of origin">
+    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin">
     <div class="invalid-feedback">
         Entering a Year is required!
     </div>
 </div>
 
-<div class="col-md-7"></div>
+<div class="col-md-7"> </div>
+
+
 <div class="form-check col-md-5">
   <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear">
   <label class="form-check-label" for="multiyear">
     Is it a multi-year work? 
   </label>
 </div>
+
+
+
 
 <!-- Medium -->
 
@@ -56,20 +61,28 @@
 <!-- to be unhidden with the checkbox above-->
 <div class="col-md-6">
     <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" id="year_started" name="year.year_started" placeholder="Year of origin">
+    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin">
 </div>
+
+<!-- Images -->
+
+<div class="col-md-12">
+  <label for="url" class="form-label">Image URL:</label>
+  <input type="text" class="form-control" id="url" name="images[0][url]">
+</div>
+
 
 <!-- Size -->
 
 <label for="size.x" class="form-label">Size:</label>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" id="size.x" name="size.x" placeholder="Width">
+            <input type="number" class="form-control" name="size[0][x]" placeholder="Width">
         </div>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" id="size.y" name="size.y" placeholder="Height">
+            <input type="number" class="form-control" name="size[0][y]" placeholder="Height">
         </div>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" id="size.z" name="size.z" placeholder="Depth">
+            <input type="number" class="form-control" name="size[0][z]" placeholder="Depth">
         </div>
 
 
@@ -82,6 +95,7 @@
 </div>
 <div class="col-md-4"></div>
 
+<!-- need image url input!!! -->
 
 <!-- For sale checkbox, Price -->
 
@@ -90,19 +104,19 @@
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
-          <input class="form-check-input" type="checkbox" name="is_forsale" value="" id="is_forsale">
+          <input class="form-check-input" type="checkbox" name="forSale" value="" id="is_forsale">
         </div>
         
 
 <div class="col-md-4">
-  <input type="number" class="form-control" id="price" name="price" placeholder="Price">
+  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price">
 </div>
 
 <div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example">
-    <option value="cm"> PLN </option>
-    <option value="in"> &#x20AC; </option>
-    <option value="in"> 	&#36; </option>
+  <select class="form-select" aria-label="Small select example" name="price[0][currency]">
+    <option value="PLN">      PLN      </option>
+    <option value="&#x20AC;"> &#x20AC; </option>
+    <option value="&#36;"> 	  &#36;    </option>
   </select>
 </div>
 
@@ -136,12 +150,12 @@
     <!-- if someone else is the owner  -->
 
 <div class="form-check col-md-5">
-<input type="text" class="form-control" name="owner" id="owner" placeholder="Owner name">
+<input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
 </div>
 
 
 <div class="form-check col-md-6">
-  <input type="text" class="form-control" name="owner_contact" id="owner_contact" placeholder="Contact info">
+  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info">
 </div>
 
 <div class="col-md-1"></div>
@@ -153,7 +167,7 @@
      
       <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
       <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
-      <input type="date" class="form-control" name="date-field" />
+      <input type="date" class="form-control" name="acquiration-date" />
       </div>
 
 
@@ -161,7 +175,7 @@
 
 <label for="holder-check" class="form-check-label">Holder:</label>
 <div class="form-check col-md-4" name="holder-check">
-  <label class="form-check-label" for="self-owned">
+  <label class="form-check-label" for="self-held">
     I am the holder of this piece
   </label>
   <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
@@ -179,11 +193,11 @@
     <!-- If someone else is the holder  -->
 
 <div class="form-check col-md-5">
-  <input type="text" class="form-control" name="holder" id="holder" placeholder="Holder name">
+  <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
 </div>
 
 <div class="form-check col-md-6">
-  <input type="text" class="form-control" name="holder_contact" id="holder_contact" placeholder="Contact info">
+  <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
 </div>
 
 <div class="col-md-1"></div>
@@ -193,7 +207,7 @@
 
 <div class="col-md-7"></div>
 <div class="form-check col-md-5">
-  <input class="form-check-input" type="checkbox" value="" name="archival-check" id="archival-check">
+  <input class="form-check-input" type="checkbox" value="" name="archival" id="archival-check">
   <label class="form-check-label" for="archival-check">
       Mark this release as archival
   </label>
@@ -202,9 +216,18 @@
 
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button class="btn btn-primary">Create a new piece</button>
     </div>
+    
   </form>
 
 </div>
 </div>
+
+<script>
+  let checkArchivalState = $("#archival-check").is(":checked") ? "true" : "false";
+
+  let checkForSaleState = $("#is_forsale").is(":checked") ? "true" : "false";
+
+
+</script>
