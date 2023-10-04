@@ -66,7 +66,7 @@
                 <tr>
                     <td><%= piece.artist %></td>
 
-                    <td><%=  piece.title %></td>
+                    <td> <a href="collection/show/<%=piece.id%>"> <%= piece.title %> </a> </td>
 
                     <% for (let img of piece.images) { %>
                     <td><img src="<%= img.url %>" style="max-width:100px; width:100%"> </td>

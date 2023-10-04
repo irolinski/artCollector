@@ -1,8 +1,6 @@
 <% layout('layouts/boilerplate')%>
 
 
-
-
 <div class="row">
   <h1 class="text-center">Add a new piece</h1>
   <div class="col-8 offset-2">
@@ -37,7 +35,7 @@
 
 <div class="col-md-7"> </div>
 
-
+<!-- checkbox to unhide 'year started' attribute input -->
 <div class="form-check col-md-5">
   <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear">
   <label class="form-check-label" for="multiyear">
@@ -85,17 +83,17 @@
             <input type="number" class="form-control" name="size[0][z]" placeholder="Depth">
         </div>
 
+        <!-- need to put checkbox to hide/unhide size z here -->
 
 <div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example">
-    <option selected>Unit</option>
+  <select class="form-select" aria-label="Small select example" name="size[0][unit]">
+    <option selected >Unit</option>
     <option value="cm">cm</option>
     <option value="in">in</option>
   </select>
 </div>
 <div class="col-md-4"></div>
 
-<!-- need image url input!!! -->
 
 <!-- For sale checkbox, Price -->
 
@@ -104,7 +102,9 @@
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
-          <input class="form-check-input" type="checkbox" name="forSale" value="" id="is_forsale">
+          <input type="hidden" name="forSale" value="0"><input type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
+        
+          
         </div>
         
 
@@ -167,7 +167,7 @@
      
       <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
       <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
-      <input type="date" class="form-control" name="acquiration-date" />
+      <input type="date" class="form-control" name="acquiration_date" />
       </div>
 
 
@@ -178,7 +178,7 @@
   <label class="form-check-label" for="self-held">
     I am the holder of this piece
   </label>
-  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
+ <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
 </div>
 
 <div class="form-check col-md-6">
@@ -207,7 +207,7 @@
 
 <div class="col-md-7"></div>
 <div class="form-check col-md-5">
-  <input class="form-check-input" type="checkbox" value="" name="archival" id="archival-check">
+  <input type="hidden" name="archival" value="0"><input type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
   <label class="form-check-label" for="archival-check">
       Mark this release as archival
   </label>
@@ -224,10 +224,6 @@
 </div>
 </div>
 
-<script>
-  let checkArchivalState = $("#archival-check").is(":checked") ? "true" : "false";
-
-  let checkForSaleState = $("#is_forsale").is(":checked") ? "true" : "false";
 
 
-</script>
+

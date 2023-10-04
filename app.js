@@ -61,54 +61,27 @@ app.get('/new', (req, res) => {
 // app.get('/newdemo', (req, res) => {
 //     res.render('newdemo')
 // })
+
+
+
 app.post('/collection', async (req, res) => {
     const newPiece = new ArtPiece(req.body);
+    if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
     console.log(newPiece);
+    console.log(req.body);
     await newPiece.save();
     res.redirect('collection')
     })
 
 
+app.get('/collection/show/:id', async (req, res) => {
+    const { id } =  req.params; 
+    const p = await ArtPiece.findById(id);
+    console.log(p.title);
+    res.render('show', { p })
+})
 
 
-// ------- PIECE GENERATOR -------
-
-app.get('/makeArtPiece', async (req, res) => {
-    const piece = new ArtPiece({
-    title: 'Baking a steak (or or or or)',
-    artist: 'Man from Turman Gown',
-    medium: 'Baloons',
-    year: [
-        {year_finished: 2010}
-        
-    ],
-    images: [
-        {url: 'https://source.unsplash.com/random/?duck,attacking'} 
-    ],
-    size: [
-        {x: 255, y: 222, z:300, unit:'in'}
-    ],
-    owner: [
-        {name: 'Michael Stokes', contact_info: 'phone number: 8333 333 333'}
-    ],
-    holder: [
-        {name: 'Michael Stokes', contact_info: 'phone number: 8333 333 333'}
-],
-    acquiration_date: new Date("1800-05-21T11:25"),
-
-    price: [
-        {price: 244, currency: '$'}
-    ],
-    archival: false,
-    forSale: true,
-    description: 'lorem ipsum dolor sit amet sdadasfasfasfasfasfasfasfa costam',
-    user_id: 's8799fasfafas99944999' })
-   
-    await piece.save(); 
-    res.send(piece)
-    })
-
-// ------- END -------
 
 app.listen(3000, () => {
     console.log('Serving on port 3000!')
