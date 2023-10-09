@@ -15,12 +15,15 @@
             </select>
 
         <label for="categories">Manage Categories:</label>
-        <label for="#checkbox1"> Acquired </label>
         <input type="checkbox" name="show" value="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
-        <label for="#checkbox2"> For Sale </label>
+        <label for="#checkbox1"> Date acquired </label>
+
         <input type="checkbox" name="show" value="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
-        <label for="#checkbox3"> Archival </label>
+        <label for="#checkbox2"> For Sale </label>
+
         <input type="checkbox" name="show" value="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
+        <label for="#checkbox3"> Archival </label>
+
 
 
 
@@ -85,7 +88,7 @@
                    
                     <td><%= piece.medium %> <br>                     
                         <% for (let s of piece.size) { %>
-                        <% if (s.z === undefined){ %>
+                        <% if (s.z === undefined || s.z === null){ %>
                              <%=  `${s.x} x ${s.x} ${s.unit}` %> 
                     <%  } else { %>
                         <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>

@@ -58,9 +58,6 @@ app.get('/collection', async (req, res) => {
 app.get('/new', (req, res) => {
     res.render('new')
 })
-// app.get('/newdemo', (req, res) => {
-//     res.render('newdemo')
-// })
 
 
 
