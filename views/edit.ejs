@@ -2,15 +2,15 @@
 
 
 <div class="row">
-  <h1 class="text-center">Add a new piece</h1>
+  <h1 class="text-center">Edit</h1>
   <div class="col-8 offset-2">
 
-<form class="row g-3" action="/collection" method="POST" >
+<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" >
   
 <!-- Artist name -->
 <div class="col-md-6">
     <label for="artist" class="form-label">Artist name:</label>
-    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name">
+    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  value="<%= p.artist %>">
     <div class="invalid-feedback">
         Entering a name is required!
     </div>
@@ -20,14 +20,14 @@
 <!-- Title, Year -->
 <div class="col-md-6">
     <label for="title" class="form-label">Title:</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?">
+    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" value="<%= p.title %>">
     <div class="invalid-feedback">
         Entering a title is required!
     </div>
 </div>
 <div class="col-md-6">
     <label for="year_finished" class="form-label">Year:</label>
-    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin">
+    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" value="<%= p.year[0].year_finished %>">
     <div class="invalid-feedback">
         Entering a Year is required!
     </div>
@@ -37,7 +37,8 @@
 
 <!-- checkbox to unhide 'year started' attribute input -->
 <div class="form-check col-md-5">
-  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear">
+  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" value=""> 
+  <!-- value to be checked if year_started != false -->
   <label class="form-check-label" for="multiyear">
     Is it a multi-year work? 
   </label>
@@ -50,7 +51,7 @@
 
 <div class="col-md-6">
     <label for="medium" class="form-label">Medium:</label>
-    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?">
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value=" <%= p.medium %> ">
     <div class="invalid-feedback">
         Entering piece medium is required!
     </div>
@@ -59,14 +60,14 @@
 <!-- to be unhidden with the checkbox above-->
 <div class="col-md-6">
     <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin">
+    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin" value="<%= p.year[0].year_started  %>">
 </div>
 
 <!-- Images -->
 
 <div class="col-md-12">
   <label for="url" class="form-label">Image URL:</label>
-  <input type="text" class="form-control" id="url" name="images[0][url]">
+  <input type="text" class="form-control" id="url" name="images[0][url]" value=" <%= p.images[0].url  %> ">
 </div>
 
 
@@ -74,22 +75,22 @@
 
 <label for="size.x" class="form-label">Size:</label>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][x]" placeholder="Width">
+            <input type="number" class="form-control" name="size[0][x]" placeholder="Width" value="<%= p.size[0].x %>">
         </div>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][y]" placeholder="Height">
+            <input type="number" class="form-control" name="size[0][y]" placeholder="Height" value="<%= p.size[0].y %>">
         </div>
         <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][z]" placeholder="Depth">
+            <input type="number" class="form-control" name="size[0][z]" placeholder="Depth" value="<%= p.size[0].z %>">
         </div>
 
         <!-- need to put checkbox to hide/unhide size z here -->
 
 <div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example" name="size[0][unit]">
-    <option selected >Unit</option>
-    <option value="cm">cm</option>
-    <option value="in">in</option>
+  <select class="form-select" aria-label="Small select example" name="size[0][unit]" >
+    <option <% if (p.size[0].unit == undefined) {  %> selected="selected" <% } %> >Unit</option>
+    <option value="cm" <% if (p.size[0].unit === "cm") {  %> selected="selected" <% } %>>cm</option>
+    <option value="in" <% if (p.size[0].unit === "in") {  %> selected="selected" <% } %>>in</option>
   </select>
 </div>
 <div class="col-md-4"></div>
@@ -102,14 +103,15 @@
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
-          <input type="hidden" name="forSale" value="0"><input type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
+          <!-- ! CHECK IF THIS WORKS BEFORE COPYING THE SOLUTION TO THE ARCHIVAL CHECKBOX INPUT ! -->
+          <input type="hidden" name="forSale" <% if (p.forSale.value == "1") { %> value="1" <% } else { %> value="0" <% } %> ><input type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.forSale == "1") { %> checked="checked" <% } %> > 
         
           
         </div>
         
 
 <div class="col-md-4">
-  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price">
+  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price" value="<%= p.price[0].price %>">
 </div>
 
 <div class=" col-md-2">
@@ -125,7 +127,7 @@
 
 <div class="col-md-12">
   <label for="description" class="form-label"> Description / Additional info: </label>
-  <textarea type="text" class="form-control" id="description" name="description" style="resize: none; height: 100px;"> </textarea>
+  <textarea type="text" class="form-control" id="description" name="description" style="resize: none; height: 100px;"> <%= p.description  %> </textarea>
   </div>
 
 
@@ -137,25 +139,26 @@
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
-  <input class="form-check-input" type="checkbox" name="self-owned" value="self-owned" id="self-owned">
+  <!-- ADD AUTO-CHECK AFTER INCORPORATING USER FUNCTIONALITY -->
+  <input class="form-check-input" type="checkbox" name="self-owned" value="self-owned" id="self-owned" value="">
 </div>
 
 <div class="form-check col-md-6">
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned">
+  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned" value="">
 </div>
 
     <!-- if someone else is the owner  -->
 
 <div class="form-check col-md-5">
-<input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
+<input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
 </div>
 
 
 <div class="form-check col-md-6">
-  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info">
+  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info" value="<%= p.owner[0].contact_info %>">
 </div>
 
 <div class="col-md-1"></div>
@@ -167,7 +170,7 @@
      
       <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
       <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
-      <input type="date" class="form-control" name="acquiration_date" />
+      <input type="date" class="form-control" name="acquiration_date" value="<%=  moment(p.acquiration_date).format("YYYY-MM-DD") %>" />
       </div>
 
 
@@ -180,14 +183,14 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
+  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held" value="">
   </div>
 
   <div class="form-check col-md-6">
     <label class="form-check-label" for="else-held">
       Someone else is the holder of this piece
     </label>
-    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held">
+    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held" value="">
   </div>
 
 
@@ -195,11 +198,11 @@
       <!-- If someone else is the holder  -->
 
   <div class="form-check col-md-5">
-    <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
+    <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" value="<%= p.holder[0].name  %>">
   </div>
 
   <div class="form-check col-md-6">
-    <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
+    <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
   </div>
 
   <div class="col-md-1"></div>
@@ -209,7 +212,7 @@
 
 <div class="col-md-7"></div>
 <div class="form-check col-md-5">
-  <input type="hidden" name="archival" value="0"><input type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
+  <input type="hidden" name="archival" value="0"><input type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" value=""> 
   <label class="form-check-label" for="archival-check">
       Mark this release as archival
   </label>
@@ -218,7 +221,7 @@
 
 
     <div class="col-12">
-      <button class="btn btn-primary">Create a new piece</button>
+      <button class="btn btn-primary">Update piece</button>
     </div>
     
   </form>

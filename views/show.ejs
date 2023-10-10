@@ -18,7 +18,7 @@
 
 <!-- main detail section -->
     <div class="container pt-5" style="max-width: 100vw;">
-        <div class="card-body">
+        <div class="card-body pb-4">
 
             <p class='fw-bold'> <%= p.artist %> </p>
 
@@ -54,8 +54,9 @@
 
         
             </p>
+        </div>
         <div>
-          <p class="accordion" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
+          <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
             <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
                 <%= p.description  %> 
             </div>
@@ -63,11 +64,11 @@
         <!-- ownership details section -->
             <div id="">
 
-                <p class="accordion" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne"> Ownership Details &#9660; </p>
+                <p class="accordion pb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne"> Ownership Details &#9660; </p>
 
                 <div id="collapseOne" class="collapse container pb-4" data-bs-parent="#owner_detail_accordion">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 pb-4">
                             <% for (let o of p.owner ) { %> 
                             <%    if ( o.name !== undefined) {%>
                                 <% if (o.contact_info !== '') { %> 
@@ -128,14 +129,14 @@
 
 
                 </div>
-             </div>
 
             </div>
 
             <!-- Details -->
 
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>
+          <br><br>
+          <a href="#" class="card-link">Export (work in progress)</a>
         </div>
       </div>
 

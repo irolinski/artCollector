@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
+
 const ejsMate = require ('ejs-mate');
 const moment = require('moment');
 const $ = require('jquery');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.set('view engine', 'ejs');
 
 app.use('/public', express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride ('_method'));
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/artCollection',
@@ -59,6 +62,7 @@ app.get('/new', (req, res) => {
     res.render('new')
 })
 
+app.get
 
 
 app.post('/collection', async (req, res) => {
@@ -74,8 +78,20 @@ app.post('/collection', async (req, res) => {
 app.get('/collection/show/:id', async (req, res) => {
     const { id } =  req.params; 
     const p = await ArtPiece.findById(id);
-    console.log(p.title);
     res.render('show', { p, moment: moment})
+})
+
+app.get('/collection/show/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    const p = await ArtPiece.findById(id);
+    res.render('edit', { p, moment: moment } )
+})
+
+app.put('/collection/show/:id', async (req, res) => {
+    const { id } = req.params;
+    const p = await ArtPiece.findByIdAndUpdate(id, {...req.body})
+    console.log(req.body);
+    res.redirect(`/collection/show/${id}`);    
 })
 
 
