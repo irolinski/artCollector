@@ -2,21 +2,21 @@
 
 
 <div class="row py-5 my-5 mx-4">
+
+<!-- left column -->
 <div class="col-md-6">
 
-
+<!-- image -->
     <% for (let img of p.images) { %>
   <container>  <img src="<%= img.url %>" style="max-width:450px; width:100%"> </container>
     <% break } %>   
 
-
-
-
-
 </div>
 
+<!-- right column -->
 <div class="col-md-6">
 
+<!-- main detail section -->
     <div class="container pt-5" style="max-width: 100vw;">
         <div class="card-body">
 
@@ -28,7 +28,7 @@
                 </span>
                 <span class="">
                     <% for (let y of p.year) { %>
-                        <% if (y.year_started !== undefined){ %>
+                        <% if (y.year_started != undefined || y.year_stared != null){ %>
                             <%= `${y.year_started} - ${y.year_finished}` %> 
                     <%  } else { %>
                         <td><%= y.year_finished %></td>
@@ -54,55 +54,82 @@
 
         
             </p>
+        <div>
+          <p class="accordion" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
+            <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
+                <%= p.description  %> 
+            </div>
+        </div>
+        <!-- ownership details section -->
+            <div id="">
 
-          <p class="card-text"> <%= p.description  %> </p> 
-          <!-- maybe set the description as accordion??? -->
+                <p class="accordion" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne"> Ownership Details &#9660; </p>
 
-            <div id="accordion">
-
-                <p class="ownership-details-accordion" data-bs-toggle="collapse" href="#collapseOne">
-                    Ownership Details
-                </p>
-
-                <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
-
-                    <% for (let o of p.owner ) { %> 
-                    <%    if ( p.owner !== undefined) {%>
-                        <% if (o.contact_info !== '') { %> 
-                            <p> <%= `Owner name: ${o.name}; Contact: ${o.contact_info}` %> </p>
-                        <% } else { %>
-                            <p> <%= `Name: ${o.name}` %> </p>  
-                            <% } %>
+                <div id="collapseOne" class="collapse container pb-4" data-bs-parent="#owner_detail_accordion">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <% for (let o of p.owner ) { %> 
+                            <%    if ( o.name !== undefined) {%>
+                                <% if (o.contact_info !== '') { %> 
+                                    <div> <%= `Owner: ${o.name}` %> <br>
+                                    <%= `Owner contact: ${o.contact_info}` %> </div>
                                 <% } else { %>
-                            <p> No info on owner </p > %>
-                                <% } %>
-                    <% break } %>
-
-                    <!-- if acquiration date !== false {acquiration date} -->
-
-
-                    <% for (let h of p.holder ) { %> 
-                        <%    if ( p.holder !== undefined) {%>
-                            <% if (h.contact_info !== '') { %> 
-                                <p> <%= `Holder name: ${h.name}; Contact: ${h.contact_info}` %> </p>
-                            <% } else { %>
-                                <p> <%= `Name: ${h.name}` %> </p>  
-                                <% } %>
-                                    <% } else { %>
-                                <p> No info on holder </p > %>
+                                    <p> <%= `Owner: ${o.name}` %> </p>  
                                     <% } %>
-                        <% break } %>
+                                        <% } else { %>
+                                    <p> No info on owner </p > %>
+                                        <% } %>
+                            <% break } %>
+                            <p></p>
+
+                            <!-- if logged user === the owner ;;; add functionality to the form check "I'm the owner"-->
+                            <% if (p.acquiration_date !== false) { %>
+                            <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
+                            <% } %>
+                            
+                        <% if (p.holder !== p.owner){ %>
+                            <% for (let h of p.holder ) { %> 
+                                <%    if ( h.name !== undefined) {%>
+                                    <% if (h.contact_info !== '') { %> 
+                                        <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
+                                            <%= `Holder contact: ${h.contact_info}` %> </div>
+                                    <% } else { %>
+                                        <p> <%= `Holder: ${h.name}` %> </p>  
+                                        <% } %>
+                                            <% } else { %>
+                                        <p> No info on holder </p > %>
+                                            <% } %>
+                                <% break } %>
+
+                        <% } %>
+                            
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <!-- Details: Archival - check/unckecked; On sale - checked/unchecked; -->
+                        
+                            <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
+
+                            <% if (p.forSale == true) { %>
+                                <p> For Sale: &#10003; </p> 
+                                <p> Price: <% for (let d of p.price) { %> <%= `${d.price} ${d.currency}` %> <% } %>
+                                     <% } else { %>
+                                        <p> For Sale: &#10007; </p> 
+                                        <% } %> 
 
 
-                    <!-- Details: Archival - check/unckecked; On sale - checked/unchecked; Price: - value; added: - timestamp -->
-                    
-                    <p> </p>
-                    <p> </p>
-                    <p> </p>
-                    <p> </p>
-                    <p> </p>
+                        
+                                
+                                <!-- Price: - value; added: - timestamp -->
+
+                        </div>
+
+
 
                 </div>
+             </div>
+
             </div>
 
             <!-- Details -->

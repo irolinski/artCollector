@@ -171,36 +171,38 @@
       </div>
 
 
-<!-- Holder -->
+<!-- Is the piece currently held by someone that isn't the owner? If not so let holder = owner else{ -->
 
-<label for="holder-check" class="form-check-label">Holder:</label>
-<div class="form-check col-md-4" name="holder-check">
-  <label class="form-check-label" for="self-held">
-    I am the holder of this piece
-  </label>
- <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
-</div>
+  <!-- Holder -->
 
-<div class="form-check col-md-6">
-  <label class="form-check-label" for="else-held">
-    Someone else is the holder of this piece
-  </label>
-  <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held">
-</div>
+  <label for="holder-check" class="form-check-label">Holder:</label>
+  <div class="form-check col-md-4" name="holder-check">
+    <label class="form-check-label" for="self-held">
+      I am the holder of this piece
+    </label>
+  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held">
+  </div>
+
+  <div class="form-check col-md-6">
+    <label class="form-check-label" for="else-held">
+      Someone else is the holder of this piece
+    </label>
+    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held">
+  </div>
 
 
 
-    <!-- If someone else is the holder  -->
+      <!-- If someone else is the holder  -->
 
-<div class="form-check col-md-5">
-  <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
-</div>
+  <div class="form-check col-md-5">
+    <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
+  </div>
 
-<div class="form-check col-md-6">
-  <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
-</div>
+  <div class="form-check col-md-6">
+    <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
+  </div>
 
-<div class="col-md-1"></div>
+  <div class="col-md-1"></div>
 
 
 <!-- Archival checkbox -->

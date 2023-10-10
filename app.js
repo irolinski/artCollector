@@ -75,7 +75,7 @@ app.get('/collection/show/:id', async (req, res) => {
     const { id } =  req.params; 
     const p = await ArtPiece.findById(id);
     console.log(p.title);
-    res.render('show', { p })
+    res.render('show', { p, moment: moment})
 })
 
 

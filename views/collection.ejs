@@ -78,7 +78,7 @@
 
 
                     <% for (let y of piece.year) { %>
-                        <% if (y.year_started !== undefined){ %>
+                        <% if (y.year_started != undefined || y.year_stared != null) { %>
                             <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
                     <%  } else { %>
                         <td><%= y.year_finished %></td>
