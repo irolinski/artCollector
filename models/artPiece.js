@@ -43,7 +43,8 @@ const artPieceSchema = new Schema({
     description: String,
     user_id: String,
     forSale: Boolean,
-    price: [priceSchema]
+    price: [priceSchema],
+    catalogue: String
 },
 {
     timestamps: true, 
