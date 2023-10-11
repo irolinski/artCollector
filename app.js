@@ -78,6 +78,8 @@ app.post('/collection', async (req, res) => {
 app.get('/collection/show/:id', async (req, res) => {
     const { id } =  req.params; 
     const p = await ArtPiece.findById(id);
+    console.log(p);
+
     res.render('show', { p, moment: moment})
 })
 
@@ -90,10 +92,14 @@ app.get('/collection/show/:id/edit', async (req, res) => {
 app.put('/collection/show/:id', async (req, res) => {
     const { id } = req.params;
     const p = await ArtPiece.findByIdAndUpdate(id, {...req.body})
-    console.log(req.body);
     res.redirect(`/collection/show/${id}`);    
 })
 
+app.delete('/collection/show/:id', async (req, res) => {
+    const { id } = req.params;
+    const p = await ArtPiece.findByIdAndDelete(id)
+    res.redirect('/collection');
+})
 
 
 app.listen(3000, () => {

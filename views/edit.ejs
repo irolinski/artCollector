@@ -111,7 +111,7 @@
         
 
 <div class="col-md-4">
-  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price" value="<%= p.price[0].price %>">
+  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
 </div>
 
 <div class=" col-md-2">
@@ -220,11 +220,18 @@
 
 
 
-    <div class="col-12">
-      <button class="btn btn-primary">Update piece</button>
+    <div class="col-6">
+        <button class="btn btn-primary mb-2 ">Update piece</button>
     </div>
-    
+
   </form>
+
+  <form action="/collection/show/<%=p._id%>?_method=DELETE" method="POST" >
+    <div class="col-6">
+        <button class="btn btn-danger mb-5">Delete piece</button>
+    </div>
+</form>
+
 
 </div>
 </div>
