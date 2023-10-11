@@ -33,11 +33,22 @@
     </div>
 </div>
 
-<div class="col-md-7"> </div>
+
+<!-- to be unhidden with the checkbox above-->
+<div class="col-md-5 " id="">
+  <div class="collapse" id="year-started">
+    <label for="year_started" class="form-label">Year Started:</label>
+    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin">
+  </div>
+
+</div>
+
+
+<div class="col-md-2"> </div>
 
 <!-- checkbox to unhide 'year started' attribute input -->
-<div class="form-check col-md-5">
-  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear">
+<div class="form-check col-md-5" >
+  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" data-bs-toggle="collapse" data-bs-target="#year-started">
   <label class="form-check-label" for="multiyear">
     Is it a multi-year work? 
   </label>
@@ -56,11 +67,6 @@
     </div>
 </div>
 
-<!-- to be unhidden with the checkbox above-->
-<div class="col-md-6">
-    <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin">
-</div>
 
 <!-- Images -->
 
@@ -72,60 +78,92 @@
 
 <!-- Size -->
 
-<label for="size.x" class="form-label">Size:</label>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][x]" placeholder="Width">
+<label for="size-x" class="form-label">Size:</label>
+        <div class="col-md-2" id="size-x"> 
+            <input type="number" class="form-control" name="size[0][x]" placeholder="Width"  step=".01">
         </div>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][y]" placeholder="Height">
+        <div class="col-md-2" id="size-y"> 
+            <input type="number" class="form-control" name="size[0][y]" placeholder="Height"  step=".01">
         </div>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][z]" placeholder="Depth">
+
+        <!-- checkbox to unhide 'size-z' attribute input -->
+        <div class="form-check col-md-2" >
+          <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z">
+          <label class="form-check-label" for="is-3d">
+            Add 'Depth' 
+          </label>
+        </div>
+
+      <!-- to be uncollapsed with the checkbox above -->
+        <div class="col-md-2 " id=""> 
+          <div class ="collapse" id="size-z">
+            <input type="number" class="form-control " name="size[0][z]" placeholder="Depth"  step=".01">
+            </div>
         </div>
 
         <!-- need to put checkbox to hide/unhide size z here -->
 
-<div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example" name="size[0][unit]">
-    <option selected >Unit</option>
+      <div class="col-md-1"></div>
+
+<div class="col-md-2">
+  <label class="form-check-label" for="unit">Size unit:</label>
+  <select class="form-select" id="unit" aria-label="Small select example" name="size[0][unit]">
+    <!-- <option selected >Unit</option> -->
     <option value="cm">cm</option>
     <option value="in">in</option>
   </select>
 </div>
-<div class="col-md-4"></div>
+
+<div class="col-md-1"></div>
 
 
 <!-- For sale checkbox, Price -->
 
-<div class="col-md-1"></div>
+<label for="#for-sale-indent">For Sale:</label>
+
+<div class="col-md-1" id="for-sale-indent"></div>
         <div class="form-check col-md-4">
+    
+          <input type="hidden" name="forSale" value="0"><input class="form-check-input" type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" data-bs-toggle="collapse" data-bs-target=".price"> 
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
-          <input type="hidden" name="forSale" value="0"><input type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
-        
           
         </div>
         
 
 <div class="col-md-4">
-  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price">
+  <div class="collapse price" id="">
+    <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price">
+  </div>
 </div>
 
 <div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example" name="price[0][currency]">
-    <option value="PLN">      PLN      </option>
-    <option value="&#x20AC;"> &#x20AC; </option>
-    <option value="&#36;"> 	  &#36;    </option>
-  </select>
+  <div class="collapse price" id="">
+    <select class="form-select" aria-label="Small select example" name="price[0][currency]">
+      <option value="PLN">      PLN      </option>
+      <option value="&#x20AC;"> &#x20AC; </option>
+      <option value="&#36;"> 	  &#36;    </option>
+    </select>
+</div>
 </div>
 
 
 <!-- Description -->
+<label for="description-div">Description:</label>
 
-<div class="col-md-12">
+<div class="col-md-1"></div><div class="form-check col-md-11" id="description-div" >
+  <input class="form-check-input" type="checkbox" value="" name="" id="description-checkbox" data-bs-toggle="collapse" data-bs-target="#description">
+  <label class="form-check-label" for="description-checkbox">
+    Do you want to add a description (or maybe a comment)?
+  </label>
+</div>
+
+<div class="col-md-12">    
+  <div class="collapse" id="description">
   <label for="description" class="form-label"> Description / Additional info: </label>
-  <textarea type="text" class="form-control" id="description" name="description" style="resize: none; height: 100px;"> </textarea>
+  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"> </textarea>
+    </div>
   </div>
 
 
@@ -133,7 +171,7 @@
 <!-- Owner  -->
 
 <label for="owner-check" class="form-check-label">Owner:</label>
-<div class="form-check col-md-4" name="owner-check">
+<div class="form-check col-md-4" id="owner-check">
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
@@ -144,31 +182,25 @@
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned">
+  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check">
 </div>
 
     <!-- if someone else is the owner  -->
 
-<div class="form-check col-md-5">
-<input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
+<div class="form-check col-md-5 owner-check collapse">
+  <div class="owner-check collapse">
+    <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
+  </div>
 </div>
 
 
-<div class="form-check col-md-6">
+<div class="form-check col-md-6 ">
+  <div class="owner-check collapse">
   <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info">
+  </div>
 </div>
 
 <div class="col-md-1"></div>
-
-
-  <!-- If I am the owner -->
-
-      <!-- Date of acquiration -->
-     
-      <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
-      <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
-      <input type="date" class="form-control" name="acquiration_date" />
-      </div>
 
 
 <!-- Is the piece currently held by someone that isn't the owner? If not so let holder = owner else{ -->
@@ -187,7 +219,7 @@
     <label class="form-check-label" for="else-held">
       Someone else is the holder of this piece
     </label>
-    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held">
+    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held" data-bs-toggle="collapse" data-bs-target=".holder-check">
   </div>
 
 
@@ -195,21 +227,39 @@
       <!-- If someone else is the holder  -->
 
   <div class="form-check col-md-5">
-    <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
+    <div class="holder-check collapse">
+      <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
+    </div>
   </div>
 
   <div class="form-check col-md-6">
-    <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
+    <div class="holder-check collapse">
+      <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
+    </div>
   </div>
 
   <div class="col-md-1"></div>
 
 
+
+
+      <!-- Date of acquiration -->
+  
+  <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
+  <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
+  <input type="date" class="form-control" name="acquiration_date" />
+  </div>
+
+<div class="col-md-7"></div>
+
+
+
 <!-- Archival checkbox -->
 
 <div class="col-md-7"></div>
+
 <div class="form-check col-md-5">
-  <input type="hidden" name="archival" value="0"><input type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
+  <input type="hidden" name="archival" value="0"><input class="form-check-input" type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
   <label class="form-check-label" for="archival-check">
       Mark this release as archival
   </label>

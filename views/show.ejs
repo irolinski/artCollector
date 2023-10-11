@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-md-9 pb-4">
                             <% for (let o of p.owner ) { %> 
-                            <%    if ( o.name !== undefined) {%>
+                            <%    if ( o.name !== undefined && o.name !== '') {%>
                                 <% if (o.contact_info !== '') { %> 
                                     <div> <%= `Owner: ${o.name}` %> <br>
                                     <%= `Owner contact: ${o.contact_info}` %> </div>
