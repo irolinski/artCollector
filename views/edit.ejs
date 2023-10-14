@@ -2,10 +2,10 @@
 
 
 <div class="row">
-  <h1 class="text-center">Edit</h1>
-  <div class="col-8 offset-2">
+    <h1 class="text-center">Edit</h1>
+    <div class="col-8 offset-2">
 
-<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" >
+        <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" >
   
 <!-- Artist name -->
 <div class="col-md-6">
@@ -26,23 +26,34 @@
     </div>
 </div>
 <div class="col-md-6">
-    <label for="year_finished" class="form-label">Year:</label>
+    <label for="year_finished" class="form-label">Year Finished:</label>
     <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" value="<%= p.year[0].year_finished %>">
     <div class="invalid-feedback">
         Entering a Year is required!
     </div>
 </div>
 
-<div class="col-md-7"> </div>
+
+<!-- to be unhidden with the checkbox above-->
+<div class="col-md-5 " id="">
+  <div  <% if ( p.year[0].year_started != '' || p.year[0].year_started != null ) { %> class="" <% } else { %> class="collapse" <% } %> id="year-started">
+    <label for="year_started" class="form-label">Year Started:</label>
+    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin" value="<%= p.year[0].year_started %>"> 
+  </div>
+
+</div>
+
+
+<div class="col-md-2"> </div>
 
 <!-- checkbox to unhide 'year started' attribute input -->
-<div class="form-check col-md-5">
-  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" value=""> 
-  <!-- value to be checked if year_started != false -->
+<!-- <div class="form-check col-md-5" >
+  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" data-bs-toggle="collapse" data-bs-target="#year-started" <% if ( p.year[0].year_started != '' || p.year[0].year_started != null ) { %> checked="checked" <% } %>>
   <label class="form-check-label" for="multiyear">
-    Is it a multi-year work? 
+    Is it a multi-year work?
   </label>
-</div>
+</div> -->
+
 
 
 
@@ -51,17 +62,12 @@
 
 <div class="col-md-6">
     <label for="medium" class="form-label">Medium:</label>
-    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value=" <%= p.medium %> ">
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value=" <%= p.medium %>">
     <div class="invalid-feedback">
         Entering piece medium is required!
     </div>
 </div>
 
-<!-- to be unhidden with the checkbox above-->
-<div class="col-md-6">
-    <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin" value="<%= p.year[0].year_started  %>">
-</div>
 
 <!-- Images -->
 
@@ -73,105 +79,133 @@
 
 <!-- Size -->
 
-<label for="size.x" class="form-label">Size:</label>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][x]" placeholder="Width" value="<%= p.size[0].x %>">
+<label for="size-x" class="form-label">Size:</label>
+        <div class="col-md-2" id="size-x"> 
+            <input type="number" class="form-control" name="size[0][x]" placeholder="Width"  step=".01" value="<%= p.size[0].x %>">
         </div>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][y]" placeholder="Height" value="<%= p.size[0].y %>">
-        </div>
-        <div class="col-md-2"> 
-            <input type="number" class="form-control" name="size[0][z]" placeholder="Depth" value="<%= p.size[0].z %>">
+        <div class="col-md-2" id="size-y"> 
+            <input type="number" class="form-control" name="size[0][y]" placeholder="Height"  step=".01" value="<%= p.size[0].y %>">
         </div>
 
-        <!-- need to put checkbox to hide/unhide size z here -->
+        <!-- checkbox to unhide 'size-z' attribute input -->
+        <!-- <div class="form-check col-md-2" >
+          <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z" <% if (p.size[0].z ==! null ) { %> checked="checked" <% } %>>
+          <label class="form-check-label" for="is-3d">
+            Add 'Depth' 
+          </label>
+        </div> -->
 
-<div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example" name="size[0][unit]" >
-    <option <% if (p.size[0].unit == undefined) {  %> selected="selected" <% } %> >Unit</option>
+      <!-- to be uncollapsed with the checkbox above -->
+        <div class="col-md-2 " id=""> 
+          <div class ="" id="size-z">
+            <input type="number" class="form-control " name="size[0][z]" placeholder="Depth"  step=".01" value="<%= p.size[0].z %>">
+            </div>
+        </div>
+
+
+      <div class="col-md-1"></div>
+
+<div class="col-md-2">
+  <label class="form-check-label" for="unit">Size unit:</label>
+  <select class="form-select" id="unit" aria-label="Small select example" name="size[0][unit]">
+    <!-- <option selected >Unit</option> -->
     <option value="cm" <% if (p.size[0].unit === "cm") {  %> selected="selected" <% } %>>cm</option>
     <option value="in" <% if (p.size[0].unit === "in") {  %> selected="selected" <% } %>>in</option>
   </select>
 </div>
-<div class="col-md-4"></div>
-
-
-<!-- For sale checkbox, Price -->
 
 <div class="col-md-1"></div>
+
+
+<!-- For sale checkbox, Price --> 
+<!-- later, hide and empty the price field using js if for sale == false -->
+
+<label for="#for-sale-indent">For Sale:</label>
+
+<div class="col-md-1" id="for-sale-indent"></div>
         <div class="form-check col-md-4">
+    
+          <input type="hidden" name="forSale" <% if (p.forSale.value == "1") { %> value="1" <% } else { %> value="0"  <% } %> ><input type="checkbox" class="form-check-input"  id="is_forsale" data-bs-toggle="collapse" data-bs-target=".price" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.forSale == "1") { %> checked="checked" <% } %> > 
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
-          <!-- ! CHECK IF THIS WORKS BEFORE COPYING THE SOLUTION TO THE ARCHIVAL CHECKBOX INPUT ! -->
-          <input type="hidden" name="forSale" <% if (p.forSale.value == "1") { %> value="1" <% } else { %> value="0" <% } %> ><input type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.forSale == "1") { %> checked="checked" <% } %> > 
-        
           
         </div>
         
 
 <div class="col-md-4">
-  <input type="number" class="form-control" id="price" name="price[0][price]" placeholder="Price" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
+  <div class="price collapse show" id="">
+    <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
+  </div>
 </div>
 
 <div class=" col-md-2">
-  <select class="form-select" aria-label="Small select example" name="price[0][currency]">
-    <option value="PLN">      PLN      </option>
-    <option value="&#x20AC;"> &#x20AC; </option>
-    <option value="&#36;"> 	  &#36;    </option>
-  </select>
+  <div class="price collapse show" id="">
+    <select class="form-select" aria-label="Small select example" name="price[0][currency]">
+      <option value="PLN" <% if (p.price[0].currency == "PLN") { %> selected="selected" <% } %> >      PLN      </option>
+      <option value="&#x20AC;" <% if (p.price[0].currency == "&#x20AC;") { %> selected="selected" <% } %>> &#x20AC; </option>
+      <option value="&#36;" <% if (p.price[0].currency == "&#36;") { %> selected="selected" <% } %>> 	  &#36;    </option>
+    </select>
+</div>
 </div>
 
 
 <!-- Description -->
+<!-- <label for="description-div">Description:</label> -->
+<!-- 
+<div class="col-md-1"></div><div class="form-check col-md-11" id="description-div" >
+  <input class="form-check-input" type="checkbox" value="" name="" id="description-checkbox" data-bs-toggle="collapse" data-bs-target="#description">
+  <label class="form-check-label" for="description-checkbox">
+    Do you want to add a description (or maybe a comment)?
+  </label>
+</div> -->
 
-<div class="col-md-12">
+<div class="col-md-12">    
+  <div class="" id="description">
   <label for="description" class="form-label"> Description / Additional info: </label>
-  <textarea type="text" class="form-control" id="description" name="description" style="resize: none; height: 100px;"> <%= p.description  %> </textarea>
+  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"> <%= p.description  %> </textarea>
+    </div>
   </div>
 
 
 
-<!-- Owner  -->
+<!-- Owner  -->   
+<!-- ADD AUTO-CHECK AFTER INCORPORATING USER FUNCTIONALITY -->
+
 
 <label for="owner-check" class="form-check-label">Owner:</label>
-<div class="form-check col-md-4" name="owner-check">
+<div class="form-check col-md-4" id="owner-check">
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
-  <!-- ADD AUTO-CHECK AFTER INCORPORATING USER FUNCTIONALITY -->
-  <input class="form-check-input" type="checkbox" name="self-owned" value="self-owned" id="self-owned" value="">
+  <input class="form-check-input" type="radio" name="owned" value="self-owned" id="self-owned" <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>>
 </div>
+
+<!-- if self-owned fill the data with user info  -->
 
 <div class="form-check col-md-6">
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="checkbox" name="else-owned" value="else-owned" id="else-owned" value="">
+  <input class="form-check-input" type="radio" name="owned" value="else-owned" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %>>
 </div>
 
     <!-- if someone else is the owner  -->
 
-<div class="form-check col-md-5">
-<input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
+<div class="form-check col-md-5 owner-check ">
+  <div class="owner-check ">
+    <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
+  </div>
 </div>
 
 
-<div class="form-check col-md-6">
-  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info" value="<%= p.owner[0].contact_info %>">
+<div class="form-check col-md-6 ">
+  <div class="owner-check ">
+  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info"  value="<%= p.owner[0].contact_info %>">
+  </div>
 </div>
 
 <div class="col-md-1"></div>
-
-
-  <!-- If I am the owner -->
-
-      <!-- Date of acquiration -->
-     
-      <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
-      <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
-      <input type="date" class="form-control" name="acquiration_date" value="<%=  moment(p.acquiration_date).format("YYYY-MM-DD") %>" />
-      </div>
 
 
 <!-- Is the piece currently held by someone that isn't the owner? If not so let holder = owner else{ -->
@@ -183,14 +217,17 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input class="form-check-input" type="checkbox" name="self-held" value="self-held" id="self-held" value="">
+  <input type="radio" class="form-check-input" name="held" value="self-held" id="self-held" <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>>
   </div>
+
+  <!-- if self-hwned fill the data with user info  -->
+
 
   <div class="form-check col-md-6">
     <label class="form-check-label" for="else-held">
-      Someone else is the holder of this piece
+      Someone else is the holder of this piece 
     </label>
-    <input class="form-check-input" type="checkbox" name="else-held" value="else-held" id="else-held" value="">
+    <input type="radio"  class="form-check-input" name="held" value="else-held" id="else-held" data-bs-toggle="collapse" data-bs-target=".holder-check"  <% if (p.holder[0].name !== '' && p.holder[0].name !== undefined) { %> checked="checked" <% } %>>
   </div>
 
 
@@ -198,40 +235,72 @@
       <!-- If someone else is the holder  -->
 
   <div class="form-check col-md-5">
-    <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" value="<%= p.holder[0].name  %>">
+    <div class="holder-check ">
+      <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" value="<%= p.holder[0].name  %>">
+    </div>
   </div>
 
   <div class="form-check col-md-6">
-    <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
+    <div class="holder-check ">
+      <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
+    </div>
   </div>
 
   <div class="col-md-1"></div>
 
 
+
+
+<!-- Date of acquiration -->
+  
+  <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
+  <div class="col-md-5 form-check" name="acquiration-date-field"id="acquiration-date-field">
+    <input type="date" class="form-control" name="acquiration_date" value="<%=  moment(p.acquiration_date).format("YYYY-MM-DD") %>" />
+</div>
+
+<div class="col-md-7">
+
+</div>
+
+
+<!-- Catalogue number -->
+<label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
+<div class="col-md-1" id="catalogue-number-indent"></div>
+
+  <div class="col-md-6">
+    <div id="catalogue" class="">
+      <input type="text" class="form-control"  name="catalogue" placeholder="Catalogue number" value="<%= p.catalogue  %>">
+    </div>
+  </div> 
+
+
+
+
+
 <!-- Archival checkbox -->
 
 <div class="col-md-7"></div>
+
 <div class="form-check col-md-5">
-  <input type="hidden" name="archival" value="0"><input type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" value=""> 
-  <label class="form-check-label" for="archival-check">
+    <input type="hidden" name="archival" <% if (p.archival.value == "1") { %> value="1" <% } else { %> value="0" <% } %> ><input type="checkbox" class="form-check-input" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.archival == "1") { %> checked="checked" <% } else{} %>  >
+    <label class="form-check-label" for="archival-check">
       Mark this release as archival
   </label>
 </div>
 
 
 
-    <div class="col-6">
-        <button class="btn btn-primary mb-2 ">Update piece</button>
+<div class="col-6">
+    <button class="btn btn-primary mb-2 ">Update piece</button>
     </div>
-
+    
   </form>
 
-  <form action="/collection/show/<%=p._id%>?_method=DELETE" method="POST" >
+<form action="/collection/show/<%=p._id%>?_method=DELETE" method="POST" >
     <div class="col-6">
         <button class="btn btn-danger mb-5">Delete piece</button>
     </div>
 </form>
-
 
 </div>
 </div>

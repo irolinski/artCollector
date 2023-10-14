@@ -90,7 +90,7 @@
                             
                         <% if (p.holder !== p.owner){ %>
                             <% for (let h of p.holder ) { %> 
-                                <%    if ( h.name !== undefined) {%>
+                                <%    if ( h.name !== undefined && h.name !== '') {%>
                                     <% if (h.contact_info !== '') { %> 
                                         <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
                                             <%= `Holder contact: ${h.contact_info}` %> </div>
@@ -103,13 +103,17 @@
                                 <% break } %>
 
                         <% } %>
+
+                        <% if (p.catalogue !== false) {%>
+                            <p>External catalogue id: <br> <%= p.catalogue %> </p>
+                            <% } %>
                             
 
                         </div>
                         <div class="col-md-3">
 
                             <!-- Details: Archival - check/unckecked; On sale - checked/unchecked; -->
-                        
+                        <!-- bug: cannot r87ead vjalue  -->
                             <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
 
                             <% if (p.forSale == true) { %>
@@ -120,9 +124,9 @@
                                         <% } %> 
 
 
-                        
+                           
                                 
-                                <!-- Price: - value; added: - timestamp -->
+                                <!-- ; added: - timestamp -->
 
                         </div>
 
