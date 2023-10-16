@@ -6,7 +6,11 @@ const moment = require('moment');
 const $ = require('jquery');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const joi = require('joi')
+const joi = require('joi');
+const session = require('express-session')
+const flash = require('connect-flash');
+const mongoStore = require('connect-mongo');
+
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
@@ -31,6 +35,21 @@ app.use(function (err, req, res, next) {
     const { status = 500, message = 'Something went wrong! :('} = err; 
     res.status(status).send(message);
 })
+
+app.use(session({secret: 'adkanqiwnqiwen23131§21§'}));
+
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+ //this middleware is here so that on every single request, we're going to take whatever is in locals under 'succes' and have access to it
+ // so we don't have to pass through msg.flash("success") everytime
+     res.locals.error = req.flash('error');
+ //res.locals makes it so that we don't have to pass it through and it's available to every page
+ next();
+ })
+ 
+
+
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/artCollection',
@@ -134,12 +153,21 @@ app.post('/collection', catchAsync (async (req, res, next) => {
     console.log(newPiece);
     console.log(req.body);
     await newPiece.save();
+
+    req.flash('success', 'Successfully added your new piece!');
+
     res.redirect('collection')
+
+
     }))
 
 
 app.get('/collection/show/:id', catchAsync (async (req, res, next) => {
     const { id } =  req.params; 
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
+        res.redirect('/campgrounds');
+    }
     const p = await ArtPiece.findById(id);
     console.log(p);
 
@@ -154,13 +182,16 @@ app.get('/collection/show/:id/edit', catchAsync (async (req, res, next) => {
 
 app.put('/collection/show/:id', catchAsync (async (req, res, next) => {
     const { id } = req.params;
-    const p = await ArtPiece.findByIdAndUpdate(id, {...req.body})
+    const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
+    req.flash('success', 'Successfully made changes to your piece!');
     res.redirect(`/collection/show/${id}`);    
 }))
 
 app.delete('/collection/show/:id', catchAsync (async (req, res, next) => {
     const { id } = req.params;
-    const p = await ArtPiece.findByIdAndDelete(id)
+    const p = await ArtPiece.findByIdAndDelete(id);
+    req.flash('success', 'Successfully deleted your piece!');
+
     res.redirect('/collection');
 }))
 
