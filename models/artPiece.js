@@ -20,6 +20,7 @@ const sizeSchema = new Schema({
 })
 
 const personSchema = new Schema({
+    status: String,
     name: String,
     contact_info: String
 })

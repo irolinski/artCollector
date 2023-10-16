@@ -6,6 +6,7 @@ const moment = require('moment');
 const $ = require('jquery');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const joi = require('joi')
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
@@ -76,6 +77,58 @@ app.get
 
 
 app.post('/collection', catchAsync (async (req, res, next) => {
+    console.log(req.body);
+
+    const pieceSchema = joi.object({
+        title: joi.string().required(),
+        artist: joi.string().required(),
+        medium: joi.string().required(),
+        year: joi.array().items({
+
+            year_finished: joi.number().min(0).required(),
+            year_started: joi.number().min(0).allow('')
+    }),
+        images: joi.array().items({
+            url: joi.string().allow(''),
+            filename: joi.string().allow('')
+        }),
+        size: joi.array().items({
+            x: joi.number().min(0),
+            y: joi.number().min(0),
+            z: joi.number().min(0).allow(''),
+            unit: joi.string().required()
+        }),
+        owner: joi.array().items({
+            name: joi.string().allow(''),
+            contact_info: joi.string().allow(''),
+            status: joi.string()
+        }),
+        holder: joi.array().items({
+            name: joi.string().allow(''),
+            contact_info: joi.string().allow(''),
+            status: joi.string()
+        }),
+        acquiration_date: joi.date().raw(),
+        archival: joi.boolean().falsy('0').truthy('1').required(),
+        description: joi.string().allow(''),
+        user_id: joi.string().allow(''),
+        forSale: joi.boolean().required().falsy('0').truthy('1').required(),
+        price: joi.array().items({
+            price: joi.number().allow('').min(0),
+            currency: joi.string()
+        }),
+
+        catalogue: joi.string().allow('')
+    }).required();
+    
+    const { error } = pieceSchema.validate(req.body);
+    
+    if (error){
+        const msg = error.details.map(el => el.message).join(',')
+        throw new ExpressError(msg, 400)
+    }
+
+    
     const newPiece = new ArtPiece(req.body);
     if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
     console.log(newPiece);

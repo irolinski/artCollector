@@ -178,7 +178,7 @@
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owned" value="self-owned" id="self-owned" <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>>
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>>
 </div>
 
 <!-- if self-owned fill the data with user info  -->
@@ -187,7 +187,7 @@
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owned" value="else-owned" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %>>
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %>>
 </div>
 
     <!-- if someone else is the owner  -->
@@ -217,7 +217,7 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input type="radio" class="form-check-input" name="held" value="self-held" id="self-held" <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>>
+  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>>
   </div>
 
   <!-- if self-hwned fill the data with user info  -->
@@ -227,7 +227,7 @@
     <label class="form-check-label" for="else-held">
       Someone else is the holder of this piece 
     </label>
-    <input type="radio"  class="form-check-input" name="held" value="else-held" id="else-held" data-bs-toggle="collapse" data-bs-target=".holder-check"  <% if (p.holder[0].name !== '' && p.holder[0].name !== undefined) { %> checked="checked" <% } %>>
+    <input type="radio"  class="form-check-input" name="holder[0][status]" value="else" id="else-held" data-bs-toggle="collapse" data-bs-target=".holder-check"  <% if (p.holder[0].name !== '' && p.holder[0].name !== undefined) { %> checked="checked" <% } %>>
   </div>
 
 
