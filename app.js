@@ -10,10 +10,12 @@ const joi = require('joi');
 const session = require('express-session')
 const flash = require('connect-flash');
 const mongoStore = require('connect-mongo');
-
+const passport = require('passport');
+const LocalStrategy = require('passport-local')
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
+const isLoggedIn  = require('./utilities/isLoggedIn')
 
 
 
@@ -39,7 +41,34 @@ app.use(function (err, req, res, next) {
 app.use(session({secret: 'adkanqiwnqiwen23131§21§'}));
 
 app.use(flash());
+
+
+
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/artCollection',
+{ useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+    console.log('connection open!')
+})
+.catch(err => {
+    console.log('oh no!')
+    console.log(err)
+});
+
+const ArtPiece = require('./models/artPiece.js');
+const User = require('./models/user');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy(User.authenticate()));
+
+
 app.use((req, res, next) => {
+
+    res.locals.currentUser = req.user;
+
     res.locals.success = req.flash('success');
  //this middleware is here so that on every single request, we're going to take whatever is in locals under 'succes' and have access to it
  // so we don't have to pass through msg.flash("success") everytime
@@ -50,27 +79,52 @@ app.use((req, res, next) => {
  
 
 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/artCollection',
-{ useNewUrlParser: true, useUnifiedTopology: true })
-.then(() => {
-    console.log('connection open!')
-})
-.catch(err => {
-    console.log('oh no!')
-    console.log(err)
-});
-const ArtPiece = require('./models/artPiece.js');
-
-
-
-
-app.get('/homepage', (req, res, next) => {
+app.get('/home', (req, res, next) => {
     res.render('homepage')
 });
 
+app.get('/register', (req, res, next) => {
+    res.render('register')
+})
+
+app.post('/register', catchAsync(async (req, res, next) => {
+    try{
+        const { username, email, password } = req.body;
+        const user = new User ({ email: `${email}`, username: `${username}`});
+        const registeredUser = await User.register(user, password);
+        req.login(registeredUser, err => {
+            if (err) return next(err);
+            req.flash('success', 'Welcome!');
+            //actually here i want to insert a modal with an instruction on how the app works 
+            res.redirect('/collection');
+        })
+
+    } catch(err){
+        req.flash('error', err.message,'.', 'Try again, please!');
+        res.redirect('/register');
+    }
+}))
+
+app.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/home' }), (req, res) => {
+    req.flash('success', 'Welcome back!');
+    res.redirect('/collection');
+})
+
+app.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', 'Goodbye!');
+        res.redirect('/home')
+    })
+})
+
 app.get('/collection', catchAsync (async (req, res, next) => {
+    
 
     let queryString = JSON.stringify(req.query);
     const archivalStatus = req.query.archival;
@@ -88,14 +142,17 @@ app.get('/collection', catchAsync (async (req, res, next) => {
 }));
 
 
-app.get('/new', (req, res, next) => {
+app.get('/new', isLoggedIn, (req, res, next) => {
+    // if (!req.isAuthenticated()) {
+    //     req.flash('error', 'You have to be logged in to do this.');
+    //     return res.redirect('/home');
+    // }
     res.render('new')
 })
 
-app.get
 
 
-app.post('/collection', catchAsync (async (req, res, next) => {
+app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     console.log(req.body);
 
     const pieceSchema = joi.object({
@@ -174,20 +231,20 @@ app.get('/collection/show/:id', catchAsync (async (req, res, next) => {
     res.render('show', { p, moment: moment})
 }))
 
-app.get('/collection/show/:id/edit', catchAsync (async (req, res, next) => {
+app.get('/collection/show/:id/edit', isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } = req.params;
     const p = await ArtPiece.findById(id);
     res.render('edit', { p, moment: moment } )
 }))
 
-app.put('/collection/show/:id', catchAsync (async (req, res, next) => {
+app.put('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } = req.params;
     const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
     req.flash('success', 'Successfully made changes to your piece!');
     res.redirect(`/collection/show/${id}`);    
 }))
 
-app.delete('/collection/show/:id', catchAsync (async (req, res, next) => {
+app.delete('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } = req.params;
     const p = await ArtPiece.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted your piece!');

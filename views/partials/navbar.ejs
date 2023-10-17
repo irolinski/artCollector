@@ -1,7 +1,7 @@
 
 <nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand me-auto" href="/homepage">artCollector</a>
+      <a class="navbar-brand me-auto" href="/home" >artCollector</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -15,18 +15,24 @@
             </li>
           </ul>
         </div>
-      <!-- <div class="navbar-nav ms-auto">
-        < if (!currentUser) {%>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Sign in!</a>
-          <li class="nav-item">
-            <a class="nav-link" href="/register">Sign up!</a>
-            < } else { %>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out!</a>
-            <} %>
-        </ul> -->
+      <div class="navbar-nav ms-auto">
+
+        <% if (!currentUser) { %>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Sign in!</a>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Sign up!</a>
+    
+
+            <% } else { %>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out!</a>
+         
+    
+            <% } %>
+        </ul>
       </div>
     </div>
   </div>
