@@ -8,10 +8,12 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class='me-auto'>
           <ul class="navbar-nav">
+            <% if (currentUser) { %>
             <li class="nav-item">
               <a class="nav-link"  href="/collection">My Collection</a>
               <li class="nav-item">
               <a class="nav-link" href="/new">Add a new piece</a>
+              <% } %>
             </li>
           </ul>
         </div>

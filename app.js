@@ -123,13 +123,16 @@ app.get('/logout', (req, res, next) => {
     })
 })
 
-app.get('/collection', catchAsync (async (req, res, next) => {
+app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     
+    if (req.user) {
+    console.log(req.user._id.toString())
+    }
 
     let queryString = JSON.stringify(req.query);
     const archivalStatus = req.query.archival;
 
-    let artPieces = await ArtPiece.find({});
+    let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); //here, I want him to find only pieces created by the user that is logged in
     const archivalPieces = await ArtPiece.find({ archival: {$in: [ 'true' ]}});
 
     if (archivalStatus === 'hide') {
@@ -154,6 +157,8 @@ app.get('/new', isLoggedIn, (req, res, next) => {
 
 app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     console.log(req.body);
+
+
 
     const pieceSchema = joi.object({
         title: joi.string().required(),
@@ -198,6 +203,7 @@ app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     }).required();
     
     const { error } = pieceSchema.validate(req.body);
+
     
     if (error){
         const msg = error.details.map(el => el.message).join(',')
