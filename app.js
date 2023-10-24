@@ -225,7 +225,7 @@ app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     }))
 
 
-app.get('/collection/show/:id', catchAsync (async (req, res, next) => {
+app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } =  req.params; 
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
