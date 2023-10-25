@@ -24,6 +24,9 @@
         <input type="checkbox" name="show" value="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
         <label for="#checkbox3"> Archival </label>
 
+        <input type="checkbox" name="show" value="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
+        <label for="#checkbox4"> Catalogue Number </label>
+
 
 
 
@@ -57,6 +60,8 @@
             <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
 
             <% if(queryString.includes('arch-col')){ %> <th>Archival</th> %> <% } %>
+
+            <% if(queryString.includes('catalogue')){ %> <th>Catalogue Number</th> %> <% } %>
 
 
         </tr>
@@ -113,6 +118,11 @@
                     <% if (queryString.includes('arch-col')) { %>
                     <td><%=  piece.archival %></td>
                     <% } %>
+
+
+                    <% if (queryString.includes('catalogue')) { %>
+                        <td><%=  piece.catalogue %></td>
+                        <% } %>
 
 
                 </tr>

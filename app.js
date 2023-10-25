@@ -146,18 +146,6 @@ app.put('/preferences/change_password', isLoggedIn, catchAsync (async (req, res,
     
 
 
-// userModel.findByUsername(email).then(function(sanitizedUser){
-//     if (sanitizedUser){
-//         sanitizedUser.setPassword(newPasswordString, function(){
-//             sanitizedUser.save();
-//             res.status(200).json({message: 'password reset successful'});
-//         });
-//     } else {
-//         res.status(500).json({message: 'This user does not exist'});
-//     }
-// },function(err){
-//     console.error(err);
-// })
 
 app.get('/logout', (req, res, next) => {
     req.logout(function (err) {
@@ -170,10 +158,7 @@ app.get('/logout', (req, res, next) => {
 })
 
 app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
-    
-    if (req.user) {
-    console.log(req.user._id.toString())
-    }
+
 
     let queryString = JSON.stringify(req.query);
     const archivalStatus = req.query.archival;
