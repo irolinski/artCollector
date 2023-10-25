@@ -57,7 +57,7 @@ mongoose.connect('mongodb://localhost:27017/artCollection',
 });
 
 const ArtPiece = require('./models/artPiece.js');
-const User = require('./models/user');
+const User = require('./models/user.js');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -113,6 +113,44 @@ app.post('/login', passport.authenticate('local', { failureFlash: true, failureR
     res.redirect('/collection');
 })
 
+app.get('/preferences', isLoggedIn, (req, res, next) => {
+    res.render('preferences');
+})
+
+app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
+    // const { id } = req.user._id.toString();
+    // const { username, email, show_name, contact_info } = req.body;
+    await User.findOneAndUpdate(req.user._id, { 
+        username: req.body.username,
+        email: req.body.email,
+        show_name: req.body.show_name,
+        contact_info: req.body.contact_info
+    })
+    req.flash('success', 'Your changes have been saved!');
+    res.redirect('/collection')
+        
+}))
+
+    
+
+// app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
+//     const { id } = req.user._id.toString();
+//     const { username, email, show_name, contact_info } = req.body;
+//     User.findByIdAndUpdate(req.user._id, { 
+//                 username: req.body.username,
+//                 email: req.body.email,
+//                 show_name: req.body.show_name,
+//                 contact_info: req.body.contact_info})
+//     console.log(req.body)
+//     console.log(req.user)
+
+//     req.flash('success', 'Your changes have been saved!');
+//     res.redirect('/collection')
+// }));
+
+
+
+
 app.get('/logout', (req, res, next) => {
     req.logout(function (err) {
         if (err) {
@@ -146,10 +184,7 @@ app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
 
 
 app.get('/new', isLoggedIn, (req, res, next) => {
-    // if (!req.isAuthenticated()) {
-    //     req.flash('error', 'You have to be logged in to do this.');
-    //     return res.redirect('/home');
-    // }
+
     res.render('new')
 })
 
@@ -213,8 +248,7 @@ app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     
     const newPiece = new ArtPiece(req.body);
     if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
-    console.log(newPiece);
-    console.log(req.body);
+
     await newPiece.save();
 
     req.flash('success', 'Successfully added your new piece!');

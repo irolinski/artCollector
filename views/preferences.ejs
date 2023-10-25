@@ -1,0 +1,31 @@
+<% layout('layouts/boilerplate')%>
+
+<p> <b> Account info </b> </p>
+<form class="needs-validation" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address:</label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=currentUser.email%>">
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Login:</label>
+        <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp" value="<%=currentUser.username%>">
+      </div>
+    <!-- <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+    </div> -->
+
+    <p><b>Personal data</b> </p>
+    <span> (It will be used to fill in the gaps for you, while using this website)</span>
+
+    <div class="mb-3">
+        <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
+        <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby="" value="<%=currentUser.show_name%>">
+      </div>
+      <div class="mb-3">
+        <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
+        <input type="text" name="contact_info" class="form-control" id="contact-info" aria-describedby="" value="<%=currentUser.contact_info%>">
+      </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

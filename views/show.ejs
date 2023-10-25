@@ -39,7 +39,7 @@
     <div class="container pt-5" style="max-width: 100vw;">
         <div class="card-body pb-4">
             <p> </p>
-            <p> <span class='fw-bold'> <%= p.artist %> </span> <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number:<%= p.catalogue %></span> </p>
+            <p> <span class='fw-bold'> <%= p.artist %> </span> <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> </p>
 
           <p class="">
                 <span class="fw-bold fst-italic">
@@ -123,10 +123,6 @@
 
                         <% } %>
 
-                        <% if (p.catalogue !== false) {%>
-                            <p>External catalogue id: <br> <%= p.catalogue %> </p>
-                            <% } %>
-                            
 
                         </div>
                         <div class="col-md-3">
