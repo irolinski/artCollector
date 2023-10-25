@@ -125,31 +125,39 @@ app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
         email: req.body.email,
         show_name: req.body.show_name,
         contact_info: req.body.contact_info
-    })
+    });
     req.flash('success', 'Your changes have been saved!');
     res.redirect('/collection')
         
 }))
 
+app.put('/preferences/change_password', isLoggedIn, catchAsync (async (req, res, next) => {
+    User.findOne({ username: req.user.username })
+    .then((u) => {
+        (u.setPassword(req.body.new_password,(err, u) => {
+            if (err) return next(err);
+            u.save();
+            res.status(200).json({ message: 'password change successful' });
+        }));
+        req.flash('success', 'Your password has been changed. Next time you log in, use your new password!');
+        res.redirect('/collection')
+    })
+}))
     
 
-// app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
-//     const { id } = req.user._id.toString();
-//     const { username, email, show_name, contact_info } = req.body;
-//     User.findByIdAndUpdate(req.user._id, { 
-//                 username: req.body.username,
-//                 email: req.body.email,
-//                 show_name: req.body.show_name,
-//                 contact_info: req.body.contact_info})
-//     console.log(req.body)
-//     console.log(req.user)
 
-//     req.flash('success', 'Your changes have been saved!');
-//     res.redirect('/collection')
-// }));
-
-
-
+// userModel.findByUsername(email).then(function(sanitizedUser){
+//     if (sanitizedUser){
+//         sanitizedUser.setPassword(newPasswordString, function(){
+//             sanitizedUser.save();
+//             res.status(200).json({message: 'password reset successful'});
+//         });
+//     } else {
+//         res.status(500).json({message: 'This user does not exist'});
+//     }
+// },function(err){
+//     console.error(err);
+// })
 
 app.get('/logout', (req, res, next) => {
     req.logout(function (err) {

@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
 
-<p> <b> Account info </b> </p>
-<form class="needs-validation" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+<form class="needs-validation pb-5" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+    <p> <b> Account info </b> </p>
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address:</label>
       <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=currentUser.email%>">
@@ -29,3 +29,16 @@
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+
+  <form class="needs-validation pb-5" action="/preferences/change_password?_method=PUT" method="POST" novalidate>
+
+    <p> <b> Change Password: </b> </p>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password:</label>
+        <input type="password" name="new_password" class="form-control" id="exampleInputPassword1">
+      </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
