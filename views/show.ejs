@@ -77,7 +77,7 @@
         <div>
           <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
             <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
-                <% if (p.description !== '' ) { %>
+                <% if (p.description !== '') { %>
                 <%= p.description  %> 
                 <% } else { %>
                     <p> No description added for this piece. </p>
@@ -85,6 +85,8 @@
              <%  } %>
             </div>
         </div>
+
+
         <!-- ownership details section -->
             <div id="">
 
@@ -94,15 +96,36 @@
                     <div class="row">
                         <div class="col-md-9 pb-4">
 
+                            <% for (let o of p.owner) { %>
+                                <% for (let h of p.holder) { %>
+                               <%     if (o.name === h.name) {  %>
+
+                            <% for (let o of p.owner ) { %> 
+                                <% if (o.status === 'self') { %>
+                                  <%  if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                    <div> <%= `Owner/Holder: ${currentUser.show_name}` %> <br>
+                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                <% }} else if ( o.name !== undefined && o.name !== '') {%>
+                                    <% if (o.contact_info !== '') { %> 
+                                        <div> <%= `Owner/Holder: ${o.name}` %> &emsp; <br>
+                                            <%= `Contact: ${o.contact_info}` %> </div>
+                                    <% } else { %>
+                                        <p> No info on ownership status of this piece </p >                                       
+                                            <% } %>
+                                            <% } else { %>
+                                            <% } %>
+                                <% break } %>
+                                <% } else {  %>
+                                    
                             <% for (let o of p.owner ) { %> 
                                 <% if (o.status === 'self') {
                                     if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                     <div> <%= `Owner: ${currentUser.show_name}` %> <br>
-                                      Owner contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
-                                <% }} if ( o.name !== undefined && o.name !== '') {%>
+                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                <% }} else if ( o.name !== undefined && o.name !== '') {%>
                                     <% if (o.contact_info !== '') { %> 
                                         <div> <%= `Owner: ${o.name}` %> &emsp; %> <br>
-                                            <%= `Owner contact: ${o.contact_info}` %> </div>
+                                            <%= `Contact: ${o.contact_info}` %> </div>
                                     <% } else { %>
                                         <p> No info on Owner </p >                                       
                                             <% } %>
@@ -111,7 +134,6 @@
                                 <% break } %>
                             <p></p>
 
-                            <!-- if logged user === the owner ;;; add functionality to the form check "I'm the owner"-->
                             <% if (p.acquiration_date !== false) { %>
                             <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
                             <% } %>
@@ -120,17 +142,20 @@
                                 <% if (h.status === 'self') {
                                     if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                     <div> <%= `Holder: ${currentUser.show_name}` %> <br>
-                                      Holder contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
-                                <% }} if ( h.name !== undefined && h.name !== '') {%>
+                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                <% }} else if ( h.name !== undefined && h.name !== '') {%>
                                     <% if (h.contact_info !== '') { %> 
                                         <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
-                                            <%= `Holder contact: ${h.contact_info}` %> </div>
+                                            <%= `Contact: ${h.contact_info}` %> </div>
                                     <% } else { %>
                                         <p> No info on holder </p >                                      
                                             <% } %>
                                             <% } else { %>
                                             <% } %>
                                 <% break } %>
+
+                               <% }}} %>
+
 
 
 
