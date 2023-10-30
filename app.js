@@ -118,8 +118,7 @@ app.get('/preferences', isLoggedIn, (req, res, next) => {
 })
 
 app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
-    // const { id } = req.user._id.toString();
-    // const { username, email, show_name, contact_info } = req.body;
+
     await User.findOneAndUpdate(req.user._id, { 
         username: req.body.username,
         email: req.body.email,
@@ -259,6 +258,7 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
+    console.log(`o: ${p.owner.status}; ${p.holder.status}`)
     console.log(p);
 
     res.render('show', { p, moment: moment})

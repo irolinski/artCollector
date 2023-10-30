@@ -77,7 +77,12 @@
         <div>
           <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
             <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
+                <% if (p.description !== '' ) { %>
                 <%= p.description  %> 
+                <% } else { %>
+                    <p> No description added for this piece. </p>
+                    <p> (You can, however, add some by editing!)</p>
+             <%  } %>
             </div>
         </div>
         <!-- ownership details section -->
@@ -88,18 +93,22 @@
                 <div id="collapseOne" class="collapse container pb-4" data-bs-parent="#owner_detail_accordion">
                     <div class="row">
                         <div class="col-md-9 pb-4">
+
                             <% for (let o of p.owner ) { %> 
-                            <%    if ( o.name !== undefined && o.name !== '') {%>
-                                <% if (o.contact_info !== '') { %> 
-                                    <div> <%= `Owner: ${o.name}` %> <br>
-                                    <%= `Owner contact: ${o.contact_info}` %> </div>
-                                <% } else { %>
-                                    <p> <%= `Owner: ${o.name}` %> </p>  
-                                    <% } %>
-                                        <% } else { %>
-                                    <p> No info on owner </p > %>
-                                        <% } %>
-                            <% break } %>
+                                <% if (o.status === 'self') {
+                                    if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                    <div> <%= `Owner: ${currentUser.show_name}` %> <br>
+                                      Owner contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                <% }} if ( o.name !== undefined && o.name !== '') {%>
+                                    <% if (o.contact_info !== '') { %> 
+                                        <div> <%= `Owner: ${o.name}` %> &emsp; %> <br>
+                                            <%= `Owner contact: ${o.contact_info}` %> </div>
+                                    <% } else { %>
+                                        <p> No info on Owner </p >                                       
+                                            <% } %>
+                                            <% } else { %>
+                                            <% } %>
+                                <% break } %>
                             <p></p>
 
                             <!-- if logged user === the owner ;;; add functionality to the form check "I'm the owner"-->
@@ -107,28 +116,28 @@
                             <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
                             <% } %>
                             
-                        <% if (p.holder !== p.owner){ %>
                             <% for (let h of p.holder ) { %> 
-                                <%    if ( h.name !== undefined && h.name !== '') {%>
+                                <% if (h.status === 'self') {
+                                    if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                    <div> <%= `Holder: ${currentUser.show_name}` %> <br>
+                                      Holder contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                <% }} if ( h.name !== undefined && h.name !== '') {%>
                                     <% if (h.contact_info !== '') { %> 
                                         <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
                                             <%= `Holder contact: ${h.contact_info}` %> </div>
                                     <% } else { %>
-                                        <p> <%= `Holder: ${h.name}` %> </p>  
-                                        <% } %>
+                                        <p> No info on holder </p >                                      
+                                            <% } %>
                                             <% } else { %>
-                                        <p> No info on holder </p > %>
                                             <% } %>
                                 <% break } %>
 
-                        <% } %>
 
 
                         </div>
                         <div class="col-md-3">
 
-                            <!-- Details: Archival - check/unckecked; On sale - checked/unchecked; -->
-                        <!-- bug: cannot r87ead vjalue  -->
+
                             <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
 
                             <% if (p.forSale == true) { %>
@@ -141,7 +150,6 @@
 
                            
                                 
-                                <!-- ; added: - timestamp -->
 
                         </div>
 
@@ -151,7 +159,6 @@
 
             </div>
 
-            <!-- Details -->
 
           <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>
           <br><br>
