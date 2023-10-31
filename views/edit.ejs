@@ -37,9 +37,9 @@
 
 <!-- to be unhidden with the checkbox above-->
 <div class="col-md-5 " id="">
-  <div  <% if ( p.year[0].year_started != '' || p.year[0].year_started != null ) { %> class="" <% } else { %> class="collapse" <% } %> id="year-started">
+  <div   id="yearstarted" <% if (p.year[0].year_started == null) { %> class="collapse" <% } else { %> class="collapse show" <% } %> id="year_started" name="year[0][year_started]">
     <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year of origin" value="<%= p.year[0].year_started %>"> 
+    <input type="number" class="form-control" placeholder="Year of origin" value="<%= p.year[0].year_started %>"> 
   </div>
 
 </div>
@@ -48,12 +48,12 @@
 <div class="col-md-2"> </div>
 
 <!-- checkbox to unhide 'year started' attribute input -->
-<!-- <div class="form-check col-md-5" >
-  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" data-bs-toggle="collapse" data-bs-target="#year-started" <% if ( p.year[0].year_started != '' || p.year[0].year_started != null ) { %> checked="checked" <% } %>>
+<div class="form-check col-md-5" >
+  <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear" data-bs-toggle="collapse" data-bs-target="#yearstarted" <% if (p.year[0].year_started != null ) { %> checked="checked" <% } else %>>
   <label class="form-check-label" for="multiyear">
     Is it a multi-year work?
   </label>
-</div> -->
+</div>
 
 
 
@@ -63,7 +63,7 @@
 
 <div class="col-md-6">
     <label for="medium" class="form-label">Medium:</label>
-    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value=" <%= p.medium %>">
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value="<%= p.medium %>">
     <div class="invalid-feedback">
         Entering piece medium is required!
     </div>
@@ -74,7 +74,7 @@
 
 <div class="col-md-12">
   <label for="url" class="form-label">Image URL:</label>
-  <input type="text" class="form-control" id="url" name="images[0][url]" value=" <%= p.images[0].url  %> ">
+  <input type="text" class="form-control" id="url" name="images[0][url]" value="<%= p.images[0].url  %>">
 </div>
 
 
@@ -126,7 +126,7 @@
 <div class="col-md-1" id="for-sale-indent"></div>
         <div class="form-check col-md-4">
     
-          <input type="hidden" name="forSale" <% if (p.forSale.value == "1") { %> value="1" <% } else { %> value="0"  <% } %> ><input type="checkbox" class="form-check-input"  id="is_forsale" data-bs-toggle="collapse" data-bs-target=".price" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.forSale == "1") { %> checked="checked" <% } %> > 
+          <input type="hidden" name="forSale" <% if (p.forSale == "1") { %> value="1" <% } else { %> value="0"  <% } %> ><input type="checkbox" class="form-check-input"  id="is_forsale" data-bs-toggle="collapse" data-bs-target=".price" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if (p.forSale == "1") { %> checked="checked" <% } %> > 
           <label class="form-check-label" for="is_forsale">
             Is it, possibly, for sale?
           </label>
@@ -135,13 +135,13 @@
         
 
 <div class="col-md-4">
-  <div class="price collapse show" id="">
+  <div  <% if (p.forSale == "1") { %> class="price collapse show" <% } else { %> class="price collapse" <% } %>  id="">
     <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
   </div>
 </div>
 
 <div class=" col-md-2">
-  <div class="price collapse show" id="">
+  <div <% if (p.forSale == "1") { %> class="price collapse show" <% } else { %> class="price collapse" <% } %> id="">
     <select class="form-select" aria-label="Small select example" name="price[0][currency]">
       <option value="PLN" <% if (p.price[0].currency == "PLN") { %> selected="selected" <% } %> >      PLN      </option>
       <option value="&#x20AC;" <% if (p.price[0].currency == "&#x20AC;") { %> selected="selected" <% } %>> &#x20AC; </option>
@@ -171,7 +171,6 @@
 
 
 <!-- Owner  -->   
-<!-- ADD AUTO-CHECK AFTER INCORPORATING USER FUNCTIONALITY -->
 
 
 <label for="owner-check" class="form-check-label">Owner:</label>
@@ -179,7 +178,9 @@
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>>
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" 
+  <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>
+  onclick="clearFields('owner', 'owner_contact')">
 </div>
 
 <!-- if self-owned fill the data with user info  -->
@@ -193,16 +194,16 @@
 
     <!-- if someone else is the owner  -->
 
-<div class="form-check col-md-5 owner-check ">
-  <div class="owner-check ">
-    <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
+<div class="form-check col-md-5  ">
+  <div class="">
+    <input type="text" <% if (p.owner[0].name == '') { %> class="form-control collapse owner-check"<% } else { %> class="form-control owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
   </div>
 </div>
 
 
 <div class="form-check col-md-6 ">
-  <div class="owner-check ">
-  <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info"  value="<%= p.owner[0].contact_info %>">
+  <div class=" ">
+  <input type="text" <% if (p.owner[0].contact_info == '') { %> class="form-control collapse owner-check"<% } else { %> class="form-control owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info"  value="<%= p.owner[0].contact_info %>">
   </div>
 </div>
 
@@ -218,7 +219,9 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>>
+  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" 
+  <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>
+  onclick="clearFields('holder', 'holder_contact')">
   </div>
 
   <!-- if self-hwned fill the data with user info  -->
@@ -237,13 +240,13 @@
 
   <div class="form-check col-md-5">
     <div class="holder-check ">
-      <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" value="<%= p.holder[0].name  %>">
+      <input type="text" <% if (p.holder[0].name == '') { %> class="form-control collapse holder-check"<% } else { %> class="form-control holder-check" <% } %>  name="holder[0][name]" id="holder" placeholder="Holder name" value="<%= p.holder[0].name %>" >
     </div>
   </div>
 
   <div class="form-check col-md-6">
     <div class="holder-check ">
-      <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
+      <input type="text" <% if (p.holder[0].contact_info == '') { %> class="form-control collapse holder-check"<% } else { %> class="form-control holder-check" <% } %>  name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
     </div>
   </div>
 
@@ -306,6 +309,15 @@
 </div>
 </div>
 
+<script> 
 
+function clearFields(fi1, fi2) {
+  document.getElementById(fi1).value = ""
+  document.getElementById(fi2).value = ""
+
+}
+
+
+</script>
 
 
