@@ -39,7 +39,7 @@
     <div class="container pt-5" style="max-width: 100vw;">
         <div class="card-body pb-4">
             <p> </p>
-            <p> <span class='fw-bold'> <%= p.artist %> </span> <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> </p>
+            <p> <span class='fw-bold'> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> <% } %> </p>
 
           <p class="">
                 <span class="fw-bold fst-italic">
@@ -78,7 +78,7 @@
           <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
             <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
                 <% if (p.description !== '') { %>
-                <%= p.description  %> 
+                <%= p.description %> 
                 <% } else { %>
                     <p> No description added for this piece. </p>
                     <p> (You can, however, add some by editing!)</p>
@@ -104,7 +104,7 @@
                                 <% if (o.status === 'self') { %>
                                   <%  if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                     <div> <%= `Owner/Holder: ${currentUser.show_name}` %> <br><br>
-                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> <br> <br>
+                                      Contact: <%=`${currentUser.contact_info}` %> <br> <br>
                                       Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
                                     
                                     </div>
@@ -124,7 +124,7 @@
                                 <% if (o.status === 'self') {
                                     if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                     <div> <%= `Owner: ${currentUser.show_name}` %> <br>
-                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                      Contact: <%=`${currentUser.contact_info}` %> </div>
                                 <% }} else if ( o.name !== undefined && o.name !== '') {%>
                                     <% if (o.contact_info !== '') { %> 
                                         <div> <%= `Owner: ${o.name}` %> &emsp; %> <br>
@@ -145,7 +145,7 @@
                                 <% if (h.status === 'self') {
                                     if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                     <div> <%= `Holder: ${currentUser.show_name}` %> <br>
-                                      Contact: %> <br> <%=`${currentUser.contact_info}` %> </div>
+                                      Contact: <%=`${currentUser.contact_info}` %> </div>
                                 <% }} else if ( h.name !== undefined && h.name !== '') {%>
                                     <% if (h.contact_info !== '') { %> 
                                         <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
@@ -170,8 +170,12 @@
 
                             <% if (p.forSale == true) { %>
                                 <p> For Sale: &#10003; </p> 
-                                <p> Price: <% for (let d of p.price) { %> <%= `${d.price} ${d.currency}` %> <% } %>
+                                <p> Price: <% for (let el of p.price) { %>
+                                  <%  if (el.price !== null) { %>
+                                     <%= `${el.price} ${el.currency}` %> 
                                      <% } else { %>
+                                        not set
+                                   <% }}} else { %>
                                         <p> For Sale: &#10007; </p> 
                                         <% } %> 
 

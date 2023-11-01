@@ -151,20 +151,11 @@
 </div>
 
 
-<!-- Description -->
-<!-- <label for="description-div">Description:</label> -->
-<!-- 
-<div class="col-md-1"></div><div class="form-check col-md-11" id="description-div" >
-  <input class="form-check-input" type="checkbox" value="" name="" id="description-checkbox" data-bs-toggle="collapse" data-bs-target="#description">
-  <label class="form-check-label" for="description-checkbox">
-    Do you want to add a description (or maybe a comment)?
-  </label>
-</div> -->
 
 <div class="col-md-12">    
   <div class="" id="description">
   <label for="description" class="form-label"> Description / Additional info: </label>
-  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"><%= p.description  %></textarea>
+  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"><%= p.description %></textarea>
     </div>
   </div>
 
@@ -179,8 +170,8 @@
     I am the owner of this piece
   </label>
   <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" 
-  <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>
-  onclick="clearFields('owner', 'owner_contact')">
+  <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>  <% if (this.checked === true) { %> data-bs-toggle="collapse" <% } %> data-bs-target=".owner-check"
+  onclick="clearFields('owner', 'owner_contact')"  >
 </div>
 
 <!-- if self-owned fill the data with user info  -->
@@ -189,7 +180,8 @@
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %>>
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %> 
+  data-bs-toggle="collapse" >
 </div>
 
     <!-- if someone else is the owner  -->
@@ -219,7 +211,7 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" 
+  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" data-bs-toggle="collapse" data-bs-target=".holder-check"
   <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>
   onclick="clearFields('holder', 'holder_contact')">
   </div>
@@ -246,7 +238,7 @@
 
   <div class="form-check col-md-6">
     <div class="holder-check ">
-      <input type="text" <% if (p.holder[0].contact_info == '') { %> class="form-control collapse holder-check"<% } else { %> class="form-control holder-check" <% } %>  name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info  %>">
+      <input type="text" <% if (p.holder[0].contact_info == '') { %> class="form-control collapse holder-check"<% } else { %> class="form-control holder-check" <% } %>  name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" value="<%= p.holder[0].contact_info %>">
     </div>
   </div>
 
@@ -314,8 +306,7 @@
 function clearFields(fi1, fi2) {
   document.getElementById(fi1).value = ""
   document.getElementById(fi2).value = ""
-
-}
+};
 
 
 </script>
