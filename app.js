@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const path = require('path');
 
@@ -11,7 +15,14 @@ const session = require('express-session')
 const flash = require('connect-flash');
 const mongoStore = require('connect-mongo');
 const passport = require('passport');
-const LocalStrategy = require('passport-local')
+const LocalStrategy = require('passport-local');
+
+const multer = require('multer');
+const {storage} = require('./cloudinary/index.js');
+const upload = multer({ storage });
+
+
+
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
@@ -182,7 +193,7 @@ app.get('/new', isLoggedIn, (req, res, next) => {
 
 
 
-app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
+app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
     console.log(req.body);
 
 
@@ -237,11 +248,15 @@ app.post('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
         throw new ExpressError(msg, 400)
     }
 
+
     
     const newPiece = new ArtPiece(req.body);
+    newPiece.images = req.files.map(f => ({url: f.path, filename: f.filename }))
+
     if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
 
     await newPiece.save();
+    console.log(newPiece)
 
     req.flash('success', 'Successfully added your new piece!');
 

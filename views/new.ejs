@@ -43,7 +43,7 @@
   <h1 class="text-center">Add a new piece</h1>
   <div class="col-8 offset-2">
 
-<form class="row g-3 needs-validation" action="/collection" method="POST" novalidate >
+<form class="row g-3 needs-validation" action="/collection" method="POST" enctype="multipart/form-data" novalidate >
   
 <!-- Artist name -->
 <div class="col-md-6">
@@ -109,11 +109,11 @@
 <!-- Images -->
 
 <div class="col-md-12">
-  <label for="url" class="form-label" required>Image URL:</label>
-  <input type="text" class="form-control" id="url" name="images[0][url]">
-  <div class="invalid-feedback">
+  <label for="images" class="form-label" required>Images:</label>
+  <input type="file" class="form-control" id="images" name="images" multiple>
+  <!-- <div class="invalid-feedback">
     Entering an URL is required!
-</div>
+</div> -->
 </div>
 
 
@@ -203,7 +203,7 @@
 <div class="col-md-12">    
   <div class="collapse" id="description">
   <label for="description" class="form-label text-dark"> Description / Additional info: </label>
-  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"> </textarea>
+  <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"></textarea>
     </div>
   </div>
 
@@ -230,7 +230,7 @@
 
 <div class="form-check col-md-5 ">
   <div class="owner-check collapse">
-    <input type="text" class="form-control" name="owner[0][show_name]" id="owner" placeholder="Owner name">
+    <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
   </div>
 </div>
 
@@ -270,7 +270,7 @@
 
   <div class="form-check col-md-5">
     <div class="holder-check collapse">
-      <input type="text" class="form-control" name="holder[0][show_name]" id="holder" placeholder="Holder name">
+      <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
     </div>
   </div>
 
