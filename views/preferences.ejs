@@ -10,10 +10,6 @@
         <label for="username" class="form-label">Login:</label>
         <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp" value="<%=currentUser.username%>">
       </div>
-    <!-- <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div> -->
 
     <p><b>Personal data</b> </p>
     <span> (It will be used to fill in the gaps for you, while using this website)</span>
@@ -24,21 +20,40 @@
       </div>
       <div class="mb-3">
         <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
-        <input type="text" name="contact_info" class="form-control" id="contact-info" aria-describedby="" value="<%=currentUser.contact_info%>">
+        <input type="text" name="contact_info" class="form-control" id="contact-info" placeholder="'+48 604 444 245' or 'gallery@art.com'" aria-describedby="" value="<%=currentUser.contact_info%>">
       </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
-  <form class="needs-validation pb-5" action="/preferences/change_password?_method=PUT" method="POST" novalidate>
+  <form class="needs-validation pb-5" action="/preferences/change_password?_method=PUT" method="POST">
 
     <p> <b> Change Password: </b> </p>
     <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password:</label>
-        <input type="password" name="new_password" class="form-control" id="exampleInputPassword1">
+        <label for="password" class="form-label">Password:</label>
+        <input type="password" name="new_password" class="form-control" id="password" required>
+        <label for="confirm_password" class="form-label">Confirm password:</label>
+        <input type="password" class="form-control" id="confirm_password" required>
       </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
 
+<script>
+
+  const password = document.getElementById("password");
+  const confirm_password = document.getElementById("confirm_password");
+  
+  function validatePassword(){
+    if(password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
+  
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+  
+    </script>

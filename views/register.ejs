@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
 
 <h1> Create a new account </h1>
-<form class="needs-validation" action="/register" method="POST" novalidate>
+<form class="needs-validation" action="/register" method="POST" >
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address:</label>
       <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -12,9 +12,29 @@
         <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp">
       </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" name="password" class="form-control" id="password" required>
+      <label for="confirm_password" class="form-label">Confirm password:</label>
+      <input type="password" class="form-control" id="confirm_password" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+
+  <script>
+
+const password = document.getElementById("password");
+const confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+  </script>
