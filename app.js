@@ -17,10 +17,11 @@ const mongoStore = require('connect-mongo');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
+
 const multer = require('multer');
 const {storage} = require('./cloudinary/index.js');
 const upload = multer({ storage });
-
+const { cloudinary } = require('./cloudinary')
 
 
 
@@ -285,9 +286,27 @@ app.get('/collection/show/:id/edit', isLoggedIn, catchAsync (async (req, res, ne
     res.render('edit', { p, moment: moment } )
 }))
 
-app.put('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
+app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
     const { id } = req.params;
+
     const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
+    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    p.images.push(...imgs);
+
+    if (req.body.deleteImages){
+        for (let filename of req.body.deleteImages){
+            await cloudinary.uploader.destroy(filename);
+        }
+        await  p.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages } } } });
+        console.log(p);
+       }
+
+
+
+    await p.save();
+
+
+
     req.flash('success', 'Successfully made changes to your piece!');
     res.redirect(`/collection/show/${id}`);    
 }))
