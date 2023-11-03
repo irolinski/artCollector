@@ -1,15 +1,109 @@
-<% layout('layouts/boilerplate')%>
 
-<h1>Login: </h1>
+<style>
+  #home-box {
+    position: relative;
+    top: 40vh;
+  }
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>artCollector</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>       
+    <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
+
+  <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
+</head>
+
+<body class="d-flex text-center text-white bg-dark">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <!-- <header class="mb-auto">
+          <div>
+              <h3 class="float-md-left mb-0">artCollector</h3>
+              <nav class="nav nav-masthead justify-content-center float-md-right">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link" href="/collection">Collection</a>
+                  if(!currentUser) { %>
+                  <a class="nav-link" href="/login">Login</a>
+                  <a class="nav-link" href="/register">Register</a>
+                   } else { %>
+                  <a class="nav-link" href="/logout">Logout</a>
+                   } %>
+              </nav>
+          </div>
+      </header> -->
+
+
+<main>
+
+  <!-- this is the row in which everything shall take place -->
+<div id="home-box">
+
+<div id="main-content"> 
+
+  <!-- brand exposition -->
+    <div class="row collapse show multi-collapse-1 multi-collapse-3"id="brand-row">
+      <div class="col-md-2"></div><div class="col-md-4"><h1>artCollector</h1></div>
+      <div class="col-md-4"><p class="lead"> Welcome to artCollector! <br> Jump right in and explore new posibilities.</p></div><div class="col-md-2"></div>
+    </div>
+
+  <!-- login form -->
+
+    <div class="row collapse multi-collapse-1" id="login-row">
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <label for="" >Login</label>
+        <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp">
+        <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password">
+      </div>
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-primary my-4">Submit</button>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+  <!-- info -->
+    <div class="row collapse multi-collapse-3" id="info-row">
+      <div class="col md-2"></div><div class="col-md-4"><h4>About us</h4></div>
+      <div class="col-md-4"><div style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, ab mollitia minima exercitationem eveniet cum animi ullam ad deleniti id quis asperiores facilis natus vel pariatur. Voluptatem voluptatibus laudantium perferendis?</div></div> <div class="col-md-2"></div>
+    </div>
+
+</div>
+
+<!-- navigation -->
+  <div class="row py-5" id="button-row">
+      <div class="col-md-3 pb-5"></div>
+      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1"><h6>Login</h6></div>
+      <div class="col-md-2 pb-5"><h6>Register</h6></div>
+      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3"><h6>Info</h6></div>
+      <div class="col-md-3 pb-5"></div>
+
+  </div>
+
+</div>
+</main>
+
+
+
+
+<!-- <br>
+
+<div>
+<p>Login: </p>
 <form class="needs-validation" action="/login" method="POST" novalidate>
     <div class="mb-3">
         <label for="username" class="form-label">Username:</label>
         <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp">
       </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <label for="exampleInputPassword1" class="form-label">Password:</label>
       <input type="password" name="password" class="form-control" id="exampleInputPassword1">
     </div>
+</div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+</div> -->
