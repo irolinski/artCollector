@@ -20,7 +20,19 @@ const LocalStrategy = require('passport-local');
 
 const multer = require('multer');
 const {storage} = require('./cloudinary/index.js');
-const upload = multer({ storage });
+const upload = multer({ 
+    storage: storage,
+    limits: { 
+        fileSize: 5000000,
+        files: 4,
+    } 
+});
+
+const  checkNumberAndUpload = (p) => { if (p.images.length >= 5) { 
+    const msg = error.details.map(el => el.message).join(',')
+    throw new ExpressError(msg, 400) } 
+    else { upload }}
+
 const { cloudinary } = require('./cloudinary')
 
 
