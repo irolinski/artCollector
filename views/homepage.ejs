@@ -4,6 +4,8 @@
     position: relative;
     top: 40vh;
   }
+
+
 </style>
 
 <head>
@@ -45,17 +47,19 @@
 <div id="main-content"> 
 
   <!-- brand exposition -->
-    <div class="row collapse show multi-collapse-1 multi-collapse-3"id="brand-row">
+    <div class="row collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3"id="brand-row">
       <div class="col-md-2"></div><div class="col-md-4"><h1>artCollector</h1></div>
-      <div class="col-md-4"><p class="lead"> Welcome to artCollector! <br> Jump right in and explore new posibilities.</p></div><div class="col-md-2"></div>
+      <div class="col-md-4"><p class="lead"> Welcome to artCollector! <br> Jump right in and see how easy cataloguing can be.</p></div><div class="col-md-2"></div>
     </div>
 
   <!-- login form -->
-
+  <form class="needs-validation" action="/login" method="POST" novalidate>
     <div class="row collapse multi-collapse-1" id="login-row">
+<!-- label for login form -->
+      <div class="col-md-4"></div>      <div class="col-md-4" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
+<!-- form body -->
       <div class="col-md-2"></div>
       <div class="col-md-4">
-        <label for="" >Login</label>
         <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp">
         <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password">
       </div>
@@ -64,6 +68,32 @@
       </div>
       <div class="col-md-2"></div>
     </div>
+  </form>
+
+    <!-- register form -->
+    <form class="needs-validation" action="/register" method="POST" novalidate>
+      <div class="row collapse multi-collapse-2" id="register-row">
+        <!-- label for register form -->
+      <div class="col-md-4"></div>      <div class="col-md-4" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <input type="email" name="email" class="form-control mb-3" id="" placeholder="e-mail">
+          <input type="text" name="username" class="form-control mb-3" id="username" placeholder="username">
+        </div>
+        <div class="col-md-2">
+          <input type="password" name="password" class="form-control mb-3" id="password" placeholder="password" required>
+          <input type="password" class="form-control mb-3" id="confirm_password" placeholder="confirm password"  required>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+
+  </form>
+
+
+
+
 
   <!-- info -->
     <div class="row collapse multi-collapse-3" id="info-row">
@@ -74,14 +104,20 @@
 </div>
 
 <!-- navigation -->
-  <div class="row py-5" id="button-row">
+  <div class="row mx-5 py-5 collapse multi-collapse-1 multi-collapse-2 multi-collapse-3" id="back-button-row">
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+  </div>
+  <div class="row mx-5 py-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3" id="nav-button-row">
       <div class="col-md-3 pb-5"></div>
       <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1"><h6>Login</h6></div>
-      <div class="col-md-2 pb-5"><h6>Register</h6></div>
+      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2" ><h6>Register</h6></div>
       <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3"><h6>Info</h6></div>
       <div class="col-md-3 pb-5"></div>
-
   </div>
+
+
 
 </div>
 </main>
@@ -107,3 +143,48 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div> -->
+
+<!-- <h1> Create a new account </h1>
+<form class="needs-validation" action="/register" method="POST" >
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address:</label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp">
+      </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password:</label>
+      <input type="password" name="password" class="form-control" id="password" required>
+      <label for="confirm_password" class="form-label">Confirm password:</label>
+      <input type="password" class="form-control" id="confirm_password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form> -->
+
+
+<script>
+
+  const password = document.getElementById("password");
+  const confirm_password = document.getElementById("confirm_password");
+  
+  function validatePassword(){
+    if(password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
+  
+  password.onchange = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+
+
+  // toggle back arrow
+
+  
+  
+    </script>
