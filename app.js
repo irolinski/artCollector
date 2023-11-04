@@ -24,14 +24,27 @@ const upload = multer({
     storage: storage,
     limits: { 
         fileSize: 5000000,
-        files: 4,
-    } 
+        files: 1,
+    },
+    fileFilter: function (req, file, cb) {
+        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+            return cb(new Error('Only image files are allowed!'));
+        }
+        cb(null, true);
+      }
+     
 });
 
-const  checkNumberAndUpload = (p) => { if (p.images.length >= 5) { 
-    const msg = error.details.map(el => el.message).join(',')
-    throw new ExpressError(msg, 400) } 
-    else { upload }}
+// const  checkNumberAndUploadArray = (req, res, arr, next) => { 
+//     const { id } = req.params;
+//     const p = ArtPiece.findById(id)
+
+//     if (p.images.length >= 5) { 
+//     // const msg = error.details.map(el => el.message).join(',')
+//     // throw new ExpressError(msg, 400) } 
+//     console.log('too much files man')
+//     return
+//     } else { upload.array(arr) }}
 
 const { cloudinary } = require('./cloudinary')
 
@@ -296,6 +309,12 @@ app.get('/collection/show/:id/edit', isLoggedIn, catchAsync (async (req, res, ne
     const { id } = req.params;
     const p = await ArtPiece.findById(id);
     res.render('edit', { p, moment: moment } )
+}))
+
+app.get('/collection/show/:id/edit/images', isLoggedIn, catchAsync (async (req, res, next) => {
+    const { id } = req.params;
+    const p = await ArtPiece.findById(id);
+    res.render('edit_images', { p } )
 }))
 
 app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {

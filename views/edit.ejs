@@ -70,29 +70,6 @@
 </div>
 
 
-<!-- Images -->
-
-<div class="col-md-12">
-  <label for="images" class="form-label">Upload more images:</label>
-  <input type="file" class="form-control" id="images" name="images" multiple>
-</div>
-
-<!-- delete images -->
-
-<div class="col-md-12">
-  <label class=" " for="deleteImageDiv">Delete images:</label>
-  <div class=" " id="deleteImageDiv">
-      <% p.images.forEach(function(img, i) { %>
-        <div class='form-check-inline'>
-          <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
-         </div>
-         <img src='<%=img.url%>' class='' style="max-width: 100px;">
-
-     <% }) %>
-  </div>
-</div>
-
-
 
 <!-- Size -->
 
@@ -300,20 +277,24 @@
 
 
 
-<div class="col-6">
+<div class="col-md-6">
     <button class="btn btn-primary mb-2 ">Update piece</button>
     </div>
     
   </form>
 
+  <div class="col-md-6">
+
 <form action="/collection/show/<%=p._id%>?_method=DELETE" method="POST" >
-    <div class="col-6">
         <button class="btn btn-danger mb-5">Delete piece</button>
-    </div>
 </form>
+
+<a class="btn btn-warning mb-5" href="/collection/show/<%=p._id%>/edit/images">Edit images</a>
 
 </div>
 </div>
+
+
 
 <script> 
 

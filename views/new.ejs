@@ -110,10 +110,7 @@
 
 <div class="col-md-12">
   <label for="images" class="form-label" required>Images:</label>
-  <input type="file" class="form-control" id="images" name="images" multiple>
-  <!-- <div class="invalid-feedback">
-    Entering an URL is required!
-</div> -->
+  <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif" multiple >
 </div>
 
 
@@ -371,6 +368,14 @@ Array.prototype.slice.call(forms)
     }, false)
     })
 })()
+
+
+function fileLimit(e) {
+    if (e.files.length > 5) {
+        alert("Only 5 files accepted.");
+        e.preventDefault();
+    }
+}
 
 
 </script>
