@@ -27,21 +27,6 @@
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <%- include('./partials/flash.ejs')  %>
 
-      <!-- <header class="mb-auto">
-          <div>
-              <h3 class="float-md-left mb-0">artCollector</h3>
-              <nav class="nav nav-masthead justify-content-center float-md-right">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  <a class="nav-link" href="/collection">Collection</a>
-                  if(!currentUser) { %>
-                  <a class="nav-link" href="/login">Login</a>
-                  <a class="nav-link" href="/register">Register</a>
-                   } else { %>
-                  <a class="nav-link" href="/logout">Logout</a>
-                   } %>
-              </nav>
-          </div>
-      </header> -->
 
 
 <main>
@@ -53,7 +38,7 @@
 
   <!-- brand exposition -->
     <div class="row collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3"id="brand-row">
-      <div class="col-md-2"></div><div class="col-md-4"><h1>artCollector</h1></div>
+      <div class="col-md-2"></div><div class="col-md-4"><h1 class="pb-5">artCollector</h1></div>
       <div class="col-md-4"><p class="lead"> Welcome to artCollector! <br> Jump right in and see how easy cataloguing can be.</p></div><div class="col-md-2"></div>
     </div>
 
@@ -132,49 +117,6 @@
 
 </div>
 </main>
-
-
-
-
-<!-- <br>
-
-<div>
-<p>Login: </p>
-<form class="needs-validation" action="/login" method="POST" novalidate>
-    <div class="mb-3">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp">
-      </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password:</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div>
-</div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div> -->
-
-<!-- <h1> Create a new account </h1>
-<form class="needs-validation" action="/register" method="POST" >
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address:</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    <div class="mb-3">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp">
-      </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password:</label>
-      <input type="password" name="password" class="form-control" id="password" required>
-      <label for="confirm_password" class="form-label">Confirm password:</label>
-      <input type="password" class="form-control" id="confirm_password" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form> -->
 
 
 <script>

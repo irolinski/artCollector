@@ -299,8 +299,8 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(`o: ${p.owner.status}; ${p.holder.status}`)
-    console.log(p);
+    // console.log(`o: ${p.owner.status}; ${p.holder.status}`)
+    // console.log(p);
 
     res.render('show', { p, moment: moment})
 }))
@@ -325,13 +325,17 @@ app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (
     p.images.push(...imgs);
 
     if (req.body.makeDefault){
-        for (let filename of req.body.makeDefault) {
+        
+        for (let imgFileName of req.body.makeDefault) {
+         
 
-            el = 
-            index = p.images.indexOf()
+            const index = p.images.map((image) => image.filename).indexOf(imgFileName)
+
+            let img = p.images[index] 
+            p.images.splice(index, 1)
+            p.images.unshift(img)
        
-        }
-    }
+    }}
 
     if (req.body.deleteImages){
         for (let filename of req.body.deleteImages){

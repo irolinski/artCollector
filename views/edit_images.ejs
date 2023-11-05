@@ -2,7 +2,9 @@
 
 
 
-
+<div class="row">
+    <h1 class="text-center">Edit images</h1>
+</div>
 <!-- image options -->
 <div class="col-md-12">
     <label class=" " for="deleteImageDiv">Delete images:</label>
@@ -15,7 +17,7 @@
            <button class="btn btn-danger mb-2 ">Delete</button>        </form>
 <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
            <input type="hidden" name="makeDefault[]" value="<%=img.filename%>" >
-           <button class="btn btn-warning mb-2 ">Default</button>
+           <button class="btn btn-warning mb-2 ">Push to front</button>
         </form>
     </div>
        <% }) %>
@@ -27,8 +29,7 @@
   
   <!-- Upload new images -->
 
-<div class="row">
-    <h1 class="text-center">Edit images</h1>
+
 
 
 <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data" >
@@ -39,7 +40,7 @@
     <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length >= 4) { %> disabled <%} %>>
   </div>
   <div class="col-md-6">
-  <button class="btn btn-primary mb-2 ">Upload</button>
+  <button class="btn btn-primary mb-2"  <% if (p.images.length >= 4) { %> disabled <% } %> >Upload</button>
 </div> <div class="col-md-6"></div>
   </form>
 
