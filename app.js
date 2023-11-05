@@ -200,10 +200,18 @@ app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
     const archivalStatus = req.query.archival;
 
     let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); //here, I want him to find only pieces created by the user that is logged in
-    const archivalPieces = await ArtPiece.find({ archival: {$in: [ 'true' ]}});
+    
+    const archivalPieces = await ArtPiece.find(
+        { archival: {$in: [ 'true' ]},
+        user_id: `${req.user._id}`
+    });
 
     if (archivalStatus === 'hide') {
-        artPieces = await ArtPiece.find({ archival: !{$in: [ 'true' ]}})
+        artPieces = await ArtPiece.find(
+            { archival: !{$in: [ 'true' ]},
+            user_id: `${req.user._id}`
+        });
+
     } if (archivalStatus === 'showOnly') {
         artPieces = archivalPieces
     }
