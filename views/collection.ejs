@@ -105,18 +105,33 @@
 
 
 
-                    <td><%=  moment (piece.createdAt).fromNow() %></td>
+                    <td> 
+                        <span style="display: none"> <%= piece.createdAt.getTime() %> </span>
+                        <%=  moment (piece.createdAt).fromNow() %>
+                    </td>
 
                     <% if (queryString.includes('acquired')){ %> 
-                        <td><%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%></td>
+                        <td>
+                        <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
+                            <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
+                        </td>
                     <% } %>
 
                     <% if (queryString.includes('forSale')){ %> 
-                        <td><%=  piece.forSale %></td>
+                        <td>
+                            <% if (piece.forSale == true) { %>
+                                <% for (let el of piece.price) { %>
+                                  <%  if (el.price !== null) { %>
+                                     <%= `${el.price} ${el.currency}` %> 
+                                     <% } else { %>
+                                        not set
+                                   <% }}} else { %>
+                                        &#10007;
+                                        <% } %>                         </td>
                     <% } %>
 
                     <% if (queryString.includes('arch-col')) { %>
-                    <td><%=  piece.archival %></td>
+                    <td><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
                     <% } %>
 
 
@@ -164,6 +179,8 @@
         }
         })  
     }); 
+
+    
 </script>
 
 

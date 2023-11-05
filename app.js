@@ -208,6 +208,8 @@ app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
         artPieces = archivalPieces
     }
 
+
+
     res.render('collection', { artPieces, moment: moment, archivalStatus, queryString })
 }));
 
@@ -300,7 +302,7 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
     }
     const p = await ArtPiece.findById(id);
     // console.log(`o: ${p.owner.status}; ${p.holder.status}`)
-    // console.log(p);
+    console.log(p);
 
     res.render('show', { p, moment: moment})
 }))
