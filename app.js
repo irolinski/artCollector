@@ -324,6 +324,15 @@ app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     p.images.push(...imgs);
 
+    if (req.body.makeDefault){
+        for (let filename of req.body.makeDefault) {
+
+            el = 
+            index = p.images.indexOf()
+       
+        }
+    }
+
     if (req.body.deleteImages){
         for (let filename of req.body.deleteImages){
             await cloudinary.uploader.destroy(filename);

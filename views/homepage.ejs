@@ -20,8 +20,13 @@
   <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
 </head>
 
+
+
 <body class="d-flex text-center text-white bg-dark">
+
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <%- include('./partials/flash.ejs')  %>
+
       <!-- <header class="mb-auto">
           <div>
               <h3 class="float-md-left mb-0">artCollector</h3>
@@ -111,8 +116,14 @@
   </div>
   <div class="row mx-5 py-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3" id="nav-button-row">
       <div class="col-md-3 pb-5"></div>
+      <% if (!currentUser) { %>
       <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1"><h6>Login</h6></div>
       <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2" ><h6>Register</h6></div>
+      <% } else { %>
+        <div class="col-md-2 pb-5"><h6> <a href="/collection">Start</a></h6></div>
+        <div class="col-md-2 pb-5"><h6> <a href="/logout">Log Out</a></h6></div>
+
+        <% } %>
       <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3"><h6>Info</h6></div>
       <div class="col-md-3 pb-5"></div>
   </div>

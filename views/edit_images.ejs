@@ -2,11 +2,33 @@
 
 
 
-<!-- Images -->
+
+<!-- image options -->
+<div class="col-md-12">
+    <label class=" " for="deleteImageDiv">Delete images:</label>
+    <div class=" " id="deleteImageDiv">
+        <% p.images.forEach(function(img, i) { %>
+          <div class='form-check-inline'>
+            <img src='<%=img.url%>' class='' style="max-width: 100px;">
+            <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+           <input type="hidden"  name="deleteImages[]" value="<%=img.filename%>">
+           <button class="btn btn-danger mb-2 ">Delete</button>        </form>
+<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+           <input type="hidden" name="makeDefault[]" value="<%=img.filename%>" >
+           <button class="btn btn-warning mb-2 ">Default</button>
+        </form>
+    </div>
+       <% }) %>
+    </div>
+  </div>
+  </div> <div class="col-md-6"></div>
+  
+  
+  
+  <!-- Upload new images -->
 
 <div class="row">
     <h1 class="text-center">Edit images</h1>
-    <div class="col-8 offset-2">
 
 
 <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data" >
@@ -14,29 +36,10 @@
 <div class="col-md-12">
     <label for="images" class="form-label">Upload more images:</label>
     <% if (p.images.length >= 4) { %> <p>You have reached the max allowed image number. In order to upload new images, delete some of the ones already uploaded</p> <% } else { %> <p> If done one at a time, you can upload up to four images. </p> <% } %>
-    <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif" multiple <% if (p.images.length >= 4) { %> disabled <%} %>>
+    <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length >= 4) { %> disabled <%} %>>
   </div>
   <div class="col-md-6">
   <button class="btn btn-primary mb-2 ">Upload</button>
 </div> <div class="col-md-6"></div>
   </form>
 
-<!-- delete images -->
-<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-<div class="col-md-12">
-    <label class=" " for="deleteImageDiv">Delete images:</label>
-    <div class=" " id="deleteImageDiv">
-        <% p.images.forEach(function(img, i) { %>
-          <div class='form-check-inline'>
-            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
-           </div>
-           <img src='<%=img.url%>' class='' style="max-width: 100px;">
-  
-       <% }) %>
-    </div>
-  </div>
-  <div class="col-md-6">  <button class="btn btn-danger mb-2 ">Delete</button>
-  </div> <div class="col-md-6"></div>
-  </form>
-  
-  
