@@ -10,7 +10,12 @@
         <label for="username" class="form-label">Login:</label>
         <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp" value="<%=currentUser.username%>">
       </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
 
+      </form>
+
+
+      <form class="needs-validation pb-5" action="/preferences/edit?_method=PUT" method="POST" novalidate>
     <p><b>Personal data</b> </p>
     <span> (It will be used to fill in the gaps for you, while using this website)</span>
 

@@ -163,7 +163,7 @@
     I am the owner of this piece
   </label>
   <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" 
-  <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>  <% if (this.checked === true) { %> data-bs-toggle="collapse" <% } %> data-bs-target=".owner-check"
+  <% if (p.owner[0].name === '' || p.owner[0].name === undefined) { %> checked="checked" <% } %>  onchange="toggleCollapse('.owner-check')""
   onclick="clearFields('owner', 'owner_contact')"  >
 </div>
 
@@ -173,15 +173,14 @@
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" data-bs-target=".owner-check" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %> 
-  data-bs-toggle="collapse" >
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned"  onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !== '' && p.owner[0].name !== undefined) { %> checked="checked" <% } %> >
 </div>
 
     <!-- if someone else is the owner  -->
 
 <div class="form-check col-md-5  ">
   <div class="">
-    <input type="text" <% if (p.owner[0].name == '') { %> class="form-control collapse owner-check"<% } else { %> class="form-control owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>">
+    <input type="text" <% if (p.owner[0].name == '') { %> class="form-control collapse owner-check"<% } else { %> class="form-control owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" value="<%= p.owner[0].name %>" >
   </div>
 </div>
 
@@ -204,7 +203,7 @@
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held" data-bs-toggle="collapse" data-bs-target=".holder-check"
+  <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held"  onchange="toggleCollapse('.holder-check')"
   <% if (p.holder[0].name === '' || p.holder[0].name === undefined) { %> checked="checked" <% } %>
   onclick="clearFields('holder', 'holder_contact')">
   </div>
@@ -216,7 +215,7 @@
     <label class="form-check-label" for="else-held">
       Someone else is the holder of this piece 
     </label>
-    <input type="radio"  class="form-check-input" name="holder[0][status]" value="else" id="else-held" data-bs-toggle="collapse" data-bs-target=".holder-check"  <% if (p.holder[0].name !== '' && p.holder[0].name !== undefined) { %> checked="checked" <% } %>>
+    <input type="radio"  class="form-check-input" name="holder[0][status]" value="else" id="else-held"  onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name !== '' && p.holder[0].name !== undefined) { %> checked="checked" <% } %>>
   </div>
 
 
@@ -302,6 +301,14 @@ function clearFields(fi1, fi2) {
   document.getElementById(fi1).value = ""
   document.getElementById(fi2).value = ""
 };
+
+
+const toggleCollapse = (inputClass) => {
+  for (el of document.querySelectorAll(inputClass)) 
+  { if (!el.classList.contains('show')) {
+    el.classList.add('show') } else {
+      el.classList.remove('show')
+    }}}
 
 
 </script>

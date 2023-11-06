@@ -213,14 +213,14 @@
   <label class="form-check-label" for="self-owned">
     I am the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned"  checked="checked"  data-bs-toggle="collapse" data-bs-target=".owner-check">
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned"  checked="checked"  onchange="toggleCollapse('.owner-check')" >
 </div>
 
 <div class="form-check col-md-6">
   <label class="form-check-label" for="else-owned">
     Someone else is the owner of this piece
   </label>
-  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" data-bs-toggle="collapse" data-bs-target=".owner-check">
+  <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned" onchange="toggleCollapse('.owner-check')" >
 </div>
 
     <!-- if someone else is the owner  -->
@@ -246,19 +246,20 @@
   <!-- Holder -->
   <!-- add double click prevention  -->
 
-  <label for="holder-check" class="form-check-label">Holder:</label>
-  <div class="form-check col-md-4" name="holder-check">
+  <label for="holder-div" class="form-check-label">Holder:</label>
+
+  <div class="form-check col-md-4" id="holder-div">
     <label class="form-check-label" for="self-held">
       I am the holder of this piece
     </label>
-  <input class="form-check-input" type="radio" name="holder[0][status]" value="self" id="self-held" checked="checked" data-bs-toggle="collapse" data-bs-target=".holder-check" >
+  <input class="form-check-input" type="radio" name="holder[0][status]" value="self" id="self-held" checked="checked" onchange="toggleCollapse('.holder-check')" >
   </div>
 
   <div class="form-check col-md-6">
     <label class="form-check-label" for="else-held">
       Someone else is the holder of this piece
     </label>
-    <input class="form-check-input" type="radio" name="holder[0][status]" value="else-held" id="else" data-bs-toggle="collapse" data-bs-target=".holder-check">
+    <input class="form-check-input" type="radio" name="holder[0][status]" value="else-held" id="else-held" onchange="toggleCollapse('.holder-check')">
   </div>
 
 
@@ -297,7 +298,7 @@
 <!-- Catalogue number -->
 <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
 <div class="col-md-1" id="catalogue-number-indent"></div>
-  <div class="form-check col-md-4" name="holder-check">
+  <div class="form-check col-md-4" name="">
     <label class="form-check-label" for="catalogue-check" id="has-catalogue-number">
       Do you want to enter a catalogue number?
     </label>
@@ -345,14 +346,16 @@
 
 
 <script>
+$(document).on('show.bs.collapse hide.bs.collapse', '.collapse', function(e) {
+  e.stopImmediatePropagation(); //use this
+  console.log('event triggered');
+});
 
 
-
-
+// bootstrap validations
 (function () {
 'use strict'
 
-// Fetch all the forms we want to apply custom Bootstrap validation styles to
 var forms = document.querySelectorAll('.needs-validation')
 
 // Loop over them and prevent submission
@@ -370,13 +373,13 @@ Array.prototype.slice.call(forms)
 })()
 
 
-function fileLimit(e) {
-    if (e.files.length > 5) {
-        alert("Only 5 files accepted.");
-        e.preventDefault();
-    }
-}
 
+const toggleCollapse = (inputClass) => {
+  for (el of document.querySelectorAll(inputClass)) 
+  { if (!el.classList.contains('show')) {
+    el.classList.add('show') } else {
+      el.classList.remove('show')
+    }}}
 
 </script>
 
