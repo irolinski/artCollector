@@ -1,37 +1,46 @@
 <% layout('layouts/boilerplate')%>
 
-<h1> My Collection </h1>
+<script>
 
     
-<div>
+
+
+</script>
+
+<h1> My Collection </h1>
+
+        <div>
     <a href="/new">Add a New Piece!</a>  
-<form id="collection_form">
+<form id="collection_form" class="to_be">
         <label for="archival">Archival:</label>
-            <select name="archival" id="archival" onchange="this.form.submit()">
-                <option value="hide" <% if (archivalStatus === 'hide') { %> selected="selected" <% } %> >Hide</option>
-                <option value="show" <% if ((archivalStatus === 'show') || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
-                <option value="showOnly" <% if (archivalStatus === 'showOnly') { %> selected="selected" <% } %>>Show Only </option>
+            <select name="archival" id="archival-select" onchange="this.form.submit()">
+                <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %> >Hide</option>
+                <option value="archival-show" <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
+                <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
 
             </select>
 
         <label for="categories">Manage Categories:</label>
-        <input type="checkbox" name="show" value="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
+
+        <input type="checkbox" class="category-check" value="1"  name="year" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('year')) { %> checked="checked" <% } %>/>
+        <label for="#checkbox0"> Year </label>
+
+        <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
         <label for="#checkbox1"> Date acquired </label>
 
-        <input type="checkbox" name="show" value="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
+        <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
         <label for="#checkbox2"> For Sale </label>
 
-        <input type="checkbox" name="show" value="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
+        <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
         <label for="#checkbox3"> Archival </label>
 
-        <input type="checkbox" name="show" value="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
+        <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
         <label for="#checkbox4"> Catalogue Number </label>
 
-
-
-
-
-
+</form>
+<form action="/preferences/edit?_method=PUT" method="POST" novalidate>
+    <input type="hidden" name="custom_table" value="<%=queryString%>" />
+ <button type="submit"> Set current settings as default </button> 
 </form>
 </div>
 
@@ -49,9 +58,9 @@
 
             <th>Thumbnail</th>
 
-            <th>Year</th>
-
             <th>Medium / Size</th> 
+
+            <% if (queryString.includes('year')) { %> <th>Year</th> <% } %>
 
             <th>Added</th>
 
@@ -59,9 +68,9 @@
 
             <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
 
-            <% if(queryString.includes('arch-col')){ %> <th>Archival</th> %> <% } %>
+            <% if(queryString.includes('arch-col')){ %> <th>Archival</th> <% } %>
 
-            <% if(queryString.includes('catalogue')){ %> <th>Catalogue Number</th> %> <% } %>
+            <% if(queryString.includes('catalogue')){ %> <th>Catalogue Number</th> <% } %>
 
 
         </tr>
@@ -82,14 +91,6 @@
 
 
 
-                    <% for (let y of piece.year) { %>
-                        <% if (y.year_started != undefined || y.year_stared != null) { %>
-                            <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
-                    <%  } else { %>
-                        <td><%= y.year_finished %></td>
-                        <% } %>
-                    <% break } %>
-
                    
                     <td><%= piece.medium %> <br>                     
                         <% for (let s of piece.size) { %>
@@ -102,6 +103,14 @@
                     </td>
                 
             
+
+                  <% if (queryString.includes('year')) {  %>  <% for (let y of piece.year) { %>
+                    <% if (y.year_started != undefined || y.year_stared != null) { %>
+                        <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
+                <%  } else { %>
+                    <td><%= y.year_finished %></td>
+                    <% } %>
+                <% break }} %>
 
 
 
@@ -154,12 +163,44 @@
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
 
 <script>
+
+
+//set user default categories
+window.onload = (function() { 
+
+    var userTable = '<%- JSON.stringify(userTable) %>'
+
+    if (localStorage.getItem("hasCodeRunBefore") === null) {
+
+        const checkboxes = document.querySelectorAll(".category-check");
+
+        for (let el of document.querySelectorAll('.category-check')) {
+            if (userTable.includes(el.name)){ el.checked = 1 } else { 
+                el.checked = 0 
+        }}
+
+        for (let o of document.querySelector("#archival-select")) {
+            if (userTable.includes(o.value)){ o.selected = 1 }
+        }
+
+
+
+     document.querySelector('#collection_form').submit();
+     localStorage.setItem("hasCodeRunBefore", true);
+
+        }})
+
+
+
+
+
+
     $(document).ready(function() {
         $('#example').DataTable({
             "columnDefs": [
-                { "orderable": false, "targets": [2, 4]}
+                { "orderable": false, "targets": [2, 3]}
             ],
-            order: [[5, 'desc']],
+            order: [[4, 'desc']],
 
         language: {
             //customize pagination prev and next buttons: use arrows instead of words
@@ -179,6 +220,7 @@
         }
         })  
     }); 
+
 
     
 </script>

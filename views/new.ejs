@@ -58,17 +58,15 @@
 <!-- Title, Year -->
 <div class="col-md-6">
     <label for="title" class="form-label">Title:</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required>
+    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required >
     <div class="invalid-feedback">
         Entering a title is required!
     </div>
 </div>
 <div class="col-md-6">
     <label for="year_finished" class="form-label">Year:</label>
-    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" required>
-    <div class="invalid-feedback">
-        Entering a Year is required!
-    </div>
+    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" >
+
 </div>
 
 
@@ -346,10 +344,6 @@
 
 
 <script>
-$(document).on('show.bs.collapse hide.bs.collapse', '.collapse', function(e) {
-  e.stopImmediatePropagation(); //use this
-  console.log('event triggered');
-});
 
 
 // bootstrap validations

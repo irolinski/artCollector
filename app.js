@@ -35,17 +35,6 @@ const upload = multer({
      
 });
 
-// const  checkNumberAndUploadArray = (req, res, arr, next) => { 
-//     const { id } = req.params;
-//     const p = ArtPiece.findById(id)
-
-//     if (p.images.length >= 5) { 
-//     // const msg = error.details.map(el => el.message).join(',')
-//     // throw new ExpressError(msg, 400) } 
-//     console.log('too much files man')
-//     return
-//     } else { upload.array(arr) }}
-
 const { cloudinary } = require('./cloudinary')
 
 
@@ -53,6 +42,8 @@ const { cloudinary } = require('./cloudinary')
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
 const isLoggedIn  = require('./utilities/isLoggedIn')
+
+
 
 
 
@@ -119,6 +110,12 @@ app.use((req, res, next) => {
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
+
+
+
+
+
 app.get('/home', (req, res, next) => {
     res.render('homepage')
 });
@@ -151,17 +148,25 @@ app.post('/login', passport.authenticate('local', { failureFlash: true, failureR
 })
 
 app.get('/preferences', isLoggedIn, (req, res, next) => {
+    console.log(req.user);
     res.render('preferences');
 })
 
 app.put('/preferences/edit', isLoggedIn, catchAsync (async (req, res, next) => {
 
-    await User.findOneAndUpdate(req.user._id, { 
-        username: req.body.username,
-        email: req.body.email,
-        show_name: req.body.show_name,
-        contact_info: req.body.contact_info
-    });
+    console.log(req.body.custom_table)
+
+    if (req.body.custom_table){
+        await User.findOneAndUpdate(req.user._id, {
+            custom_table: req.body.custom_table
+        })
+    } else {
+        await User.findOneAndUpdate(req.user._id, { 
+            username: req.body.username,
+            email: req.body.email,
+            show_name: req.body.show_name,
+            contact_info: req.body.contact_info,
+    })};
     req.flash('success', 'Your changes have been saved!');
     res.redirect('/collection')
         
@@ -197,7 +202,10 @@ app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
 
 
     let queryString = JSON.stringify(req.query);
+    const userTable = (req.user.custom_table);
+
     const archivalStatus = req.query.archival;
+    
 
     let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); //here, I want him to find only pieces created by the user that is logged in
     
@@ -206,19 +214,19 @@ app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
         user_id: `${req.user._id}`
     });
 
-    if (archivalStatus === 'hide') {
+    if (archivalStatus === 'archival-hide') {
         artPieces = await ArtPiece.find(
             { archival: !{$in: [ 'true' ]},
             user_id: `${req.user._id}`
         });
 
-    } if (archivalStatus === 'showOnly') {
+    } if (archivalStatus === 'archival-showOnly') {
         artPieces = archivalPieces
     }
 
 
 
-    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString })
+    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable })
 }));
 
 

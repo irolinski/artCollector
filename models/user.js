@@ -21,6 +21,13 @@ const UserSchema = new Schema({
         default: null,
         trim: true,
         sparse: true
+    },
+
+    custom_table: { 
+        type: String,
+        default: null,
+        trim: true,
+        sparse: true
     }
 })
 

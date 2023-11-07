@@ -1,17 +1,55 @@
 <% layout('layouts/boilerplate')%>
 
+<style> 
+  /* remove validation icons */
+  .form-control.is-invalid, .was-validated .form-control:invalid  {
+      background-image: none !important;
+      border-color: #ced4da;
+      padding-right: 0.75em;
+      border-color: black !important;
+  
+  
+  }
+  
+  .form-control.is-valid, .was-validated .form-control:valid  {
+      background-image: none !important;
+      border-color: #ced4da;
+      padding-right: 0.75em;
+      border-color: black !important;
+  
+  }
+  
+  .form-check-input {
+    border-color: black !important;
+  }
+  
+  .form-select:valid {
+    border-color: black !important;
+    --bs-form-select-bg-img: null; 
+  }
+  
+  .was-validated .form-check-input:valid:checked {
+    background-color: #0d6efd;
+  }
+  
+  
+  .form-check-input.is-valid:focus, .was-validated .form-check-input:valid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
+  }
+  </style>
+
 <!-- need to write js that hides and erases the custom owner/holder window when self-owned is selected; same thing with for sale and price-->
 
 <div class="row">
     <h1 class="text-center">Edit</h1>
     <div class="col-8 offset-2">
 
-        <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data" >
+        <form class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate >
   
 <!-- Artist name -->
 <div class="col-md-6">
     <label for="artist" class="form-label">Artist name:</label>
-    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  value="<%= p.artist %>">
+    <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  value="<%= p.artist %>" required>
     <div class="invalid-feedback">
         Entering a name is required!
     </div>
@@ -21,7 +59,7 @@
 <!-- Title, Year -->
 <div class="col-md-6">
     <label for="title" class="form-label">Title:</label>
-    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" value="<%= p.title %>">
+    <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" value="<%= p.title %>" required>
     <div class="invalid-feedback">
         Entering a title is required!
     </div>
@@ -29,9 +67,7 @@
 <div class="col-md-6">
     <label for="year_finished" class="form-label">Year Finished:</label>
     <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" value="<%= p.year[0].year_finished %>">
-    <div class="invalid-feedback">
-        Entering a Year is required!
-    </div>
+
 </div>
 
 
@@ -63,7 +99,7 @@
 
 <div class="col-md-6">
     <label for="medium" class="form-label">Medium:</label>
-    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value="<%= p.medium %>">
+    <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" value="<%= p.medium %>" required>
     <div class="invalid-feedback">
         Entering piece medium is required!
     </div>
@@ -296,6 +332,29 @@
 
 
 <script> 
+
+// bootstrap validations
+(function () {
+'use strict'
+
+var forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+    }, false)
+    })
+})()
+
+
+
 
 function clearFields(fi1, fi2) {
   document.getElementById(fi1).value = ""
