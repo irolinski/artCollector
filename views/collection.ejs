@@ -170,7 +170,7 @@ window.onload = (function() {
 
     var userTable = '<%- JSON.stringify(userTable) %>'
 
-    if (localStorage.getItem("hasCodeRunBefore") === null) {
+    if (localStorage.getItem("defaultCollectionSettings") === null) {
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -186,9 +186,11 @@ window.onload = (function() {
 
 
      document.querySelector('#collection_form').submit();
-     localStorage.setItem("hasCodeRunBefore", true);
+     localStorage.setItem("defaultCollectionSettings", true);
 
-        }})
+} else {
+    localStorage.removeItem('defaultCollectionSettings');
+}})
 
 
 
