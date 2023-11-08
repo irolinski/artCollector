@@ -169,20 +169,27 @@
 window.onload = (function() { 
 
     var userTable = '<%- JSON.stringify(userTable) %>'
+    var queryString = '<%- JSON.stringify(queryString) %>'
+    console.log(queryString)
+
 
     if (localStorage.getItem("defaultCollectionSettings") === null) {
 
         const checkboxes = document.querySelectorAll(".category-check");
 
         for (let el of document.querySelectorAll('.category-check')) {
+            if (!queryString.includes("1")){
             if (userTable.includes(el.name)){ el.checked = 1 } else { 
                 el.checked = 0 
-        }}
+        }}}
 
         for (let o of document.querySelector("#archival-select")) {
-            if (userTable.includes(o.value)){ o.selected = 1 }
+           if (!queryString.includes("1")) {
+            if (userTable.includes(o.value)){ o.selected = 1 } else {
+                o.selected = 0
+            }
+           }
         }
-
 
 
      document.querySelector('#collection_form').submit();
