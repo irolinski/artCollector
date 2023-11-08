@@ -36,8 +36,10 @@
 
         <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
         <label for="#checkbox4"> Catalogue Number </label>
-
 </form>
+<!-- <form>
+    <input type="hidden" id="if-none-checked" value="1" name="none-checked">
+</form> -->
 <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
     <input type="hidden" name="custom_table" value="<%=queryString%>" />
  <button type="submit"> Set current settings as default </button> 
@@ -164,16 +166,24 @@
 
 <script>
 
+// console.log( if document.querySelectorAll(".category-check"))
+
+// chce zrobić funkcje która wrzuca parametr sesji jeśli zaden checkbox nie jest zaznaczony 
+
+
+
 
 //set user default categories
 window.onload = (function() { 
 
     var userTable = '<%- JSON.stringify(userTable) %>'
     var queryString = '<%- JSON.stringify(queryString) %>'
-    console.log(queryString)
+   
+    if 
+   (((!queryString.includes('year') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
+    localStorage.setItem('noBoxesChecked', true)} else { localStorage.removeItem('noBoxesChecked')};
 
-
-    if (localStorage.getItem("defaultCollectionSettings") === null) {
+    if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -181,7 +191,11 @@ window.onload = (function() {
             if (!queryString.includes("1")){
             if (userTable.includes(el.name)){ el.checked = 1 } else { 
                 el.checked = 0 
-        }}}
+        }          // new condition
+
+    }}
+
+             
 
         for (let o of document.querySelector("#archival-select")) {
            if (!queryString.includes("1")) {
@@ -193,7 +207,8 @@ window.onload = (function() {
 
 
      document.querySelector('#collection_form').submit();
-     localStorage.setItem("defaultCollectionSettings", true);
+    //  if (localStorage.getItem("noBoxesChecked") === null ){
+     localStorage.setItem("defaultCollectionSettings", true) //};
 
 } else {
     localStorage.removeItem('defaultCollectionSettings');
