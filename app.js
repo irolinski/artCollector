@@ -18,6 +18,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
 
+
 const multer = require('multer');
 const {storage} = require('./cloudinary/index.js');
 const upload = multer({ 
@@ -37,6 +38,30 @@ const upload = multer({
 
 const { cloudinary } = require('./cloudinary')
 
+const JWT = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_KEY
+    }
+});
+
+async function sendEmail(userEmail, subject, emailBody) {
+    const info = await transporter.sendMail({
+        from: `"artCollector Team" <${process.env.EMAIL_USER}>`,
+        to: userEmail,
+        subject: subject,
+        text: emailBody,
+    }).catch(console.error);
+    return info ? info.messageID : null; 
+}
+
+
+
 
 
 const ExpressError = require('./utilities/ExpressError');
@@ -55,6 +80,7 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
 app.use('/public', express.static('public'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride ('_method'));
 app.use(
@@ -197,6 +223,75 @@ app.get('/logout', (req, res, next) => {
         res.redirect('/home')
     })
 })
+
+
+app.post('/forgotten', (req, res, next) => {
+    
+    const { email } = req.body;
+    
+    User.findOne({ email: email })
+    .then((u) => {
+    console.log(u)
+        if(!u){
+            req.flash('No such user in out database. Please, try again.')
+        } else {
+            const secret = process.env.JWT_SECRET + u.password
+            const payload = {
+                email: u.email,
+                id: u._id
+            }
+            const token = JWT.sign(payload, secret, {expiresIn: '15m'})
+            const link = `http://localhost:3000/password_reset/${u._id}/${token}`
+            sendEmail(u.email, 'Password Reset', 
+            `hey, here's the link you want! ${link}`)
+            res.send(link)
+            
+        }
+
+    })
+})
+
+app.get('/password_reset/:id/:token', (req, res, next) => {
+
+    const { id, token } = req.params
+
+    User.findById(id)
+    .then((u) => {
+        console.log(u)
+        if (!u) {
+            req.flash('Invalid id!')
+            res.redirect('/home')
+        } else {
+            const secret = process.env.JWT_SECRET + u.password;
+            try {
+                const payload = JWT.verify(token, secret)
+                res.render('password_reset',  { email: u.email })
+            } catch(error) {
+                res.send(error.message);
+            }
+        }
+    })
+
+});
+
+app.post('/password_reset/:id/:token', (req, res, next) => {
+    console.log('yes, im changing' )
+
+    const { id, token } = req.params
+    User.findById(id)
+        .then((u) => {
+            (u.setPassword(req.body.new_password,(err, u) => {
+                if (err) return next(err);
+                u.save();
+                res.status(200).json({ message: 'password change successful' });
+            }));
+            req.flash('success', 'Your password has been changed. Next time you log in, use your new password!');
+            res.redirect('/home')
+        })
+});
+
+
+
 
 app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
 
