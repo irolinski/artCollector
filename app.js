@@ -158,13 +158,12 @@ app.post('/register', catchAsync(async (req, res, next) => {
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome!');
-            //actually here i want to insert a modal with an instruction on how the app works 
             res.redirect('/collection');
         })
 
     } catch(err){
         req.flash('error', err.message,'.', 'Try again, please!');
-        res.redirect('/register');
+        res.redirect('/home');
     }
 }))
 
@@ -225,31 +224,45 @@ app.get('/logout', (req, res, next) => {
 })
 
 
-app.post('/forgotten', (req, res, next) => {
+app.post('/forgotten', catchAsync(async (req, res, next) => {
     
     const { email } = req.body;
+    const origin = req.headers.origin;
+
     
-    User.findOne({ email: email })
+    await User.findOne({ email: email })
     .then((u) => {
-    console.log(u)
-        if(!u){
-            req.flash('No such user in out database. Please, try again.')
-        } else {
+        if(u){
             const secret = process.env.JWT_SECRET + u.password
             const payload = {
                 email: u.email,
                 id: u._id
             }
             const token = JWT.sign(payload, secret, {expiresIn: '15m'})
-            const link = `http://localhost:3000/password_reset/${u._id}/${token}`
+            const link = `${origin}/password_reset/${u._id}/${token}`
             sendEmail(u.email, 'Password Reset', 
-            `hey, here's the link you want! ${link}`)
-            res.send(link)
+            `Hi,
+
+            It seems that you have requested a password reset. 
+            If you want to proceed: click the link below and follow the instructions. 
+            The link will be available for 15 minutes only. 
+
+            ${link}
+
+            Take care, 
+            artCollector team
+          `)
+            req.flash('success', 'An email with furhter instructions has been sent to the provided adress.')
+            res.redirect('/home')
             
+        } else {
+            req.flash('error', 'Invalid e-mail adress. Try again!')
+            res.redirect('/home')
         }
 
     })
-})
+}));
+
 
 app.get('/password_reset/:id/:token', (req, res, next) => {
 
@@ -257,6 +270,7 @@ app.get('/password_reset/:id/:token', (req, res, next) => {
 
     User.findById(id)
     .then((u) => {
+        if (u) {
         console.log(u)
         if (!u) {
             req.flash('Invalid id!')
@@ -270,7 +284,11 @@ app.get('/password_reset/:id/:token', (req, res, next) => {
                 res.send(error.message);
             }
         }
-    })
+    } else {
+        req.flash('error', 'We encountered a mistake: no such user id. Please, try again.')
+        res.redirect('/home')
+    }
+})
 
 });
 

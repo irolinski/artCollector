@@ -43,7 +43,7 @@
     </div>
 
   <!-- login form -->
-  <form class="needs-validation" action="/login" method="POST" novalidate>
+  <form class="" action="/login" method="POST" novalidate>
     <div class="row collapse multi-collapse-1" id="login-row">
 <!-- label for login form -->
       <div class="col-md-4"></div>      <div class="col-md-4" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
@@ -57,12 +57,17 @@
         <button type="submit" class="btn btn-primary my-4">Submit</button>
       </div>
       <div class="col-md-2"></div>
+      <span class="multi-collapse-1" data-bs-target=".multi-collapse-4" data-bs-toggle="collapse">I forgot my password!</span>
     </div>
   </form>
-  <form class="collapse multi-collapse-1" action="/forgotten" method="POST" novalidate><button type="submit" name="email" value="igi.ro1998@gmail.com">Forgotten password</button></form>
+
+  <form class="collapse multi-collapse-4" action="/forgotten" method="POST" novalidate>
+    <input class="collapse multi-collapse-1" type="email" name="email" placeholder="Your e-mail adress" required>
+    <button class="multi-collapse-1" type="submit" name="email">Help me out!</button>
+  </form>
 
     <!-- register form -->
-    <form class="needs-validation" action="/register" method="POST" >
+    <form class="" action="/register" method="POST" >
       <div class="row collapse multi-collapse-2" id="register-row">
         <!-- label for register form -->
       <div class="col-md-4"></div>      <div class="col-md-4" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
@@ -99,6 +104,7 @@
       <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
       <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
       <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+
   </div>
   <div class="row mx-5 py-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3" id="nav-button-row">
       <div class="col-md-3 pb-5"></div>
