@@ -308,6 +308,34 @@ app.post('/password_reset/:id/:token', (req, res, next) => {
         })
 });
 
+app.get('/preferences/deleteAcc', (req, res, next) => {
+    res.render('preferences_deleteAcc')
+});
+
+
+app.delete('/preferences/deleteAcc/confirmed', passport.authenticate('local', { failureFlash: true, failureRedirect: '/preferences' }), isLoggedIn, catchAsync(async (req, res, next) => {
+
+console.log('authentication success')
+
+
+    const pieces = await ArtPiece.find({ user_id: req.user._id } );
+
+   for (let p of pieces) {
+        for (let img of p.images){
+                await cloudinary.uploader.destroy(img.filename)
+        }};
+
+   await ArtPiece.deleteMany({ user_id: req.user._id });
+
+    await User.findByIdAndDelete(req.user._id);
+
+    req.flash('success', 'Goodbye :(');
+   
+    res.redirect('/home');
+
+
+    }));
+
 
 
 
@@ -351,7 +379,6 @@ app.get('/new', isLoggedIn, (req, res, next) => {
 
 
 app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
-    console.log(req.body);
 
 
 
@@ -413,7 +440,6 @@ app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (r
     if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
 
     await newPiece.save();
-    console.log(newPiece)
 
     req.flash('success', 'Successfully added your new piece!');
 
@@ -430,8 +456,7 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    // console.log(`o: ${p.owner.status}; ${p.holder.status}`)
-    console.log(p);
+    // console.log(p);
 
     res.render('show', { p, moment: moment})
 }))
@@ -470,10 +495,11 @@ app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (
 
     if (req.body.deleteImages){
         for (let filename of req.body.deleteImages){
+            console.log(filename);
             await cloudinary.uploader.destroy(filename);
         }
         await  p.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages } } } });
-        console.log(p);
+        // console.log(p);
        }
 
 
@@ -488,7 +514,21 @@ app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (
 
 app.delete('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } = req.params;
-    const p = await ArtPiece.findByIdAndDelete(id);
+
+    // const p = await ArtPiece.findByIdAndDelete(id);
+
+    await ArtPiece.deleteMany({user_id: req.user._id})
+
+    const p = await ArtPiece.findById(id);
+
+    for (let i of p.images){
+        console.log(i.filename);
+        await cloudinary.uploader.destroy(i.filename);
+    }
+    
+    
+
+    
     req.flash('success', 'Successfully deleted your piece!');
 
     res.redirect('/collection');

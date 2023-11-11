@@ -22,8 +22,8 @@
 
         <label for="categories">Manage Categories:</label>
 
-        <input type="checkbox" class="category-check" value="1"  name="year" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('year')) { %> checked="checked" <% } %>/>
-        <label for="#checkbox0"> Year </label>
+        <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
+        <label for="#checkbox0"> Added </label>
 
         <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
         <label for="#checkbox1"> Date acquired </label>
@@ -62,9 +62,9 @@
 
             <th>Medium / Size</th> 
 
-            <% if (queryString.includes('year')) { %> <th>Year</th> <% } %>
+            <th>Year</th>
 
-            <th>Added</th>
+            <% if (queryString.includes('added')) { %> <th>Added</th> <% } %>
 
             <% if (queryString.includes('acquired')){ %> <th>Acquired</th> <% } %>
 
@@ -103,23 +103,30 @@
                         <% } %>
                     <% break } %>
                     </td>
+
+
+
+                        <% for (let y of piece.year) { %>
+                            <% if (y.year_started != undefined || y.year_stared != null) { %>
+                                <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
+                        <%  } else { %>
+                            <td><%= y.year_finished %></td>
+                            <% } %>
+                        <% break } %>
+               
+
+                        
                 
             
+                  <% if (queryString.includes('added')) {   %>       
+                    <td>
 
-                  <% if (queryString.includes('year')) {  %>  <% for (let y of piece.year) { %>
-                    <% if (y.year_started != undefined || y.year_stared != null) { %>
-                        <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
-                <%  } else { %>
-                    <td><%= y.year_finished %></td>
-                    <% } %>
-                <% break }} %>
+                    <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
+                  <%=  moment (piece.createdAt).fromNow() %> 
+                </td>
 
+                  <% } %>
 
-
-                    <td> 
-                        <span style="display: none"> <%= piece.createdAt.getTime() %> </span>
-                        <%=  moment (piece.createdAt).fromNow() %>
-                    </td>
 
                     <% if (queryString.includes('acquired')){ %> 
                         <td>
@@ -180,7 +187,7 @@ window.onload = (function() {
     var queryString = '<%- JSON.stringify(queryString) %>'
    
     if 
-   (((!queryString.includes('year') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
+   (((!queryString.includes('added') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
     localStorage.setItem('noBoxesChecked', true)} else { localStorage.removeItem('noBoxesChecked')};
 
     if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {

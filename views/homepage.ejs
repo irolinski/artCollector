@@ -43,38 +43,41 @@
     </div>
 
   <!-- login form -->
-  <form class="" action="/login" method="POST" novalidate>
-    <div class="row collapse multi-collapse-1" id="login-row">
+  <form class="needs-validation" action="/login" method="POST" novalidate>
+    <div class="row collapse multi-collapse-1 multi-collapse-4" id="login-row">
 <!-- label for login form -->
-      <div class="col-md-4"></div>      <div class="col-md-4" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
 <!-- form body -->
       <div class="col-md-2"></div>
       <div class="col-md-4">
-        <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp">
-        <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password">
+        <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp" required>
+        <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password" required>
       </div>
       <div class="col-md-4">
         <button type="submit" class="btn btn-primary my-4">Submit</button>
       </div>
       <div class="col-md-2"></div>
-      <span class="multi-collapse-1" data-bs-target=".multi-collapse-4" data-bs-toggle="collapse">I forgot my password!</span>
+      <span class="multi-collapse-1 mt-4" data-bs-target=".multi-collapse-4" data-bs-toggle="collapse">I forgot my password!</span>
     </div>
   </form>
 
-  <form class="collapse multi-collapse-4" action="/forgotten" method="POST" novalidate>
-    <input class="collapse multi-collapse-1" type="email" name="email" placeholder="Your e-mail adress" required>
-    <button class="multi-collapse-1" type="submit" name="email">Help me out!</button>
+ <form class="needs-validation" action="/forgotten" method="POST" novalidate>  
+  <div class="row collapse multi-collapse-4" id="forgotten_div">
+    <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="forgotten-label"><h4>Forgot your password?</h4></div>      <div class="col-md-4"></div>
+  <div class="col-md-4"></div> <div class="col-md-4 mb-3 multi-collapse-1"> <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  </div> <div class="col-md-4"></div>
+  <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="multi-collapse-1 btn btn-primary" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
+  </div>
   </form>
 
     <!-- register form -->
-    <form class="" action="/register" method="POST" >
+    <form class="needs-validation" action="/register" method="POST" novalidate>
       <div class="row collapse multi-collapse-2" id="register-row">
         <!-- label for register form -->
-      <div class="col-md-4"></div>      <div class="col-md-4" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
         <div class="col-md-2"></div>
         <div class="col-md-4">
-          <input type="email" name="email" class="form-control mb-3" id="" placeholder="e-mail">
-          <input type="text" name="username" class="form-control mb-3" id="username" placeholder="username">
+          <input type="email" name="email" class="form-control mb-3" id="" placeholder="e-mail" required>
+          <input type="text" name="username" class="form-control mb-3" id="username" placeholder="username" required>
         </div>
         <div class="col-md-2">
           <input type="password" name="password" class="form-control mb-3" id="register_password" placeholder="password" required>
@@ -101,9 +104,11 @@
 
 <!-- navigation -->
   <div class="row mx-5 py-5 collapse multi-collapse-1 multi-collapse-2 multi-collapse-3" id="back-button-row">
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+    <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-4" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-4">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1 multi-collapse-4" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
       <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
       <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+
 
   </div>
   <div class="row mx-5 py-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3" id="nav-button-row">
@@ -128,6 +133,28 @@
 
 <script>
 
+
+// bootstrap validations
+(function () {
+'use strict'
+
+var forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+    }, false)
+    })
+})()
+
+
 //password confirm validation
   const password = document.getElementById("register_password");
   const confirm_password = document.getElementById("confirm_password");
@@ -144,7 +171,6 @@
   confirm_password.onkeyup = validatePassword;
 
 
-  // toggle back arrow
 
   
   

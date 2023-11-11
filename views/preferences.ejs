@@ -21,11 +21,11 @@
 
     <div class="mb-3">
         <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
-        <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby="" value="<%=currentUser.show_name%>">
+        <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby="" placeholder="e.g. 'John Doe' or 'Reykjavík Vernacular Art Museum'" value="<%=currentUser.show_name%>">
       </div>
       <div class="mb-3">
         <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
-        <input type="text" name="contact_info" class="form-control" id="contact-info" placeholder="'+48 604 444 245' or 'gallery@art.com'" aria-describedby="" value="<%=currentUser.contact_info%>">
+        <input type="text" name="contact_info" class="form-control" id="contact-info" placeholder="e.g. '+48 604 444 245' or 'gallery@art.com'" aria-describedby="" value="<%=currentUser.contact_info%>">
       </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -42,8 +42,9 @@
       </div>
 
     <button type="submit" class="btn btn-primary"  onclick="return confirm('Are you sure you want to change your password?')">Submit</button>
-
 </form>
+
+<a class="btn btn-danger" href="preferences/deleteAcc" onclick="return confirm('Are you sure you want to delete your account?')">Delete account</a>
 
 <script>
 
