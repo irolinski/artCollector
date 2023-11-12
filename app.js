@@ -471,7 +471,6 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(p.images);
 
     res.render('show', { p, moment: moment})
 }))

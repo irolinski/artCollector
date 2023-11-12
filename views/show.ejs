@@ -10,16 +10,15 @@
 
 
 
-
+<% if (p.images.length > 0) {  %>
 
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-width:450px; width:90%">
     <div class="carousel-inner">
       <% p.images.forEach((img, i) => { %>
       <div class="carousel-item <%= i === 0 ? 'active' : ''%>"  >
-        <img class="" src="<%=img.url%>" alt="" style="max-width:100%">
+        <img class="" src="<%=img.url%>" alt="" style="max-width:100%;">
       </div>
       <% }) %>
-
     </div>
     <% if (p.images.length > 1) { %>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -32,6 +31,9 @@
     </button>
     <% } %>
   </div>
+  <% } else { %>
+    <img class="" style="max-width: 90%; max-height: 90%;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1699818280/artCollector/No_image_xoyq1z.png"> 
+<% } %>
   </div>
 
 <!-- right column -->

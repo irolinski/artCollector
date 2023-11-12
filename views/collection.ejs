@@ -1,11 +1,6 @@
 <% layout('layouts/boilerplate')%>
 
-<script>
-
-    
-
-
-</script>
+<!-- add a constant row height maybe?-->
 
 <h1> My Collection </h1>
 
@@ -92,7 +87,8 @@
                         <% for (let img of piece.images) { %>
                     <img src="<%= img.url %>" style="max-width:100px; width:100%">
                         <% break } %> 
-                        <% } else { %> <span id="no-image">No image</span><% } %>
+                        <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1699819800/artCollector/No_image_3_hjnpkx.png"> 
+                        <% } %>
 
                     </td>
 
@@ -101,12 +97,14 @@
                     <td>
                         <%= piece.medium %> <br>                     
                         <% for (let s of piece.size) { %>
+                            <% if ((s.x || s.y === null) || (s.x || s.y === undefined)) {  null  } else { %>
                         <% if (s.z === undefined || s.z === null){ %>
                              <%=  `${s.x} x ${s.x} ${s.unit}` %> 
                     <%  } else { %>
                         <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
                         <% } %>
                     <% break } %>
+                    <% } %>
                     </td>
 
 
