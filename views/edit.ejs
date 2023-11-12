@@ -66,7 +66,7 @@
 </div>
 <div class="col-md-6">
     <label for="year_finished" class="form-label">Year Finished:</label>
-    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" value="<%= p.year[0].year_finished %>">
+    <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of origin" min="0" value="<%= p.year[0].year_finished %>">
 
 </div>
 
@@ -75,7 +75,7 @@
 <div class="col-md-5 " id="">
   <div   id="yearstarted" <% if (p.year[0].year_started == null) { %> class="collapse" <% } else { %> class="collapse show" <% } %> id="year_started" name="year[0][year_started]">
     <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" placeholder="Year of origin" value="<%= p.year[0].year_started %>"> 
+    <input type="number" class="form-control" placeholder="Year of origin" min="0" value="<%= p.year[0].year_started %>"> 
   </div>
 
 </div>
@@ -111,10 +111,10 @@
 
 <label for="size-x" class="form-label">Size:</label>
         <div class="col-md-2" id="size-x"> 
-            <input type="number" class="form-control" name="size[0][x]" placeholder="Width"  step=".01" value="<%= p.size[0].x %>">
+            <input type="number" class="form-control" name="size[0][x]" placeholder="Width"  step=".01" min="0" value="<%= p.size[0].x %>">
         </div>
         <div class="col-md-2" id="size-y"> 
-            <input type="number" class="form-control" name="size[0][y]" placeholder="Height"  step=".01" value="<%= p.size[0].y %>">
+            <input type="number" class="form-control" name="size[0][y]" placeholder="Height"  step=".01" min="0" value="<%= p.size[0].y %>">
         </div>
 
         <!-- checkbox to unhide 'size-z' attribute input -->
@@ -128,7 +128,7 @@
       <!-- to be uncollapsed with the checkbox above -->
         <div class="col-md-2 " id=""> 
           <div class ="" id="size-z">
-            <input type="number" class="form-control " name="size[0][z]" placeholder="Depth"  step=".01" value="<%= p.size[0].z %>">
+            <input type="number" class="form-control " name="size[0][z]" placeholder="Depth"  step=".01" min="0" value="<%= p.size[0].z %>">
             </div>
         </div>
 
@@ -165,7 +165,7 @@
 
 <div class="col-md-4">
   <div  <% if (p.forSale == "1") { %> class="price collapse show" <% } else { %> class="price collapse" <% } %>  id="">
-    <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
+    <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0" <% if (p.price[0] != null) { %> value="<%= p.price[0].price %>" <% } %> >
   </div>
 </div>
 

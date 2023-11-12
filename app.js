@@ -155,11 +155,26 @@ app.post('/register', catchAsync(async (req, res, next) => {
         const { username, email, password } = req.body;
         const user = new User ({ email: `${email}`, username: `${username}`});
         const registeredUser = await User.register(user, password);
+
+        sendEmail(email, 'Welcome to artCollector', 
+        `Hi,
+        Welcome to our site!
+
+        Just wanted to let you know: 
+        if you're having any problems or want to provide info on any bugs: use this e-mail adress.
+
+        This should be the first and the last automatic message you'll ever get from us.
+
+        We wish you all the best, 
+        artCollector team
+      `)
+
         req.login(registeredUser, err => {
             if (err) return next(err);
             req.flash('success', 'Welcome!');
             res.redirect('/collection');
-        })
+        }
+        )
 
     } catch(err){
         req.flash('error', err.message,'.', 'Try again, please!');
@@ -388,7 +403,7 @@ app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (r
         medium: joi.string().required(),
         year: joi.array().items({
 
-            year_finished: joi.number().min(0).required(),
+            year_finished: joi.number().min(0).allow(''), // I'd prefer it required...
             year_started: joi.number().min(0).allow('')
     }),
         images: joi.array().items({
@@ -396,8 +411,8 @@ app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (r
             filename: joi.string().allow('')
         }),
         size: joi.array().items({
-            x: joi.number().min(0),
-            y: joi.number().min(0),
+            x: joi.number().min(0).allow(''),
+            y: joi.number().min(0).allow(''),
             z: joi.number().min(0).allow(''),
             unit: joi.string().required()
         }),
@@ -411,7 +426,7 @@ app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (r
             contact_info: joi.string().allow(''),
             status: joi.string()
         }),
-        acquiration_date: joi.date().raw(),
+        acquiration_date: joi.date().raw().allow(''),
         archival: joi.boolean().falsy('0').truthy('1').required(),
         description: joi.string().allow(''),
         user_id: joi.string().allow(''),
@@ -456,7 +471,7 @@ app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) =>
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    // console.log(p);
+    console.log(p.images);
 
     res.render('show', { p, moment: moment})
 }))
@@ -515,11 +530,7 @@ app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (
 app.delete('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
     const { id } = req.params;
 
-    // const p = await ArtPiece.findByIdAndDelete(id);
-
-    await ArtPiece.deleteMany({user_id: req.user._id})
-
-    const p = await ArtPiece.findById(id);
+    const p = await ArtPiece.findByIdAndDelete(id);
 
     for (let i of p.images){
         console.log(i.filename);
