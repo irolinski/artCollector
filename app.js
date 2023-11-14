@@ -34,9 +34,10 @@ const upload = multer({
         cb(null, true);
       }
      
-});
+}); 
 
 const { cloudinary } = require('./cloudinary')
+
 
 const JWT = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -61,8 +62,8 @@ async function sendEmail(userEmail, subject, emailBody) {
 }
 
 
-
-
+const fs = require('fs');
+const XLSX = require('xlsx');
 
 const ExpressError = require('./utilities/ExpressError');
 const catchAsync = require('./utilities/catchAsync');
@@ -70,10 +71,7 @@ const isLoggedIn  = require('./utilities/isLoggedIn')
 
 
 
-
-
 const app = express();
-
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', ejsMate);
@@ -95,8 +93,6 @@ app.use(function (err, req, res, next) {
 app.use(session({secret: 'adkanqiwnqiwen23131§21§'}));
 
 app.use(flash());
-
-
 
 const mongoose = require('mongoose');
 
@@ -323,7 +319,7 @@ app.post('/password_reset/:id/:token', (req, res, next) => {
         })
 });
 
-app.get('/preferences/deleteAcc', (req, res, next) => {
+app.get('/preferences/deleteAcc', isLoggedIn, (req, res, next) => {
     res.render('preferences_deleteAcc')
 });
 
@@ -462,6 +458,27 @@ app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (r
 
 
     }))
+
+app.post('/collection/export_collection', isLoggedIn, catchAsync (async(req, res, next) => {
+    console.log('hit it!!!')
+
+    const wb = XLSX.utils.book_new();
+
+   const data = await ArtPiece.find({ user_id: req.user._id });
+   let currentDate = new Date()
+       currentDate = `${currentDate.getMonth()}.${currentDate.getFullYear()}`
+
+            let temp = JSON.stringify(data);
+            temp = JSON.parse(temp);
+            const ws = XLSX.utils.json_to_sheet(temp);
+            ws['!ref'] = ws['!ref'].replace('S','R'); 
+            const down = __dirname+`/public/${req.user.username}-artCollection(${currentDate}).xlsx`
+            XLSX.utils.book_append_sheet(wb,ws,'sheet1');
+            XLSX.writeFile(wb,down);
+            res.download(down);
+        }));
+
+
 
 
 app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
