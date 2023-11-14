@@ -33,6 +33,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
+    "tempfile": "^5.0.0",
+    "tmp": "^0.2.1",
     "xlsx": "^0.19.3"
   }
 }

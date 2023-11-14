@@ -94,6 +94,7 @@ app.use(session({secret: 'adkanqiwnqiwen23131§21§'}));
 
 app.use(flash());
 
+
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/artCollection',
@@ -108,6 +109,8 @@ mongoose.connect('mongodb://localhost:27017/artCollection',
 
 const ArtPiece = require('./models/artPiece.js');
 const User = require('./models/user.js');
+
+const collection = require('./routes/collection')
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -133,6 +136,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+app.use('/collection', collection)
 
 
 
@@ -350,216 +354,7 @@ console.log('authentication success')
 
 
 
-app.get('/collection', isLoggedIn, catchAsync (async (req, res, next) => {
 
-
-    let queryString = JSON.stringify(req.query);
-    const userTable = (req.user.custom_table);
-
-    const archivalStatus = req.query.archival;
-    
-
-    let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); //here, I want him to find only pieces created by the user that is logged in
-    
-    const archivalPieces = await ArtPiece.find(
-        { archival: {$in: [ 'true' ]},
-        user_id: `${req.user._id}`
-    });
-
-    if (archivalStatus === 'archival-hide') {
-        artPieces = await ArtPiece.find(
-            { archival: !{$in: [ 'true' ]},
-            user_id: `${req.user._id}`
-        });
-
-    } if (archivalStatus === 'archival-showOnly') {
-        artPieces = archivalPieces
-    }
-
-
-
-    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable })
-}));
-
-
-app.get('/new', isLoggedIn, (req, res, next) => {
-
-    res.render('new')
-})
-
-
-
-app.post('/collection', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
-
-
-
-    const pieceSchema = joi.object({
-        title: joi.string().required(),
-        artist: joi.string().required(),
-        medium: joi.string().required(),
-        year: joi.array().items({
-
-            year_finished: joi.number().min(0).allow(''), // I'd prefer it required...
-            year_started: joi.number().min(0).allow('')
-    }),
-        images: joi.array().items({
-            url: joi.string().allow(''),
-            filename: joi.string().allow('')
-        }),
-        size: joi.array().items({
-            x: joi.number().min(0).allow(''),
-            y: joi.number().min(0).allow(''),
-            z: joi.number().min(0).allow(''),
-            unit: joi.string().required()
-        }),
-        owner: joi.array().items({
-            name: joi.string().allow(''),
-            contact_info: joi.string().allow(''),
-            status: joi.string()
-        }),
-        holder: joi.array().items({
-            name: joi.string().allow(''),
-            contact_info: joi.string().allow(''),
-            status: joi.string()
-        }),
-        acquiration_date: joi.date().raw().allow(''),
-        archival: joi.boolean().falsy('0').truthy('1').required(),
-        description: joi.string().allow(''),
-        user_id: joi.string().allow(''),
-        forSale: joi.boolean().required().falsy('0').truthy('1').required(),
-        price: joi.array().items({
-            price: joi.number().allow('').min(0),
-            currency: joi.string()
-        }),
-
-        catalogue: joi.string().allow('')
-    }).required();
-    
-    const { error } = pieceSchema.validate(req.body);
-
-    
-    if (error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }
-
-
-    
-    const newPiece = new ArtPiece(req.body);
-    newPiece.images = req.files.map(f => ({url: f.path, filename: f.filename }))
-
-    if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
-
-    await newPiece.save();
-
-    req.flash('success', 'Successfully added your new piece!');
-
-    res.redirect('collection')
-
-
-    }))
-
-app.post('/collection/export_collection', isLoggedIn, catchAsync (async(req, res, next) => {
-    console.log('hit it!!!')
-
-    const wb = XLSX.utils.book_new();
-
-   const data = await ArtPiece.find({ user_id: req.user._id });
-   let currentDate = new Date()
-       currentDate = `${currentDate.getMonth()}.${currentDate.getFullYear()}`
-
-            let temp = JSON.stringify(data);
-            temp = JSON.parse(temp);
-            const ws = XLSX.utils.json_to_sheet(temp);
-            ws['!ref'] = ws['!ref'].replace('S','R'); 
-            const down = __dirname+`/public/${req.user.username}-artCollection(${currentDate}).xlsx`
-            XLSX.utils.book_append_sheet(wb,ws,'sheet1');
-            XLSX.writeFile(wb,down);
-            res.download(down);
-        }));
-
-
-
-
-app.get('/collection/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
-    const { id } =  req.params; 
-    if( !mongoose.Types.ObjectId.isValid(id) ){
-        req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
-        res.redirect('/campgrounds');
-    }
-    const p = await ArtPiece.findById(id);
-
-    res.render('show', { p, moment: moment})
-}))
-
-app.get('/collection/show/:id/edit', isLoggedIn, catchAsync (async (req, res, next) => {
-    const { id } = req.params;
-    const p = await ArtPiece.findById(id);
-    res.render('edit', { p, moment: moment } )
-}))
-
-app.get('/collection/show/:id/edit/images', isLoggedIn, catchAsync (async (req, res, next) => {
-    const { id } = req.params;
-    const p = await ArtPiece.findById(id);
-    res.render('edit_images', { p } )
-}))
-
-app.put('/collection/show/:id', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
-    const { id } = req.params;
-
-    const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
-    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    p.images.push(...imgs);
-
-    if (req.body.makeDefault){
-        
-        for (let imgFileName of req.body.makeDefault) {
-         
-
-            const index = p.images.map((image) => image.filename).indexOf(imgFileName)
-
-            let img = p.images[index] 
-            p.images.splice(index, 1)
-            p.images.unshift(img)
-       
-    }}
-
-    if (req.body.deleteImages){
-        for (let filename of req.body.deleteImages){
-            console.log(filename);
-            await cloudinary.uploader.destroy(filename);
-        }
-        await  p.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages } } } });
-        // console.log(p);
-       }
-
-
-
-    await p.save();
-
-
-
-    req.flash('success', 'Successfully made changes to your piece!');
-    res.redirect(`/collection/show/${id}`);    
-}))
-
-app.delete('/collection/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
-    const { id } = req.params;
-
-    const p = await ArtPiece.findByIdAndDelete(id);
-
-    for (let i of p.images){
-        console.log(i.filename);
-        await cloudinary.uploader.destroy(i.filename);
-    }
-    
-    
-
-    
-    req.flash('success', 'Successfully deleted your piece!');
-
-    res.redirect('/collection');
-}))
 
 
 app.all('*', (req, res, next) => {      //*star* means 'for every path'
