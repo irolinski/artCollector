@@ -73,9 +73,9 @@
 
 <!-- to be unhidden with the checkbox above-->
 <div class="col-md-5 " id="">
-  <div   id="yearstarted" <% if (p.year[0].year_started == null) { %> class="collapse" <% } else { %> class="collapse show" <% } %> id="year_started" name="year[0][year_started]">
+  <div   id="yearstarted" <% if (p.year[0].year_started == null) { %> class="collapse" <% } else { %> class="collapse show" <% } %> id="year_started">
     <label for="year_started" class="form-label">Year Started:</label>
-    <input type="number" class="form-control" placeholder="Year of origin" min="0" value="<%= p.year[0].year_started %>"> 
+    <input type="number" class="form-control" placeholder="Year of origin" min="0" name="year[0][year_started]" value="<%= p.year[0].year_started %>"> 
   </div>
 
 </div>

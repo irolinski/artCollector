@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 
@@ -27,15 +28,12 @@ const { cloudinary } = require('../cloudinary');
 const fs = require('fs');
 const XLSX = require('xlsx');
 
-
-
 const ExpressError = require('../utilities/ExpressError');
 const isLoggedIn  = require('../utilities/isLoggedIn')
 const catchAsync = require('../utilities/catchAsync');
 
-
-
 const ArtPiece = require('../models/artPiece.js');
+
 
 
 
@@ -49,7 +47,7 @@ router.get('/', isLoggedIn, catchAsync (async (req, res, next) => {
     const archivalStatus = req.query.archival;
     
 
-    let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); //here, I want him to find only pieces created by the user that is logged in
+    let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); 
     
     const archivalPieces = await ArtPiece.find(
         { archival: {$in: [ 'true' ]},
@@ -151,25 +149,49 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
 
     router.post('/export_collection', isLoggedIn, catchAsync (async (req, res, next) => {
     
-        const wb = XLSX.utils.book_new();
-    
-       const data = await ArtPiece.find({ user_id: req.user._id });
+        let currentDate = new Date()
+        currentDate = `${currentDate.getMonth()}.${currentDate.getFullYear()}`;
 
-       let currentDate = new Date()
-           currentDate = `${currentDate.getMonth()}.${currentDate.getFullYear()}`
 
-        let d = JSON.stringify(data);
-        d = JSON.parse(d);
+        let exportData = []
 
-        const ws = XLSX.utils.json_to_sheet(d);
+
+        for await (let p of ArtPiece.find({ user_id: req.user._id })) {
+
+            let data = ({
+                title: p.title,
+                artist: p.artist,
+                medium: p.medium,
+                year_started: p.year[0].year_started,
+                year_finished: p.year[0].year_finished,
+                size_x:  p.size[0].x,
+                size_y:  p.size[0].y,
+                size_z:  p.size[0].z,
+                image_url: p.images[0].url,
+                owner_name: (p.owner[0].status === 'self') ? req.user.show_name : p.owner[0].name,
+                owner_contact: (p.owner[0].status === 'self') ? req.user.contact_info : p.owner[0].contact_info,
+                holder_name:(p.holder[0].status === 'self') ? req.user.show_name : p.holder[0].name,
+                holder_contact: (p.holder[0].status === 'self') ? req.user.contact_info : p.holder[0].contact_info,
+                forSale: p.forSale,
+                price: p.price[0].price,
+                price_currency: p.price[0].currency,
+                archival: p.archival,
+                description: p.description,
+                catalogue_number: p.catalogue,
+            })
+            exportData.unshift(data);
+        }
+       const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(exportData);
         ws['!ref'] = ws['!ref'].replace('S','R'); 
+
         const file = `public/${req.user.username}-artCollection(${currentDate}).xlsx`
         XLSX.utils.book_append_sheet(wb,ws,'sheet1');
         XLSX.writeFile(wb, file);
 
         res.download(file, (err) => {
             if (err) {
-              console.log('problem with export ' + err); // Check error if you want
+              console.log('problem with export ' + err)
             }
             fs.unlink(file, () => {
                 console.log('export successful')
@@ -191,6 +213,7 @@ router.get('/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
+    console.log(p);
 
     res.render('show', { p, moment: moment})
 }))
