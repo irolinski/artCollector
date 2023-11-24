@@ -176,7 +176,7 @@ router.get('/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(JSON.stringify(req.user._id), 'aaaand' , `"${p.user_id}"`);
+    // console.log(JSON.stringify(req.user._id), 'aaaand' , `"${p.user_id}"`);
 
     if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
 
