@@ -207,15 +207,24 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
 
 
 router.get('/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
+
+    //need to add here a function that checks if currentUser is the author of the piece
+
     const { id } =  req.params; 
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(p);
+    console.log(JSON.stringify(req.user._id), 'aaaand' , p.user_id);
+
+    if ( JSON.stringify(req.user._id) == p.user_id) {
 
     res.render('show', { p, moment: moment})
+    } else {
+        req.flash('error', `I'm sorry but I cannot find such piece in your collection`);
+        res.redirect('/collection')
+    }
 }))
 
 router.get('/show/:id/edit', isLoggedIn, catchAsync (async (req, res, next) => {
