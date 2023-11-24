@@ -61,7 +61,7 @@
 
             <% if (queryString.includes('added')) { %> <th>Added</th> <% } %>
 
-            <% if (queryString.includes('acquired')){ %> <th>Acquired</th> <% } %>
+             <th <% if (!queryString.includes('acquired')){ %> style="display:none;"  <% } %> >Acquired</th>
 
             <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
 
@@ -131,14 +131,12 @@
                   <% } %>
 
 
-                    <% if (queryString.includes('acquired')){ %> 
-                        <td>
+                        <td <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
                             <% if (piece.acquiration_date) { %>
                         <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
                             <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
                             <% } else { %> no info <% } %>
                         </td>
-                    <% } %>
 
                     <% if (queryString.includes('forSale')){ %> 
                         <td>
@@ -233,7 +231,7 @@ window.onload = (function() {
             "columnDefs": [
                 { "orderable": false, "targets": [2, 3]}
             ],
-            order: [[4, 'desc']],
+            order: [[5, 'desc']],
 
         language: {
             //customize pagination prev and next buttons: use arrows instead of words

@@ -33,6 +33,7 @@ const isLoggedIn  = require('../utilities/isLoggedIn')
 const catchAsync = require('../utilities/catchAsync');
 
 const ArtPiece = require('../models/artPiece.js');
+const artPieceJOI = require('../models/artPieceJOI.js');
 
 
 
@@ -81,48 +82,8 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
 
 
 
-    const pieceSchema = joi.object({
-        title: joi.string().required(),
-        artist: joi.string().required(),
-        medium: joi.string().required(),
-        year: joi.array().items({
+    const pieceSchema =  artPieceJOI
 
-            year_finished: joi.number().min(0).allow(''), // I'd prefer it required...
-            year_started: joi.number().min(0).allow('')
-    }),
-        images: joi.array().items({
-            url: joi.string().allow(''),
-            filename: joi.string().allow('')
-        }),
-        size: joi.array().items({
-            x: joi.number().min(0).allow(''),
-            y: joi.number().min(0).allow(''),
-            z: joi.number().min(0).allow(''),
-            unit: joi.string().required()
-        }),
-        owner: joi.array().items({
-            name: joi.string().allow(''),
-            contact_info: joi.string().allow(''),
-            status: joi.string()
-        }),
-        holder: joi.array().items({
-            name: joi.string().allow(''),
-            contact_info: joi.string().allow(''),
-            status: joi.string()
-        }),
-        acquiration_date: joi.date().raw().allow(''),
-        archival: joi.boolean().falsy('0').truthy('1').required(),
-        description: joi.string().allow(''),
-        user_id: joi.string().allow(''),
-        forSale: joi.boolean().required().falsy('0').truthy('1').required(),
-        price: joi.array().items({
-            price: joi.number().allow('').min(0),
-            currency: joi.string()
-        }),
-
-        catalogue: joi.string().allow('')
-    }).required();
-    
     const { error } = pieceSchema.validate(req.body);
 
     
@@ -208,7 +169,6 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
 
 router.get('/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
 
-    //need to add here a function that checks if currentUser is the author of the piece
 
     const { id } =  req.params; 
     if( !mongoose.Types.ObjectId.isValid(id) ){
@@ -216,9 +176,9 @@ router.get('/show/:id',isLoggedIn, catchAsync (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(JSON.stringify(req.user._id), 'aaaand' , p.user_id);
+    console.log(JSON.stringify(req.user._id), 'aaaand' , `"${p.user_id}"`);
 
-    if ( JSON.stringify(req.user._id) == p.user_id) {
+    if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
 
     res.render('show', { p, moment: moment})
     } else {
