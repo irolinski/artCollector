@@ -16,7 +16,7 @@ const upload = multer({
         files: 1,
     },
     fileFilter: function (req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+        if (!file.originalname.match(/\.(jpg|JPG|jpeg|png|gif)$/)) {
             return cb(new Error('Only image files are allowed!'));
         }
         cb(null, true);
@@ -128,7 +128,6 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
                 size_x:  p.size[0].x,
                 size_y:  p.size[0].y,
                 size_z:  p.size[0].z,
-                image_url: p.images[0].url,
                 owner_name: (p.owner[0].status === 'self') ? req.user.show_name : p.owner[0].name,
                 owner_contact: (p.owner[0].status === 'self') ? req.user.contact_info : p.owner[0].contact_info,
                 holder_name:(p.holder[0].status === 'self') ? req.user.show_name : p.holder[0].name,
@@ -139,9 +138,16 @@ router.post('/', isLoggedIn, upload.array('images'), catchAsync (async (req, res
                 archival: p.archival,
                 description: p.description,
                 catalogue_number: p.catalogue,
+                image_url_1: (p.images[0] !== undefined) ? p.images[0].url : null,
+                image_url_2: (p.images[1] !== undefined) ? p.images[1].url : null,
+                image_url_3: (p.images[2] !== undefined) ? p.images[2].url : null,
+                image_url_4: (p.images[3] !== undefined) ? p.images[3].url : null,
             })
+
+            console.log(data)
             exportData.unshift(data);
-        }
+        };
+
        const wb = XLSX.utils.book_new();
         const ws = XLSX.utils.json_to_sheet(exportData);
         ws['!ref'] = ws['!ref'].replace('S','R'); 
@@ -201,7 +207,6 @@ router.get('/show/:id/edit/images', isLoggedIn, catchAsync (async (req, res, nex
 
 router.put('/show/:id', isLoggedIn, upload.array('images'), catchAsync (async (req, res, next) => {
     const { id } = req.params;
-
     const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     p.images.push(...imgs);
@@ -226,11 +231,7 @@ router.put('/show/:id', isLoggedIn, upload.array('images'), catchAsync (async (r
         await  p.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages } } } });
        }
 
-
-
     await p.save();
-
-
 
     req.flash('success', 'Successfully made changes to your piece!');
     res.redirect(`/collection/show/${id}`);    
@@ -244,10 +245,7 @@ router.delete('/show/:id', isLoggedIn, catchAsync (async (req, res, next) => {
     for (let i of p.images){
         await cloudinary.uploader.destroy(i.filename);
     }
-    
-    
 
-    
     req.flash('success', 'Successfully deleted your piece!');
 
     res.redirect('/collection');
