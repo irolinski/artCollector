@@ -13,27 +13,6 @@ const LocalStrategy = require('passport-local');
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const JWT = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
-let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_KEY
-    }
-});
-
-async function sendEmail(userEmail, subject, emailBody) {
-    const info = await transporter.sendMail({
-        from: `"artCollector Team" <${process.env.EMAIL_USER}>`,
-        to: userEmail,
-        subject: subject,
-        text: emailBody,
-    }).catch(console.error);
-    return info ? info.messageID : null; 
-}
 
 const multer = require('multer');
 const {storage} = require('../cloudinary/index.js');
@@ -66,7 +45,6 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
 
 router.get('/preferences', isLoggedIn, users.preferences);
 
-
 router.put('/preferences/edit', isLoggedIn, catchAsync (users.editUser));
 
 router.put('/preferences/change_password', isLoggedIn, catchAsync(users.changePassword));
@@ -75,9 +53,6 @@ router.get('/logout', users.logoutUser)
 
 
 router.post('/forgotten', catchAsync(users.forgottenPassword));
-
-
-
 
 router.route('/password_reset/:id/:token')
     .get(users.sendToken)
