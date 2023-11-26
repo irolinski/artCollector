@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate')%>
 
-<form action="/preferences/deleteAcc/confirmed?_method=DELETE" method="POST">
+<form action="/preferences/deleteAcc?_method=DELETE" method="POST">
     <label for="password">If you wish to proceed, please confirm your password</label>
     <input type="password" name="password" class="form-control mb-3" id="password" placeholder="password" required>
     <input type="password" class="form-control mb-3" id="confirm_password" placeholder="confirm password"  required>
