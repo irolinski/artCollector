@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collected</title>
+    <title>My Collection</title>
     <base href="/" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href='public/stylesheets/collection.css'/>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>       
     <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
+    <link rel="stylesheet" type="text/css" href='public/stylesheets/collection.css'/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -29,8 +29,8 @@
 
 <h1> My Collection </h1>
 
-        <div>
-    <a href="collection/new">Add a New Piece!</a>  
+<p id="table-settings-toggle" data-bs-toggle="collapse" data-bs-target="#table-settings" onclick="toggleClass('active', 'collection-table_length')" >Table Settings &#9660;</p>
+<div id="table-settings" class="collapse">
 <form id="collection_form" class="to_be">
         <label for="archival-select">Archival:</label>
             <select name="archival" id="archival-select" onchange="this.form.submit()">
@@ -64,14 +64,16 @@
     <input type="hidden" name="custom_table" value="<%=queryString%>" />
  <button type="submit"> Set current settings as default </button> 
 </form>
+</div>
 
 
 
 
+<div id="search-box">
+    <div onclick="toggleClass('active', 'collection-table_filter')">&#128270;</div>
+</div>
 
-
-
-<table id="example" class="table table-striped" style="width:100%">
+<table id="collection-table" class="table-hover" style="width:100%">
     <thead>
         <tr>
             <th>Artist</th>
@@ -191,7 +193,9 @@
     </tbody>
 </table>
 
-</div>
+<a href="collection/new">Add a New Piece!</a>  
+
+
 </main>
 </body>
 
@@ -200,14 +204,15 @@
 <!-- jQuery -->
 <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
 
-<!-- Data Table JS -->
-<script src='../public/javascripts/dataTables.js'></script>
-<script src='../public/javascripts/dataTables_responsive.js'></script>
+<!-- Data Table JS --> 
+<script src='public/javascripts/dataTables.js'></script>
+<script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
 
 <script>
 
 //set user default categories
+
 window.onload = (function() { 
 
     var userTable = '<%- JSON.stringify(userTable) %>'
@@ -229,8 +234,6 @@ window.onload = (function() {
 
     }}
 
-             
-
         for (let o of document.querySelector("#archival-select")) {
            if (!queryString.includes("1")) {
             if (userTable.includes(o.value)){ o.selected = 1 } else {
@@ -251,10 +254,10 @@ window.onload = (function() {
 
 
 
-
+//dataTables js code
 
     $(document).ready(function() {
-        $('#example').DataTable({
+        $('#collection-table').DataTable({
             "columnDefs": [
                 { "orderable": false, "targets": [2, 3]}
             ],
@@ -276,10 +279,48 @@ window.onload = (function() {
             '<option value="-1">All</option>'+
             '</select> results'
         }
+        
         })  
+        
     }); 
 
 
+// toggle class function
+
+toggleClass = function(className, id) {    
+
+const el = document.getElementById(id);
+
+if (el.classList.contains(className)) {
+    el.classList.remove(className)
+} else {
+el.classList.add(className)
+}};
+
+
+//navbar responsive width
+
+window.onload = (function setWidth() {
+
+  let one = document.getElementById('collection-table');
+  let two = document.getElementById("navbar");
+  style = window.getComputedStyle(one);
+  let wdt = style.getPropertyValue('width');
+
+  if(window.innerWidth<800 && window.innerWidth>500){
+        console.log('mid')
+        wdt = parseInt(wdt) + 140 + 'px'
+        two.style.width = wdt;
+    }
+  if(window.innerWidth<500) {
+    console.log('smol')
+    wdt = parseInt(wdt) + 40 + 'px'
+    two.style.width = wdt;
+  }
+
+else { console.log('big guyy')} } 
+    
+)
     
 </script>
 
