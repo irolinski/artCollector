@@ -29,7 +29,12 @@
 
 <h1> My Collection </h1>
 
-<p id="table-settings-toggle" data-bs-toggle="collapse" data-bs-target="#table-settings" onclick="toggleClass('active', 'collection-table_length')" >Table Settings &#9660;</p>
+
+
+
+<p id="table-settings-toggle" data-bs-toggle="collapse" data-bs-target="#table-settings" onclick="toggleClass('active', 'collection-table_length')" >Table Settings &#9660;</p> 
+
+
 <div id="table-settings" class="collapse">
 <form id="collection_form" class="to_be">
         <label for="archival-select">Archival:</label>
@@ -39,7 +44,17 @@
                 <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
 
             </select>
-
+            <label for="length_change">Display:</label>
+            <select name='length_change' id='length_change'>
+                <option value='5'>5</option>
+                <option value='10'>10</option>
+                <option value='15'>15</option>
+                <option value='200'>200</option>
+            </select>
+            
+            
+            <br><br>
+<div style="display:flex; justify-content: flex-start;" >
         <label for="categories">Manage Categories:</label>
         
             <div id="categories">
@@ -58,20 +73,23 @@
         <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
         <label for="#checkbox4"> Catalogue Number </label>
     </div>
+</div>
 </form>
 
 <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
-    <input type="hidden" name="custom_table" value="<%=queryString%>" />
- <button type="submit"> Set current settings as default </button> 
+    <input type="hidden" name="custom_table" value="<%=queryString%>"/>
+ <button type="submit"> Save as default </button> 
 </form>
-</div>
-
-
-
+</div><br>
 
 <div id="search-box">
-    <div onclick="toggleClass('active', 'collection-table_filter')">&#128270;</div>
+    <p> <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion', 'search-icon')">&#128270;</span>   <span id="search-accordion" class="search-accordion"><input type="text" id="table-search"> <span onclick="toggleClass('active', 'search-accordion', 'search-icon')"> &#8249; </span> </span></p>
 </div>
+
+
+
+
+
 
 <table id="collection-table" class="table-hover" style="width:100%">
     <thead>
@@ -213,7 +231,9 @@
 
 //set user default categories
 
-window.onload = (function() { 
+
+
+let setDefault = function() { 
 
     var userTable = '<%- JSON.stringify(userTable) %>'
     var queryString = '<%- JSON.stringify(queryString) %>'
@@ -249,15 +269,42 @@ window.onload = (function() {
 
 } else {
     localStorage.removeItem('defaultCollectionSettings');
-}})
+}};
 
 
+
+
+let setWidth = function() {
+
+let one = document.getElementById('collection-table');
+let two = document.getElementById("navbar");
+style = window.getComputedStyle(one);
+let wdt = style.getPropertyValue('width');
+
+if(window.innerWidth<800 && window.innerWidth>500){
+      console.log('mid')
+      wdt = parseInt(wdt) + 140 + 'px'
+      two.style.width = wdt;
+  }
+if(window.innerWidth<500) {
+  console.log('smol')
+  wdt = parseInt(wdt) + 40 + 'px'
+  two.style.width = wdt;
+}
+
+else { console.log('big guyy')} 
+};
+  
+window.onload = (function(){
+    setDefault();
+    setWidth();
+})
 
 
 //dataTables js code
 
     $(document).ready(function() {
-        $('#collection-table').DataTable({
+        let table = $('#collection-table').DataTable({
             "columnDefs": [
                 { "orderable": false, "targets": [2, 3]}
             ],
@@ -268,59 +315,53 @@ window.onload = (function() {
             'paginate': {
             'previous': '<span class="fa fa-chevron-left"></span>',
             'next': '<span class="fa fa-chevron-right"></span>'
-            },
-            //customize number of elements to be displayed
-            "lengthMenu": 'Display <select class="form-control input-sm">'+
-            '<option value="10">10</option>'+
-            '<option value="20">20</option>'+
-            '<option value="30">30</option>'+
-            '<option value="40">40</option>'+
-            '<option value="50">50</option>'+
-            '<option value="-1">All</option>'+
-            '</select> results'
-        }
+            }},
+        searching: true
         
-        })  
-        
-    }); 
-
-
-// toggle class function
-
-toggleClass = function(className, id) {    
-
-const el = document.getElementById(id);
-
-if (el.classList.contains(className)) {
-    el.classList.remove(className)
-} else {
-el.classList.add(className)
-}};
-
-
-//navbar responsive width
-
-window.onload = (function setWidth() {
-
-  let one = document.getElementById('collection-table');
-  let two = document.getElementById("navbar");
-  style = window.getComputedStyle(one);
-  let wdt = style.getPropertyValue('width');
-
-  if(window.innerWidth<800 && window.innerWidth>500){
-        console.log('mid')
-        wdt = parseInt(wdt) + 140 + 'px'
-        two.style.width = wdt;
-    }
-  if(window.innerWidth<500) {
-    console.log('smol')
-    wdt = parseInt(wdt) + 40 + 'px'
-    two.style.width = wdt;
-  }
-
-else { console.log('big guyy')} } 
+        }) 
+        $('#table-search').keyup(function() {
+        table.search($(this).val()).draw();
+        })
+        $('#length_change').val(table.page.len());
+    $('#length_change').change( function() { 
+    table.page.len( $(this).val() ).draw();
+});
     
-)
+    ; 
+
+
+
+
+    //custom search
+
+
+   
+});
+
+    //custom length
+
+
+
+// toggle class js function
+
+toggleClass = function(className, id1, id2) {    
+
+const el1 = document.getElementById(id1);
+if (el1.classList.contains(className)) {
+    el1.classList.remove(className)
+} else {
+el1.classList.add(className)
+}
+if(id2){
+const el2 = document.getElementById(id2);
+if(el2.classList.contains(className)) {
+    el2.classList.remove(className)
+} else {
+    el2.classList.add(className)
+}}
+
+};
+
     
 </script>
 
