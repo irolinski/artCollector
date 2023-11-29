@@ -9,8 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>       
     <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
-    <link rel="stylesheet" type="text/css" href='public/stylesheets/collection.css'/>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href='public/stylesheets/collection.css'/>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
@@ -29,6 +30,7 @@
 
 <h1> My Collection </h1>
 
+<container id="#NewPaginationContainer"></container>
 
 
 
@@ -43,42 +45,64 @@
                 <option value="archival-show" <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
                 <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
 
-            </select>
-            <label for="length_change">Display:</label>
+            </select><br><br>
+
+            <label for="length_change">I want to see</label>
             <select name='length_change' id='length_change'>
                 <option value='5'>5</option>
                 <option value='10'>10</option>
                 <option value='15'>15</option>
                 <option value='200'>200</option>
             </select>
+            <label for="length_change">pieces per page</label>
+
+            
             
             
             <br><br>
-<div style="display:flex; justify-content: flex-start;" >
-        <label for="categories">Manage Categories:</label>
+<div  >
+        <label id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist">Manage Categories &#8811; </label>
         
-            <div id="categories">
+            <div id="categories-checklist" class="collapse">
+                <div>
         <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
-        <label for="#checkbox0"> Added </label>
-
+        <label class="category-label" for="#checkbox0"> Added </label>
+                </div>
+                <div>
         <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
-        <label for="#checkbox1"> Date acquired </label>
+        <label class="category-label" for="#checkbox1"> Date acquired </label>
+    </div>
+
+        <div>
 
         <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
-        <label for="#checkbox2"> For Sale </label>
+        <label class="category-label" for="#checkbox2"> For Sale </label>
+    </div>
+
+        <div>
 
         <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
-        <label for="#checkbox3"> Archival </label>
+        <label class="category-label" for="#checkbox3"> Archival </label>
+    </div>
+
+        <div>
 
         <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
-        <label for="#checkbox4"> Catalogue Number </label>
+        <label class="category-label" for="#checkbox4"> Catalogue Number </label>
+    </div>
+
+    <p onclick="toggleClass('active', 'categories-checklist', 'categories-label', 'categories-checklist-mobile-placeholder')">&#8810;</p>
+
+    </div>
+    <div id="categories-checklist-mobile-placeholder"> 
+        <p>If you wish to see more categories, you'll have to filp your device to horizontal mode...</p>
     </div>
 </div>
 </form>
 
 <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
     <input type="hidden" name="custom_table" value="<%=queryString%>"/>
- <button type="submit"> Save as default </button> 
+ <button type="submit" id="categories-save"> Save as default </button> 
 </form>
 </div><br>
 
@@ -104,15 +128,15 @@
 
             <th>Year</th>
 
-            <% if (queryString.includes('added')) { %> <th>Added</th> <% } %>
+            <% if (queryString.includes('added')) { %> <th class="portrait-hide">Added</th> <% } %>
 
-             <th <% if (!queryString.includes('acquired')){ %> style="display:none;"  <% } %> >Acquired</th>
+             <th class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display:none;"  <% } %> >Acquired</th>
 
-            <% if (queryString.includes('forSale')){ %> <th>For Sale</th> <% } %>
+            <% if (queryString.includes('forSale')){ %> <th class="portrait-hide">For Sale</th> <% } %>
 
-            <% if(queryString.includes('arch-col')){ %> <th>Archival</th> <% } %>
+            <% if(queryString.includes('arch-col')){ %> <th class="portrait-hide">Archival</th> <% } %>
 
-            <% if(queryString.includes('catalogue')){ %> <th>Catalogue Number</th> <% } %>
+            <% if(queryString.includes('catalogue')){ %> <th class="portrait-hide">Catalogue Number</th> <% } %>
 
 
         </tr>
@@ -167,7 +191,7 @@
                 
             
                   <% if (queryString.includes('added')) {   %>       
-                    <td>
+                    <td class="portrait-hide">
 
                     <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
                   <%=  moment (piece.createdAt).fromNow() %> 
@@ -176,7 +200,7 @@
                   <% } %>
 
 
-                        <td <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
+                        <td class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
                             <% if (piece.acquiration_date) { %>
                         <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
                             <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
@@ -184,7 +208,7 @@
                         </td>
 
                     <% if (queryString.includes('forSale')){ %> 
-                        <td>
+                        <td class="portrait-hide">
                             <% if (piece.forSale == true) { %>
                                 <% for (let el of piece.price) { %>
                                   <%  if (el.price !== null) { %>
@@ -197,12 +221,12 @@
                     <% } %>
 
                     <% if (queryString.includes('arch-col')) { %>
-                    <td><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
+                    <td class="portrait-hide"><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
                     <% } %>
 
 
                     <% if (queryString.includes('catalogue')) { %>
-                        <td><%=  piece.catalogue %></td>
+                        <td class="portrait-hide"><%=  piece.catalogue %></td>
                         <% } %>
 
 
@@ -211,8 +235,8 @@
     </tbody>
 </table>
 
-<a href="collection/new">Add a New Piece!</a>  
 
+<a href="collection/new">Add a New Piece!</a>  
 
 </main>
 </body>
@@ -272,32 +296,33 @@ let setDefault = function() {
 }};
 
 
+//navbar - appropariate width
 
+// let setWidth = function() {
 
-let setWidth = function() {
+// let one = document.getElementById('collection-table');
+// let two = document.getElementById("navbar");
+// style = window.getComputedStyle(one);
+// let wdt = style.getPropertyValue('width');
 
-let one = document.getElementById('collection-table');
-let two = document.getElementById("navbar");
-style = window.getComputedStyle(one);
-let wdt = style.getPropertyValue('width');
+// if(window.innerWidth<800 && window.innerWidth>500){
+//       console.log('mid')
+//       wdt = parseInt(wdt) + 140 + 'px'
+//       two.style.width = wdt;
+//   }
+// if(window.innerWidth<500) {
+//   console.log('smol')
+//   wdt = parseInt(wdt) + 40 + 'px'
+//   two.style.width = wdt;
+// }
 
-if(window.innerWidth<800 && window.innerWidth>500){
-      console.log('mid')
-      wdt = parseInt(wdt) + 140 + 'px'
-      two.style.width = wdt;
-  }
-if(window.innerWidth<500) {
-  console.log('smol')
-  wdt = parseInt(wdt) + 40 + 'px'
-  two.style.width = wdt;
-}
-
-else { console.log('big guyy')} 
-};
+// else { console.log('big guyy')} 
+// };
   
+
 window.onload = (function(){
     setDefault();
-    setWidth();
+    // setWidth();
 })
 
 
@@ -311,56 +336,38 @@ window.onload = (function(){
             order: [[5, 'desc']],
 
         language: {
-            //customize pagination prev and next buttons: use arrows instead of words
             'paginate': {
-            'previous': '<span class="fa fa-chevron-left"></span>',
-            'next': '<span class="fa fa-chevron-right"></span>'
+            'previous': '&#8810;',
+            'next': '&#8811;'
             }},
         searching: true
         
         }) 
         $('#table-search').keyup(function() {
-        table.search($(this).val()).draw();
-        })
+            table.search($(this).val()).draw();
+        });
         $('#length_change').val(table.page.len());
-    $('#length_change').change( function() { 
-    table.page.len( $(this).val() ).draw();
-});
-    
-    ; 
-
-
-
-
-    //custom search
-
-
+        $('#length_change').change( function() { 
+            table.page.len( $(this).val() ).draw();
+        });
    
 });
-
-    //custom length
-
 
 
 // toggle class js function
 
-toggleClass = function(className, id1, id2) {    
+toggleClass = function(className, id1, id2, id3, id4) {    
 
-const el1 = document.getElementById(id1);
-if (el1.classList.contains(className)) {
-    el1.classList.remove(className)
-} else {
-el1.classList.add(className)
-}
-if(id2){
-const el2 = document.getElementById(id2);
-if(el2.classList.contains(className)) {
-    el2.classList.remove(className)
-} else {
-    el2.classList.add(className)
-}}
+for (let i = 1; i < arguments.length; i++ ){
+    let id = arguments[i]
 
-};
+    let el = document.getElementById(id);
+    if (el.classList.contains(className)) {
+        el.classList.remove(className)
+    } else {
+        el.classList.add(className)
+    }
+}};
 
     
 </script>

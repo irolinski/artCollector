@@ -11,6 +11,7 @@ body{
 
 /* table setting accordion styling */
 
+
 #category-div{
     display:flex; 
     justify-content: flex-start;
@@ -24,6 +25,18 @@ body{
     display: none !important;
 }
 
+/* #categories-checklist{
+    display:flex; 
+    visibility: hidden;
+} */
+
+#categories-checklist.active{
+    visibility: visible;
+}
+
+#categories-checklist-mobile-placeholder{
+    display: none;
+}
 /* search box styling */
 
 #search-box:hover,
@@ -56,11 +69,6 @@ body{
     visibility: visible;
 }
 
-#collection-table_length{
-display: none;}
-
-#collection-table_length.active{
-display: inline;}
 
 /* table styling */
 
@@ -77,6 +85,59 @@ th {
     transform: translateX(0.9em);
 
 }
+
+
+/* pagination styling */
+
+.pagination{
+    color: black;
+    /* background-color: aliceblue !important; */
+    --bs-pagination-color: rgb(27, 23, 23);
+    --bs-pagination-hover-color: rgba(92, 86, 86, 0.7);
+    --bs-pagination-focus-color: transparent;
+    --bs-pagination-border-width: 0;
+    --bs-pagination-bg: #transparent;
+    --bs-pagination-hover-bg: transparent;
+
+    --bs-pagination-border-color: transparent;
+    --bs-pagination-active-border-color: transparent;
+    --bs-pagination-disabled-bg: transparent;
+
+    --bs-pagination-active-bg: transparent;
+    --bs-pagination-border-radius: 0;
+    --bs-pagination-active-color: rgba(26, 1, 1, 0.63);
+
+}
+
+.paginate_button.active .page-link {
+    background-color: transparent !important;
+    border: transparent !important;
+  }
+  
+
+
+
+/* table info */
+
+#collection-table_info{
+
+}
+
+    
+
+@media all and (orientation:portrait) {
+    .portrait-hide,
+    #categories-save,
+    #categories-checklist.active
+    {
+        display: none;
+    }
+
+    #categories-checklist-mobile-placeholder.active{
+        display: inline-block;
+    }
+    
+  }
 
 
 @media all and (min-width: 1024px) and (max-width: 1280px) {
