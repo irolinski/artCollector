@@ -119,15 +119,11 @@ th {
 
 /* table info */
 
-#collection-table_info{
-
-}
-
-    
 
 @media all and (orientation:portrait) {
     .portrait-hide,
     #categories-save,
+    #categories-checklist,
     #categories-checklist.active
     {
         display: none;

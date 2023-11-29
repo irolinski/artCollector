@@ -61,7 +61,7 @@
             
             <br><br>
 <div  >
-        <label id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist">Manage Categories &#8811; </label>
+        <label id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist" onclick="toggleClass('active', 'categories-checklist-mobile-placeholder')">Manage Categories &#8811; </label>
         
             <div id="categories-checklist" class="collapse">
                 <div>
@@ -94,8 +94,8 @@
     <p onclick="toggleClass('active', 'categories-checklist', 'categories-label', 'categories-checklist-mobile-placeholder')">&#8810;</p>
 
     </div>
-    <div id="categories-checklist-mobile-placeholder"> 
-        <p>If you wish to see more categories, you'll have to filp your device to horizontal mode...</p>
+    <div id="categories-checklist-mobile-placeholder" class=""> <br>
+        <p>If you wish to see more categories - just flip your device!</p>
     </div>
 </div>
 </form>
