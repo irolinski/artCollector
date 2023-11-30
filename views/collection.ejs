@@ -31,7 +31,7 @@
 
 <container id="setting-container" class="row">
     <!-- category settings -->
-    <div class="col-md-3">
+    <div class="col-md-3" id="table-categories-div">
     <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'collection-table_length')" >Category Settings &#9660;</p> 
 
     <div id="category-settings" class="collapse">
@@ -44,10 +44,10 @@
 
                 </select><br><br>
             
-        <div>
-            <p class="text-nowrap" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target=".categories-checklist">Manage Categories &#8811;</label>
+        <section id="categories-container">
+            <p id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist')">Manage Categories &#9660;</label>
             
-                <div id="categories-checklist" class="collapse categories-checklist">
+                <div id="categories-checklist" class="categories-checklist">
                     <div>
             <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
             <label class="category-label" for="#checkbox0"> Added </label>
@@ -74,14 +74,13 @@
             <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
             <label class="category-label" for="#checkbox4"> Catalogue Number </label>
         </div>
-
-        <!-- <p onclick="toggleClass('active', 'categories-checklist', 'categories-label', 'categories-checklist-mobile-placeholder')">&#8810;</p> -->
-
         </div>
         <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
             <p>If you wish to see more categories - just flip your device!</p>
         </div>
-        </div>
+
+    </section>
+
         </form>
 
         <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
@@ -93,7 +92,7 @@
 
 
     <!-- display settings -->
-    <div class="col-md-3">
+    <div class="col-md-3" id="display-settings-div">
     <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings">Display Settings &#9660;</p>
 
 
@@ -115,7 +114,7 @@
 
     <div class="col-md-5"></div>
     <div class="col-md-1" >
-        <a id="new-link" href="collection/new">+</a>  
+        <div id="new-link-div"><a id="new-link" href="collection/new"><span>+</span></a></div>  
 
     </div>
 
