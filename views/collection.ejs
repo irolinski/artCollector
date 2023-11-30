@@ -20,8 +20,6 @@
     
 </head>
 
-<!-- add a constant row height maybe?-->
-
 <body class="d-flex flex-column vh-100">
     <%- include('./partials/navbar.ejs')  %>
     
@@ -30,81 +28,99 @@
 
 <h1> My Collection </h1>
 
-<container id="#NewPaginationContainer"></container>
 
+<container id="setting-container" class="row">
+    <!-- category settings -->
+    <div class="col-md-3">
+    <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'collection-table_length')" >Category Settings &#9660;</p> 
 
+    <div id="category-settings" class="collapse">
+        <form id="collection_form" class="to_be">
+            <label for="archival-select">Archival:</label>
+                <select name="archival" id="archival-select" onchange="this.form.submit()">
+                    <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %> >Hide</option>
+                    <option value="archival-show" <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
+                    <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
 
-<p id="table-settings-toggle" data-bs-toggle="collapse" data-bs-target="#table-settings" onclick="toggleClass('active', 'collection-table_length')" >Table Settings &#9660;</p> 
-
-
-<div id="table-settings" class="collapse">
-<form id="collection_form" class="to_be">
-        <label for="archival-select">Archival:</label>
-            <select name="archival" id="archival-select" onchange="this.form.submit()">
-                <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %> >Hide</option>
-                <option value="archival-show" <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
-                <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
-
-            </select><br><br>
-
-            <label for="length_change">I want to see</label>
-            <select name='length_change' id='length_change'>
-                <option value='5'>5</option>
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='200'>200</option>
-            </select>
-            <label for="length_change">pieces per page</label>
-
+                </select><br><br>
             
+        <div>
+            <p class="text-nowrap" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target=".categories-checklist">Manage Categories &#8811;</label>
             
-            
-            <br><br>
-<div  >
-        <label id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist" onclick="toggleClass('active', 'categories-checklist-mobile-placeholder')">Manage Categories &#8811; </label>
-        
-            <div id="categories-checklist" class="collapse">
-                <div>
-        <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
-        <label class="category-label" for="#checkbox0"> Added </label>
-                </div>
-                <div>
-        <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
-        <label class="category-label" for="#checkbox1"> Date acquired </label>
+                <div id="categories-checklist" class="collapse categories-checklist">
+                    <div>
+            <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
+            <label class="category-label" for="#checkbox0"> Added </label>
+                    </div>
+                    <div>
+            <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
+            <label class="category-label" for="#checkbox1"> Date acquired </label>
+        </div>
+
+            <div>
+
+            <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
+            <label class="category-label" for="#checkbox2"> For Sale </label>
+        </div>
+
+            <div>
+
+            <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
+            <label class="category-label" for="#checkbox3"> Archival </label>
+        </div>
+
+            <div>
+
+            <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
+            <label class="category-label" for="#checkbox4"> Catalogue Number </label>
+        </div>
+
+        <!-- <p onclick="toggleClass('active', 'categories-checklist', 'categories-label', 'categories-checklist-mobile-placeholder')">&#8810;</p> -->
+
+        </div>
+        <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
+            <p>If you wish to see more categories - just flip your device!</p>
+        </div>
+        </div>
+        </form>
+
+        <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
+        <input type="hidden" name="custom_table" value="<%=queryString%>"/>
+        <button type="submit" id="categories-save"> Save as default </button> 
+        </form>
+    </div>
+    </div>  <br>
+
+
+    <!-- display settings -->
+    <div class="col-md-3">
+    <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings">Display Settings &#9660;</p>
+
+
+    <div id="display-settings" class="collapse">
+
+        <label for="length_change">Pieces per page:</label>
+        <select name='length_change' id='length_change'>
+            <option value='5'>5</option>
+            <option value='10'>10</option>
+            <option value='15'>15</option>
+            <option value='200'>200</option>
+        </select>
+        <br><br>
+        <label for="table-info-checkbox">Show display info</label>
+        <input type="checkbox" id="table-info-checkbox" onclick="toggleClass('active', 'collection-table_info')">
+
+    </div>
     </div>
 
-        <div>
-
-        <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
-        <label class="category-label" for="#checkbox2"> For Sale </label>
-    </div>
-
-        <div>
-
-        <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
-        <label class="category-label" for="#checkbox3"> Archival </label>
-    </div>
-
-        <div>
-
-        <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
-        <label class="category-label" for="#checkbox4"> Catalogue Number </label>
-    </div>
-
-    <p onclick="toggleClass('active', 'categories-checklist', 'categories-label', 'categories-checklist-mobile-placeholder')">&#8810;</p>
+    <div class="col-md-5"></div>
+    <div class="col-md-1" >
+        <a id="new-link" href="collection/new">+</a>  
 
     </div>
-    <div id="categories-checklist-mobile-placeholder" class=""> <br>
-        <p>If you wish to see more categories - just flip your device!</p>
-    </div>
-</div>
-</form>
 
-<form action="/preferences/edit?_method=PUT" method="POST" novalidate>
-    <input type="hidden" name="custom_table" value="<%=queryString%>"/>
- <button type="submit" id="categories-save"> Save as default </button> 
-</form>
-</div><br>
+
+</container>
 
 <div id="search-box">
     <p> <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion', 'search-icon')">&#128270;</span>   <span id="search-accordion" class="search-accordion"><input type="text" id="table-search"> <span onclick="toggleClass('active', 'search-accordion', 'search-icon')"> &#8249; </span> </span></p>
@@ -122,7 +138,7 @@
 
             <th>Title</th>
 
-            <th>Thumbnail</th>
+            <th>Image</th>
 
             <th>Medium / Size</th> 
 
@@ -136,7 +152,7 @@
 
             <% if(queryString.includes('arch-col')){ %> <th class="portrait-hide">Archival</th> <% } %>
 
-            <% if(queryString.includes('catalogue')){ %> <th class="portrait-hide">Catalogue Number</th> <% } %>
+            <% if(queryString.includes('catalogue')){ %> <th class="portrait-hide">Cat. Num.</th> <% } %>
 
 
         </tr>
@@ -236,7 +252,6 @@
 </table>
 
 
-<a href="collection/new">Add a New Piece!</a>  
 
 </main>
 </body>

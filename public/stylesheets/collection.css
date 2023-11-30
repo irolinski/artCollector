@@ -1,4 +1,4 @@
-
+/* 
 
 body{
     background-color: whitesmoke;
@@ -9,40 +9,76 @@ body{
 }
 
 
-/* table setting accordion styling */
+/* table setting styling */
 
 
-#category-div{
+
+
+
+
+
+/* #category-div{
     display:flex; 
     justify-content: flex-start;
-}
+} */
 
 .category-check{
     margin: 0.3em;
+}
+
+#new-link{
+    color: black;
+    text-decoration: none;
+    font-weight: 400;
+    padding: 1vh;
 }
 
 #collection-table_length{
     display: none !important;
 }
 
-/* #categories-checklist{
-    display:flex; 
-    visibility: hidden;
-} */
-
-#categories-checklist.active{
-    visibility: visible;
-}
 
 #categories-checklist-mobile-placeholder{
-    display: none;
+    transform: translateY(-2vh);
+
 }
+
 /* search box styling */
 
-#search-box:hover,
-#table-settings-toggle:hover{
+#search-box{
+    padding: 1vh;
+
+}
+
+#search-box:hover{
     cursor: pointer;
 }
+
+/* settings togglers styling */
+/* 
+#table-categories-toggle,
+#display-settings-toggle{
+   
+} */
+
+#table-categories-toggle:hover,
+#display-settings-toggle:hover{
+    cursor: pointer;
+}
+
+#categories-save{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* search box styling */
 
 #collection-table_filter{
     display: none;
@@ -119,6 +155,30 @@ th {
 
 /* table info */
 
+#collection-table_info{
+    display: none;
+}
+
+#collection-table_info.active{
+    display: inline-block;
+}
+
+/* pagination */
+
+#collection-table_paginate{
+    padding-bottom: 5vh;
+}
+
+/* orientation media query */
+
+@media all and (orientation:landscape) {
+
+#categories-checklist-mobile-placeholder{
+    display: none;
+}
+
+
+}
 
 @media all and (orientation:portrait) {
     .portrait-hide,
@@ -126,18 +186,22 @@ th {
     #categories-checklist,
     #categories-checklist.active
     {
-        display: none;
+        display: none !important;
     }
 
-    #categories-checklist-mobile-placeholder.active{
-        display: inline-block;
+
+
+    #collection-table{
+        padding-bottom: 2vh;
     }
     
   }
 
 
-@media all and (min-width: 1024px) and (max-width: 1280px) {
-    
+@media all and (min-width: 1220px)  {
+    #display-settings-toggle{
+        transform: translateX(-12vh);
+    }
  }
 
 @media all and (min-width: 768px) and (max-width: 1024px) { }
