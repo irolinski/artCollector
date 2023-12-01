@@ -32,7 +32,7 @@
 <container id="setting-container" class="row">
     <!-- category settings -->
     <div class="col-md-3" id="table-categories-div">
-    <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'collection-table_length')" >Category Settings &#9660;</p> 
+    <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></p> 
 
     <div id="category-settings" class="collapse">
         <form id="collection_form" class="to_be">
@@ -45,7 +45,7 @@
                 </select><br><br>
             
         <section id="categories-container">
-            <p id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist')">Manage Categories &#9660;</label>
+            <p id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
             
                 <div id="categories-checklist" class="categories-checklist">
                     <div>
@@ -76,7 +76,7 @@
         </div>
         </div>
         <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
-            <p>If you wish to see more categories - just flip your device!</p>
+            <p id="categories-checklist-mobile-placeholder-sign">Flip your device!</p>
         </div>
 
     </section>
@@ -93,7 +93,7 @@
 
     <!-- display settings -->
     <div class="col-md-3" id="display-settings-div">
-    <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings">Display Settings &#9660;</p>
+    <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow'); removeClass('active','categories-checklist' )">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></p>
 
 
     <div id="display-settings" class="collapse">
@@ -112,21 +112,22 @@
     </div>
     </div>
 
-    <div class="col-md-5"></div>
-    <div class="col-md-1" >
-        <div id="new-link-div"><a id="new-link" href="collection/new"><span>+</span></a></div>  
+    <div class="col-md-4"></div> <div class="col-md-2"><a href='/preferences'>User preferences</a></div> 
 
+
+
+
+    <div class="col-md-5" id="search-box">
+        <p> <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion')">&#9906;</span>   <span id="search-accordion" class="search-accordion"><input type="text" id="table-search" placeholder="Search"> </span></p>
     </div>
 
+<div class="col-md-1"></div>
+<div class="col-md-3">
+    <div id="new-link-div"><a id="new-link" href="collection/new"></a></div>  
+</div>
+<div class="col-md-3"></div>
 
 </container>
-
-<div id="search-box">
-    <p> <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion', 'search-icon')">&#128270;</span>   <span id="search-accordion" class="search-accordion"><input type="text" id="table-search"> <span onclick="toggleClass('active', 'search-accordion', 'search-icon')"> &#8249; </span> </span></p>
-</div>
-
-
-
 
 
 
@@ -164,7 +165,7 @@
                 <tr>
                     <td><%= piece.artist %></td>
 
-                    <td> <a href="collection/show/<%=piece.id%>"> <%= piece.title %> </a> </td>
+                    <td> <a class="piece-title-link" href="collection/show/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
 
                     <td>
                         <% if (piece.images.length > 0) { %>
@@ -382,6 +383,15 @@ for (let i = 1; i < arguments.length; i++ ){
         el.classList.add(className)
     }
 }};
+
+// remove class js function
+
+removeClass = function(className, id) {
+    let el = document.getElementById(id);
+    el.classList.remove(className);
+};
+
+
 
     
 </script>
