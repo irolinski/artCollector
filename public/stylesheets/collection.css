@@ -6,15 +6,27 @@
     margin: 0.3em;
 }
 
+#preferences-link{
+    color: black;
+    text-decoration: none;
+    padding: 1vh;
+    white-space: nowrap;
+}
 
-#new-link-div{
-    transform: translateX(-1vw);
-    transition: transform .2s ease-in-out;
+
+
+#new-link-div,
+#search-box{
+    transform: translateX(-0.5vw);
+    transition: transform 1s ease-in-out;
 
 
 
 }
-#new-link-div:hover{
+
+
+#new-link-div:hover,
+#search-box:hover{
     transform: translateX(-2vw);
 
 }
@@ -42,11 +54,14 @@
 
 
 
+
 #collection-table_length{
     display: none !important;
 }
 #categories-container{
     display: inline-flex;
+    position: relative;
+    z-index: 2
 }
 
 #categories-label{
@@ -91,17 +106,25 @@
 }
 
 #table-categories-toggle,
-#display-settings-toggle{
+#display-settings-toggle,
+#preferences-link-div{
     transition: transform 1s;
 }
 
 #table-categories-toggle:hover,
 #display-settings-toggle:hover,
-#preferences-link{
+#preferences-link-div:hover{
     cursor: pointer;
     transform: translateY(-2.5px);
 }
 
+#display-settings{
+    z-index: 0;
+}
+
+#display-settings.show{
+    z-index: 3;
+}
 
 #categories-save{
     background: none!important;
@@ -150,17 +173,21 @@ transform: translateX(-200px);
     transform: translateX(10px);
     max-width: 160wv;
 }
-
+/* 
 #search-box{
-    padding: 1vh;
-}
+
+    transform: translateX(-1vw);
+    transition: transform .2s ease-in-out;
+
+} */
+
 
 .search-icon{
+    padding: 1vh;
+
     visibility: visible;
-    display: inline-flex;
-    transform: rotate(55deg);
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 400;
     transition: transform 1s;
 
 
@@ -168,9 +195,27 @@ transform: translateX(-200px);
 
 #search-icon:hover{
     cursor: pointer;
-    transform: translateY(-2px) rotate(40deg);
+    transform: translateY(-2px);
+    /* rotate(40deg); */
 }
 
+
+
+#search-icon:after{
+    content: "⌕";
+}
+
+#search-icon:hover:after{
+
+        content: 'Search';
+        white-space: nowrap;
+        transform: none;
+}
+
+#table-search{
+    width: 25vw;
+
+}
 
 /* table styling */
 
@@ -188,6 +233,14 @@ th {
 
 }
 
+/* table styling */
+
+table.dataTable td{
+max-width: 85px;
+white-space: nowrap;
+text-overflow: ellipsis;
+overflow: hidden;
+}
 
 
 
