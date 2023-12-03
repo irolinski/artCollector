@@ -1,7 +1,8 @@
 
-<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark" id="navbar">
+<nav class="navbar sticky-top navbar-expand-md" id="navbar">
     <div class="container-fluid">
       <a class="navbar-brand me-auto" href="/home" >artCollector</a>
+      <a class="navbar-brand my-auto" id="nav-collection-page-label" style="display: none;">My Collection</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,10 +10,8 @@
         <div class='me-auto'>
           <ul class="navbar-nav">
             <% if (currentUser) { %>
-            <li class="nav-item">
-              <a class="nav-link"  href="/collection">My Collection</a>
-              <li class="nav-item">
-              <a class="nav-link" href="collection/new">Add a new piece</a>
+            <!-- <li class="nav-item">
+              <a class="nav-link"  href="/collection">My Collection</a> -->
               <% } %>
             </li>
           </ul>

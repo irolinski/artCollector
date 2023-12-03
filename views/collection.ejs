@@ -31,10 +31,10 @@
     <main class="container mt-5">
         <%- include('./partials/flash.ejs')  %>
 
-<h1> My Collection </h1>
+<!-- <h1> My Collection </h1> -->
 
 
-<container id="setting-container" class="row">
+<container id="collection-nav" class="row">
     <!-- category settings -->
     <div class="col-md-3" id="table-categories-div">
     <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></p> 
@@ -116,9 +116,8 @@
 
     </div>
     </div>
-
-    <div class="col-md-3"></div> <div class="col-md-3" id="preferences-link-div"><a id="preferences-link" href='/preferences'>User preferences <i class="bi bi-person-fill-gear"></i></a>
-    </a></div> 
+    
+    <div class="col-md-3"></div> <div class="col-md-2" id="preferences-link-div"><a id="preferences-link" class="nav-landscape-el" href='/preferences'>User preferences <i class="bi bi-person-fill-gear"></i></a></div> <div class="col-md-1" id="logout-link-div"><a class="nav-landscape-el" id="logout-link" href="/logout">Logout <i class="bi bi-door-open"></i></a></div>
 
 
 
@@ -282,13 +281,15 @@ const showLoading = () => {
 
 document.querySelector('main').style.display = 'none'
 document.querySelector('#loading-div').style.display = 'block'
-document.querySelector('body').style.backgroundColor = 'rgba(45, 31, 31, 0.244)'
+// document.querySelector('body').style.backgroundColor = 'rgba(45, 31, 31, 0.244)'
+
 
 setTimeout(( () => {
 console.log('hiding')
 document.querySelector('main').style.display = 'block'
 document.querySelector('#loading-div').style.display = 'none'
-document.querySelector('body').style.backgroundColor = null}), '800') ;
+// document.querySelector('body').style.backgroundColor = null
+}), '800') ;
 
 
 
