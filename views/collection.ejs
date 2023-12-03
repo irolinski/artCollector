@@ -23,6 +23,10 @@
 
 <body class="d-flex flex-column vh-100">
     <%- include('./partials/navbar.ejs')  %>
+
+<section id="loading-div">
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+</section>
     
     <main class="container mt-5">
         <%- include('./partials/flash.ejs')  %>
@@ -274,6 +278,13 @@
 
 //set user default categories
 
+const showLoading = () => {
+
+document.querySelector('main').style.display = 'none'
+document.querySelector('#loading-div').style.display = 'block'
+document.querySelector('body').style.backgroundColor = 'rgba(31, 31, 31, 0.244)'
+};
+
 
 
 let setDefault = function() { 
@@ -286,6 +297,8 @@ let setDefault = function() {
     localStorage.setItem('noBoxesChecked', true)} else { localStorage.removeItem('noBoxesChecked')};
 
     if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
+
+        showLoading()
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -315,6 +328,12 @@ let setDefault = function() {
 }};
 
 
+// loading screen
+
+
+
+
+
 //navbar - appropariate width
 
 // let setWidth = function() {
@@ -340,11 +359,10 @@ let setDefault = function() {
   
 
 window.onload = (function(){
-    setDefault();
-    // setWidth();
+    setDefault()
 })
 
-
+    
 //dataTables js code
 
     $(document).ready(function() {
