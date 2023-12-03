@@ -282,8 +282,13 @@ const showLoading = () => {
 
 document.querySelector('main').style.display = 'none'
 document.querySelector('#loading-div').style.display = 'block'
-document.querySelector('body').style.backgroundColor = 'rgba(31, 31, 31, 0.244)'
-};
+document.querySelector('body').style.backgroundColor = 'rgba(45, 31, 31, 0.244)'
+
+setTimeout(( () => {
+console.log('hiding')
+document.querySelector('main').style.display = 'block'
+document.querySelector('#loading-div').style.display = 'none'
+document.querySelector('body').style.backgroundColor = null}), '800') ;
 
 
 
@@ -298,7 +303,7 @@ let setDefault = function() {
 
     if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
 
-        showLoading()
+        // showLoading()
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -327,10 +332,16 @@ let setDefault = function() {
     localStorage.removeItem('defaultCollectionSettings');
 }};
 
+// const hideLoading = () => {
 
+
+
+}
 // loading screen
 
-
+if (!localStorage.getItem('defaultCollectionSettings')) {
+    showLoading();
+}
 
 
 
