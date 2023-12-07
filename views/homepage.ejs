@@ -1,12 +1,4 @@
 
-<style>
-  #home-box {
-    position: relative;
-    top: 40vh;
-  }
-
-
-</style>
 
 <head>
   <meta charset="UTF-8">
@@ -16,6 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>       
     <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/homepage.css">
 
   <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
 </head>
@@ -44,7 +37,7 @@
 
   <!-- login form -->
   <form class="needs-validation" action="/login" method="POST" novalidate>
-    <div class="row collapse multi-collapse-1 multi-collapse-4" id="login-row">
+    <div class="row collapse multi-collapse-1 multi-collapse-0" id="login-row">
 <!-- label for login form -->
       <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
 <!-- form body -->
@@ -57,12 +50,12 @@
         <button type="submit" class="btn btn-primary my-4">Submit</button>
       </div>
       <div class="col-md-2"></div>
-      <span class="multi-collapse-1 mt-4" data-bs-target=".multi-collapse-4" data-bs-toggle="collapse">I forgot my password!</span>
+      <span class="multi-collapse-1 mt-4" data-bs-target=".multi-collapse-0" data-bs-toggle="collapse">I forgot my password!</span>
     </div>
   </form>
 
  <form class="needs-validation" action="/forgotten" method="POST" novalidate>  
-  <div class="row collapse multi-collapse-4" id="forgotten_div">
+  <div class="row collapse multi-collapse-0" id="forgotten_div">
     <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="forgotten-label"><h4>Forgot your password?</h4></div>      <div class="col-md-4"></div>
   <div class="col-md-4"></div> <div class="col-md-4 mb-3 multi-collapse-1"> <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  </div> <div class="col-md-4"></div>
   <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="multi-collapse-1 btn btn-primary" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
@@ -97,17 +90,17 @@
   <!-- info -->
     <div class="row collapse multi-collapse-3" id="info-row">
       <div class="col md-2"></div><div class="col-md-4"><h4>About us</h4></div>
-      <div class="col-md-4"><div style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, ab mollitia minima exercitationem eveniet cum animi ullam ad deleniti id quis asperiores facilis natus vel pariatur. Voluptatem voluptatibus laudantium perferendis?</div></div> <div class="col-md-2"></div>
+      <div class="col-md-4" id="info-div"><div style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, ab mollitia minima exercitationem eveniet cum animi ullam ad deleniti id quis asperiores facilis natus vel pariatur. Voluptatem voluptatibus laudantium perferendis?</div></div> <div class="col-md-2"></div>
     </div>
 
 </div>
 
 <!-- navigation -->
   <div class="row mx-5 py-5 collapse multi-collapse-1 multi-collapse-2 multi-collapse-3" id="back-button-row">
-    <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-4" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-4">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1 multi-collapse-4" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3" id="back-button" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-0 back-button" id="back-button-0"  data-bs-toggle="collapse" data-bs-target=".multi-collapse-0">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1 multi-collapse-0 back-button" id="back-button-1" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2 back-button" id="back-button-2" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
+      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3 back-button" id="back-button-3" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
 
 
   </div>

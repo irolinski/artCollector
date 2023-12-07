@@ -26,10 +26,14 @@
 
 <section id="loading-div">
     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-</section>
-    
-    <main class="container mt-5">
-        <%- include('./partials/flash.ejs')  %>
+</section>        
+
+<%- include('./partials/flash.ejs')  %>
+
+<div class="page-brand">
+<a class=" my-auto page-header" id="collection-page-header">My Collection</a>
+</div>    
+    <main class="container">
 
 <!-- <h1> My Collection </h1> -->
 
@@ -98,7 +102,7 @@
 
     <!-- display settings -->
     <div class="col-md-3" id="display-settings-div">
-    <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></p>
+    <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow', 'display-settings-div'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></p>
 
 
     <div id="display-settings" class="collapse">
@@ -123,7 +127,7 @@
 
 
     <div class="col-md-6" id="search-box">
-        <p> <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion')"></span><span id="search-accordion" class="search-accordion"><input type="text" id="table-search" placeholder="What are you looking for?"> </span> </p>
+         <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion'), toggleClass('active', 'search-icon')"></span><span id="search-accordion" class="search-accordion"><input type="text" id="table-search" placeholder="What are you looking for?"> </span> 
     </div>
 
 <div class="col-md-3">
@@ -144,7 +148,7 @@
 
             <th>Image</th>
 
-            <th>Medium / Size</th> 
+            <th class="narrow-screen-hide">Medium / Size</th> 
 
             <th>Year</th>
 
@@ -183,7 +187,7 @@
 
 
                    
-                    <td>
+                    <td class="narrow-screen-hide">
                         <%= piece.medium %> <br>                     
                         <% for (let s of piece.size) { %>
                             <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
@@ -281,6 +285,8 @@ const showLoading = () => {
 
 document.querySelector('main').style.display = 'none'
 document.querySelector('#loading-div').style.display = 'block'
+document.querySelector('#collection-page-header').style.display = 'none'
+document.querySelector('.page-brand').style.display = 'none'
 // document.querySelector('body').style.backgroundColor = 'rgba(45, 31, 31, 0.244)'
 
 
@@ -288,6 +294,10 @@ setTimeout(( () => {
 console.log('hiding')
 document.querySelector('main').style.display = 'block'
 document.querySelector('#loading-div').style.display = 'none'
+document.querySelector('#collection-page-header').style.display = 'inline-block'
+document.querySelector('.page-brand').style.display = 'inline-block'
+
+
 // document.querySelector('body').style.backgroundColor = null
 }), '800') ;
 
@@ -332,18 +342,26 @@ let setDefault = function() {
 } else {
     localStorage.removeItem('defaultCollectionSettings');
 }};
-
-// const hideLoading = () => {
-
+};
 
 
-}
 // loading screen
 
 if (!localStorage.getItem('defaultCollectionSettings')) {
     showLoading();
 }
 
+// hide nav on scroll
+
+function testScroll(ev){
+    if(window.pageYOffset>100){
+        document.querySelector('#navbar').style.opacity = '0.02'
+    } else{
+        document.querySelector('#navbar').style.opacity = '1'
+
+    }
+}
+window.onscroll=testScroll
 
 
 //navbar - appropariate width

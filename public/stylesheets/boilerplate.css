@@ -1,0 +1,15 @@
+body{
+    overflow-x: hidden
+}
+
+a {
+    color: black;
+    transition: color 0.1s;
+    font-weight: 400;
+    
+}
+
+a:hover,
+a:focus {
+    color: rgba(0, 0, 0, 0.382)
+}

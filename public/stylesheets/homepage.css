@@ -1,0 +1,74 @@
+body{
+    background: rgba(0, 0, 0, .65) url('https://images.pexels.com/photos/2123337/pexels-photo-2123337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-blend-mode: hard-light;
+    background-size: cover;
+    overflow: hidden;
+}
+
+
+#home-box {
+    position: relative;
+    top: 40vh;
+    
+  }
+
+h6 a{
+    text-decoration: none;
+    color: white;
+
+}
+
+h6:hover{
+    cursor: pointer;
+}
+
+@media all and (orientation:portrait) {
+
+    body{
+        background-size: 400%;
+        background-position: 25% 20%;
+
+
+    }
+
+    .cover-container{
+        transform: translateY(-200px);
+        max-height: 1000px;
+    }
+
+    .form-control{
+        display: inline-block;
+        width: 60%
+
+    }
+
+    input {
+        max-width: 400px;
+    }
+
+    #info-div{
+        max-width: 390px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #info-div > div{
+        display: inline;
+        text-align: center;
+        text-align: justify;
+    }
+
+    #back-button-0{
+        transform: translateY(195px);
+    }
+
+    #back-button-2{
+        transform: translateY(-125px);
+    }
+
+    #back-button-3{
+        transform: translateY(-30px);
+    }
+
+
+}

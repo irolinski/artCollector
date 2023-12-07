@@ -1,0 +1,191 @@
+/* #navbar{
+    background-color: red;
+     padding-right: 1100px !important;
+} */
+
+
+/* navbar styling - to be exported!! */
+
+#navbar {
+  background-color: #e2e1e1;
+  background-color: rgba(167, 167, 167, 0.15); 
+  transition: 0.6s;
+  top: 0;
+  width: 100% ;
+}
+
+.navbar-brand{
+color:rgba(33, 37, 41, 0.79)
+}
+
+.navbar-toggler{
+    border-radius: 0px;
+}
+
+
+
+main{ 
+  margin-top: 3rem;
+  padding-top: 5vh;
+}
+
+
+#new-page-brand{
+   
+  background-image: url("https://images.unsplash.com/photo-1609174112693-52fdcebffd89?q=80&w=2954&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  width: 100%;
+  height: 150px; /* You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  padding: 30px 0px 0px 30px;   
+  text-align: center;
+   /* margin-bottom: 60px; */
+
+}
+
+#new-page-header{
+
+   /* color: rgba(225, 225, 225, 0.8); */
+   color: rgba(255, 255, 255, 0.9);
+   text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
+   text-decoration: none;
+   white-space: nowrap;
+   transition: color 1s;
+   text-align: center;
+   display: inline-block;
+   font-weight: 600;
+   font-size: xx-large; 
+   transform: translateY(-15px);
+
+
+}
+
+
+#edit-page-brand{
+
+    background-image: url("https://images.unsplash.com/photo-1631583090808-62c9569a9739?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    width: 100%;
+    height: 150px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    padding: 30px 0px 0px 30px;   
+     /* margin-bottom: 60px; */
+
+  }
+
+
+#edit-page-header{
+    /* color: rgba(225, 225, 225, 0.8); */
+    color: rgb(255 255 255 / 0.5);
+    text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 1s;
+    text-align: center;
+    display: inline-block;
+    font-weight: 600;
+    font-size: xx-large; 
+
+    transform: translate(45.5vw, -13px);
+  }
+
+
+
+#preferences-page-brand{
+
+  background-image: url("https://images.unsplash.com/photo-1501618669935-18b6ecb13d6d?q=80&w=2649&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  width: 100%;
+  height: 150px; /* You must set a specified height */
+  background-position: 25% 35%;
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  padding: 30px 0px 0px 30px;   
+   /* margin-bottom: 60px; */
+
+}
+
+
+#preferences-page-header{
+  /* color: rgba(225, 225, 225, 0.8); */
+  color: rgb(27 27 26 / 80%);
+  text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 1s;
+  text-align: center;
+  display: inline-block;
+  font-weight: 600;
+  font-size: xx-large; 
+
+  transform: translate(46vw, -13px);
+}
+
+#edit-images-brand{
+
+  
+  text-align: center;
+
+  background-image: url("https://images.unsplash.com/photo-1529798856831-427dfd0a1ab1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  width: 100%;
+  /* height: 150px; You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  padding: 30px 0px 0px 30px;   
+   /* margin-bottom: 60px; */
+
+}
+
+
+#edit-images-header{
+  /* color: rgba(225, 225, 225, 0.8); */
+  color: rgb(255 255 255 / 90%);
+  text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 1s;
+  text-align: center;
+  display: inline-block;
+  font-weight: 600;
+  font-size: xx-large; 
+
+  transform: translateY(-15px);
+}
+
+
+
+#delete-account-brand{  
+  text-align: left;
+
+  background-image: url("https://images.unsplash.com/photo-1611248293543-e71973f8b94b?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+  background-color: #cccccc; /* Used if the image is unavailable */
+  width: 100%;
+  /* height: 150px; You must set a specified height */
+  background-position: 25% 58%;
+  ; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  padding: 30px 0px 0px 30px;   
+   /* margin-bottom: 60px; */
+}
+
+#delete-account-header{  
+  color: rgb(255 255 255 / 90%);
+  text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 1s;
+  display: inline-block;
+  font-weight: 600;
+  font-size: xx-large; 
+
+  transform: translateY(-15px);}
+
+
+
