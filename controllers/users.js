@@ -91,8 +91,10 @@ module.exports.login = (req, res) => {
 };
 
 module.exports.preferences = (req, res, next) => {
-    console.log(req.user);
-    res.render('preferences');
+    const pageTitle = 'Preferences - artCollector';
+    const styleSheet = 'forms'
+    // console.log(req.user);
+    res.render('preferences', { pageTitle, styleSheet })
 };
 
 module.exports.editUser =  (async (req, res, next) => {
@@ -184,7 +186,9 @@ module.exports.forgottenPassword = (async (req, res, next) => {
 
 module.exports.sendToken = (req, res, next) => {
 
-    const { id, token } = req.params
+    const { id, token } = req.params;
+
+
 
     User.findById(id)
     .then((u) => {
@@ -197,7 +201,7 @@ module.exports.sendToken = (req, res, next) => {
             const secret = process.env.JWT_SECRET + u.password;
             try {
                 const payload = JWT.verify(token, secret)
-                res.render('password_reset',  { email: u.email })
+                res.render('password_reset',  { email: u.email, pageTitle: 'Password reset - artCollector', styleSheet: 'forms' })
             } catch(error) {
                 res.send(error.message);
             }
@@ -227,7 +231,9 @@ module.exports.resetPassword = (req, res, next) => {
 };
 
 module.exports.deleteAcc = (req, res, next) => {
-    res.render('preferences_deleteAcc')
+    const pageTitle = 'Delete account - art Collector';
+    const StyleSheet = 'forms'
+    res.render('preferences_deleteAcc', { pageTitle, styleSheet })
 };
 
 

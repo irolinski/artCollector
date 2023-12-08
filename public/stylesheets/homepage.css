@@ -3,8 +3,16 @@ body{
     background-blend-mode: hard-light;
     background-size: cover;
     overflow: hidden;
+    color: aliceblue;
 }
 
+.navbar{
+    display: none;
+}
+
+.footer{
+    display: none;
+}
 
 #home-box {
     position: relative;

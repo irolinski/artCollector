@@ -45,6 +45,8 @@ const artPieceJOI = require('../models/artPieceJOI.js');
 
 module.exports.collectionPage = (async (req, res, next) => {
 
+    const pageTitle = 'My Collection - artCollector'
+    const styleSheet = 'collection'
 
     let queryString = JSON.stringify(req.query);
     const userTable = (req.user.custom_table);
@@ -71,13 +73,16 @@ module.exports.collectionPage = (async (req, res, next) => {
 
 
 
-    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable })
+    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable, pageTitle, styleSheet })
 });
 
 
 module.exports.newPieceForm = (req, res, next) => {
 
-    res.render('new')
+    const pageTitle = 'Add a new piece - artCollector';
+    const styleSheet = 'forms';
+
+    res.render('new', { pageTitle, styleSheet })
 };
 
 
@@ -173,16 +178,21 @@ module.exports.showPage = (async (req, res, next) => {
 
 
     const { id } =  req.params; 
+
+    
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    // console.log(JSON.stringify(req.user._id), 'aaaand' , `"${p.user_id}"`);
+
+    const pageTitle = `${p.title} - artCollector`
+    const styleSheet = 'show';
+
 
     if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
 
-    res.render('show', { p, moment: moment})
+    res.render('show', { p, moment: moment, pageTitle, styleSheet })
     } else {
         req.flash('error', `I'm sorry but I cannot find such piece in your collection`);
         res.redirect('/collection')
@@ -190,15 +200,23 @@ module.exports.showPage = (async (req, res, next) => {
 });
 
 module.exports.editPieceForm = (async (req, res, next) => {
+
+    const pageTitle = 'Edit piece - artCollector'
+    const styleSheet = 'forms'
+
     const { id } = req.params;
     const p = await ArtPiece.findById(id);
-    res.render('edit', { p, moment: moment } )
+    res.render('edit', { p, moment: moment, pageTitle, styleSheet } )
 });
 
 module.exports.editImages = (async (req, res, next) => {
+
+    const pageTitle = 'Edit images - artCollector';
+    const styleSheet = 'forms';
+
     const { id } = req.params;
     const p = await ArtPiece.findById(id);
-    res.render('edit_images', { p } )
+    res.render('edit_images', { p, pageTitle, styleSheet } )
 });
 
 module.exports.editPiece = (async (req, res, next) => {

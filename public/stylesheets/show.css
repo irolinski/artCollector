@@ -1,4 +1,12 @@
 
+body{
+    background-color: red;
+}
+
+
 .accordion{
     cursor: pointer;
 }
+
+
+
