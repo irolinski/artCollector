@@ -310,37 +310,12 @@
 
 
 
-<script>
-
-
-// bootstrap validations
-(function () {
-'use strict'
-
-var forms = document.querySelectorAll('.needs-validation')
-
-// Loop over them and prevent submission
-Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-    form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-        }
-
-        form.classList.add('was-validated')
-    }, false)
-    })
-})()
+<script src="./public/javascripts/bootstrap_validations.js"> </script>
 
 
 
-const toggleCollapse = (inputClass) => {
-  for (el of document.querySelectorAll(inputClass)) 
-  { if (!el.classList.contains('show')) {
-    el.classList.add('show') } else {
-      el.classList.remove('show')
-    }}}
 
-</script>
+
+<script src="./public/javascripts/toggleCollapse.js"></script>
+
 
