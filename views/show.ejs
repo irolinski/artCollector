@@ -78,8 +78,8 @@
                     <% if (p.description !== '') { %>
                     <%= p.description %> 
                     <% } else { %>
-                        <p> No description added for this piece. </p>
-                        <p> (You can, however, add some by editing!)</p>
+                        <p class="text-muted"> No description added for this piece. </p>
+                        <p class="text-muted"> (You can, however, add some by editing!)</p>
                 <%  } %>
                 </div>
             </div>
@@ -176,7 +176,8 @@
                     </div>
 
 
-            <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>
+            <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>&emsp;<a href="/collection/show/<%=p._id%>/edit/images"  class="card-link">Edit images <i class="bi bi-images"></i></a>
+
             <br><br>
             <a href="#" class="card-link">Export (work in progress)</a>
             </div>
@@ -189,7 +190,6 @@
 </div>
 
 <script src="./public/javascripts/transform_imgOrientation.js"></script>
-<script src="public/javascripts/remove_toggle_class.js"></script>
 
 
     

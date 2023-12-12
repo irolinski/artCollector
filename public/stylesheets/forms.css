@@ -1,14 +1,3 @@
-/* #navbar{
-    background-color: red;
-     padding-right: 1100px !important;
-} */
-
-
-/* navbar styling - to be exported!! */
-/* 
-body{
-  background-color: red;
-} */
 
 #navbar {
   background-color: #e2e1e1;
@@ -132,6 +121,22 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
     transform: translate(45.5vw, -13px);
   }
 
+  #basic-info-wrapper,
+  #description-div,
+  #owner-holder-wrapper,
+  #details-wrapper{
+    margin-left: 5px;
+  }
+
+  #basic-info-wrapper > *,
+  #owner-holder-wrapper > *,
+  #details-wrapper > *,
+  #manage-images-div > *,
+  #upload-more-div > * {
+    padding: 4px;
+  }
+
+
 
 
 #preferences-page-brand{
@@ -197,6 +202,91 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   transform: translateY(-15px);
 }
 
+#edit-confirm-btn{
+  transform: translate(50px, 44px);
+
+}
+
+#edit-images-link-div{
+  padding: 1vh;
+  font-size: 1.2rem;
+  transition: transform 1s;
+
+  text-align: center;
+  margin-top: auto;
+}
+
+#edit-images-link-div > a{
+  white-space: nowrap;
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+#edit-images-link-div > a:hover{
+  color: #fcca00;
+  cursor: pointer;
+}
+
+#upload-images-input{
+  max-width: 25vw;
+}
+
+#back-link-div{
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 1vh;
+  font-size: 1.2rem;
+  transition: transform 1s;
+}
+
+#back-link-div > a{
+  text-decoration: none;
+}
+
+#back-link-div:hover{
+  transform: translateY(-2.5px);
+}
+
+#archival-check-div{
+  text-align: end;
+}
+
+.menu{
+  transition: transform 1s;
+}
+
+.menu:hover{
+  cursor: pointer;
+  transform: translateY(-2.5px);
+
+}
+
+.menu-arrow{
+  display: inline-block;
+  transform: rotate(360deg);
+  transition: 0.1s ease-in-out;
+}
+
+.menu-arrow.active{
+  transform: rotate(270deg);
+}
+
+.menu-image-edit{
+padding: 5em;
+}
+
+#image-upload-button{
+  float: right;
+}
+
+#manage-images-div,
+#upload-more-div{
+  padding-left: 4em;
+  padding-bottom: 6em;
+}
 
 
 #delete-account-brand{  
@@ -228,3 +318,70 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 
 
+
+
+  
+
+  
+  .confirm-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;    
+    color: whitesmoke;
+    background-color: green; /* rgb(33, 32, 32); */
+
+    border: none;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    transition: background-color 1s, color 1s;
+  }
+  
+  .confirm-button:focus {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+
+  .confirm-button:hover {
+    color: #3D3D3D;
+    background: #fff;
+
+  }
+
+  .confirm-button:disabled{
+    background-color: #3D3D3D;
+  }
+
+  .delete-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    color: whitesmoke;
+    background-color: red;
+    border: none;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    transition: background-color 1s, color 1s;
+  }
+
+   
+  .delete-button:focus {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+
+  .delete-button:hover {
+    color: red;
+    background: #fff;
+  }

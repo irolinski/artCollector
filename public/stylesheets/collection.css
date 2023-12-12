@@ -105,15 +105,15 @@
 
 .page-header {
     color: rgba(255, 255, 255, 0.9);
-    text-shadow: 3px 4px 7px rgba(0, 0, 0, 1.35);
+    /* text-shadow: 3px 4px 7px rgba(0, 0, 0, 1.35); */
     text-decoration: none;
     white-space: nowrap;
-    transition: color 1s;
     text-align: center;
     display: inline-block;
     font-weight: 600;
     font-size: xx-large;
 
+    transition: color 1s;
     transform: translateY(-20px);
 }
 
@@ -416,7 +416,6 @@ table.dataTable td {
     }
 
     .page-header {
-        /* transform: translate(10vw, 7vh); */
         text-align: center;
         display: inline-block;
         font-weight: 600;
