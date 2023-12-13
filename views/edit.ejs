@@ -4,9 +4,7 @@
     <p class="my-auto page-header" id="edit-page-header">Edit</p>
   </div>
 
-  <container id="edit-nav" class="row py-5">
-
-
+  <div id="edit-nav" class="row py-2">
 
     <div class="col-md-9"></div>
 
@@ -15,7 +13,7 @@
       <a href="/collection/show/<%=p._id%>" class="nav-landscape-el">Go back <i class="bi bi-backspace"></i>
       </a>
     </div>
-  </container>
+  </div>
 
   <main class="container pt-0 mt-0">
 
@@ -28,7 +26,9 @@
         <form class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
           enctype="multipart/form-data" novalidate>
 
-          <p data-bs-toggle="collapse" data-bs-target="#basic-info-wrapper" class="menu" onclick="toggleClass('active', 'basic-info-arrow')">Basic info <span id="basic-info-arrow" class="menu-arrow">&#9660;</span></p>
+          <p data-bs-toggle="collapse" data-bs-target="#basic-info-wrapper" class="menu"
+            onclick="toggleClass('active', 'basic-info-arrow')">Basic info <span id="basic-info-arrow"
+              class="menu-arrow">&#9660;</span></p>
           <div id="basic-info-wrapper" class="row accordion collapse">
 
             <!-- Artist name -->
@@ -191,7 +191,9 @@
           </div>
 
           <div class="col-md-12">
-            <p data-bs-target="#description-div" data-bs-toggle="collapse" class="menu" onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow" class="menu-arrow">&#9660;</span></p>
+            <p data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
+              onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
+                class="menu-arrow">&#9660;</span></p>
             <div id="description-div" class="accordion collapse">
               <label for="description" class="form-label"> Description / Additional info: </label>
               <textarea type="text" class="form-control" id="" name="description"
@@ -202,7 +204,9 @@
 
           <!-- owner -->
 
-          <p data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu" onclick="toggleClass('active', 'owner-holder-arrow')">Owner/Holder settings <span id="owner-holder-arrow" class="menu-arrow">&#9660;</span></p>
+          <p data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
+            onclick="toggleClass('active', 'owner-holder-arrow')">Owner/Holder settings <span id="owner-holder-arrow"
+              class="menu-arrow">&#9660;</span></p>
           <div id="owner-holder-wrapper" class="row accordion collapse">
             <label for="owner-check" class="form-check-label">Owner:</label>
             <div class="form-check col-md-4" id="owner-check">
@@ -299,7 +303,9 @@
             <div class="col-md-1"></div>
           </div>
 
-          <p data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu" onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow" class="menu-arrow">&#9660;</span></p>
+          <p data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
+            onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
+              class="menu-arrow">&#9660;</span></p>
           <div id="details-wrapper" class="accordion collapse">
             <!-- Date of acquiration -->
 
