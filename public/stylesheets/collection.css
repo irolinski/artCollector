@@ -191,7 +191,7 @@
     transform: translateY(-0.9vw);
 }
 
-#categories-checklist>div {
+#categories-checklist > div {
     white-space: nowrap;
     margin: 1vw;
 }
@@ -202,7 +202,7 @@
 
 }
 
-#categories-checklist-mobile-placeholder>p {
+#categories-checklist-mobile-placeholder > p {
     transform: translate(5px, -10px);
     white-space: nowrap;
     transform: translate(15px, -9px);

@@ -26,12 +26,12 @@ main{
 #new-page-brand{
    
   background-image: url("https://images.unsplash.com/photo-1609174112693-52fdcebffd89?q=80&w=2954&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #cccccc; 
   width: 100%;
-  height: 150px; /* You must set a specified height */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  height: 150px;
+  background-position: center; 
+  background-repeat: no-repeat;
+  background-size: cover; 
   padding: 30px 0px 0px 30px;   
   text-align: center;
    /* margin-bottom: 60px; */
@@ -59,7 +59,6 @@ border-color: black !important;
 }
 
 .form-select:valid {
-border-color: black !important;
 --bs-form-select-bg-img: null; 
 }
 
@@ -92,22 +91,17 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 
 #edit-page-brand{
-
     background-image: url("https://images.unsplash.com/photo-1631583090808-62c9569a9739?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
-    background-color: #cccccc; /* Used if the image is unavailable */
+    background-color: #cccccc; 
     width: 100%;
-    /* height: 150px; You must set a specified height */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover; 
     padding: 30px 0px 0px 30px;   
-     /* margin-bottom: 60px; */
-
   }
 
 
 #edit-page-header{
-    /* color: rgba(225, 225, 225, 0.8); */
     color: rgb(255 255 255 / 0.5);
     text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
     text-decoration: none;
@@ -121,11 +115,13 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
     transform: translate(45.5vw, -13px);
   }
 
+ 
   #basic-info-wrapper,
   #description-div,
   #owner-holder-wrapper,
   #details-wrapper{
     margin-left: 5px;
+    margin-top: 16px;
   }
 
   #basic-info-wrapper > *,
@@ -136,26 +132,33 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
     padding: 4px;
   }
 
+.preferences-menu{
+  padding: 5px;
+}
 
+#preferences-main{
+  transform: translateX(5vw);
+  padding: 0px 50px 50px 100px;
+}
+#preferences-main input{
+  max-width: 350px;
 
+}
 
 #preferences-page-brand{
 
   background-image: url("https://images.unsplash.com/photo-1501618669935-18b6ecb13d6d?q=80&w=2649&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #cccccc;
   width: 100%;
-  /* height: 150px; You must set a specified height */
   background-position: 25% 35%;
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-repeat: no-repeat;
+  background-size: cover; 
   padding: 30px 0px 0px 30px;   
-   /* margin-bottom: 60px; */
 
 }
 
 
 #preferences-page-header{
-  /* color: rgba(225, 225, 225, 0.8); */
   color: rgb(27 27 26 / 80%);
   text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.2);
   text-decoration: none;
@@ -169,26 +172,65 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   transform: translate(46vw, -13px);
 }
 
+#preferences-account-settings-div{
+  transform: translateX(25px);
+}
+
+#preferences-account-settings-div > div,
+#preferences-personal-data-div div,
+#preferences-personal-data-div button{
+  transform: translateX(50px);
+}
+
+#preferences-export-div button{
+  padding: 10px 30px 10px 30px;
+}
+
+
+/* #preferences-delete-alert{
+  /* transform: translateX(-2000px);
+  border-radius: 1px;
+  transition: transform 0.4s, visibility 0.1s;
+} */
+
+/* #preferences-delete-alert.active{
+  /* transform: translateX(0px); 
+  transition: transform 1s;
+
+} */
+
+#export-button{
+  background-color: saddlebrown;
+}
+.alert-warning{
+  transform: translateX(-2000px);
+  height: 80px;
+  transition: transform 1.2s
+}
+
+.alert-warning.active{
+  transform: translateX(0px);
+  transition: transform 0.2s
+}
+
+.subtext{
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
 #edit-images-brand{
-
-  
   text-align: center;
-
   background-image: url("https://images.unsplash.com/photo-1529798856831-427dfd0a1ab1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #cccccc;
   width: 100%;
-  /* height: 150px; You must set a specified height */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-position: center;
+  background-repeat: no-repeat; 
+  background-size: cover;
   padding: 30px 0px 0px 30px;   
-   /* margin-bottom: 60px; */
-
 }
 
 
 #edit-images-header{
-  /* color: rgba(225, 225, 225, 0.8); */
   color: rgb(255 255 255 / 90%);
   text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
   text-decoration: none;
@@ -202,10 +244,7 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   transform: translateY(-15px);
 }
 
-#edit-confirm-btn{
-  transform: translate(50px, 44px);
 
-}
 
 #edit-images-link-div{
   padding: 1vh;
@@ -227,6 +266,24 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 #edit-images-link-div > a:hover{
   color: #fcca00;
   cursor: pointer;
+}
+
+
+
+
+.feedback-message-warning{
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-left-color: #fcca00;
+  border-radius: 3px;
+}
+
+.feedback-message-warning h6{
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: #fcca00;
 }
 
 #upload-images-input{
@@ -290,6 +347,7 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 .menu{
   transition: transform 1s;
+  /* margin: 20px 0px 0px 20px; */
 }
 
 .menu:hover{
@@ -354,8 +412,9 @@ padding: 3em;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
     padding: 6px 14px !important;
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-radius: 6px;    
     color: whitesmoke;
     background-color: green; /* rgb(33, 32, 32); */
@@ -389,7 +448,7 @@ padding: 3em;
     flex-direction: column;
     align-items: center;
     padding: 6px 14px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-radius: 6px;
     color: whitesmoke;
     background-color: red;
@@ -400,10 +459,16 @@ padding: 3em;
     touch-action: manipulation;
 
     transition: background-color 1s, color 1s;
+
+    max-width: 200px;
+    text-decoration: none;
+    margin-bottom: 20px;
+
   }
 
    
-  .delete-button:focus {
+  .delete-button:focus,
+  .attention-button:focus {
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
     outline: 0;
   }
@@ -413,9 +478,31 @@ padding: 3em;
     background: #fff;
   }
 
+  .attention-button{
 
-  @media all and (min-width: 768px){
-    .image-edit-text{
-      white-space: nowrap;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 6px;
+    color: whitesmoke;
+    background-color: #fcca00;
+    border: none; 
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: background-color 1s, color 1s;
+    max-width: 200px;
+    text-decoration: none;
+    margin: 20px;
+
   }
+
+  .attention-button:hover{
+    color: #fcca00;
+    background-color: whitesmoke;
+  }
+
+

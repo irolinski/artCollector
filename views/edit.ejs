@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-8 offset-2">
 
-        <form class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
+        <form id="edit-form" class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
           enctype="multipart/form-data" novalidate>
 
           <p data-bs-toggle="collapse" data-bs-target="#basic-info-wrapper" class="menu"
@@ -190,16 +190,14 @@
             </div>
           </div>
 
-          <div class="col-md-12">
             <p data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
               onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
                 class="menu-arrow">&#9660;</span></p>
-            <div id="description-div" class="accordion collapse">
+                <div class="col-md-12 accordion collapse"  id="description-div">
               <label for="description" class="form-label"> Description / Additional info: </label>
               <textarea type="text" class="form-control" id="" name="description"
                 style="resize: none; height: 100px;"><%= p.description %></textarea>
             </div>
-          </div>
 
 
           <!-- owner -->
