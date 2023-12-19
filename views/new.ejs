@@ -4,180 +4,195 @@
   <div class="page-brand" id="new-page-brand">
     <p class="my-auto page-header" id="new-page-header">Add a new piece</p>
     </div>   
+      <div id="edit-nav" class="row py-2 form-nav">
+
+    <div class="col-md-9"></div>
+
+
+    <div class="col-md-3" id="back-link-div">
+      <a href="/collection" class="nav-landscape-el">Return to collection <i class="bi bi-backspace"></i>
+      </a>
+    </div>
+  </div>
     <main class="container">
 
 <div class="row">
   <div class="col-8 offset-2">
 
     <form class="row g-3 needs-validation" action="/collection" method="POST" enctype="multipart/form-data" novalidate >
-      
-    <!-- Artist name -->
-    <div class="col-md-6">
-        <label for="artist" class="form-label">Artist name:</label>
-        <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name" required>
-        <div class="invalid-feedback">
-            Entering a name is required!
-        </div>
-    </div>
-    <div class="col-md-6"></div>
-
-    <!-- Title, Year -->
-    <div class="col-md-6">
-        <label for="title" class="form-label">Title:</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required >
-        <div class="invalid-feedback">
-            Entering a title is required!
-        </div>
-    </div>
-    <div class="col-md-5">
-        <label for="year_finished" class="form-label">Year finished:</label>
-        <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0">
-    </div>
-    <!-- <div class="col-md-2"></div> -->
-
-
-    <!-- to be unhidden with the checkbox below-->
-    <div class="col-md-5 " id="">
-      <div class="collapse" id="year-started">
-        <label for="year_started" class="form-label">Year started:</label>
-        <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year the work was started" min="0">
-      </div>
-    </div>
-
-<div class="col-md-2"></div>
-
-    <!-- checkbox to unhide 'year started' attribute input -->
-    <div class="form-check col-md-5" >
-      <input class="form-check-input " type="checkbox" value="" name="" id="multiyear" data-bs-toggle="collapse" data-bs-target="#year-started">
-      <label class="form-check-label text-dark" for="multiyear">
-        Is it a multi-year work? 
-      </label>
-    </div>
-
-
-
-
-    <!-- Medium -->
-
-    <div class="col-md-6">
-        <label for="medium" class="form-label">Medium:</label>
-        <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" required>
-        <div class="invalid-feedback">
-            Entering piece medium is required!
-        </div>
-    </div>
-
-
-    <!-- Images -->
-
-    <div class="col-md-8">
-      <label for="images" class="form-label" required>Images:</label>
-      <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif"  >
-    </div>
-
-
-    <!-- Size -->
-
-    <label for="size-x" class="form-label">Size:</label>
-    <div class="col-md-2" id="size-x"> 
-        <input type="number" class="form-control" name="size[0][x]" placeholder="Width"  step=".01" min="0" >
-    </div>
-    <div class="col-md-2" id="size-y"> 
-        <input type="number" class="form-control" name="size[0][y]" placeholder="Height"  step=".01" min="0">
-    </div>
-
-    <!-- checkbox to unhide 'size-z' attribute input -->
-    <div class="form-check col-md-2" >
-      <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z">
-      <label class="form-check-label text-dark" for="is-3d">
-        Add 'Depth' 
-      </label>
-    </div>
-
-    <!-- to be uncollapsed with the checkbox above -->
-    <div class="col-md-2 " id=""> 
-      <div class ="collapse" id="size-z">
-        <input type="number" class="form-control " name="size[0][z]" placeholder="Depth"  step=".01" min="0">
-        </div>
-    </div>
-
-    <!-- need to put checkbox to hide/unhide size z here -->
-
-
-    <div class="col-md-3" id="size-unit">
-      <select class="form-select" id="unit" aria-label="" name="size[0][unit]">
-        <!-- <option selected >Unit</option> -->
-        <option value="null">Choose unit</option>
-        <option value="cm">cm</option>
-        <option value="in">in</option>
-      </select>
-    </div>
-
-    <div class="col-md-1"></div>
-
-
-    <!-- For sale checkbox, Price -->
-
-    <label for="#for-sale-indent">For Sale:</label>
-
-    <div class="col-md-1" id="for-sale-indent"></div>
-            <div class="form-check col-md-4">
-        
-              <input type="hidden" name="forSale" value="0"><input class="form-check-input" type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" data-bs-toggle="collapse" data-bs-target=".price"> 
-              <label class="form-check-label text-dark" for="is_forsale">
-                Is it, possibly, for sale?
-              </label>
-              
+      <section id="basic-info-wrapper" class="row accordion collapse show form-section menu-content">
+        <h5 class="form-page-header">Basic info</h5>
+          <div class="menu-content"></div>
+        <!-- Artist name -->
+        <div class="col-md-6">
+            <label for="artist" class="form-label">Artist name:</label>
+            <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name" required>
+            <div class="invalid-feedback">
+                Entering a name is required!
             </div>
+        </div>
+        <div class="col-md-6"></div>
+
+        <!-- Title, Year -->
+        <div class="col-md-6">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required >
+            <div class="invalid-feedback">
+                Entering a title is required!
+            </div>
+        </div>
+        <div class="col-md-5">
+            <label for="year_finished" class="form-label">Year finished:</label>
+            <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0">
+        </div>
+        <!-- <div class="col-md-2"></div> -->
+
+
+        <!-- to be unhidden with the checkbox below-->
+        <div class="col-md-5 " id="">
+          <div class="collapse" id="year-started">
+            <label for="year_started" class="form-label">Year started:</label>
+            <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year the work was started" min="0">
+          </div>
+        </div>
+
+    <div class="col-md-2"></div>
+
+        <!-- checkbox to unhide 'year started' attribute input -->
+        <div class=" col-md-5" >
+          <input class="form-check-input " type="checkbox" value="" name="" id="multiyear" data-bs-toggle="collapse" data-bs-target="#year-started">
+          <label class="form-check-label text-dark" for="multiyear">
+            Is it a multi-year work? 
+          </label>
+        </div>
+
+
+
+
+        <!-- Medium -->
+
+        <div class="col-md-6">
+            <label for="medium" class="form-label">Medium:</label>
+            <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" required>
+            <div class="invalid-feedback">
+                Entering piece medium is required!
+            </div>
+        </div>
+
+
+        <!-- Images -->
+
+        <div class="col-md-8">
+          <label for="images" class="form-label" required>Images:</label>
+          <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif"  >
+        </div>
+
+
+        <!-- Size -->
+
+        <label for="size-x" class="form-label">Size:</label>
+        <div class="col-md-2" id="size-x"> 
+            <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step=".01" min="0" >
+        </div>
+        <div class="col-md-2" id="size-y"> 
+            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step=".01" min="0">
+        </div>
+
+        <!-- checkbox to unhide 'size-z' attribute input -->
+        <div class=" col-md-2" >
+          <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z">
+          <label class="form-check-label text-dark" for="is-3d">
+            Add 'Depth' 
+          </label>
+        </div>
+
+        <!-- to be uncollapsed with the checkbox above -->
+        <div class="col-md-2 " id=""> 
+          <div class ="collapse" id="size-z">
+            <input type="number" class="form-control size-input" name="size[0][z]" placeholder="Depth"  step=".01" min="0">
+            </div>
+        </div>
+
+        <div class="col-md-3" id="size-unit">
+          <select class="form-select size-input" id="unit" aria-label="" name="size[0][unit]">
+            <!-- <option selected >Unit</option> -->
+            <option  value="null" disabled selected>Choose unit</option>
+            <option value="cm">cm</option>
+            <option value="in">in</option>
+          </select>
+        </div>
+
+        <div class="col-md-1"></div>
+
+
+        <!-- For sale checkbox, Price -->
+
+        <label for="#for-sale-indent">For Sale:</label>
+
+        <div class="col-md-1" id="for-sale-indent"></div>
+                <div class=" col-md-4">
             
+                  <input type="hidden" name="forSale" value="0"><input class="form-check-input" type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" data-bs-toggle="collapse" data-bs-target=".price"> 
+                  <label class="form-check-label" for="is_forsale">
+                    Is it, possibly, for sale?
+                  </label>
+                  
+                </div>
+                
 
-    <div class="col-md-4">
-      <div class="collapse price" id="">
-        <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0">
-      </div>
-    </div>
+        <div class="col-md-2">
+          <div class="collapse price" id="">
+            <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0">
+          </div>
+        </div>
 
-    <div class=" col-md-2">
-      <div class="collapse price" id="">
-        <select class="form-select" aria-label="Small select example" name="price[0][currency]">
-          <option value="PLN">      PLN      </option>
-          <option value="&#x20AC;"> &#x20AC; </option>
-          <option value="&#36;"> 	  &#36;    </option>
-        </select>
-    </div>
-    </div>
+        <div class=" col-md-4">
+          <div class="collapse price" id="">
+            <select class="form-select" aria-label="Small select example" name="price[0][currency]">
+              <option value=null selected disabled>Choose currency</option>
+              <option value="PLN">      PLN      </option>
+              <option value="&#x20AC;"> &#x20AC; </option>
+              <option value="&#36;"> 	  &#36;    </option>
+            </select>
+        </div>
+        </div>
+    </section>
 
+    <section id="additional-info-wrapper" class="row accordion collapse form-section menu-content">
 
-    <!-- Description -->
-    <label for="description-div">Description:</label>
+      <h5 class="form-page-header">Additional info</h5>
 
-    <div class="col-md-1"></div><div class="form-check col-md-11" id="description-div" >
-      <input class="form-check-input" type="checkbox" value="" name="" id="description-checkbox" data-bs-toggle="collapse" data-bs-target="#description">
-      <label class="form-check-label text-dark" for="description-checkbox">
-        Do you want to add a description (or maybe a comment)?
-      </label>
-    </div>
+          <!-- Description -->
 
-    <div class="col-md-12">    
-      <div class="collapse" id="description">
+      <div data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
+      onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
+        class="menu-arrow">&#9660;</span></div>
+    <div class=" menu-content">    
+
+    <div class="accordion collapse col-md-12 "  id="description-div">
       <label for="description" class="form-label text-dark"> Description / Additional info: </label>
       <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"></textarea>
-        </div>
       </div>
 
+    </div>
 
 
-    <!-- Owner  -->
+    <!-- Owner-holder wrapper  -->
 
-    <label for="owner-check" class="form-check-label">Owner:</label>
-    <div class="form-check col-md-4" id="owner-check">
+    <div data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
+            onclick="toggleClass('active', 'owner-holder-arrow')">Ownership 
+            <span id="owner-holder-arrow" class="menu-arrow">&#9660;</span></div>
+            <div class="menu-content">
+              <div id="owner-holder-wrapper" class="row accordion collapse">
+                    <label for="owner-check" class="form-check-label">Owner:</label>
+    <div class="col-md-4" id="owner-check">
       <label class="form-check-label" for="self-owned">
         I am the owner of this piece
       </label>
       <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned"  checked="checked"  onchange="toggleCollapse('.owner-check')" >
     </div>
 
-    <div class="form-check col-md-6">
+    <div class="col-md-6">
       <label class="form-check-label" for="else-owned">
         Someone else is the owner of this piece
       </label>
@@ -186,14 +201,14 @@
 
         <!-- if someone else is the owner  -->
 
-    <div class="form-check col-md-5 ">
+    <div class=" col-md-5 ">
       <div class="owner-check collapse">
         <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
       </div>
     </div>
 
 
-    <div class="form-check col-md-6 ">
+    <div class="col-md-6 ">
       <div class="owner-check collapse">
       <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info">
       </div>
@@ -209,14 +224,14 @@
 
       <label for="holder-div" class="form-check-label">Holder:</label>
 
-      <div class="form-check col-md-4" id="holder-div">
+      <div class="col-md-4" id="holder-div">
         <label class="form-check-label" for="self-held">
           I am the holder of this piece
         </label>
       <input class="form-check-input" type="radio" name="holder[0][status]" value="self" id="self-held" checked="checked" onchange="toggleCollapse('.holder-check')" >
       </div>
 
-      <div class="form-check col-md-6">
+      <div class=" col-md-6">
         <label class="form-check-label" for="else-held">
           Someone else is the holder of this piece
         </label>
@@ -227,13 +242,13 @@
 
           <!-- If someone else is the holder  -->
 
-      <div class="form-check col-md-5">
+      <div class=" col-md-5">
         <div class="holder-check collapse">
           <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
         </div>
       </div>
 
-      <div class="form-check col-md-6">
+      <div class=" col-md-6">
         <div class="holder-check collapse">
           <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
         </div>
@@ -254,12 +269,22 @@
     <div class="col-md-7">
 
     </div>
+    </div>
+    </div>
+
+    <!-- details -->
+
+    <div data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
+    onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
+      class="menu-arrow">&#9660;</span></div>
+    <div class="menu-content">
+      <div id="details-wrapper" class=" row accordion collapse">
 
 
     <!-- Catalogue number -->
     <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
     <div class="col-md-1" id="catalogue-number-indent"></div>
-      <div class="form-check col-md-4" name="">
+      <div class=" col-md-4" name="">
         <label class="form-check-label" for="catalogue-check" id="has-catalogue-number">
           Do you want to enter a catalogue number?
         </label>
@@ -279,27 +304,36 @@
 
     <div class="col-md-7"></div>
 
-    <div class="form-check col-md-5">
+    <div class=" col-md-5">
       <input type="hidden" name="archival" value="0"><input class="form-check-input text-dark" type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
       <label class="form-check-label text-dark" for="archival-check">
           Mark this release as archival
       </label>
     </div>
-
-
+</div>
+</div>
+        <div class="row form-section collapse form-section" id="new-confirm-button-row">
           <div class="col-md-9"></div>
           <div class="col-md-3">
-            <button class="btn btn-primary mb-2">Create a new piece</button>
+            <button class="confirm-button mb-2">Create a new piece</button>
           </div>
-        <!-- Input the passes currentUser._id  -->
+        </div>
+        </div>
 
-    <input type="hidden" name="user_id" value="<%= currentUser._id.toString() %>">
 
-        
+
+        <!-- Input that passes currentUser._id  -->
+        <input type="hidden" name="user_id" value="<%= currentUser._id.toString() %>">
       </form>
+      <div class="row accordion collapse show" id="new-confirm-button-row">
+        <div class="col-md-12">
+          <div class=" mb-2 form-section accordion collapse show form-page-button" id="new-next-button" data-bs-toggle="collapse" data-bs-target=".form-section">Next ≫</div>       
+          <div class=" mb-2 accordion collapse form-section form-page-button" data-bs-toggle="collapse" data-bs-target=".form-section">≪ Previous</div>
 
+        </div>
+      </div>
     </div>
-</div>
+  </section>
 </main>
 
 

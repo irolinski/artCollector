@@ -19,13 +19,17 @@ color:rgba(33, 37, 41, 0.79)
 
 main{ 
   margin-top: 3rem;
-  padding-top: 5vh;
+  padding: 0px 50px 50px 100px !important;
+}
+
+.page-brand{
+  max-height: 78px;
 }
 
 
 #new-page-brand{
    
-  background-image: url("https://images.unsplash.com/photo-1609174112693-52fdcebffd89?q=80&w=2954&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+  background-image: url("https://images.unsplash.com/photo-1609174112693-52fdcebffd89?q=80&w=2954&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-color: #cccccc; 
   width: 100%;
   height: 150px;
@@ -34,9 +38,17 @@ main{
   background-size: cover; 
   padding: 30px 0px 0px 30px;   
   text-align: center;
-   /* margin-bottom: 60px; */
 
 }
+
+
+
+.form-page-header{
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
 
 
  /* remove validation icons from new/edit pages */
@@ -74,7 +86,6 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 #new-page-header{
 
-   /* color: rgba(225, 225, 225, 0.8); */
    color: rgba(255, 255, 255, 0.9);
    text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.35);
    text-decoration: none;
@@ -86,12 +97,15 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
    font-size: xx-large; 
    transform: translateY(-15px);
 
+}
 
+#new-next-button{
+  float: right;
 }
 
 
 #edit-page-brand{
-    background-image: url("https://images.unsplash.com/photo-1631583090808-62c9569a9739?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
+    background-image: url("https://images.unsplash.com/photo-1631583090808-62c9569a9739?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); 
     background-color: #cccccc; 
     width: 100%;
     background-position: center;
@@ -115,14 +129,20 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
     transform: translate(45.5vw, -13px);
   }
 
- 
+  .form-check-input{
+    float: left;
+    margin-right: 20px;
+}
+
+
+/*  
   #basic-info-wrapper,
   #description-div,
   #owner-holder-wrapper,
   #details-wrapper{
     margin-left: 5px;
     margin-top: 16px;
-  }
+  } */
 
   #basic-info-wrapper > *,
   #owner-holder-wrapper > *,
@@ -132,9 +152,7 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
     padding: 4px;
   }
 
-.preferences-menu{
-  padding: 5px;
-}
+
 
 #preferences-main{
   transform: translateX(5vw);
@@ -185,7 +203,26 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 #preferences-export-div button{
   padding: 10px 30px 10px 30px;
 }
+.preferences-sub{
+  width: fit-content;
+}
+.preferences-sub-form{
+  margin-bottom: 50px;
 
+}
+
+.preferences-sub-form > div{
+  margin-bottom: 20px;
+}
+
+.preferences-sub-form input {
+  margin-bottom: 10px;
+}
+
+.preferences-sub-form button{
+  margin-bottom: 20px;
+  float: right;
+}
 
 /* #preferences-delete-alert{
   /* transform: translateX(-2000px);
@@ -201,7 +238,19 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 #export-button{
   background-color: saddlebrown;
+  color: aliceblue;
 }
+
+#export-button:hover{
+  background-color: #fff;
+  color: black;
+}
+
+.preferences-button{
+  transform: translateX(50px);
+}
+
+
 .alert-warning{
   transform: translateX(-2000px);
   height: 80px;
@@ -268,6 +317,10 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   cursor: pointer;
 }
 
+#description-div{
+  margin-top: 0px;
+}
+
 
 
 
@@ -324,7 +377,8 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   color: aliceblue;
 }
 
-#back-link-div{
+#back-link-div,
+.form-page-button{
   color: black;
   text-decoration: none;
   font-weight: 400;
@@ -337,8 +391,11 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   text-decoration: none;
 }
 
-#back-link-div:hover{
+#back-link-div:hover,
+.form-page-button:hover{
+  cursor: pointer;
   transform: translateY(-2.5px);
+  color: rgba(0, 0, 0, 0.382)
 }
 
 #archival-check-div{
@@ -347,6 +404,10 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 
 .menu{
   transition: transform 1s;
+  padding: 5px;
+  margin-top: 0px;
+  margin-bottom: 15px;
+  font-weight: 600;
   /* margin: 20px 0px 0px 20px; */
 }
 
@@ -354,6 +415,10 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
   cursor: pointer;
   transform: translateY(-2.5px);
 
+}
+
+.menu-content{
+  padding-bottom: 20px;
 }
 
 .menu-arrow{
@@ -370,23 +435,35 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 padding: 3em;
 }
 
+.size-input{
+  height: 100% !important;
+  width: 100% !important;
 
+}
+/* .size-input:placeholder-shown{
+  font-size: 0.8em;
+} */
 
+#size-z{
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#unit-placeholder{
+  color: #595C5F !important;
+}
 
 
 #delete-account-brand{  
   text-align: left;
 
   background-image: url("https://images.unsplash.com/photo-1611248293543-e71973f8b94b?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); /* The image used */
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #cccccc; 
   width: 100%;
-  /* height: 150px; You must set a specified height */
   background-position: 25% 58%;
-  ; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-repeat: no-repeat; 
+  background-size: cover; 
   padding: 30px 0px 0px 30px;   
-   /* margin-bottom: 60px; */
 }
 
 #delete-account-header{  
@@ -417,8 +494,7 @@ padding: 3em;
     font-family: 'Roboto', sans-serif;
     border-radius: 6px;    
     color: whitesmoke;
-    background-color: green; /* rgb(33, 32, 32); */
-
+    background-color: green;
     border: none;
     box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
     user-select: none;
@@ -463,7 +539,6 @@ padding: 3em;
     max-width: 200px;
     text-decoration: none;
     margin-bottom: 20px;
-
   }
 
    
@@ -502,7 +577,13 @@ padding: 3em;
 
   .attention-button:hover{
     color: #fcca00;
-    background-color: whitesmoke;
+    background-color: #fff;
+    
   }
 
 
+@media all and (min-width: 250px) and (max-width: 556px){
+  main{
+    padding: 0px !important;
+  }
+}

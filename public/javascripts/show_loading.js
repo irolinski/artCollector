@@ -18,7 +18,7 @@ const showLoading = () => {
     
     
     
-    let setDefault = function() { 
+    let setDefault = () => { 
     
         var userTable = '<%- JSON.stringify(userTable) %>'
         var queryString = '<%- JSON.stringify(queryString) %>'
@@ -59,6 +59,7 @@ const showLoading = () => {
     }};
     };
 
+    
     window.onload = (function(){
         setDefault()
     });

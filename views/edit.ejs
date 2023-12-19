@@ -4,7 +4,7 @@
     <p class="my-auto page-header" id="edit-page-header">Edit</p>
   </div>
 
-  <div id="edit-nav" class="row py-2">
+  <div id="edit-nav" class="row py-2 form-nav">
 
     <div class="col-md-9"></div>
 
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <main class="container pt-0 mt-0">
+  <main class="container">
 
 
 
@@ -23,12 +23,13 @@
     <div class="row">
       <div class="col-8 offset-2">
 
-        <form id="edit-form" class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
-          enctype="multipart/form-data" novalidate>
+        <form id="edit-form" class="row g-3 needs-validation" action="/collection/show/<%= p._id %>?_method=PUT"
+          method="POST" enctype="multipart/form-data" novalidate>
 
-          <p data-bs-toggle="collapse" data-bs-target="#basic-info-wrapper" class="menu"
+          <div data-bs-toggle="collapse" data-bs-target="#basic-info-wrapper" class="menu"
             onclick="toggleClass('active', 'basic-info-arrow')">Basic info <span id="basic-info-arrow"
-              class="menu-arrow">&#9660;</span></p>
+              class="menu-arrow">&#9660;</span></div>
+              <div class="menu-content">
           <div id="basic-info-wrapper" class="row accordion collapse">
 
             <!-- Artist name -->
@@ -77,7 +78,7 @@
 
             <!-- checkbox to unhide 'year started' attribute input -->
 
-            <div class="form-check col-md-5">
+            <div class=" col-md-5">
               <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear"
                 data-bs-toggle="collapse" data-bs-target="#yearstarted" <% if (p.year[0].year_started !=null ) { %>
               checked="checked" <% } else %>>
@@ -109,11 +110,11 @@
 
             <label for="size-x" class="form-label">Size:</label>
             <div class="col-md-2" id="size-x">
-              <input type="number" class="form-control" name="size[0][x]" placeholder="Width" step=".01" min="0"
+              <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step=".01" min="0"
                 value="<%= p.size[0].x %>">
             </div>
             <div class="col-md-2" id="size-y">
-              <input type="number" class="form-control" name="size[0][y]" placeholder="Height" step=".01" min="0"
+              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height" step=".01" min="0"
                 value="<%= p.size[0].y %>">
             </div>
 
@@ -123,7 +124,7 @@
 
             <div class="col-md-2 " id="">
               <div class="" id="size-z">
-                <input type="number" class="form-control " name="size[0][z]" placeholder="Depth" step=".01" min="0"
+                <input type="number" class="form-control size-input " name="size[0][z]" placeholder="Depth" step=".01" min="0"
                   value="<%= p.size[0].z %>">
               </div>
             </div>
@@ -133,7 +134,7 @@
               <select class="form-select form-check" id="unit" aria-label="Small select example" name="size[0][unit]">
                 <!-- <option selected >Unit</option> -->
 
-                <option value="null">Unit</option>
+                <option value="null" id="unit-placeholder" disabled  <% if (p.size[0].unit===null ) { %> selected="selected" <% } %>>Choose unit</option>
                 <option value="cm" <% if (p.size[0].unit==="cm" ) { %> selected="selected" <% } %>>cm</option>
                 <option value="in" <% if (p.size[0].unit==="in" ) { %> selected="selected" <% } %>>in</option>
               </select>
@@ -145,8 +146,7 @@
 
             <label for="#for-sale-indent">For Sale:</label>
 
-            <div class="col-md-1" id="for-sale-indent"></div>
-            <div class="form-check col-md-4">
+            <div class=" col-md-5">
 
               <input type="hidden" name="forSale" <% if (p.forSale=="1" ) { %> value="1" <% } else { %> value="0" <% }
                   %>
@@ -163,7 +163,7 @@
 
 
 
-            <div class="col-md-4">
+            <div class="col-md-2">
               <div <% if (p.forSale=="1" ) { %> class="price collapse show" <% } else { %> class="price collapse" <% }
                     %>
                     id="">
@@ -172,11 +172,13 @@
               </div>
             </div>
 
-            <div class=" col-md-2">
+            <div class=" col-md-4">
               <div <% if (p.forSale=="1" ) { %> class="price collapse show" <% } else { %> class="price collapse" <% }
                     %>
                     id="">
                     <select class="form-select" aria-label="Small select example" name="price[0][currency]">
+                      <option value="null" <% if (p.price[0].currency===null) { %> selected="selected" <% } %>  disabled>Choose currency</option>
+
                       <option value="PLN" <% if (p.price[0].currency=="PLN" ) { %> selected="selected" <% } %> > PLN
                       </option>
                       <option value="&#x20AC;" <% if (p.price[0].currency=="&#x20AC;" ) { %> selected="selected" <% } %>
@@ -189,25 +191,32 @@
               </div>
             </div>
           </div>
+        </div>
 
-            <p data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
-              onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
-                class="menu-arrow">&#9660;</span></p>
-                <div class="col-md-12 accordion collapse"  id="description-div">
-              <label for="description" class="form-label"> Description / Additional info: </label>
-              <textarea type="text" class="form-control" id="" name="description"
-                style="resize: none; height: 100px;"><%= p.description %></textarea>
-            </div>
+        <!-- Description -->
+
+          <div data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
+            onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
+              class="menu-arrow">&#9660;</span></div>
+              <div class=" menu-content">
+          <div class="col-md-12 accordion collapse" id="description-div">
+            <label for="description" class="form-label"> Description / Additional info: </label>
+            <textarea type="text" class="form-control" id="" name="description"
+              style="resize: none; height: 100px;"><%= p.description %></textarea>
+          </div>
+        </div>
 
 
-          <!-- owner -->
+          <!-- owner-holder wrapper -->
 
-          <p data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
-            onclick="toggleClass('active', 'owner-holder-arrow')">Owner/Holder settings <span id="owner-holder-arrow"
-              class="menu-arrow">&#9660;</span></p>
+          <div data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
+            onclick="toggleClass('active', 'owner-holder-arrow')">Ownership <span id="owner-holder-arrow"
+              class="menu-arrow">&#9660;</span></div>
+              <div class="menu-content">
           <div id="owner-holder-wrapper" class="row accordion collapse">
+           
             <label for="owner-check" class="form-check-label">Owner:</label>
-            <div class="form-check col-md-4" id="owner-check">
+            <div class="col-md-4" id="owner-check">
               <label class="form-check-label" for="self-owned">
                 I am the owner of this piece
               </label>
@@ -219,7 +228,7 @@
 
             <!-- if self-owned fill the data with user info  -->
 
-            <div class="form-check col-md-6">
+            <div class="col-md-6">
               <label class="form-check-label" for="else-owned">
                 Someone else is the owner of this piece
               </label>
@@ -230,20 +239,19 @@
 
             <!-- if someone else is the owner  -->
 
-            <div class="form-check col-md-5  ">
+            <div class=" col-md-5  ">
               <div class="">
                 <input type="text" <% if (p.owner[0].name=='' ) { %> class="form-control collapse owner-check"<% } else
-                  { %> class="form-control owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner
-                    name"
+                  { %> class="owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name"
                     value="<%= p.owner[0].name %>" >
               </div>
             </div>
 
 
-            <div class="form-check col-md-6 ">
+            <div class=" col-md-6 ">
               <div class=" ">
                 <input type="text" <% if (p.owner[0].contact_info=='' ) { %> class="form-control collapse owner-check"<%
-                  } else { %> class="form-control owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact"
+                  } else { %> class=" owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact"
                     placeholder="Contact info" value="<%= p.owner[0].contact_info %>">
               </div>
             </div>
@@ -255,7 +263,7 @@
             <!-- Holder -->
 
             <label for="holder-check" class="form-check-label">Holder:</label>
-            <div class="form-check col-md-4" name="holder-check">
+            <div class="col-md-4" name="holder-check">
               <label class="form-check-label" for="self-held">
                 I am the holder of this piece
               </label>
@@ -267,7 +275,7 @@
 
             <!-- if self-owned fill the data with user info  -->
 
-            <div class="form-check col-md-6">
+            <div class=" col-md-6">
               <label class="form-check-label" for="else-held">
                 Someone else is the holder of this piece
               </label>
@@ -280,31 +288,25 @@
 
             <!-- If someone else is the holder  -->
 
-            <div class="form-check col-md-5">
+            <div class="col-md-5">
               <div class="holder-check ">
                 <input type="text" <% if (p.holder[0].name=='' ) { %> class="form-control collapse holder-check"<% }
-                  else { %> class="form-control holder-check" <% } %> name="holder[0][name]" id="holder"
+                  else { %> class="holder-check" <% } %> name="holder[0][name]" id="holder"
                     placeholder="Holder name"
                     value="<%= p.holder[0].name %>">
               </div>
             </div>
 
-            <div class="form-check col-md-6">
+            <div class="col-md-6">
               <div class="holder-check ">
                 <input type="text" <% if (p.holder[0].contact_info=='' ) { %> class="form-control collapse holder-check"
-                <% } else { %> class="form-control holder-check" <% } %> name="holder[0][contact_info]"
+                <% } else { %> class="holder-check" <% } %> name="holder[0][contact_info]"
                     id="holder_contact"
                     placeholder="Contact info" value="<%= p.holder[0].contact_info %>">
               </div>
             </div>
-
             <div class="col-md-1"></div>
-          </div>
 
-          <p data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
-            onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
-              class="menu-arrow">&#9660;</span></p>
-          <div id="details-wrapper" class="accordion collapse">
             <!-- Date of acquiration -->
 
             <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
@@ -316,6 +318,16 @@
             <div class="col-md-7">
 
             </div>
+          </div>
+          </div>
+
+          <!-- details -->
+
+          <div data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
+            onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
+              class="menu-arrow">&#9660;</span></div>
+          <div  class="menu-content">
+            <div id="details-wrapper" class="accordion collapse">
 
 
             <!-- Catalogue number -->
@@ -345,12 +357,13 @@
                       Mark this release as archival
                     </label>
             </div>
+            </div>
           </div>
 
 
           <div class="col-md-9"></div>
           <div class="col-md-3">
-            <button class=" mb-2 confirm-button" id="edit-confirm-btn">Save changes</button>
+            <button class="confirm-button mb-2" id="edit-confirm-btn">Save changes</button>
           </div>
 
         </form>
