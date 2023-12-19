@@ -1,5 +1,6 @@
 <% layout('layouts/boilerplate')%>
 
+
 <%- include('./partials/loading_ellipsis.ejs')  %>
 <%- include('./partials/flash.ejs')  %>
 
@@ -238,6 +239,115 @@
 
 
 
+<!-- jQuery
+<script src='https://code.jquery.com/jquery-3.7.0.js'></script>
+
+<!-- Data Table JS -
+<script src='public/javascripts/dataTables.js'></script>
+<script src='public/javascripts/dataTables_responsive.js'></script>
+<script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
+<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> 
+
+<!-- Custom js 
+<script> if (!localStorage.getItem('defaultCollectionSettings')) { showLoading() } </script>
+<script src="public/javascripts/hide_nav_onScroll.js"></script>
+
+     -->
+
+
+
+
+
+
+
+
+
+<!-- <script>
+
+    
+
+//set user default categories
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+
+const showLoading = () => {
+
+document.querySelector('main').style.display = 'none'
+document.querySelector('#loading-div').style.display = 'block'
+document.querySelector('#collection-page-header').style.display = 'none'
+document.querySelector('.page-brand').style.display = 'none'
+    
+
+
+};
+
+
+
+let setDefault = async function() { 
+
+    document.querySelector('#loading-div').style.display = 'none'
+
+
+    var userTable = '<%- JSON.stringify(userTable) %>'
+    var queryString = '<%- JSON.stringify(queryString) %>'
+
+
+    if 
+   (((!queryString.includes('added') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
+    localStorage.setItem('noBoxesChecked', true)} else { localStorage.removeItem('noBoxesChecked')};
+
+    if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
+
+       
+
+        showLoading();
+
+        await sleep(800);
+
+
+
+        const checkboxes = document.querySelectorAll(".category-check");
+
+        for (let el of document.querySelectorAll('.category-check')) {
+            if (!queryString.includes("1")){
+            if (userTable.includes(el.name)){ el.checked = 1 } else { 
+                el.checked = 0 
+        }          // new condition
+
+    }}
+
+        for (let o of document.querySelector("#archival-select")) {
+           if (!queryString.includes("1")) {
+            if (userTable.includes(o.value)){ o.selected = 1 } else {
+                o.selected = 0
+            }
+           }
+        }
+
+
+     document.querySelector('#collection_form').submit();
+    //  if (localStorage.getItem("noBoxesChecked") === null ){
+     localStorage.setItem("defaultCollectionSettings", true) //};
+
+} else {
+    localStorage.removeItem('defaultCollectionSettings');
+}};
+
+
+window.onload = (function(){
+    setDefault()
+})
+</script> -->
+
+
+<script src="public/javascripts/dataTables_settings.js"></script>
+
+<script src="public/javascripts/remove_toggle_class.js"></script>
+
+
+    
+
 <!-- jQuery -->
 <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
 
@@ -245,18 +355,76 @@
 <script src='public/javascripts/dataTables.js'></script>
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
-<!-- <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script> -->
-<script src="public/javascripts/dataTables_settings.js"></script>
 
-<!-- Custom js -->
-<script src="public/javascripts/show_loading.js"></script>
-<script> if (!localStorage.getItem('defaultCollectionSettings')) { showLoading() } </script>
-<script src="public/javascripts/hide_nav_onScroll.js"></script>
-<script src="public/javascripts/remove_toggle_class.js"></script>
+<script src='public/javascripts/show_loading.js'></script>
+
+
+<script>
+
+</script>
+
+<script>
+
+const setDefault = async function() { 
+
+    document.querySelector('#loading-div').style.display = 'none'
+
+    let userTable = '<%- JSON.stringify(userTable) %>'
+    let queryString = '<%- JSON.stringify(queryString) %>'
+
+
+    if 
+    (((!queryString.includes('added') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
+    localStorage.setItem('noBoxesChecked', true)} else { localStorage.removeItem('noBoxesChecked')};
+
+    if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
 
     
 
+        showLoading();
+
+        await sleep(800);
+
+        const checkboxes = document.querySelectorAll(".category-check");
+
+        for (let el of document.querySelectorAll('.category-check')) {
+            if (!queryString.includes("1")){
+            if (userTable.includes(el.name)){ el.checked = 1 } else { 
+                el.checked = 0 
+        }          
+
+    }}
+
+        for (let o of document.querySelector("#archival-select")) {
+        if (!queryString.includes("1")) {
+            if (userTable.includes(o.value)){ o.selected = 1 } else {
+                o.selected = 0
+            }
+        }
+        }
+
+
+    document.querySelector('#collection_form').submit();
+    localStorage.setItem("defaultCollectionSettings", true) 
+
+    } else {
+    localStorage.removeItem('defaultCollectionSettings');
+}};
+
+</script>
+
+<script>
+window.onload = (function(){
+    setDefault()
+})
+</script>
+
+
+
+
+
 </body>
 </html> 
+
 
 
