@@ -13,18 +13,18 @@
   </div>
 
   <main class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" id="edit-images-col">
       <!-- image options -->
 
       <% if (p.images.length) { %>
 
-        <div class="col-md-12">
+        <div class="col-md-12" id="image-edit-wrapper">
 
-          <p class="menu menu-image-edit" for="deleteImageDiv" data-bs-toggle="collapse"
+          <div class="menu menu-image-edit" for="deleteImageDiv" data-bs-toggle="collapse"
             data-bs-target="#manage-images-div" onclick="toggleClass('active', 'manage-images-arrow')">
             Manage images <span class="menu-arrow" id="manage-images-arrow">&#9660;</span>
-          </p>
+          </div>
           <div class="accordion collapse" id="manage-images-div">
             <% p.images.forEach(function(img, i) { %>
               <div class='form-check-inline'>
@@ -56,15 +56,16 @@
 
 
     <!-- upload new images -->
-    <div class="col-md-5">
+    <div class="col-md-4" id="image-upload-wrapper">
       <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
         enctype="multipart/form-data">
 
 
-        <p class="menu menu-image-edit image-edit-text" data-bs-toggle="collapse" data-bs-target="#upload-more-div"
+        <div class="menu menu-image-edit image-edit-text" data-bs-toggle="collapse" data-bs-target="#upload-more-div"
           onclick="toggleClass('active', 'upload-images-arrow')">
-          Upload more images <span class="menu-arrow" id="upload-images-arrow">&#9660;</span></p>
+          Upload more images <span class="menu-arrow" id="upload-images-arrow">&#9660;</span></div>
         <div id="upload-more-div" class="accordion collapse">
+          <div>
           <div class="col-md-12">
 
 
@@ -78,13 +79,15 @@
                   accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length>= 4) { %> disabled <% } %>
                   onchange="unlockButton()">
           </div>
+          </div>
           <button class=" my-2 confirm-button" id="image-upload-button" disabled>Upload</button>
           <% } %>
 
         </div>
+      </div>
       </form>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
   </main>
 
   <script>
