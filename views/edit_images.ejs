@@ -1,49 +1,101 @@
 <% layout('layouts/boilerplate')%>
 
+  <div class="page-brand" id="edit-images-brand">
+    <p class="my-auto page-header" id="edit-images-header">Edit Images</p>
+  </div>
 
-
-<div class="row">
-    <h1 class="text-center">Edit images</h1>
-</div>
-<!-- image options -->
-<% if (p.images.length) { %>
-<div class="col-md-12">
-    <label class=" " for="deleteImageDiv">Delete images:</label>
-    <div class=" " id="deleteImageDiv">
-        <% p.images.forEach(function(img, i) { %>
-          <div class='form-check-inline'>
-            <img src='<%=img.url%>' class='' style="max-width: 100px;">
-            <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-           <input type="hidden"  name="deleteImages[]" value="<%=img.filename%>">
-           <button class="btn btn-danger mb-2" onclick="return confirm('Are you sure you want to delete this image?')">Delete</button>        </form>
-<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
-           <input type="hidden" name="makeDefault[]" value="<%=img.filename%>" >
-           <button class="btn btn-warning mb-2 ">Push to front</button>
-        </form>
-    </div>
-       <% }) %>
+  <div id="edit-nav" class="row py-2 form-nav">
+    <div class="col-md-9"></div>
+    <div class="col-md-3" id="back-link-div">
+      <a href="/collection/show/<%=p._id%>" class="nav-landscape-el">Go back <i class="bi bi-backspace"></i>
+      </a>
     </div>
   </div>
-  <% } %>
-  </div>
-  <div class="col-md-6"></div>
-  
-  
-  
-  <!-- Upload new images -->
+
+  <main class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4" id="edit-images-col">
+      <!-- image options -->
+
+      <% if (p.images.length) { %>
+
+        <div class="col-md-12" id="image-edit-wrapper">
+
+          <div class="menu menu-image-edit" for="deleteImageDiv" data-bs-toggle="collapse"
+            data-bs-target="#manage-images-div" onclick="toggleClass('active', 'manage-images-arrow')">
+            Manage images <span class="menu-arrow" id="manage-images-arrow">&#9660;</span>
+          </div>
+          <div class="accordion collapse" id="manage-images-div">
+            <% p.images.forEach(function(img, i) { %>
+              <div class='form-check-inline'>
+                <img src='<%=img.url%>'>
+                <div class="row" id="manage-images-options-div">
+                  <form class="col-6" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="makeDefault[]" value="<%=img.filename%>">
+                    <button title="Push image to the front" id="push-to-front-button" class="btn mb-2" aria-label="push to the front"><i
+                        class="bi bi-arrow-90deg-left"></i>
+                    </button>
+                  </form>
+                  <form class="col-6" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="deleteImages[]" value="<%=img.filename%>">
+                    <button title="Delete image" id="delete-button" class="btn mb-2"
+                      onclick="return confirm('Are you sure you want to delete this image?')">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <% }) %>
+          </div>
+        </div>
+        <% } %>
+    </div>
 
 
+    <!-- upload new images -->
+    <div class="col-md-4" id="image-upload-wrapper">
+      <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
+        enctype="multipart/form-data">
 
 
-<form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST" enctype="multipart/form-data" >
+        <div class="menu menu-image-edit image-edit-text" data-bs-toggle="collapse" data-bs-target="#upload-more-div"
+          onclick="toggleClass('active', 'upload-images-arrow')">
+          Upload more images <span class="menu-arrow" id="upload-images-arrow">&#9660;</span></div>
+        <div id="upload-more-div" class="accordion collapse">
+          <div>
+          <div class="col-md-12">
 
-<div class="col-md-12">
-    <label for="images" class="form-label">Upload more images:</label>
-    <% if (p.images.length >= 4) { %> <p>You have reached the max allowed image number. In order to upload new images, delete some of the ones already uploaded</p> <% } else { %> <p> If done one at a time, you can upload up to four images. </p> <% } %>
-    <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length >= 4) { %> disabled <%} %>>
-  </div>
-  <div class="col-md-6">
-  <button class="btn btn-primary mb-2"  <% if (p.images.length >= 4) { %> disabled <% } %> >Upload</button>
-</div> <div class="col-md-6"></div>
-  </form>
 
+            <% if (p.images.length>= 4) { %> 
+              <div class="feedback-message-warning">
+              <h6>You have reached the max allowed image number.</h6>
+                In order to upload new images, delete some of the ones already uploaded!</div>
+              <% } else { %>
+                <p class="text-muted image-edit-text"> If done one at a time, you can upload up to four images... </p><br>
+               <p class="subtext text-muted"> (max size per image: 5mb; allowed formats: jpg, png, gif) </p>
+                <input type="file" class="form-control" id="upload-images-input" name="images"
+                  accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length>= 4) { %> disabled <% } %>
+                  onchange="unlockButton()">
+          </div>
+          </div>
+          <button class=" my-2 confirm-button" id="image-upload-button" disabled>Upload</button>
+          <% } %>
+
+        </div>
+      </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </main>
+
+  <script>
+
+
+    const unlockButton = () => {
+      document.querySelector('#image-upload-button').removeAttribute("disabled")
+    };
+
+
+  </script>

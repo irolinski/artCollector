@@ -1,0 +1,75 @@
+body{
+    overflow-x: hidden
+}
+
+
+#navbar {
+    background-color: #e2e1e1;
+    background-color: rgba(167, 167, 167, 0.15); 
+    transition: 0.6s;
+    top: 0;
+    width: 100% ;
+}
+
+.navbar-brand{
+ color:rgba(33, 37, 41, 0.79)
+}
+
+.navbar-toggler{
+    border-radius: 0 !important;
+}
+
+a {
+    color: black;
+    transition: color 0.1s;
+    font-weight: 400;
+    
+}
+
+a:hover,
+a:focus {
+    color: rgba(0, 0, 0, 0.382)
+} 
+
+
+
+a {
+    color: black;
+    transition: color 0.1s;
+    font-weight: 400;
+    
+}
+
+a:hover,
+a:focus {
+    color: rgba(0, 0, 0, 0.382)
+}
+
+
+/* toast styling */
+
+.toast{
+    position:absolute;
+    z-index: 5;
+    top: 100px;
+    right: 100px;
+    color: aliceblue;
+}
+
+@media all and (min-width: 250px) and (max-width: 480px){
+
+
+    .toast{
+        top: 80px;
+        transform: translateX(85px);
+        font-size: 3vw;
+    }
+}
+
+.success{
+    background-color: green;
+}
+
+.error{
+    background-color: red;
+}

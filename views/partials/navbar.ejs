@@ -1,5 +1,5 @@
 
-<nav class="navbar sticky-top navbar-expand-md bg-dark navbar-dark">
+<nav class="navbar sticky-top navbar-expand-md navbar-fixed-top" id="navbar">
     <div class="container-fluid">
       <a class="navbar-brand me-auto" href="/home" >artCollector</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
@@ -9,10 +9,9 @@
         <div class='me-auto'>
           <ul class="navbar-nav">
             <% if (currentUser) { %>
+            <!-- <span class="navbar-brand nav-item me-auto opacity-25 px-3">&bull;</span> -->
             <li class="nav-item">
               <a class="nav-link"  href="/collection">My Collection</a>
-              <li class="nav-item">
-              <a class="nav-link" href="collection/new">Add a new piece</a>
               <% } %>
             </li>
           </ul>

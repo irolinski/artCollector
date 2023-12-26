@@ -11,7 +11,7 @@ const $ = require('jquery');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const joi = require('joi');
-const session = require('express-session')
+const session = require('express-session');
 const flash = require('connect-flash');
 const mongoStore = require('connect-mongo');
 const passport = require('passport');
@@ -27,6 +27,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
+app.use(session({secret: 'adkanqiwnqiwen23131§21§', resave: true, saveUninitialized: true}));
+
+
 app.use('/public', express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +43,6 @@ app.use(function (err, req, res, next) {
     res.status(status).send(message);
 })
 
-app.use(session({secret: 'adkanqiwnqiwen23131§21§'}));
 
 app.use(flash());
 
@@ -92,11 +94,12 @@ app.use('/collection', collectionRouter)
 
 
 app.get('/home', (req, res, next) => {
-    res.render('homepage')
+
+    const pageTitle = 'Homepage - artCollector';
+    const styleSheet = 'homepage'
+    
+    res.render('homepage', { pageTitle, styleSheet })
 });
-
-
-
 
 
 

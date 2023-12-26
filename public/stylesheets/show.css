@@ -1,0 +1,51 @@
+
+.accordion{
+    cursor: pointer;
+}
+
+
+#left-column{
+    text-align: center;
+}
+
+#carousel{
+    max-width: 450px;
+    width: 90%;
+    display: inline-block;
+    transition: transform 1s;
+}
+
+
+
+
+
+.menu-arrow {
+    display: inline-block;
+    transform: rotate(360deg);
+    transition: 0.1s ease-in-out;
+}
+
+.menu-arrow.active {
+    transform: rotate(270deg);
+}
+
+#piece-info-div{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+
+
+
+@media all and (min-width:768px){
+
+#carousel.drop{
+    transform: translateY(10vh);
+    transition: transform 1s;
+}
+
+
+#carousel:active{
+    transform: translateY(4vw);
+}
+}

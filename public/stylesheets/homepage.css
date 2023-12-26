@@ -1,0 +1,157 @@
+body{
+    background: rgba(0, 0, 0, .65) url('https://images.pexels.com/photos/2123337/pexels-photo-2123337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background-blend-mode: hard-light;
+    background-size: cover;
+    overflow: hidden;
+    color: aliceblue;
+}
+
+.navbar{
+    display: none;
+}
+
+.footer{
+    display: none;
+}
+
+form{
+    margin: 0
+}
+
+#home-box {
+    position: relative;
+    top: 40vh;
+    
+  }
+
+h6 a{
+    text-decoration: none;
+    color: white;
+
+}
+
+
+
+h6:hover{
+    cursor: pointer;
+}
+
+#brand-row{
+    transform: translateY(-40px);
+
+}
+
+
+.button-parent{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.confirm-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    /* margin-bottom: 20px; */
+    padding: 6px 14px !important;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 6px;    
+    color: whitesmoke;
+    background-color: green;
+    border: none;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    width: 125px;
+    transition: background-color 1s, color 1s;
+  }
+  
+  .confirm-button:focus {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+
+  .confirm-button:hover {
+    color: green;
+    background: #fff;
+  }
+
+
+
+  #forgot-button{
+    margin: auto;
+  }
+
+
+#forgot-button:hover{
+    cursor: pointer;
+
+}
+
+.back-button:hover{
+    cursor: pointer;
+}
+
+
+@media all and (orientation:portrait) {
+
+    body{
+        background-size: 400%;
+        background-position: 25% 20%;
+    }
+
+    main{
+        transform: translateY(70px);
+    }
+
+    .cover-container{
+        transform: translateY(-200px);
+        max-height: 1000px;
+    }
+
+    .form-control{
+        display: inline-block;
+        width: 60%
+
+    }
+
+    input {
+        max-width: 400px;
+    }
+
+    #forgotten-div{
+        transform: translateY(40px);
+
+    }
+
+    #info-div{
+        max-width: 390px;
+        margin: auto;
+        text-align: center;
+    }
+
+    #info-div > div{
+        display: inline;
+        text-align: center;
+        text-align: justify;
+    }
+
+
+    #back-button-0{
+        transform: translateY(195px);
+    }
+
+    #back-button-2{
+        transform: translateY(-115px);
+    }
+
+    #back-button-3{
+        transform: translateY(-75px);
+    }
+
+
+}

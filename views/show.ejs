@@ -3,207 +3,198 @@
 
 <div class="row py-5 my-5 mx-4">
 
-<!-- left column -->
-<div class="col-md-6">
+    <!-- left column -->
+    <div class="col-md-6" id="left-column">
 
-<!-- image -->
+        <!-- image -->
+        <% if (p.images.length > 0) {  %>
 
-
-
-<% if (p.images.length > 0) {  %>
-
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="max-width:450px; width:90%">
-    <div class="carousel-inner">
-      <% p.images.forEach((img, i) => { %>
-      <div class="carousel-item <%= i === 0 ? 'active' : ''%>"  >
-        <img class="" src="<%=img.url%>" alt="" style="max-width:100%;">
-      </div>
-      <% }) %>
-    </div>
-    <% if (p.images.length > 1) { %>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-    <% } %>
-  </div>
-  <% } else { %>
-    <img class="" style="max-width: 90%; max-height: 90%;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1699818280/artCollector/No_image_xoyq1z.png"> 
-<% } %>
-  </div>
-
-<!-- right column -->
-<div class="col-md-6">
-
-<!-- main detail section -->
-    <div class="container pt-5" style="max-width: 100vw;">
-        <div class="card-body pb-4">
-            <p> </p>
-            <p> <span class='fw-bold'> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> <% } %> </p>
-
-          <p class="">
-                <span class="fw-bold fst-italic">
-                    <%= p.title %>,
-                </span>
-                <span class="">
-                    <% for (let y of p.year) { %>
-                        <% if (y.year_started != undefined || y.year_stared != null){ %>
-                            <%= `${y.year_started} - ${y.year_finished}` %> 
-                    <%  } else { %>
-                        <td><%= y.year_finished %></td>
-                        <% } %>
-                    <% break } %>
-                </span>
-            </p>
-
-
-
-
-            <p class="card-subtitle mb-2 text-muted"> 
-                
-                <%= p.medium  %>,
-               
-                        <% for (let s of p.size) { %>
-                        <% if ((s.z === undefined) || (s.z === null)){ %>
-                             <%=  `${s.x} x ${s.x} ${s.unit}` %> 
-                    <%  } else { %>
-                        <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
-                        <% } %>
-                    <% break } %>
-
-        
-            </p>
-        </div>
-        <div>
-          <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo"> Description &#9660; </p> 
-            <div id="collapseTwo" class="collapse container pb-4" data-bs-parent="#description_accordion">
-                <% if (p.description !== '') { %>
-                <%= p.description %> 
-                <% } else { %>
-                    <p> No description added for this piece. </p>
-                    <p> (You can, however, add some by editing!)</p>
-             <%  } %>
+        <div id="carousel" class="carousel slide" data-ride="carousel" style="max-width:450px; width:90%">
+            <div class="carousel-inner">
+            <% p.images.forEach((img, i) => { %>
+            <div class="carousel-item <%= i === 0 ? 'active' : ''%>" id="item<%=i%>">
+                <img class="image" src="<%=img.url%>" alt="" style="max-width:100%;" id="image_<%=i%>">
             </div>
+            <% }) %>
+            </div>
+            <% if (p.images.length > 1) { %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev" onclick="btn_check_landscape_prev()">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next" onclick="btn_check_landscape_next()">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+            <% } %>
+        </div>
+        <% } else { %>
+            <img class="" style="max-width: 90%; max-height: 90%;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1699818280/artCollector/No_image_xoyq1z.png"> 
+        <% } %>
         </div>
 
 
-        <!-- ownership details section -->
-            <div id="">
 
-                <p class="accordion pb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne"> Ownership Details &#9660; </p>
+    <!-- right column -->
+    <div class="col-md-6">
 
-                <div id="collapseOne" class="collapse container pb-4" data-bs-parent="#owner_detail_accordion">
-                    <div class="row">
-                        <div class="col-md-9 pb-4">
+        <!-- main detail section -->
+        <div class="container pt-5" style="max-width: 100vw;">
+            <div class="card-body pb-4">
+                <p> </p>
+                <p> <span class='fw-bold'> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> <% } %> </p>
 
-                            <% for (let o of p.owner) { %>
-                                <% for (let h of p.holder) { %>
-                               <%     if (o.name === h.name) {  %>
-
-                            <% for (let o of p.owner ) { %> 
-                                <% if (o.status === 'self') { %>
-                                  <%  if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                    <div> <%= `Owner/Holder: ${currentUser.show_name}` %> <br><br>
-                                      Contact: <%=`${currentUser.contact_info}` %> <br> <br>
-                                      Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
-                                    
-                                    </div>
-                                <% }} else if ( o.name !== undefined && o.name !== '') {%>
-                                    <% if (o.contact_info !== '') { %> 
-                                        <div> <%= `Owner/Holder: ${o.name}` %> &emsp; <br>
-                                            <%= `Contact: ${o.contact_info}` %> </div>
-                                    <% } else { %>
-                                        <p> No info on ownership status of this piece </p >                                       
-                                            <% } %>
-                                            <% } else { %>
-                                            <% } %>
-                                <% break } %>
-                                <% } else {  %>
-                                    
-                            <% for (let o of p.owner ) { %> 
-                                <% if (o.status === 'self') {
-                                    if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                    <div> <%= `Owner: ${currentUser.show_name}` %> <br>
-                                      Contact: <%=`${currentUser.contact_info}` %> </div>
-                                <% }} else if ( o.name !== undefined && o.name !== '') {%>
-                                    <% if (o.contact_info !== '') { %> 
-                                        <div> <%= `Owner: ${o.name}` %> &emsp; %> <br>
-                                            <%= `Contact: ${o.contact_info}` %> </div>
-                                    <% } else { %>
-                                        <p> No info on Owner </p >                                       
-                                            <% } %>
-                                            <% } else { %>
-                                            <% } %>
-                                <% break } %>
-                            <p></p>
-
-                            <% if (p.acquiration_date !== false) { %>
-                            <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
+            <p class="">
+                    <span class="fw-bold fst-italic">
+                        <%= p.title %>,
+                    </span>
+                    <span class="">
+                        <% for (let y of p.year) { %>
+                            <% if (y.year_started != undefined || y.year_stared != null){ %>
+                                <%= `${y.year_started} - ${y.year_finished}` %> 
+                        <%  } else { %>
+                            <td><%= y.year_finished %></td>
                             <% } %>
-                            
-                            <% for (let h of p.holder ) { %> 
-                                <% if (h.status === 'self') {
-                                    if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                    <div> <%= `Holder: ${currentUser.show_name}` %> <br>
-                                      Contact: <%=`${currentUser.contact_info}` %> </div>
-                                <% }} else if ( h.name !== undefined && h.name !== '') {%>
-                                    <% if (h.contact_info !== '') { %> 
-                                        <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
-                                            <%= `Contact: ${h.contact_info}` %> </div>
-                                    <% } else { %>
-                                        <p> No info on holder </p >                                      
-                                            <% } %>
-                                            <% } else { %>
-                                            <% } %>
-                                <% break } %>
-
-                               <% }}} %>
+                        <% break } %>
+                    </span>
+                </p>
 
 
 
-
-                        </div>
-                        <div class="col-md-3">
-
-
-                            <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
-
-                            <% if (p.forSale == true) { %>
-                                <p> For Sale: &#10003; </p> 
-                                <p> Price: <% for (let el of p.price) { %>
-                                  <%  if (el.price !== null) { %>
-                                     <%= `${el.price} ${el.currency}` %> 
-                                     <% } else { %>
-                                        not set
-                                   <% }}} else { %>
-                                        <p> For Sale: &#10007; </p> 
-                                        <% } %> 
-
-
-                           
-                                
-
-                        </div>
-
-
-
+                <p class="card-subtitle mb-2 text-muted"> 
+                    
+                    <%= p.medium  %>,
+                
+                            <% for (let s of p.size) { %>
+                            <% if ((s.z === undefined) || (s.z === null)){ %>
+                                <%=  `${s.x} x ${s.x} ${s.unit}` %> 
+                        <%  } else { %>
+                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                            <% } %>
+                        <% break } %>
+                </p>
+            </div>
+            <div>
+            <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo" onclick="toggleClass('active', 'description-arrow')"> Description <span class="menu-arrow" id="description-arrow">&#9660;</span></p> 
+            <div id="description_wrapper" class="pb-4">
+                    <div id="collapseTwo" class="collapse container" data-bs-parent="#description_accordion">
+                        <% if (p.description !== '') { %>
+                        <%= p.description %> 
+                        <% } else { %>
+                            <p class="text-muted"> No description added for this piece. </p>
+                            <p class="text-muted"> (You can, however, add some by editing!)</p>
+                    <%  } %>
+                    </div>
                 </div>
-
             </div>
 
 
-          <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>
-          <br><br>
-          <a href="#" class="card-link">Export (work in progress)</a>
+            <!-- ownership details section -->
+                <div>
+                    <p class="accordion pb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne" onclick="toggleClass('active', 'ownership-detail-arrow')"> Ownership Details <span class="menu-arrow" id="ownership-detail-arrow">&#9660;</span> </p>
+                    <div class="pb-4"  id="piece-info-div">
+                    <div id="collapseOne" class="collapse container " data-bs-parent="#owner_detail_accordion">
+                        <div class="row pb-4">
+                            <div class="col-md-9 pb-4">
+
+                                <% for (let o of p.owner) { %>
+                                    <% for (let h of p.holder) { %>
+                                <%     if (o.name === h.name) {  %>
+
+                                <% for (let o of p.owner ) { %> 
+                                    <% if (o.status === 'self') { %>
+                                    <%  if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                        <div> 
+                                            <%= `Owner/Holder: ${currentUser.show_name}` %> <br><br>
+
+                                            Contact: <%=`${currentUser.contact_info}` %> <br> <br>
+                                            Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
+                                        </div>
+                                    <% }} else if ( o.name !== undefined && o.name !== '') {%>
+                                        <% if (o.contact_info !== '') { %> 
+                                            <div> <%= `Owner/Holder: ${o.name}` %> &emsp; <br>
+                                                <%= `Contact: ${o.contact_info}` %> </div>
+                                        <% } else { %>
+                                            <p> No info on ownership status of this piece </p >                                       
+                                                <% } %>
+                                                <% } else { %>
+                                                <% } %>
+                                    <% break } %>
+                                    <% } else {  %>
+                                        
+                                <% for (let o of p.owner ) { %> 
+                                    <% if (o.status === 'self') {
+                                        if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                        <div> <%= `Owner: ${currentUser.show_name}` %> <br>
+                                        Contact: <%=`${currentUser.contact_info}` %> </div>
+                                    <% }} else if ( o.name !== undefined && o.name !== '') {%>
+                                        <% if (o.contact_info !== '') { %> 
+                                            <div> <%= `Owner: ${o.name}` %> &emsp; %> <br>
+                                                <%= `Contact: ${o.contact_info}` %> </div>
+                                        <% } else { %>
+                                            <p> No info on Owner </p >                                       
+                                                <% } %>
+                                                <% } else { %>
+                                                <% } %>
+                                    <% break } %>
+                                <p></p>
+
+                                <% if (p.acquiration_date !== false) { %>
+                                <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
+                                <% } %>
+                                
+                                <% for (let h of p.holder ) { %> 
+                                    <% if (h.status === 'self') {
+                                        if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                        <div> <%= `Holder: ${currentUser.show_name}` %> <br>
+                                        Contact: <%=`${currentUser.contact_info}` %> </div>
+                                    <% }} else if ( h.name !== undefined && h.name !== '') {%>
+                                        <% if (h.contact_info !== '') { %> 
+                                            <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
+                                                <%= `Contact: ${h.contact_info}` %> </div>
+                                        <% } else { %>
+                                            <p> No info on holder </p >                                      
+                                                <% } %>
+                                                <% } else { %>
+                                                <% } %>
+                                    <% break } %>
+                                <% }}} %>
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
+
+                                <% if (p.forSale == true) { %>
+                                    <p> For Sale: &#10003; </p> 
+                                    <p> Price: <% for (let el of p.price) { %>
+                                    <%  if (el.price !== null) { %>
+                                        <%= `${el.price} ${el.currency}` %> 
+                                        <% } else { %>
+                                            not set
+                                    <% }}} else { %>
+                                            <p> For Sale: &#10007; </p> 
+                                            <% } %> 
+
+                            </div>
+                        </div>
+                    </div>
+
+
+            <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>&emsp;<a href="/collection/show/<%=p._id%>/edit/images"  class="card-link">Edit images <i class="bi bi-images"></i></a>
+
+            <br><br>
+            <a href="#" class="card-link">Export (work in progress)</a>
+            </div>
         </div>
-      </div>
+        </div>
 
 
+
+    </div>
 
 </div>
 
-</div>
+<script src="./public/javascripts/transform_imgOrientation.js"></script>
+
+
+    
+

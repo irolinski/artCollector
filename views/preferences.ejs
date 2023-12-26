@@ -1,71 +1,178 @@
 <% layout('layouts/boilerplate')%>
 
-<form class="needs-validation pb-5" action="/preferences/edit?_method=PUT" method="POST" novalidate>
-    <p> <b> Account info </b> </p>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address:</label>
-      <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=currentUser.email%>">
+
+  <div class="page-brand" id="preferences-page-brand">
+    <p class="my-auto page-header" id="preferences-page-header">Preferences</p>
+  </div>
+
+  <div id="edit-nav" class="row py-2">
+    <div class="col-md-9"></div>
+    <div class="col-md-3" id="back-link-div">
+      <a href="/collection/" class="nav-landscape-el">Go back <i class="bi bi-backspace"></i>
+      </a>
     </div>
-    <div class="mb-3">
-        <label for="username" class="form-label">Login:</label>
-        <input type="text" name="username" class="form-control"  id="username" aria-describedby="emailHelp" value="<%=currentUser.username%>">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 
-      </form>
-
-
-      <form class="needs-validation pb-5" action="/preferences/edit?_method=PUT" method="POST" novalidate>
-    <p><b>Personal data</b> </p>
-    <span> (It will be used to fill in the gaps for you, while using this website)</span>
-
-    <div class="mb-3">
-        <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
-        <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby="" placeholder="e.g. 'John Doe' or 'Reykjavík Vernacular Art Museum'" value="<%=currentUser.show_name%>">
-      </div>
-      <div class="mb-3">
-        <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
-        <input type="text" name="contact_info" class="form-control" id="contact-info" placeholder="e.g. '+48 604 444 245' or 'gallery@art.com'" aria-describedby="" value="<%=currentUser.contact_info%>">
-      </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-
-<p><b>Export collection</b></p>
-  <form action="/collection/export_collection" method="POST"><button class="btn btn-primary" >Export</button></form>
+<div class="row" id="alert-row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="alert alert-warning" id="alert-wrapper" >
+      <div>
+      <div id="alert-body"></div>
+    </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
 </div>
 
 
-  <form class="needs-validation pb-5" action="/preferences/change_password?_method=PUT" method="POST">
+<main class="container" id="preferences-main">
 
-    <p> <b> Change Password: </b> </p>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password:</label>
-        <input type="password" name="new_password" class="form-control" id="password" required>
-        <label for="confirm_password" class="form-label">Confirm password:</label>
-        <input type="password" class="form-control" id="confirm_password" required>
+
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-account-settings-div" class="menu preferences-menu"
+      onclick="toggleClass('active', 'account-settings-arrow')">Account info <span class="menu-arrow"
+          id="account-settings-arrow">&#9660;</span></b></div>
+    <section id="preferences-account-settings-div" class="accordion collapse">
+      <div data-bs-toggle="collapse" data-bs-target="#preferences-email" class="menu preferences-menu"
+        onclick="toggleClass('active', 'login-email-arrow')"> &bull; E-mail <span class="menu-arrow"
+            id="login-email-arrow">&#9660;</span> </b> </div>
+
+      <div id="preferences-email" class="accordion collapse preferences-sub" style="width: fit-content;">
+        <div id="preferences-email-form">
+          <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+            <div class="">
+              <label for="email" class="form-label">Your e-mail adress:</label>
+              <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                value="<%=currentUser.email%>">
+                <button type="submit" class="confirm-button">Change!</button>
+                </div>
+          </form>
+        </div>
+        </div>
+
+        <div data-bs-toggle="collapse" data-bs-target="#preferences-login-form" class="menu preferences-menu"
+        onclick="toggleClass('active', 'preferences-login-arrow')">&bull; Login <span class="menu-arrow"
+            id="preferences-login-arrow">&#9660;</span> </b> </div>
+        <div id="preferences-login-form" class="accordion collapse preferences-sub">
+          <div>
+        <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+        <div class="" id="">
+          <label for="username" class="form-label">Your login:</span></label>
+          <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
+            value="<%=currentUser.username%>">
+            <button type="submit" class="confirm-button">Change!</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
+      
+      <div data-bs-toggle="collapse" data-bs-target="#preferences-change-password-div" class="menu preferences-menu"
+        onclick="toggleClass('active', 'password-arrow')">&bull; Password <span class="menu-arrow"
+            id="password-arrow">&#9660;</span></b> </div>
+
+      <div id="preferences-change-password-div" class="accordion collapse preferences-sub">
+
+        <form class="needs-validation preferences-sub-form" action="/preferences/change_password?_method=PUT" method="POST">
+
+          <div class="">
+            <label for="password" class="form-label">Your password:</label>
+            <input type="password" name="new_password" class="form-control" id="password" required>
+            <label for="confirm_password" class="form-label">Confirm password:</label>
+            <input type="password" class="form-control" id="confirm_password" required>
+
+          <button type="submit" class="confirm-button"
+          onclick="return confirm('Are you sure you want to change your password?')">Change!</button>
+          </div>
+        </form>
       </div>
 
-    <button type="submit" class="btn btn-primary"  onclick="return confirm('Are you sure you want to change your password?')">Submit</button>
-</form>
+      </div>
+    </section>
 
-<a class="btn btn-danger" href="preferences/deleteAcc" onclick="return confirm('Are you sure you want to delete your account?')">Delete account</a>
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-personal-data-div" class="menu preferences-menu"
+      onclick="toggleClass('active', 'personal-data-arrow')">Personal data
+      <span class="menu-arrow" id="personal-data-arrow">&#9660;</span> <br>
+      <span class="subtext text-muted">(to auto-fill the data of the pieces that you own)</span>
+    </div>
+    <div class=" accordion collapse" id="preferences-personal-data-div" >
 
-<script>
+    <form class="needs-validation preferences-sub-form" id="personal-data-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
 
-// password confirm validation
-  const password = document.getElementById("password");
-  const confirm_password = document.getElementById("confirm_password");
-  
-  function validatePassword(){
-    if(password.value != confirm_password.value) {
-      confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-      confirm_password.setCustomValidity('');
+      <div  class="preferences-sub">
+
+        <div class="">
+          <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
+          <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby=""
+            placeholder="e.g. 'John Doe' or 'Reykjavík Vernacular Art Museum'" value="<%=currentUser.show_name%>">
+        </div>
+        <div class="">
+          <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
+          <input type="text" name="contact_info" class="form-control" id="contact-info"
+            placeholder="e.g. '+48 604 444 245' or 'gallery@art.com'" aria-describedby=""
+            value="<%=currentUser.contact_info%>">
+        </div>
+
+        <button type="submit" class="confirm-button">Submit</button>
+    </form>
+  </div>
+    </div>
+    
+
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-export-div" class="menu preferences-menu"
+      onclick="toggleClass('active', 'export-arrow')">Export collection <span class="menu-arrow"
+          id="export-arrow">&#9660;</span></b></div>
+    <div id="preferences-export-div" class=" accordion collapse">
+      <form action="/collection/export_collection" method="POST"><button class="confirm-button preferences-button" id="export-button">Export to .xlsx</button></form>
+    </div>
+
+
+
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-delete-account-div" class="menu preferences-menu"
+      onclick=" showAlert(deleteAlert), toggleClass('active', 'delete-account-arrow', 'alert-wrapper', 'preferences-main'), removeClass('show', 'preferences-export-div', 'preferences-personal-data-div', 'preferences-account-settings-div')">Delete account <span class="menu-arrow"
+          id="delete-account-arrow">&#9660;</span></b></div>
+    <div id="preferences-delete-account-div" class="accordion collapse delete-account preferences-button">
+      <a class="delete-button" href="preferences/deleteAcc"
+        onclick="return confirm('Are you sure you want to delete your account? All your data will be lost.')">Delete account</a>
+    </div>
+
+
+  </main>
+
+
+
+
+
+
+
+
+  <script>
+
+    // password confirm validation
+    const password = document.getElementById("password");
+    const confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+      if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
     }
-  }
-  
-  password.onchange = validatePassword;
-  confirm_password.onkeyup = validatePassword;
-  
-    </script>
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+  </script>
+
+  <script>
+
+    const deleteAlert = ` <h6>Please, be careful with this button!</h6>
+   ... or at least, be aware that you can export your collection!`
+
+   const showAlert =  (body) => {
+
+    document.querySelector('#alert-body').innerHTML = body
+   }
+  </script>
