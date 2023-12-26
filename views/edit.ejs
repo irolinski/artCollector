@@ -35,7 +35,7 @@
             <!-- Artist name -->
 
             <div class="col-md-6">
-              <label for="artist" class="form-label">Artist name:</label>
+              <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
               <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"
                 value="<%= p.artist %>" required>
               <div class="invalid-feedback">
@@ -47,7 +47,7 @@
             <!-- Title, Year -->
 
             <div class="col-md-6">
-              <label for="title" class="form-label">Title:</label>
+              <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
               <input type="text" class="form-control" id="title" name="title"
                 placeholder="What is the name of your piece?" value="<%= p.title %>" required>
               <div class="invalid-feedback">
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <label for="year_finished" class="form-label">Year Finished:</label>
+              <label for="year_finished" class="form-label"><span class="required-star">*</span>Year Finished:</label>
               <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]"
                 placeholder="Year of origin" min="0" value="<%= p.year[0].year_finished %>">
 
@@ -94,7 +94,7 @@
             <!-- Medium -->
 
             <div class="col-md-6">
-              <label for="medium" class="form-label">Medium:</label>
+              <label for="medium" class="form-label"><span class="required-star">*</span>Medium:</label>
               <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?"
                 value="<%= p.medium %>" required>
               <div class="invalid-feedback">
@@ -110,11 +110,11 @@
 
             <label for="size-x" class="form-label">Size:</label>
             <div class="col-md-2" id="size-x">
-              <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step=".01" min="0"
+              <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step="1" min="0"
                 value="<%= p.size[0].x %>">
             </div>
             <div class="col-md-2" id="size-y">
-              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height" step=".01" min="0"
+              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height" step="1" min="0"
                 value="<%= p.size[0].y %>">
             </div>
 
@@ -124,7 +124,7 @@
 
             <div class="col-md-2 " id="">
               <div class="" id="size-z">
-                <input type="number" class="form-control size-input " name="size[0][z]" placeholder="Depth" step=".01" min="0"
+                <input type="number" class="form-control size-input " name="size[0][z]" placeholder="Depth (if applies)" step="1" min="0"
                   value="<%= p.size[0].z %>">
               </div>
             </div>
@@ -155,7 +155,7 @@
                     onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if
                     (p.forSale=="1" ) { %> checked="checked" <% } %> >
                     <label class="form-check-label" for="is_forsale">
-                      Is it, possibly, for sale?
+                      Is it for sale?
                     </label>
 
             </div>
@@ -229,12 +229,12 @@
             <!-- if self-owned fill the data with user info  -->
 
             <div class="col-md-6">
-              <label class="form-check-label" for="else-owned">
-                Someone else is the owner of this piece
-              </label>
               <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned"
                 onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !=='' && p.owner[0].name !==undefined)
                 { %> checked="checked" <% } %> >
+              <label class="form-check-label" for="else-owned">
+                Someone else is the owner of this piece
+              </label>
             </div>
 
             <!-- if someone else is the owner  -->
@@ -276,12 +276,12 @@
             <!-- if self-owned fill the data with user info  -->
 
             <div class=" col-md-6">
-              <label class="form-check-label" for="else-held">
-                Someone else is the holder of this piece
-              </label>
               <input type="radio" class="form-check-input" name="holder[0][status]" value="else" id="else-held"
                 onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name !=='' && p.holder[0].name
                 !==undefined) { %> checked="checked" <% } %>>
+              <label class="form-check-label" for="else-held">
+                Someone else is the holder of this piece
+              </label>
             </div>
 
 
@@ -361,22 +361,42 @@
           </div>
 
 
+          <div data-bs-target="#delete-wrapper" data-bs-toggle="collapse" class="menu"
+            onclick="toggleClass('active', 'delete-arrow')">Manage <span id="delete-arrow"
+              class="menu-arrow">&#9660;</span></div>
+          <div  class="menu-content">
+            <div id="delete-wrapper" class="accordion collapse">
+              <div class="col-md-2">
+        <button form="delete-form"class="btn delete-button" type="submit"
+              onclick="return confirm('Are you sure you want to delete this piece? There will be no coming back!')">Delete
+              piece</button>
+              </div>
+              </div>
+              </div>
+
+      </div>
+
           <div class="col-md-9"></div>
           <div class="col-md-3">
-            <button class="confirm-button mb-2" id="edit-confirm-btn">Save changes</button>
           </div>
 
         </form>
 
         <div class="col-md-6">
 
-          <form action="/collection/show/<%=p._id%>?_method=DELETE" method="POST">
-            <button class="btn delete-button mb-5"
-              onclick="return confirm('Are you sure you want to delete this piece? There will be no coming back!')">Delete
-              piece</button>
+          <form action="/collection/show/<%=p._id%>?_method=DELETE" id="delete-form"method="POST">
+     
           </form>
         </div>
+        <div class="row">
+         
+      <div class="col-md-8"></div>
+      <div class="col-md-2">
+        <button form="edit-form" class="confirm-button" type="submit" id="edit-confirm-button">Save changes</button>
       </div>
+
+      </div>
+
 
   </main>
 
@@ -385,5 +405,10 @@
   <script src="./public/javascripts/clear_fields.js"></script>
   <script src="./public/javascripts/toggleCollapse.js"></script>
   <script src="./public/javascripts/hide_nav_onScroll.js"></script>
+  <script src="./public/javascripts/jquery.dirty.js"></script>
+  <script>
+    $("#edit-form").dirty({preventLeaving: true});
+  </script>
+
 
   </body>

@@ -46,8 +46,8 @@
         <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp" required>
         <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password" required>
       </div>
-      <div class="col-md-4">
-        <button type="submit" class="confirm-button my-4">Submit</button>
+      <div class="col-md-4 d-flex button-parent">
+        <button type="submit" id="login-button" class="confirm-button my-4">Submit</button>
       </div>
       <div class="col-md-2"></div>
       <span class="multi-collapse-1 mt-4" data-bs-target=".multi-collapse-0" data-bs-toggle="collapse" id="forgot-button">I forgot my password!</span>
@@ -55,10 +55,10 @@
   </form>
 
  <form class="needs-validation" action="/forgotten" method="POST" novalidate>  
-  <div class="row collapse multi-collapse-0" id="forgotten_div">
+  <div class="row collapse multi-collapse-0" id="forgotten-div">
     <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="forgotten-label"><h4>Forgot your password?</h4></div>      <div class="col-md-4"></div>
   <div class="col-md-4"></div> <div class="col-md-4 mb-3 multi-collapse-1"> <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  </div> <div class="col-md-4"></div>
-  <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="multi-collapse-1 confirm-button" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
+  <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="multi-collapse-1 confirm-button" id="forgot-button" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
   </div>
   </form>
 
@@ -78,8 +78,8 @@
           <input type="password" name="password" class="form-control mb-3" id="register_password" placeholder="password" required>
           <input type="password" class="form-control mb-3" id="confirm_password" placeholder="confirm password"  required>
         </div>
-        <div class="col-md-2">
-          <button type="submit" class="confirm-button">Submit</button>
+        <div class="col-md-2 d-flex button-parent">
+          <button type="submit" class="confirm-button" id="register-submit-button">Submit</button>
         </div>
       </div>
       </div>

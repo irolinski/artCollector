@@ -1,6 +1,5 @@
 (function () {
-    'use strict'
-    
+
     var forms = document.querySelectorAll('.needs-validation')
     
     // Loop over them and prevent submission
@@ -10,11 +9,16 @@
             if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
+            document.querySelector('#new-prev-button').click();
             }
     
             form.classList.add('was-validated')
         }, false)
         })
-    })()
+
+
+    }
+    
+    )()
 
     

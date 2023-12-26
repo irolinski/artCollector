@@ -2,6 +2,7 @@ body{
     overflow-x: hidden
 }
 
+
 #navbar {
     background-color: #e2e1e1;
     background-color: rgba(167, 167, 167, 0.15); 
@@ -42,4 +43,33 @@ a {
 a:hover,
 a:focus {
     color: rgba(0, 0, 0, 0.382)
+}
+
+
+/* toast styling */
+
+.toast{
+    position:absolute;
+    z-index: 5;
+    top: 100px;
+    right: 100px;
+    color: aliceblue;
+}
+
+@media all and (min-width: 250px) and (max-width: 480px){
+
+
+    .toast{
+        top: 80px;
+        transform: translateX(85px);
+        font-size: 3vw;
+    }
+}
+
+.success{
+    background-color: green;
+}
+
+.error{
+    background-color: red;
 }

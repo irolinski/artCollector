@@ -13,7 +13,7 @@
     </div>
   </div>
 
-<div class="row delete-account accordion collapse" id="alert-row">
+<div class="row" id="alert-row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
     <div class="alert alert-warning" id="alert-wrapper" >
@@ -26,7 +26,7 @@
 </div>
 
 
-<main class="container" id="preferences-main" style="padding-bottom: 500px;">
+<main class="container" id="preferences-main">
 
 
     <div data-bs-toggle="collapse" data-bs-target="#preferences-account-settings-div" class="menu preferences-menu"
@@ -94,14 +94,13 @@
     <div data-bs-toggle="collapse" data-bs-target="#preferences-personal-data-div" class="menu preferences-menu"
       onclick="toggleClass('active', 'personal-data-arrow')">Personal data
       <span class="menu-arrow" id="personal-data-arrow">&#9660;</span> <br>
-      <span class="subtext text-muted">(to auto-fill the data of the pieces that you own)</span></b>
+      <span class="subtext text-muted">(to auto-fill the data of the pieces that you own)</span>
     </div>
     <div class=" accordion collapse" id="preferences-personal-data-div" >
 
-    <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+    <form class="needs-validation preferences-sub-form" id="personal-data-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
 
       <div  class="preferences-sub">
-        <!-- <span> (It will be used to fill in the gaps for you, while using this website)</span> -->
 
         <div class="">
           <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
@@ -130,8 +129,8 @@
 
 
 
-    <div data-bs-toggle="collapse" data-bs-target=".delete-account" class="menu preferences-menu"
-      onclick=" showAlert(deleteAlert), toggleClass('active', 'delete-account-arrow', 'alert-wrapper'), removeClass('show', 'preferences-export-div', 'preferences-personal-data-div', 'preferences-account-settings-div')">Delete account <span class="menu-arrow"
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-delete-account-div" class="menu preferences-menu"
+      onclick=" showAlert(deleteAlert), toggleClass('active', 'delete-account-arrow', 'alert-wrapper', 'preferences-main'), removeClass('show', 'preferences-export-div', 'preferences-personal-data-div', 'preferences-account-settings-div')">Delete account <span class="menu-arrow"
           id="delete-account-arrow">&#9660;</span></b></div>
     <div id="preferences-delete-account-div" class="accordion collapse delete-account preferences-button">
       <a class="delete-button" href="preferences/deleteAcc"
@@ -139,8 +138,8 @@
     </div>
 
 
-
   </main>
+
 
 
 
@@ -170,7 +169,7 @@
   <script>
 
     const deleteAlert = ` <h6>Please, be careful with this button!</h6>
-   ... or at least remember that you can export your collection if you wish so!`
+   ... or at least, be aware that you can export your collection!`
 
    const showAlert =  (body) => {
 

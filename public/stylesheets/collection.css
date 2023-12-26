@@ -80,7 +80,7 @@
 
 .page-brand {
 
-    background: rgba(0, 0, 0, .65) url('https://images.unsplash.com/photo-1618604440689-d5465097c6a0?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg');
+    background: rgba(0, 0, 0, .2) url('https://images.unsplash.com/photo-1618604440689-d5465097c6a0?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg');
     background-blend-mode: darken;
     width: 100%;
     background-position: 25% 69%;
@@ -105,6 +105,7 @@
 
 .page-header {
     color: rgba(255, 255, 255, 0.9);
+    text-shadow: 2px 2px 4px #000000;
     /* text-shadow: 3px 4px 7px rgba(0, 0, 0, 1.35); */
     text-decoration: none;
     white-space: nowrap;

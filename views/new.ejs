@@ -19,13 +19,13 @@
 <div class="row">
   <div class="col-8 offset-2">
 
-    <form class="row g-3 needs-validation" action="/collection" method="POST" enctype="multipart/form-data" novalidate >
+    <form class="row g-3 needs-validation" id="new-form" action="/collection" method="POST" enctype="multipart/form-data" novalidate >
       <section id="basic-info-wrapper" class="row accordion collapse show form-section menu-content">
         <h5 class="form-page-header">Basic info</h5>
           <div class="menu-content"></div>
         <!-- Artist name -->
         <div class="col-md-6">
-            <label for="artist" class="form-label">Artist name:</label>
+            <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
             <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name" required>
             <div class="invalid-feedback">
                 Entering a name is required!
@@ -35,15 +35,18 @@
 
         <!-- Title, Year -->
         <div class="col-md-6">
-            <label for="title" class="form-label">Title:</label>
+            <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required >
             <div class="invalid-feedback">
                 Entering a title is required!
             </div>
         </div>
         <div class="col-md-5">
-            <label for="year_finished" class="form-label">Year finished:</label>
-            <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0">
+            <label for="year_finished" class="form-label"><span class="required-star">*</span>Year finished:</label>
+            <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0" required>
+            <div class="invalid-feedback">
+              Please, enter a year!
+          </div>
         </div>
         <!-- <div class="col-md-2"></div> -->
 
@@ -72,7 +75,7 @@
         <!-- Medium -->
 
         <div class="col-md-6">
-            <label for="medium" class="form-label">Medium:</label>
+            <label for="medium" class="form-label"><span class="required-star">*</span>Medium:</label>
             <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" required>
             <div class="invalid-feedback">
                 Entering piece medium is required!
@@ -83,7 +86,9 @@
         <!-- Images -->
 
         <div class="col-md-8">
-          <label for="images" class="form-label" required>Images:</label>
+          <label for="images" class="form-label" required>Image:           
+            <br><span class="subtext text-muted">(max size: 5mb; allowed formats: jpg, png, gif)</span>
+          </label>
           <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif"  >
         </div>
 
@@ -92,10 +97,10 @@
 
         <label for="size-x" class="form-label">Size:</label>
         <div class="col-md-2" id="size-x"> 
-            <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step=".01" min="0" >
+            <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step="1" min="0" >
         </div>
         <div class="col-md-2" id="size-y"> 
-            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step=".01" min="0">
+            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step="1" min="0">
         </div>
 
         <!-- checkbox to unhide 'size-z' attribute input -->
@@ -109,7 +114,7 @@
         <!-- to be uncollapsed with the checkbox above -->
         <div class="col-md-2 " id=""> 
           <div class ="collapse" id="size-z">
-            <input type="number" class="form-control size-input" name="size[0][z]" placeholder="Depth"  step=".01" min="0">
+            <input type="number" class="form-control size-input" name="size[0][z]" placeholder="Depth"  step="1" min="0">
             </div>
         </div>
 
@@ -285,10 +290,10 @@
     <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
     <div class="col-md-1" id="catalogue-number-indent"></div>
       <div class=" col-md-4" name="">
+        <input class="form-check-input" type="checkbox" name="" value="" id="catalogue-check" data-bs-toggle="collapse" data-bs-target="#catalogue">
         <label class="form-check-label" for="catalogue-check" id="has-catalogue-number">
           Do you want to enter a catalogue number?
         </label>
-        <input class="form-check-input" type="checkbox" name="" value="" id="catalogue-check" data-bs-toggle="collapse" data-bs-target="#catalogue">
       </div>
       <div class="col-md-6">
         <div id="catalogue" class="collapse">
@@ -328,7 +333,7 @@
       <div class="row accordion collapse show" id="new-confirm-button-row">
         <div class="col-md-12">
           <div class=" mb-2 form-section accordion collapse show form-page-button" id="new-next-button" data-bs-toggle="collapse" data-bs-target=".form-section">Next ≫</div>       
-          <div class=" mb-2 accordion collapse form-section form-page-button" data-bs-toggle="collapse" data-bs-target=".form-section">≪ Previous</div>
+          <div class=" mb-2 accordion collapse form-section form-page-button" id="new-prev-button" data-bs-toggle="collapse" data-bs-target=".form-section">≪ Previous</div>
 
         </div>
       </div>
@@ -342,9 +347,9 @@
 
 <script src="./public/javascripts/bootstrap_validations.js"> </script>
 
+<script src="./public/javascripts/jquery.dirty.js"></script>
 
-
-
+<script> $("#new-form").dirty({preventLeaving: true}); </script>
 
 <script src="./public/javascripts/toggleCollapse.js"></script>
 

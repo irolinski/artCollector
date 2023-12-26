@@ -2,11 +2,12 @@
 
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
-<%- include('./partials/flash.ejs')  %>
 
 <div class="page-brand">
 <p class=" my-auto page-header" id="collection-page-header">My Collection</p>
 </div>    
+
+
 
 
 <main class="container">
@@ -62,7 +63,6 @@
             </div>
 
         </section>
-
             </form>
 
             <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
@@ -235,7 +235,8 @@
 
 
 </main>
-</body>
+
+<!-- </body> -->
 
 
 <script src="public/javascripts/dataTables_settings.js"></script>
@@ -276,7 +277,7 @@ const setDefault = async function() {
 
         showLoading();
 
-        await sleep(800);
+        await sleep(1500);
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -302,7 +303,14 @@ const setDefault = async function() {
 
     } else {
     localStorage.removeItem('defaultCollectionSettings');
-}};
+}
+
+
+
+
+};
+
+
 
 window.onload = (function(){
     setDefault()

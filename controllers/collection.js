@@ -41,8 +41,6 @@ const artPieceJOI = require('../models/artPieceJOI.js');
 
 
 
-
-
 module.exports.collectionPage = (async (req, res, next) => {
 
     const pageTitle = 'My Collection - artCollector'
@@ -52,7 +50,7 @@ module.exports.collectionPage = (async (req, res, next) => {
     const userTable = (req.user.custom_table);
 
     const archivalStatus = req.query.archival;
-    
+
 
     let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); 
     
@@ -179,7 +177,6 @@ module.exports.showPage = (async (req, res, next) => {
 
     const { id } =  req.params; 
 
-    
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect('/campgrounds');
@@ -226,16 +223,13 @@ module.exports.editPiece = (async (req, res, next) => {
     p.images.push(...imgs);
 
     if (req.body.makeDefault){
-        
         for (let imgFileName of req.body.makeDefault) {
-         
 
             const index = p.images.map((image) => image.filename).indexOf(imgFileName)
 
             let img = p.images[index] 
             p.images.splice(index, 1)
             p.images.unshift(img)
-       
     }}
 
     if (req.body.deleteImages){
@@ -248,7 +242,7 @@ module.exports.editPiece = (async (req, res, next) => {
     await p.save();
 
     req.flash('success', 'Successfully made changes to your piece!');
-    res.redirect(`/collection/show/${id}`);    
+    res.redirect(`/collection/show/${id}`);
 });
 
 module.exports.deletePiece = (async (req, res, next) => {

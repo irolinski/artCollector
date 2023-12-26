@@ -18,7 +18,7 @@ const pieceSchema = joi.object({
         x: joi.number().min(0).allow(''),
         y: joi.number().min(0).allow(''),
         z: joi.number().min(0).allow(''),
-        unit: joi.string().required()
+        unit: joi.string().allow('')
     }),
     owner: joi.array().items({
         name: joi.string().allow(''),

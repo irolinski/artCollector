@@ -90,9 +90,9 @@
             <!-- ownership details section -->
                 <div>
                     <p class="accordion pb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne" onclick="toggleClass('active', 'ownership-detail-arrow')"> Ownership Details <span class="menu-arrow" id="ownership-detail-arrow">&#9660;</span> </p>
-                    <div class="pb-4">
+                    <div class="pb-4"  id="piece-info-div">
                     <div id="collapseOne" class="collapse container " data-bs-parent="#owner_detail_accordion">
-                        <div class="row">
+                        <div class="row pb-4">
                             <div class="col-md-9 pb-4">
 
                                 <% for (let o of p.owner) { %>
@@ -197,5 +197,4 @@
 
 
     
-
 
