@@ -201,7 +201,7 @@
                                 <% if (piece.acquiration_date) { %>
                             <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
                                 <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
-                                <% } else { %> no info <% } %>
+                                <% } else { %> n/a <% } %>
                             </td>
 
                         <% if (queryString.includes('forSale')){ %> 

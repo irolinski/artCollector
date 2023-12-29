@@ -47,13 +47,18 @@ max-width: 100%;
     padding-bottom: 1.5rem;
 }
 
-#export-link{
+.export-link{
     text-decoration: underline;
 }
 
-#export-link:hover{
+.export-link:hover{
     cursor: pointer;
     color: rgba(0, 0, 0, 0.382);
+}
+
+.carousel-icon{
+    color: rgba(255, 255, 255, 0.706)
+    
 }
 
 
@@ -78,6 +83,8 @@ max-width: 100%;
     image-rendering: -webkit-crisp-edges;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    max-height: 375px;
+    max-width: 50%;
 
     display: none;
 }
