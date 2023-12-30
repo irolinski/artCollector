@@ -23,10 +23,11 @@
       <section id="basic-info-wrapper" class="row accordion collapse show form-section menu-content">
         <h5 class="form-page-header">Basic info</h5>
           <div class="menu-content"></div>
+
         <!-- Artist name -->
         <div class="col-md-6">
             <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
-            <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name" required>
+            <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  maxlength="40" required>
             <div class="invalid-feedback">
                 Entering a name is required!
             </div>
@@ -36,26 +37,26 @@
         <!-- Title, Year -->
         <div class="col-md-6">
             <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?" required >
+            <input type="text" class="form-control" id="title" name="title" placeholder="What is the name of your piece?"  maxlength="40" required >
             <div class="invalid-feedback">
                 Entering a title is required!
             </div>
         </div>
         <div class="col-md-5">
             <label for="year_finished" class="form-label"><span class="required-star">*</span>Year finished:</label>
-            <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0" required>
+            <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]" placeholder="Year of completion" min="0" 
+            maxlength="4" oninput="this.value=this.value.slice(0,this.maxLength)" required>
             <div class="invalid-feedback">
               Please, enter a year!
           </div>
         </div>
-        <!-- <div class="col-md-2"></div> -->
-
 
         <!-- to be unhidden with the checkbox below-->
         <div class="col-md-5 " id="">
           <div class="collapse" id="year-started">
             <label for="year_started" class="form-label">Year started:</label>
-            <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year the work was started" min="0">
+            <input type="number" class="form-control" id="year_started" name="year[0][year_started]" placeholder="Year the work was started" min="0"
+            maxlength="4" oninput="this.value=this.value.slice(0,this.maxLength)">
           </div>
         </div>
 
@@ -73,10 +74,9 @@
 
 
         <!-- Medium -->
-
         <div class="col-md-6">
             <label for="medium" class="form-label"><span class="required-star">*</span>Medium:</label>
-            <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" required>
+            <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" maxlength="35" required>
             <div class="invalid-feedback">
                 Entering piece medium is required!
             </div>
@@ -84,7 +84,6 @@
 
 
         <!-- Images -->
-
         <div class="col-md-8">
           <label for="images" class="form-label" required>Image:           
             <br><span class="subtext text-muted">(max size: 5mb; allowed formats: jpg, png, gif)</span>
@@ -94,18 +93,17 @@
 
 
         <!-- Size -->
-
         <label for="size-x" class="form-label">Size:</label>
         <div class="col-md-2" id="size-x"> 
-            <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step="1" min="0" >
+            <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step="1" min="0" max="9999" >
         </div>
         <div class="col-md-2" id="size-y"> 
-            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step="1" min="0">
+            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step="1" min="0" max="9999">
         </div>
 
         <!-- checkbox to unhide 'size-z' attribute input -->
         <div class=" col-md-2" >
-          <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z">
+          <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z" max="9999">
           <label class="form-check-label text-dark" for="is-3d">
             Add 'Depth' 
           </label>
@@ -120,7 +118,6 @@
 
         <div class="col-md-3" id="size-unit">
           <select class="form-select size-input" id="unit" aria-label="" name="size[0][unit]">
-            <!-- <option selected >Unit</option> -->
             <option  value="null" disabled selected>Choose unit</option>
             <option value="cm">cm</option>
             <option value="in">in</option>
@@ -131,7 +128,6 @@
 
 
         <!-- For sale checkbox, Price -->
-
         <label for="#for-sale-indent">For Sale:</label>
 
         <div class="col-md-1" id="for-sale-indent"></div>
@@ -168,7 +164,6 @@
       <h5 class="form-page-header">Additional info</h5>
 
           <!-- Description -->
-
       <div data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
       onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
         class="menu-arrow">&#9660;</span></div>
@@ -176,14 +171,13 @@
 
     <div class="accordion collapse col-md-12 "  id="description-div">
       <label for="description" class="form-label text-dark"> Description / Additional info: </label>
-      <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;"></textarea>
+      <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;" maxlength="400"></textarea>
       </div>
 
     </div>
 
 
     <!-- Owner-holder wrapper  -->
-
     <div data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
             onclick="toggleClass('active', 'owner-holder-arrow')">Ownership 
             <span id="owner-holder-arrow" class="menu-arrow">&#9660;</span></div>
@@ -205,28 +199,23 @@
     </div>
 
         <!-- if someone else is the owner  -->
-
     <div class=" col-md-5 ">
       <div class="owner-check collapse">
-        <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name">
+        <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50">
       </div>
     </div>
 
 
     <div class="col-md-6 ">
       <div class="owner-check collapse">
-      <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info">
+      <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info" maxlength="50">
       </div>
     </div>
 
     <div class="col-md-1"></div>
 
 
-    <!-- Is the piece currently held by someone that isn't the owner? If not so let holder = owner else{ -->
-
       <!-- Holder -->
-      <!-- add double click prevention  -->
-
       <label for="holder-div" class="form-check-label">Holder:</label>
 
       <div class="col-md-4" id="holder-div">
@@ -246,16 +235,15 @@
 
 
           <!-- If someone else is the holder  -->
-
       <div class=" col-md-5">
         <div class="holder-check collapse">
-          <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name">
+          <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" maxlength="40">
         </div>
       </div>
 
       <div class=" col-md-6">
         <div class="holder-check collapse">
-          <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info">
+          <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" maxlength="40">
         </div>
       </div>
 
@@ -265,7 +253,6 @@
 
 
     <!-- Date of acquiration -->
-      
       <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
       <div class="col-md-5" name="acquiration-date-field"id="acquiration-date-field">
       <input type="date" class="form-control" name="acquiration_date" />
@@ -277,8 +264,7 @@
     </div>
     </div>
 
-    <!-- details -->
-
+    <!-- Details -->
     <div data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
     onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
       class="menu-arrow">&#9660;</span></div>
@@ -297,7 +283,7 @@
       </div>
       <div class="col-md-6">
         <div id="catalogue" class="collapse">
-          <input type="text" class="form-control"  name="catalogue" placeholder="Catalogue number">
+          <input type="text" class="form-control"  name="catalogue" placeholder="Catalogue number" maxlength="20">
         </div>
       </div> 
 
@@ -306,7 +292,6 @@
 
 
     <!-- Archival checkbox -->
-
     <div class="col-md-7"></div>
 
     <div class=" col-md-5">
@@ -317,6 +302,8 @@
     </div>
 </div>
 </div>
+
+    <!-- Send form button -->
         <div class="row form-section collapse form-section" id="new-confirm-button-row">
           <div class="col-md-9"></div>
           <div class="col-md-3">

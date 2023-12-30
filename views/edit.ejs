@@ -33,10 +33,9 @@
           <div id="basic-info-wrapper" class="row accordion collapse">
 
             <!-- Artist name -->
-
             <div class="col-md-6">
               <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
-              <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"
+              <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  maxlength="40"
                 value="<%= p.artist %>" required>
               <div class="invalid-feedback">
                 Entering a name is required!
@@ -45,10 +44,9 @@
             <div class="col-md-6"></div>
 
             <!-- Title, Year -->
-
             <div class="col-md-6">
               <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
-              <input type="text" class="form-control" id="title" name="title"
+              <input type="text" class="form-control" id="title" name="title" maxlength="40"
                 placeholder="What is the name of your piece?" value="<%= p.title %>" required>
               <div class="invalid-feedback">
                 Entering a title is required!
@@ -56,19 +54,18 @@
             </div>
             <div class="col-md-6">
               <label for="year_finished" class="form-label"><span class="required-star">*</span>Year Finished:</label>
-              <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]"
-                placeholder="Year of origin" min="0" value="<%= p.year[0].year_finished %>">
+              <input type="number" class="form-control" id="year_finished" name="year[0][year_finished]"  maxlength="4"
+              oninput="this.value=this.value.slice(0,this.maxLength)" placeholder="Year of origin" min="0" value="<%= p.year[0].year_finished %>">
 
             </div>
 
 
             <!-- to be unhidden with the checkbox above-->
-
             <div class="col-md-5 " id="">
               <div id="yearstarted" <% if (p.year[0].year_started==null) { %> class="collapse" <% } else { %>
                   class="collapse show" <% } %> id="year_started">
                     <label for="year_started" class="form-label">Year Started:</label>
-                    <input type="number" class="form-control" placeholder="Year of origin" min="0"
+                    <input type="number" class="form-control" placeholder="Year of origin" min="0" maxlength="4" oninput="this.value=this.value.slice(0,this.maxLength)"
                       name="year[0][year_started]" value="<%= p.year[0].year_started %>">
               </div>
             </div>
@@ -77,11 +74,11 @@
             <div class="col-md-2"> </div>
 
             <!-- checkbox to unhide 'year started' attribute input -->
-
             <div class=" col-md-5">
               <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear"
-                data-bs-toggle="collapse" data-bs-target="#yearstarted" <% if (p.year[0].year_started !=null ) { %>
-              checked="checked" <% } else %>>
+                data-bs-toggle="collapse" data-bs-target="#yearstarted"
+                <% if (p.year[0].year_started !=null ) { %>
+                checked="checked" <% } else %>>
                 <label class="form-check-label" for="multiyear">
                   Is it a multi-year work?
                 </label>
@@ -92,10 +89,9 @@
 
 
             <!-- Medium -->
-
             <div class="col-md-6">
               <label for="medium" class="form-label"><span class="required-star">*</span>Medium:</label>
-              <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?"
+              <input type="text" class="form-control" id="medium" name="medium" placeholder="Is it oil on canvas?" maxlength="35"
                 value="<%= p.medium %>" required>
               <div class="invalid-feedback">
                 Entering piece medium is required!
@@ -107,24 +103,22 @@
 
 
             <!-- Size -->
-
             <label for="size-x" class="form-label">Size:</label>
             <div class="col-md-2" id="size-x">
-              <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step="1" min="0"
+              <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step="1" min="0" max="9999"
                 value="<%= p.size[0].x %>">
             </div>
             <div class="col-md-2" id="size-y">
-              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height" step="1" min="0"
+              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height" step="1" min="0" max="9999"
                 value="<%= p.size[0].y %>">
             </div>
 
 
 
             <!-- to be uncollapsed with the checkbox above -->
-
             <div class="col-md-2 " id="">
               <div class="" id="size-z">
-                <input type="number" class="form-control size-input " name="size[0][z]" placeholder="Depth (if applies)" step="1" min="0"
+                <input type="number" class="form-control size-input " name="size[0][z]" placeholder="Depth (if applies)" step="1" min="0" max="9999"
                   value="<%= p.size[0].z %>">
               </div>
             </div>
@@ -132,8 +126,6 @@
 
             <div class="col-md-3">
               <select class="form-select form-check" id="unit" aria-label="Small select example" name="size[0][unit]">
-                <!-- <option selected >Unit</option> -->
-
                 <option value="null" id="unit-placeholder" disabled  <% if (p.size[0].unit===null ) { %> selected="selected" <% } %>>Choose unit</option>
                 <option value="cm" <% if (p.size[0].unit==="cm" ) { %> selected="selected" <% } %>>cm</option>
                 <option value="in" <% if (p.size[0].unit==="in" ) { %> selected="selected" <% } %>>in</option>
@@ -143,21 +135,18 @@
             <div class="col-md-1"></div>
 
             <!-- For sale checkbox, Price -->
-
             <label for="#for-sale-indent">For Sale:</label>
 
             <div class=" col-md-5">
 
-              <input type="hidden" name="forSale" <% if (p.forSale=="1" ) { %> value="1" <% } else { %> value="0" <% }
-                  %>
-                  ><input type="checkbox" class="form-check-input" id="is_forsale" data-bs-toggle="collapse"
-                    data-bs-target=".price"
-                    onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if
-                    (p.forSale=="1" ) { %> checked="checked" <% } %> >
+              <input type="hidden" name="forSale" <% if (p.forSale=="1" ) { %> value="1" <% } else { %> value="0" <% } %> > 
+              <input type="checkbox" class="form-check-input" id="is_forsale" data-bs-toggle="collapse"
+                    data-bs-target=".price" min="0" 
+                    onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" 
+                    <% if (p.forSale=="1" ) { %> checked="checked" <% } %> />
                     <label class="form-check-label" for="is_forsale">
                       Is it for sale?
                     </label>
-
             </div>
 
 
@@ -194,21 +183,19 @@
         </div>
 
         <!-- Description -->
-
           <div data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
             onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
               class="menu-arrow">&#9660;</span></div>
               <div class=" menu-content">
           <div class="col-md-12 accordion collapse" id="description-div">
             <label for="description" class="form-label"> Description / Additional info: </label>
-            <textarea type="text" class="form-control" id="" name="description" maxlength="200"
+            <textarea type="text" class="form-control" id="" name="description" maxlength="400"
               style="resize: none; height: 100px;"><%= p.description %></textarea>
           </div>
         </div>
 
 
           <!-- owner-holder wrapper -->
-
           <div data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
             onclick="toggleClass('active', 'owner-holder-arrow')">Ownership <span id="owner-holder-arrow"
               class="menu-arrow">&#9660;</span></div>
@@ -220,29 +207,26 @@
               <label class="form-check-label" for="self-owned">
                 I am the owner of this piece
               </label>
-              <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" <% if
-                (p.owner[0].name==='' || p.owner[0].name===undefined) { %> checked="checked" <% } %>
-                onchange="toggleCollapse('.owner-check')""
+              <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" 
+              <% if (p.owner[0].name==='' || p.owner[0].name===undefined) { %> checked="checked" <% } %>
+                onchange="toggleCollapse('.owner-check')"
                 onclick="clearFields('owner', 'owner_contact')" >
             </div>
 
             <!-- if self-owned fill the data with user info  -->
-
             <div class="col-md-6">
               <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned"
-                onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !=='' && p.owner[0].name !==undefined)
-                { %> checked="checked" <% } %> >
+                onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !=='' && p.owner[0].name !==undefined) { %> checked="checked" <% } %> />
               <label class="form-check-label" for="else-owned">
                 Someone else is the owner of this piece
               </label>
             </div>
 
             <!-- if someone else is the owner  -->
-
             <div class=" col-md-5  ">
               <div class="">
                 <input type="text" <% if (p.owner[0].name=='' ) { %> class="form-control collapse owner-check"<% } else
-                  { %> class="owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name"
+                  { %> class="owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50"
                     value="<%= p.owner[0].name %>" >
               </div>
             </div>
@@ -250,18 +234,15 @@
 
             <div class=" col-md-6 ">
               <div class=" ">
-                <input type="text" <% if (p.owner[0].contact_info=='' ) { %> class="form-control collapse owner-check"<%
-                  } else { %> class=" owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact"
-                    placeholder="Contact info" value="<%= p.owner[0].contact_info %>">
+                <input type="text" <% if (p.owner[0].contact_info=='') { %> class="form-control collapse owner-check"
+                <% } else { %> class=" owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact" maxlength="50"
+                    placeholder="Contact info" value="<%= p.owner[0].contact_info %>" />
               </div>
             </div>
 
             <div class="col-md-1"></div>
 
-
-
             <!-- Holder -->
-
             <label for="holder-check" class="form-check-label">Holder:</label>
             <div class="col-md-4" name="holder-check">
               <label class="form-check-label" for="self-held">
@@ -274,7 +255,6 @@
             </div>
 
             <!-- if self-owned fill the data with user info  -->
-
             <div class=" col-md-6">
               <input type="radio" class="form-check-input" name="holder[0][status]" value="else" id="else-held"
                 onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name !=='' && p.holder[0].name
@@ -287,11 +267,10 @@
 
 
             <!-- If someone else is the holder  -->
-
             <div class="col-md-5">
               <div class="holder-check ">
                 <input type="text" <% if (p.holder[0].name=='' ) { %> class="form-control collapse holder-check"<% }
-                  else { %> class="holder-check" <% } %> name="holder[0][name]" id="holder"
+                  else { %> class="holder-check" <% } %> name="holder[0][name]" id="holder" maxlength="40"
                     placeholder="Holder name"
                     value="<%= p.holder[0].name %>">
               </div>
@@ -300,7 +279,7 @@
             <div class="col-md-6">
               <div class="holder-check ">
                 <input type="text" <% if (p.holder[0].contact_info=='' ) { %> class="form-control collapse holder-check"
-                <% } else { %> class="holder-check" <% } %> name="holder[0][contact_info]"
+                <% } else { %> class="holder-check" <% } %> name="holder[0][contact_info]" maxlength="40"
                     id="holder_contact"
                     placeholder="Contact info" value="<%= p.holder[0].contact_info %>">
               </div>
@@ -308,7 +287,6 @@
             <div class="col-md-1"></div>
 
             <!-- Date of acquiration -->
-
             <label class="form-check-label" for="acquiration-date-field"> Acquiration Date: </label>
             <div class="col-md-5 form-check" name="acquiration-date-field" id="acquiration-date-field">
               <input type="date" class="form-control" name="acquiration_date"
@@ -321,23 +299,21 @@
           </div>
           </div>
 
-          <!-- details -->
-
+          <!-- Details -->
           <div data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
-            onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
-              class="menu-arrow">&#9660;</span></div>
-          <div  class="menu-content">
+            onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow" class="menu-arrow">&#9660;</span></div>
+
+
+          <div class="menu-content">
             <div id="details-wrapper" class="accordion collapse">
 
-
             <!-- Catalogue number -->
-
             <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
 
             <div class="col-md-7 form-check">
               <div id="catalogue" class="">
-                <input type="text" class="form-control" name="catalogue" placeholder="Catalogue number"
-                  value="<%= p.catalogue  %>">
+                <input type="text" class="form-control" name="catalogue" placeholder="Catalogue number" maxlength="20"
+                  value="<%=p.catalogue%>">
               </div>
             </div>
 
@@ -346,7 +322,6 @@
             <div class="col-md-7"></div>
 
             <!-- Archival checkbox -->
-
             <div class="form-check col-md-12" id="archival-check-div">
               <input type="hidden" name="archival" <% if (p.archival.value=="1" ) { %> value="1" <% } else { %>
                 value="0"
@@ -360,7 +335,7 @@
             </div>
           </div>
 
-
+          <!-- Delete button -->
           <div data-bs-target="#delete-wrapper" data-bs-toggle="collapse" class="menu"
             onclick="toggleClass('active', 'delete-arrow')">Manage <span id="delete-arrow"
               class="menu-arrow">&#9660;</span></div>
@@ -388,6 +363,8 @@
      
           </form>
         </div>
+
+        <!-- Send form button -->
         <div class="row">
          
       <div class="col-md-8"></div>
@@ -400,6 +377,12 @@
 
   </main>
 
+  <script>
+
+  console.log('<%- JSON.stringify(p.archival) %>');
+
+    
+  </script>
 
   <script src="./public/javascripts/bootstrap_validations.js"> </script>
   <script src="./public/javascripts/clear_fields.js"></script>

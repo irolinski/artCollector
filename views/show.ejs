@@ -204,11 +204,11 @@
 </div>
 
 <div class="row" >
-    <canvas class="canvas" id="canvas_cat" width="840" height="568"></canvas>
+    <canvas class="canvas" id="canvas_cat" width="1002" height="682"></canvas>
 </div>
 
 <div class="row py-5 my-5 mx-4">
-    <canvas class="canvas" id="canvas_mus" width="520" height="310"></canvas>
+    <canvas class="canvas" id="canvas_mus" width="1002" height="682"></canvas>
 </div>
 
 
@@ -243,7 +243,7 @@ let createCanvas_mus = function () {
 
     ls = 55 // line spacing in px
     text_X = 50;
-    text_Y = 120; 
+    text_Y = 100; 
     
 
     let canvas = document.getElementById("canvas_mus");
@@ -251,13 +251,13 @@ let createCanvas_mus = function () {
 
 
     ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 520, 310);
+    ctx.fillRect(0, 0, 1002, 682);
     ctx.fillStyle = "black";
 
 
     ctx.font = `bold 40px Lato`;
     ctx.fillStyle = "black";
-    ctx.fillText(pArtist, text_X, text_Y - 0.5 * ls);
+    ctx.fillText(pArtist, text_X, text_Y);
 
     ctx.font = 'bold italic 40px Lato'
     ctx.fillText(pTitle, text_X, text_Y + ls);
@@ -298,21 +298,21 @@ let createCanvas_cat = async function () {
     let dbls = 50;
 
     let pieceInfo_X = 450;
-    let pieceInfo_Y = 220;
+    let pieceInfo_Y = 264;
 
     let ownerInfo_X = 450;
-    let ownerInfo_Y = 430;
+    let ownerInfo_Y = 516;
 
     let pieceImg_X = 75;
-    let pieceImg_Y = 160;
+    let pieceImg_Y = 192;
 
 
-    let catNum_X = ownerInfo_X + 80;
+    let catNum_X = ownerInfo_X + 200;
     let catNum_Y = 80;
 
 
     ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 840, 568);
+    ctx.fillRect(0, 0, 1002, 682);
     ctx.fillStyle = "black";
 
 
