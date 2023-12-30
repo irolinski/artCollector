@@ -323,11 +323,11 @@
 
             <!-- Archival checkbox -->
             <div class="form-check col-md-12" id="archival-check-div">
-              <input type="hidden" name="archival" <% if (p.archival.value=="1" ) { %> value="1" <% } else { %>
+              <input type="hidden" name="archival" <% if (p.archival == true ) { %> value="1" <% } else { %>
                 value="0"
                 <% } %> ><input type="checkbox" class="" id="archival-check"
                     onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if
-                    (p.archival=="1" ) { %> checked="checked" <% } else{} %> >
+                    (p.archival=="1" ) { %> checked="checked" <% } %> >
                     <label class="form-check-label" for="archival-check">
                       Mark this release as archival
                     </label>
