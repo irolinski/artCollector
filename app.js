@@ -93,13 +93,6 @@ app.use('/collection', collectionRouter)
 
 
 
-app.get('/home', (req, res, next) => {
-
-    const pageTitle = 'Homepage - artCollector';
-    const styleSheet = 'homepage'
-    
-    res.render('homepage', { pageTitle, styleSheet })
-});
 
 
 

@@ -37,7 +37,7 @@ const users = require('../controllers/users.js');
 
 
 
-
+router.get('/home', users.home);
 
 router.post('/register', users.register);
 

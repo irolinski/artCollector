@@ -22,6 +22,9 @@ let transporter = nodemailer.createTransport({
     }
 });
 
+
+
+
 async function sendEmail(userEmail, subject, emailBody) {
     const info = await transporter.sendMail({
         from: `"artCollector Team" <${process.env.EMAIL_USER}>`,
@@ -50,6 +53,14 @@ const upload = multer({
 }); 
 const { cloudinary } = require('../cloudinary');
 
+
+module.exports.home = (req, res, next) => {
+
+    const pageTitle = 'Homepage - artCollector';
+    const styleSheet = 'homepage'
+    
+    res.render('homepage', { pageTitle, styleSheet })
+};
 
 
 
