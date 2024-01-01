@@ -11,5 +11,4 @@ function validateUsername() {
 }
 
 username.onchange = validateUsername;
-// username.onkeyup = validateUsername();
 

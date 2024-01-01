@@ -407,9 +407,24 @@ table.dataTable td {
     padding-bottom: 5vh;
 }
 
-/* orientation media query */
 
-/* orientation: landscape zamieniono na..: */
+/* if (table is empty) */
+
+td.dataTables_empty{
+    transform: translateY(100px);
+}
+
+.paginate_button.disabled{
+    display: none;
+}
+
+
+
+
+
+
+
+/* media */
 @media all and (min-width:768px) {
 
     .nav-item {

@@ -1,7 +1,8 @@
 (function () {
 
     let forms = document.querySelectorAll('.needs-validation')
-    
+    let prevButtonNewForm = document.getElementById('new-prev-button');
+
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
@@ -9,10 +10,9 @@
             if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
-            }
-
-            if(document.querySelector('#new-prev-button')){
-                document.querySelector('#new-prev-button').click();
+            if (prevButtonNewForm){
+                prevButtonNewForm.click()}
+                
             }
     
             form.classList.add('was-validated')
