@@ -155,3 +155,31 @@ h6:hover{
 
 
 }
+
+/* toast styling */
+
+.toast{
+    position:absolute;
+    z-index: 5;
+    top: 100px;
+    right: 100px;
+    color: aliceblue;
+}
+
+@media all and (min-width: 250px) and (max-width: 900px){
+
+
+    .toast{
+        top: 300px;
+        right: 25%;
+
+    }
+}
+
+.success{
+    background-color: green;
+}
+
+.error{
+    background-color: red;
+}
