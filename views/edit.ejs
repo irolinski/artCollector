@@ -35,7 +35,7 @@
             <!-- Artist name -->
             <div class="col-md-6">
               <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
-              <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  maxlength="40"
+              <input type="text" class="form-control" id="artist" name="artist" placeholder="Author's name"  maxlength="35"
                 value="<%= p.artist %>" required>
               <div class="invalid-feedback">
                 Entering a name is required!
@@ -46,7 +46,7 @@
             <!-- Title, Year -->
             <div class="col-md-6">
               <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
-              <input type="text" class="form-control" id="title" name="title" maxlength="40"
+              <input type="text" class="form-control" id="title" name="title" maxlength="35"
                 placeholder="What is the name of your piece?" value="<%= p.title %>" required>
               <div class="invalid-feedback">
                 Entering a title is required!

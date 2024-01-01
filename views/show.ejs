@@ -39,13 +39,12 @@
         <!-- main detail section -->
         <div class="container pt-5" id="detail-section">
             <div class="card-body pb-4">
-                <p> </p>
-                <p> <span class='fw-bold'> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class=" ps-5 ms-5 card-subtitle text-muted">Catalogue Number: <%= p.catalogue %></span> <% } %> </p>
+                <p> <span class='fw-bold' id="artist-span"> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class="ps-5 ms-5 card-subtitle text-muted" id="catalogue-wrapper">Cat. <span id="catalogue-span"><%= p.catalogue %></span></span> <% } %> </p>
 
             <p class="">
-                    <span class="fw-bold fst-italic">
-                        <%= p.title %>,
-                    </span>
+                    <span class="fw-bold fst-italic" id="title-span">
+                        <%= p.title %></span>,
+                    
                     <span id="year-span">
                         <% for (let y of p.year) { %>
                             <% if (y.year_started != undefined || y.year_stared != null){ %>
@@ -61,7 +60,7 @@
 
                 <p class="card-subtitle mb-2 text-muted"> 
                     
-                    <%= p.medium  %>,
+                    <span id="medium-span"><%= p.medium  %></span>,
                     <span id="size-span">
                 
                             <% for (let s of p.size) { %>
@@ -192,8 +191,12 @@
             <a href="/collection/show/<%= p._id %>/edit" class="card-link">Edit Piece</a>&emsp;<a href="/collection/show/<%=p._id%>/edit/images"  class="card-link">Edit images <i class="bi bi-images"></i></a>
 
             <br><br>
-            <a><p class="card-link export-link" id="export-cat">Create a catalogue leflet</p></a> <a><p class="card-link export-link" id="export-mus">Create a label</p></a>
+            <p class="pb-2 card-link export-link" id="export-wrapper" data-bs-toggle="collapse" data-bs-target="#export-div" onclick="toggleClass('collapse', 'export-wrapper'), toggleClass('active', 'export-div')">Export</p>
+            <div class="accordion collapse" id="export-div">
+                <a><p class="card-link export-link" id="export-cat">Create a catalogue leflet</p></a>
+                <a><p class="card-link export-link" id="export-mus">Create a label</p></a>
             </div>
+        </div>
         </div>
         </div>
 
@@ -214,181 +217,4 @@
 
 
 <script src="./public/javascripts/transform_imgOrientation.js"></script>
-   
-
-<script>
-
-
-    
-
-
-let pImage = document.querySelector('.image');
-
-let pArtist = '<%- JSON.stringify(p.artist) %>'.slice(1, -1);
-let pTitle = '<%- JSON.stringify(p.title) %>'.slice(1, -1);
-let pCatNum = '<%- JSON.stringify(p.catalogue) %>'.slice(1, -1);
-let pMedium = '<%- JSON.stringify(p.medium) %>'.slice(1, -1);
-
-let pYear = document.getElementById('year-span').innerHTML.trim();
-let pSize = document.getElementById('size-span').innerHTML.trim();
-let pOwner = document.getElementById('owner-span').innerHTML.trim();
-let pOContact = document.getElementById('o-contact-span').innerHTML.trim();
-let pPrice = document.getElementById('price-span');
-
-    pTitle += ', ';
-let lineMedium = pMedium + ', ' + pSize;
-
-
-let createCanvas_mus = function () {
-
-    ls = 55 // line spacing in px
-    text_X = 50;
-    text_Y = 100; 
-    
-
-    let canvas = document.getElementById("canvas_mus");
-    let ctx = canvas.getContext("2d");
-
-
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 1002, 682);
-    ctx.fillStyle = "black";
-
-
-    ctx.font = `bold 40px Lato`;
-    ctx.fillStyle = "black";
-    ctx.fillText(pArtist, text_X, text_Y);
-
-    ctx.font = 'bold italic 40px Lato'
-    ctx.fillText(pTitle, text_X, text_Y + ls);
-    let titleWidth = ctx.measureText(pTitle).width;
-    ctx.font = '40px Lato';
-    ctx.fillText(pYear, text_X + titleWidth, text_Y + ls);
-
-    ctx.fillStyle = "#212529bf";
-    ctx.font = '28px Lato';
-    ctx.fillText(lineMedium, text_X, text_Y + 1.75 * ls);
-
-
-
-
-}
-
-let createCanvas_cat = async function () {
-
-    let canvas = document.getElementById("canvas_cat");
-    let ctx = canvas.getContext("2d");
-
-
-    if (!pCatNum == 0){
-    pCatNum = 'Cat. ' + pCatNum;
-    }
-
-    if (!pOwner == 0){
-        pOwner = 'Property of: ' + pOwner;
-    }
-
-    if (pPrice !== null) {
-    pPrice = pPrice.innerHTML.trim();
-    }
-
-
-
-    let ls = 30; // line spacing
-    let dbls = 50;
-
-    let pieceInfo_X = 450;
-    let pieceInfo_Y = 264;
-
-    let ownerInfo_X = 450;
-    let ownerInfo_Y = 516;
-
-    let pieceImg_X = 75;
-    let pieceImg_Y = 192;
-
-
-    let catNum_X = ownerInfo_X + 200;
-    let catNum_Y = 80;
-
-
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, 1002, 682);
-    ctx.fillStyle = "black";
-
-
-    ctx.font = `20px Arial`;
-    ctx.fillStyle = "#212529bf";
-    ctx.fillText(pCatNum, catNum_X, catNum_Y);
-
-
-
-    ctx.font = `bold 24px Lato`;
-    ctx.fillStyle = "#000000";
-    ctx.fillText(pArtist, pieceInfo_X, pieceInfo_Y);
-
-    ctx.font = 'bold italic 24px Lato'
-    ctx.fillText(pTitle, pieceInfo_X, pieceInfo_Y + dbls);
-    let titleWidth = ctx.measureText(pTitle).width;
-    ctx.font = '24px Lato';
-    ctx.fillText(pYear, pieceInfo_X + titleWidth, pieceInfo_Y + dbls);
-
-    ctx.fillStyle = "#212529bf";
-    ctx.fillText(lineMedium, pieceInfo_X, pieceInfo_Y + 2 * dbls);
-
-    ctx.font = '20px Lato';
-    ctx.fillStyle = "#000000";
-    ctx.fillText(pOwner, ownerInfo_X, ownerInfo_Y);
-    ctx.fillText(pOContact, ownerInfo_X, ownerInfo_Y + ls);
-
-    if (pPrice !== null){
-        pPrice = `List price: ${pPrice}`;
-    ctx.fillText(pPrice, ownerInfo_X, ownerInfo_Y + 2.5 * ls)
-    };
-
-    if (pImage){
-
-        if (pImage.height > pImage.width){
-        pieceImg_Y -= 75
-    }
-
-    let imageWidth = pImage.width * 0.65;
-    let imageHeight = pImage.height * 0.65;
-
-    if (imageWidth > 300) {
-        imageWidth = 300};
-
-
-    if (imageHeight > 450){
-        imageHeight = 450
-        };
-
-
-    await ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)
-    };
-
-}
-
-createCanvas_mus();
-
-if (pImage){
-pImage.onload = createCanvas_cat();
-} else {
-    createCanvas_cat();
-}
-
-
-let createCanvasLink = function (canvasId, linkId) {
-$(linkId).click(function(){
-    $(this).parent().attr('href', document.querySelector(canvasId).toDataURL());
-    $(this).parent().attr('download', `${canvasId.substring(1)}_label_for_${pTitle}_by_${pArtist}.png`);    
-});
-}
-
-createCanvasLink('#canvas_cat', '#export-cat');
-createCanvasLink('#canvas_mus', '#export-mus');
-
-
-    
-</script>
-
-
+<script src="./public/javascripts/export_piece.js"></script>
