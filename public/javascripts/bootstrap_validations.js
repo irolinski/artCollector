@@ -1,6 +1,6 @@
 (function () {
 
-    var forms = document.querySelectorAll('.needs-validation')
+    let forms = document.querySelectorAll('.needs-validation')
     
     // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
@@ -9,7 +9,10 @@
             if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
-            document.querySelector('#new-prev-button').click();
+            }
+
+            if(document.querySelector('#new-prev-button')){
+                document.querySelector('#new-prev-button').click();
             }
     
             form.classList.add('was-validated')

@@ -150,7 +150,6 @@ module.exports.exportToXlsx = (async (req, res, next) => {
             image_url_4: (p.images[3] !== undefined) ? p.images[3].url : null,
         })
 
-        console.log(data)
         exportData.unshift(data);
     };
 

@@ -10,10 +10,10 @@
 
 <form action="/preferences/deleteAcc?_method=DELETE" method="POST">
     <label for="password">If you wish to proceed, please confirm your password</label>
-    <input type="password" name="password" class="form-control mb-3" id="password" placeholder="password" required>
-    <input type="password" class="form-control mb-3" id="confirm_password" placeholder="confirm password"  required>
+    <input type="password" name="password" class="form-control mt-3" id="password" placeholder="password" required>
+    <input type="password" class="form-control mt-3" id="confirm_password" placeholder="confirm password"  required>
     <input type="hidden" name="username" value="<%= currentUser.username %>">
-    <button class="btn-danger" type="submit" onclick="return confirm('Are you sure you want to delete your account? There will be no coming back!')">Delete</button>
+    <button class="delete-button mt-3" type="submit" onclick="return confirm('Are you sure you want to delete your account? There will be no coming back!')">Delete</button>
 </form>
 </main>
 

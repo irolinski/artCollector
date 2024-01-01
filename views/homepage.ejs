@@ -44,12 +44,22 @@
   <form class="needs-validation" action="/login" method="POST" novalidate>
     <div class="row collapse multi-collapse-1 multi-collapse-0" id="login-row">
 <!-- label for login form -->
-      <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>      <div class="col-md-4 mt-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
 <!-- form body -->
       <div class="col-md-2"></div>
       <div class="col-md-4">
-        <input type="text" name="username" class="form-control mb-3"  id="username" placeholder="username" aria-describedby="emailHelp" required>
-        <input type="password" name="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="password" required>
+        <div>
+            <input type="text" name="username" class="form-control mt-3"  id="username-login" placeholder="Username" required>
+            <div class="invalid-feedback" >
+              Please, enter your username. You remember it, don't you?  
+          </div>
+        </div>
+        <div>
+          <input type="password" name="password" class="form-control mt-3" id="login-password" placeholder="Password"  required>
+          <div class="invalid-feedback">
+            Please don't tell me that you forgot your password! <br> (If you did, though, just click the link below!)
+        </div>
+      </div>
       </div>
       <div class="col-md-4 d-flex button-parent">
         <button type="submit" id="login-button" class="confirm-button my-4">Submit</button>
@@ -62,7 +72,14 @@
  <form class="needs-validation" action="/forgotten" method="POST" novalidate>  
   <div class="row collapse multi-collapse-0" id="forgotten-div">
     <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="forgotten-label"><h4>Forgot your password?</h4></div>      <div class="col-md-4"></div>
-  <div class="col-md-4"></div> <div class="col-md-4 mb-3 multi-collapse-1"> <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  </div> <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4 mb-3 multi-collapse-1"> 
+    <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  
+    <div class="invalid-feedback">
+    Please, don't tell me you've forgotten your e-mail adress too..?
+  </div>
+  </div> 
+  <div class="col-md-4"></div>
   <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="multi-collapse-1 confirm-button" id="forgot-button" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
   </div>
   </form>
@@ -76,14 +93,29 @@
       <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
         <div class="col-md-2"></div>
         <div class="col-md-4">
-          <input type="email" name="email" class="form-control mb-3" id="" placeholder="e-mail" required>
-          <input type="text" name="username" class="form-control mb-3" id="username" placeholder="username" required>
+          <div>
+            <input type="email" name="email" class="form-control mt-3" id="" placeholder="Your e-mail adress" required>
+            <div class="invalid-feedback">
+            It's just an e-mail that you have to fill-in here! You'll be fine!
+            </div>
+          </div>
+          <div>
+            <input type="text" name="username" class="form-control mt-3" id="username-register" placeholder="Username" required>
+            <div class="invalid-feedback" minlength="4">
+              Think of something nice... <br>
+              (also, make it at least 4 characters!)
+            </div>
+        </div>
         </div>
         <div class="col-md-2">
-          <input type="password" name="password" class="form-control mb-3" id="register_password" placeholder="password" required>
-          <input type="password" class="form-control mb-3" id="confirm_password" placeholder="confirm password"  required>
+          <input type="password" name="password" class="form-control mt-3" id="register_password" placeholder="Password" minlength="6" required>
+          <input type="password" class="form-control mt-3" id="confirm_password" placeholder="Confirm password" minlength="6" required>
+          <div class="invalid-feedback">
+            Password has to be 6 to 12 characters long <br>
+            (and the fields need to match)
+           </div>
         </div>
-        <div class="col-md-2 d-flex button-parent">
+        <div class="col-md-2 d-flex button-parent mt-3">
           <button type="submit" class="confirm-button" id="register-submit-button">Submit</button>
         </div>
       </div>
@@ -137,8 +169,7 @@
 </script>
 
 <script src="public/javascripts/bootstrap_validations.js"></script>
-
-
 <script src="public/javascripts/confirm_password.js"></script>
 
+<script src="public/javascripts/username_validation.js"></script>
   

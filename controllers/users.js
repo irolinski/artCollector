@@ -104,13 +104,10 @@ module.exports.login = (req, res) => {
 module.exports.preferences = (req, res, next) => {
     const pageTitle = 'Preferences - artCollector';
     const styleSheet = 'forms'
-    // console.log(req.user);
     res.render('preferences', { pageTitle, styleSheet })
 };
 
 module.exports.editUser =  (async (req, res, next) => {
-
-    console.log(req.body.custom_table)
 
     if (req.body.custom_table){
         await User.findOneAndUpdate(req.user._id, {
@@ -204,7 +201,6 @@ module.exports.sendToken = (req, res, next) => {
     User.findById(id)
     .then((u) => {
         if (u) {
-        console.log(u)
         if (!u) {
             req.flash('Invalid id!')
             res.redirect('/home')
@@ -226,7 +222,6 @@ module.exports.sendToken = (req, res, next) => {
 };
 
 module.exports.resetPassword = (req, res, next) => {
-    console.log('yes, im changing' )
 
     const { id, token } = req.params
     User.findById(id)
@@ -243,15 +238,12 @@ module.exports.resetPassword = (req, res, next) => {
 
 module.exports.deleteAcc = (req, res, next) => {
     const pageTitle = 'Delete account - art Collector';
-    const StyleSheet = 'forms'
+    const styleSheet = 'forms'
     res.render('preferences_deleteAcc', { pageTitle, styleSheet })
 };
 
 
 module.exports.deleteAccConfirmed = (async (req, res, next) => {
-
-console.log('authentication success')
-
 
     const pieces = await ArtPiece.find({ user_id: req.user._id } );
 
