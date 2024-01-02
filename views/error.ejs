@@ -10,14 +10,10 @@
     </h4>
     <p>There has been a problem and the header above should tell you what it is.<br>
       If the problem remains despite undertaken measerues, let us know at <b>artcollector.messages@gmail.com</b>.<br>
-      We'll see what we can do.
+      We'll see what we can do!
     </p>
     <hr>
-    <% if (process.env.NODE_ENV !=='production' ) { %>
       <p class="mb-0">
-        <%=err.stack%>
+        <%=err.stack.slice(err.stack.indexOf(':') + 1, err.stack.indexOf('at'))%>
       </p>
-      <% }%>
-
-
   </div>

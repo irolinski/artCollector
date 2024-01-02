@@ -1,2 +1,3 @@
 
-fix link and button behavior on :hover + add text shadows
+delete path from visible err stack while still showing error
+
