@@ -1,3 +1,2 @@
 
-delete path from visible err stack while still showing error
-
+delete text-shadow to improve animation fluency

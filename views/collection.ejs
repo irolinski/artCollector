@@ -3,14 +3,14 @@
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
-<div class="page-brand">
-<p class=" my-auto page-header" id="collection-page-header">My Collection</p>
+<div class="page-brand hide" id="collection-page-brand">
+<p class="my-auto page-header" id="collection-page-header">My Collection</p>
 </div>    
 
 
 
 
-<main class="container">
+<main class="container hide" id="collection-main">
 
     <container id="collection-nav" class="row">
         <!-- category settings -->
@@ -240,28 +240,21 @@
 
 
 <script src="public/javascripts/dataTables_settings.js"></script>
-
 <script src="public/javascripts/remove_toggle_class.js"></script>
-
-
-    
-
-<!-- jQuery -->
 <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
-
-<!-- Data Table JS --> 
 <script src='public/javascripts/dataTables.js'></script>
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
-
 <script src='public/javascripts/show_loading.js'></script>
-
 
 <script>
 
 const setDefault = async function() { 
 
-    document.querySelector('#loading-div').style.display = 'none'
+    document.getElementById('loading-div').classList.add('hide');
+    document.getElementById('collection-page-brand').classList.remove('hide');
+    document.getElementById('collection-main').classList.remove('hide');
+
 
     let userTable = '<%- JSON.stringify(userTable) %>'
     let queryString = '<%- JSON.stringify(queryString) %>'
@@ -273,11 +266,9 @@ const setDefault = async function() {
 
     if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
 
-    
-
         showLoading();
 
-        await sleep(1500);
+        await sleep(600);
 
         const checkboxes = document.querySelectorAll(".category-check");
 
@@ -286,35 +277,28 @@ const setDefault = async function() {
             if (userTable.includes(el.name)){ el.checked = 1 } else { 
                 el.checked = 0 
         }          
-
-    }}
+    }};
 
         for (let o of document.querySelector("#archival-select")) {
         if (!queryString.includes("1")) {
             if (userTable.includes(o.value)){ o.selected = 1 } else {
                 o.selected = 0
             }
-        }
-        }
-
+        }};
 
     document.querySelector('#collection_form').submit();
-    localStorage.setItem("defaultCollectionSettings", true) 
+    localStorage.setItem("defaultCollectionSettings", true);
 
     } else {
     localStorage.removeItem('defaultCollectionSettings');
-}
-
-
-
-
-};
+}};
 
 
 
 window.onload = (function(){
     setDefault()
-})
+});
+
 </script>
 
 </body>

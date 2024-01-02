@@ -2,10 +2,15 @@ body{
     overflow-x: hidden
 }
 
+nav,
+footer{
+    background-color: rgb(233 236 239 / 19%);
+}
+
 
 #navbar {
-    background-color: #e2e1e1;
-    background-color: rgba(167, 167, 167, 0.15); 
+    /* background-color: #e2e1e1; */
+    /* background-color: rgba(167, 167, 167, 0.15);  */
     transition: 0.6s;
     top: 0;
     width: 100% ;

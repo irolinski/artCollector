@@ -10,7 +10,7 @@ body{
 a:hover{
     color: inherit;
 }
-
+ 
 
 .navbar{
     display: none;
@@ -35,24 +35,24 @@ h4{
 }
 
 
-h6,
+/* h6,
 .back-button,
 #forgot-button{
     text-shadow: none;
     transition: text-shadow 0.6s;
-}
+} */
 
 
 h6:hover,
 .back-button:hover,
 #forgot-button:hover{
     cursor: pointer;
-    text-shadow: 
+    /* text-shadow: 
     0 0 20px rgb(198, 217, 217),
     0 0 80px rgb(198, 217, 217),
     0 0 150px rgb(203, 205, 205),
     0 0 200px rgb(236, 241, 241);
-    transition: text-shadow 0.4s;
+    transition: text-shadow 0.4s; */
 
 
 }

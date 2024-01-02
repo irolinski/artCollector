@@ -8,7 +8,7 @@ function validatePassword(){
     confirm_password.setCustomValidity('');
   }
 
-  if(password.value.length <= 6 || password.value.length >= 12) {
+  if(password.value.length < 6 || password.value.length >= 12) {
     password.setCustomValidity("Password needs to be between 6 and 12 characters long!");
     confirm_password.setCustomValidity("Password needs to be between 6 and 12 characters long!");
   } else {

@@ -1,8 +1,10 @@
 
 next to do: 
-error
 
-collection page display:none by defualt so as to prevent flickering 
+poprawić funkcje weryfikacji hasła bo wchodzi dopiero od 7 znaków xd 
+
+collection page display:none by defualt so as to prevent flickering  
+--> sprawdzic co sie dzieje kiedy tabela pusta
 
 deploy!!
 
