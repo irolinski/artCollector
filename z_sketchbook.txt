@@ -1,0 +1,40 @@
+// function splitString(string, l){
+
+//     console.log(string)
+//     string += ' '
+
+//     let pos = 0;
+//     let i = 0;
+//     let sub = '';
+    
+
+//     while (i * l < string.length){
+
+//         // if (!sub.charAt(pos) === ' '){
+//         //     while (!sub.charAt(pos + 1) === ' '){
+//         //         pos++
+//         //     }
+//         // }
+
+//         sub = string.slice(pos, pos + l);
+
+//         console.log(sub)
+            
+//         pos = sub.lastIndexOf(' ')
+
+//         i++;
+
+//         console.log(`position: ${pos}; what's under is a character '${sub.charAt(pos)}'`)
+
+// }
+
+        
+        // console.log(sub)
+
+        // string.replace(sub, "");
+
+        // console.log(string)
+
+    // }
+
+// }

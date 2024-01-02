@@ -1,0 +1,81 @@
+
+next to do: 
+
+deploy!!
+
+ciemne przyciski w home kiedy logged in 
+
+landscape mode mobile homepage
+
+bonus:
+add inset for shorter owner_info
+
+
+cleanup:
+
+styles for mobile
+
+- main page
+
+accessibility
+
+display none na collection na start lub cos innego zeby zlikwidowac migotanie 
+
+bonus: produce img thumbnails
+
+ukraść color-scheme od zachęty 
+#fcca00 na elementy, które mają się wyrózniac
+#141414 na ikony normalne
+#131313 na tekst
+
+ELECTRON DESKTOP CONVERSION
+
+styles:
+
+password (8 character, small and largr letters)
+
+
+
+874 x 1240 =>>>> A7 format
+
+
+
+deploy w azure
+
+
+
+
+
+
+to do:
+
+
+
+after deploying: 
+    - bonus bonus bonus bonus bonus bonus but a super cool feature: create an option to export a catalogue card jpg:::
+            https://stackoverflow.com/questions/17618574/how-can-i-generate-an-image-based-on-text-and-css 
+            https://pspdfkit.com/blog/2021/creating-images-from-text-on-the-web/
+
+
+
+
+
+
+
+
+
+
+// let fontFace = new FontFace("MyWebFont", "url('MyWebFont.woff2') format('woff2'), url('MyWebFont.woff') format('woff')");
+// const myFont = new FontFace('Roboto', 'url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2)');
+// const Roboto = new FontFace("Roboto",  'url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)');
+// const Roboto = new FontFace('Roboto', "url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2') format('woff2'), url'('https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2') format('woff2')");
+
+// const RobotoBold = new FontFace("Roboto",  'url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)');
+// const Roboto = new FontFace("Roboto", 'url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2)');
+
+// Roboto.load()
+// RobotoBold.load()
+// .then((font) => {
+//   document.fonts.add(font);
+
+//   console.log('Font loaded');
