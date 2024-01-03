@@ -1,6 +1,8 @@
 if(process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
+const dbUrl = process.env.DB_URL;
+
 
 const express = require('express');
 const path = require('path');
@@ -47,8 +49,7 @@ app.use(function (err, req, res, next) {
 app.use(flash());
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/artCollection',
-{ useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(dbUrl)
 .then(() => {
     console.log('connection open!')
 })
@@ -56,6 +57,13 @@ mongoose.connect('mongodb://localhost:27017/artCollection',
     console.log('oh no!')
     console.log(err)
 });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error'));
+db.once('open', () => {
+    console.log('database connected');
+})
+
 
 // const ArtPiece = require('./models/artPiece.js');
 const User = require('./models/user.js');
@@ -110,6 +118,7 @@ app.use((err, req, res, next) => {
     //here, we set a status code to appear in the console and send a message 
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000 , () => {
     console.log('Serving on port 3000!')
 });
+

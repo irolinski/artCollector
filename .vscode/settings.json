@@ -14,5 +14,7 @@
         "tab.activeBorder": "#489ef9",
         "iLoveWorkSpaceColors": true,
         "iLoveWorkSpaceRandom": false
-    }
+    },
+    "appService.defaultWebAppToDeploy": "/subscriptions/68708ffb-4619-4225-b18d-ccd7104e449b/resourceGroups/aC-resourceGroup/providers/Microsoft.Web/sites/artCollector",
+    "appService.deploySubpath": "."
 }
