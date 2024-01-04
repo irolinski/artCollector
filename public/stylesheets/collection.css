@@ -171,6 +171,12 @@
     white-space: nowrap;
 }
 
+@supports (-moz-appearance:none) {
+    #new-link:after {
+        font-size: 2rem;
+    } 
+}
+
 
 
 

@@ -1,3 +1,28 @@
+debugging #1:
+
+back:
+feature: no query redirects to homepage
+
+front:
+fix(register_form) - write that username is UP to 12 characters x
+fix(show):  export doesn't work when there is no cat. num. 
+
+    styles: 
+            All
+                styles(show) hide date when empty instead of showing "date invalid" 
+                styles(forms) delete margin on size label x
+                    new form button positioning and padding
+                    ownership checkboxes in forms x
+
+            Firefox
+                styles(collection) 
+                    fix Logout floating left x
+                    search icon too big  x
+
+            mobile
+                styles(show): larger margin between archival and forsale x
+
+
 
 next to do: 
 
@@ -48,39 +73,3 @@ password (8 character, small and largr letters)
 deploy w azure
 
 
-
-
-
-
-to do:
-
-
-
-after deploying: 
-    - bonus bonus bonus bonus bonus bonus but a super cool feature: create an option to export a catalogue card jpg:::
-            https://stackoverflow.com/questions/17618574/how-can-i-generate-an-image-based-on-text-and-css 
-            https://pspdfkit.com/blog/2021/creating-images-from-text-on-the-web/
-
-
-
-
-
-
-
-
-
-
-// let fontFace = new FontFace("MyWebFont", "url('MyWebFont.woff2') format('woff2'), url('MyWebFont.woff') format('woff')");
-// const myFont = new FontFace('Roboto', 'url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2)');
-// const Roboto = new FontFace("Roboto",  'url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)');
-// const Roboto = new FontFace('Roboto', "url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2') format('woff2'), url'('https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2') format('woff2')");
-
-// const RobotoBold = new FontFace("Roboto",  'url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)');
-// const Roboto = new FontFace("Roboto", 'url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2)');
-
-// Roboto.load()
-// RobotoBold.load()
-// .then((font) => {
-//   document.fonts.add(font);
-
-//   console.log('Font loaded');

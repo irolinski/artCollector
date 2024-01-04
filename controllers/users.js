@@ -54,6 +54,11 @@ const upload = multer({
 const { cloudinary } = require('../cloudinary');
 
 
+
+module.exports.redirectHome = (req, res, next) => {
+    res.redirect('/home')
+}
+
 module.exports.home = (req, res, next) => {
 
     const pageTitle = 'Homepage - artCollector';

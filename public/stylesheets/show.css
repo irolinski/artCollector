@@ -51,8 +51,17 @@ max-width: 100%;
     padding-bottom: 1.5rem;
 }
 
+#archival-p{
+    margin-bottom: 2rem;
+}
 
+#forsale-p{
+    margin-bottom: 2rem;
+}
 
+#price-p{
+    margin-bottom: 1.5rem;
+}
 
 .export-link{
     text-decoration: underline;

@@ -75,12 +75,12 @@
 
             <!-- checkbox to unhide 'year started' attribute input -->
             <div class=" col-md-5">
-              <input class="form-check-input" type="checkbox" value="" name="multiyear" id="multiyear"
-                data-bs-toggle="collapse" data-bs-target="#yearstarted"
-                <% if (p.year[0].year_started !=null ) { %>
-                checked="checked" <% } else %>>
-                <label class="form-check-label" for="multiyear">
-                  Is it a multi-year work?
+                <label class="form-check-label cb-format" for="multiyear">
+                  <input class="form-check-input cb-format" type="checkbox" value="" name="multiyear" id="multiyear"
+                  data-bs-toggle="collapse" data-bs-target="#yearstarted"
+                  <% if (p.year[0].year_started !=null ) { %>
+                  checked="checked" <% } else %> />
+                  Assign a period of years
                 </label>
             </div>
 
@@ -103,7 +103,7 @@
 
 
             <!-- Size -->
-            <label for="size-x" class="form-label">Size:</label>
+            <label for="size-x" class="form-label" id="size-label">Size:</label>
             <div class="col-md-2" id="size-x">
               <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width" step="1" min="0" max="9999"
                 value="<%= p.size[0].x %>">
@@ -204,20 +204,17 @@
            
             <label for="owner-check" class="form-check-label">Owner:</label>
             <div class="col-md-4" id="owner-check">
-              <label class="form-check-label" for="self-owned">
+              <label class="form-check-label cb-format" for="self-owned">
+                <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="self" id="self-owned" <% if (p.owner[0].name==='' || p.owner[0].name===undefined) { %> checked="checked" <% } %> onchange="toggleCollapse('.owner-check')" onclick="clearFields('owner', 'owner_contact')" />
                 I am the owner of this piece
               </label>
-              <input class="form-check-input" type="radio" name="owner[0][status]" value="self" id="self-owned" 
-              <% if (p.owner[0].name==='' || p.owner[0].name===undefined) { %> checked="checked" <% } %>
-                onchange="toggleCollapse('.owner-check')"
-                onclick="clearFields('owner', 'owner_contact')" >
+              
             </div>
 
             <!-- if self-owned fill the data with user info  -->
             <div class="col-md-6">
-              <input class="form-check-input" type="radio" name="owner[0][status]" value="else" id="else-owned"
-                onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !=='' && p.owner[0].name !==undefined) { %> checked="checked" <% } %> />
-              <label class="form-check-label" for="else-owned">
+              <label class="form-check-label cb-format" for="else-owned">
+                <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="else" id="else-owned" onchange="toggleCollapse('.owner-check')" <% if (p.owner[0].name !=='' && p.owner[0].name !==undefined) { %> checked="checked" <% } %> />
                 Someone else is the owner of this piece
               </label>
             </div>
@@ -225,8 +222,8 @@
             <!-- if someone else is the owner  -->
             <div class=" col-md-5  ">
               <div class="">
-                <input type="text" <% if (p.owner[0].name=='' ) { %> class="form-control collapse owner-check"<% } else
-                  { %> class="owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50"
+                <input type="text" <% if (p.owner[0].name=='' ) { %> class="form-control collapse owner-check" <% } else
+                  { %> class="form-control owner-check" <% } %> name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50"
                     value="<%= p.owner[0].name %>" >
               </div>
             </div>
@@ -235,7 +232,7 @@
             <div class=" col-md-6 ">
               <div class=" ">
                 <input type="text" <% if (p.owner[0].contact_info=='') { %> class="form-control collapse owner-check"
-                <% } else { %> class=" owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact" maxlength="50"
+                <% } else { %> class="form-control owner-check" <% } %> name="owner[0][contact_info]" id="owner_contact" maxlength="50"
                     placeholder="Contact info" value="<%= p.owner[0].contact_info %>" />
               </div>
             </div>
@@ -245,21 +242,19 @@
             <!-- Holder -->
             <label for="holder-check" class="form-check-label">Holder:</label>
             <div class="col-md-4" name="holder-check">
-              <label class="form-check-label" for="self-held">
-                I am the holder of this piece
-              </label>
-              <input type="radio" class="form-check-input" name="holder[0][status]" value="self" id="self-held"
+              <label class="form-check-label cb-format" for="self-held">
+                <input type="radio" class="form-check-input cb-format" name="holder[0][status]" value="self" id="self-held"
                 onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name==='' || p.holder[0].name===undefined)
                 { %> checked="checked" <% } %>
-                onclick="clearFields('holder', 'holder_contact')">
+                onclick="clearFields('holder', 'holder_contact')"/>
+                I am the holder of this piece
+              </label>
             </div>
 
             <!-- if self-owned fill the data with user info  -->
             <div class=" col-md-6">
-              <input type="radio" class="form-check-input" name="holder[0][status]" value="else" id="else-held"
-                onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name !=='' && p.holder[0].name
-                !==undefined) { %> checked="checked" <% } %>>
-              <label class="form-check-label" for="else-held">
+              <label class="form-check-label cb-format" for="else-held">
+                <input type="radio" class="form-check-input cb-format" name="holder[0][status]" value="else" id="else-held" onchange="toggleCollapse('.holder-check')" <% if (p.holder[0].name !=='' && p.holder[0].name !==undefined) { %> checked="checked" <% } %> />
                 Someone else is the holder of this piece
               </label>
             </div>
@@ -323,12 +318,10 @@
 
             <!-- Archival checkbox -->
             <div class="form-check col-md-12" id="archival-check-div">
-              <input type="hidden" name="archival" <% if (p.archival == true ) { %> value="1" <% } else { %>
-                value="0"
-                <% } %> ><input type="checkbox" class="" id="archival-check"
-                    onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" <% if
-                    (p.archival=="1" ) { %> checked="checked" <% } %> >
-                    <label class="form-check-label" for="archival-check">
+                    <label class="form-check-label cb-format" for="archival-check">
+                      <input type="hidden" name="archival" <% if (p.archival == true ) { %> value="1" <% } else { %> value="0"<% } %> ><input type="checkbox" class="form-check-input cb-format" id="archival-check"
+                    onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" 
+                    <% if (p.archival=="1" ) { %> checked="checked" <% } %> />
                       Mark this release as archival
                     </label>
             </div>

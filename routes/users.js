@@ -35,7 +35,7 @@ const { cloudinary } = require('../cloudinary');
 const users = require('../controllers/users.js');
 
 
-
+router.get('/', users.redirectHome)
 
 router.get('/home', users.home);
 

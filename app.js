@@ -8,7 +8,6 @@ const express = require('express');
 const path = require('path');
 
 const ejsMate = require ('ejs-mate');
-// const moment = require('moment');
 const $ = require('jquery');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -20,8 +19,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
 const ExpressError = require('./utilities/ExpressError');
-// const catchAsync = require('./utilities/catchAsync');
-// const isLoggedIn  = require('./utilities/isLoggedIn')
+
 
 const app = express();
 
@@ -29,7 +27,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 
-app.use(session({secret: 'adkanqiwnqiwen23131§21§', resave: true, saveUninitialized: true}));
+
+app.use(session({secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true}));
 
 
 app.use('/public', express.static('public'));
@@ -49,7 +48,9 @@ app.use(function (err, req, res, next) {
 app.use(flash());
 
 const mongoose = require('mongoose');
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,})
 .then(() => {
     console.log('connection open!')
 })
@@ -65,7 +66,6 @@ db.once('open', () => {
 })
 
 
-// const ArtPiece = require('./models/artPiece.js');
 const User = require('./models/user.js');
 
 const collectionRouter = require('./routes/collection')

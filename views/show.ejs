@@ -131,12 +131,12 @@
                                     <% if (o.status === 'self') {
                                         if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
                                         <div> 
-                                            Owner: <span id="owner-span"><%=`${currentUser.show_name}` %></span> <br>
+                                            Owner:<span id="owner-span"><%=` ${currentUser.show_name}` %></span> <br>
                                             <span id="o-contact-span"><%=`Contact: ${currentUser.contact_info}` %></span> </div>
                                     <% }} else if ( o.name !== undefined && o.name !== '') {%>
                                         <% if (o.contact_info !== '') { %> 
                                             <div>
-                                                Owner:<span id="owner-span"><%=`${o.name}`%></span> &emsp; %> <br>
+                                                Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>
                                                 <span id="o-contact-span"> <%= `Contact: ${o.contact_info}` %></span> </div>
                                         <% } else { %>
                                             <p> No info on Owner </p >                                       
@@ -170,17 +170,17 @@
 
                             <div class="col-md-3">
 
-                                <p> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
+                                <p id="archival-p"> Archival: <% if (p.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %>
 
                                 <% if (p.forSale == true) { %>
-                                    <p> For Sale: &#10003; </p> 
-                                    <p> Price: <% for (let el of p.price) { %>
+                                    <p id="forsale-p"> For Sale: &#10003; </p> 
+                                    <p id="price-p"> Price: <% for (let el of p.price) { %>
                                     <%  if (el.price !== null) { %>
                                        <span id="price-span"><%= `${el.price} ${el.currency}` %></span>  
                                         <% } else { %>
                                             not set
                                     <% }}} else { %>
-                                            <p> For Sale: &#10007; </p> 
+                                            <p id="forsale-p"> For Sale: &#10007; </p> 
                                             <% } %> 
 
                             </div>
