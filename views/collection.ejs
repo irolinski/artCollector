@@ -125,7 +125,7 @@
 
                 <th>Year</th>
 
-                <% if (queryString.includes('added')) { %> <th class="portrait-hide">Added</th> <% } %>
+                <th <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> class="portrait-hide"> Added </th>
 
                 <th class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display:none;"  <% } %> >Acquired</th>
 
@@ -187,14 +187,12 @@
                             
                     
                 
-                    <% if (queryString.includes('added')) {   %>       
-                        <td class="portrait-hide">
+                        <td class="portrait-hide" <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> >
 
                         <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
                     <%=  moment (piece.createdAt).fromNow() %> 
                     </td>
 
-                    <% } %>
 
 
                             <td class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >

@@ -9,7 +9,6 @@ sorting by added doesnt work when hidden and it sorts by acquiration which is ba
 
     
             All
-                styles(show) hide date when empty instead of showing "date invalid" 
                     new form button positioning and padding
 
                 (homepage) 
