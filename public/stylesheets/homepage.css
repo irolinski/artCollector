@@ -80,7 +80,6 @@ h6 a{
     flex-direction: column;
     align-items: center;
     align-self: center;
-    /* margin-bottom: 20px; */
     padding: 6px 14px !important;
     font-family: 'Roboto', sans-serif;
     border-radius: 6px;    
@@ -105,7 +104,6 @@ h6 a{
     color: green;
     background: #fff;
   }
-
 
 
 #forgot-button{
@@ -263,14 +261,12 @@ border-radius: 2px;
    .form-control.is-invalid, .was-validated  {
     background-image: none !important;
     border-color: #ced4da;
-    padding-right: 0.75em;
     border-color: black !important;
   }
   
   .form-control.is-valid, .was-validated .form-control:valid  {
     background-image: none !important;
     border-color: #ced4da;
-    padding-right: 0.75em;
     border-color: black !important;
   }
   

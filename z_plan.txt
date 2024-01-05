@@ -1,15 +1,11 @@
-debugging #1:
+
 
 
 back:
 
 front:
-sorting by added doesnt work when hidden and it sorts by acquiration which is bad
-    styles: 
 
-    
-            All
-                    new form button positioning and padding
+upload backgrounds and other stock images 
 
                 (homepage) 
                     jumpy animation login form forgot button
@@ -29,14 +25,9 @@ ELECTRON DESKTOP CONVERSION
 
 styles:
 
-password (8 character, small and largr letters)
 
 
 
-874 x 1240 =>>>> A7 format
 
-
-
-deploy w azure
 
 
