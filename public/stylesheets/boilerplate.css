@@ -9,8 +9,6 @@ footer{
 
 
 #navbar {
-    /* background-color: #e2e1e1; */
-    /* background-color: rgba(167, 167, 167, 0.15);  */
     transition: 0.6s;
     top: 0;
     width: 100% ;
@@ -42,7 +40,7 @@ a {
     color: black;
     transition: color 0.1s;
     font-weight: 400;
-    
+
 }
 
 a:hover,

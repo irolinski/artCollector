@@ -5,13 +5,6 @@ back:
 
 front:
 
-upload backgrounds and other stock images 
-
-                (homepage) 
-                    jumpy animation login form forgot button
-                    everything moving after confirm idk why
-
-
 
 
 

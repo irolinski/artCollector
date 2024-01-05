@@ -1,5 +1,5 @@
 body{
-    background: rgba(0, 0, 0, .65) url('https://images.pexels.com/photos/2123337/pexels-photo-2123337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+    background: rgba(0, 0, 0, .65) url('https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704474136/artCollector/app_images/kaq0fixkl5m1kvynueqe.jpg');
     background-blend-mode: hard-light;
     background-repeat: no-repeat;
     background-size: cover;
@@ -35,26 +35,10 @@ h4{
 }
 
 
-/* h6,
-.back-button,
-#forgot-button{
-    text-shadow: none;
-    transition: text-shadow 0.6s;
-} */
-
-
 h6:hover,
 .back-button:hover,
 #forgot-button:hover{
     cursor: pointer;
-    /* text-shadow: 
-    0 0 20px rgb(198, 217, 217),
-    0 0 80px rgb(198, 217, 217),
-    0 0 150px rgb(203, 205, 205),
-    0 0 200px rgb(236, 241, 241);
-    transition: text-shadow 0.4s; */
-
-
 }
 
 h6 a{

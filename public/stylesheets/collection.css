@@ -86,7 +86,7 @@
 
 .page-brand {
 
-    background: rgba(0, 0, 0, .2) url('https://images.unsplash.com/photo-1618604440689-d5465097c6a0?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D.jpg');
+    background: rgba(0, 0, 0, .2) url('https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704474224/artCollector/app_images/ja5stl0egcbxbekofagh.avif');
     background-blend-mode: darken;
     width: 100%;
     background-position: 25% 69%;
@@ -101,6 +101,7 @@
 
 .category-check {
     margin: 0.3em;
+    accent-color: #069;;
 }
 
 #preferences-link {
@@ -269,6 +270,8 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+
 
 /* search box styling */
 
