@@ -139,19 +139,20 @@ let createCanvas_cat = async function () {
         imageHeight = 450
         };
 
+        if (pImage.complete) {
+            ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)        
+        } else {
+            pImage.onload = function () {
+            ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)            
+            };
+        }
 
-    await ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)
     };
-
 }
 
 createCanvas_mus();
+createCanvas_cat();
 
-if (pImage){
-pImage.onload = setTimeout(createCanvas_cat(), 1000);
-} else {
-    createCanvas_cat();
-}
 
 let createCanvasLink = function (canvasId, linkId) {
 $(linkId).click(function(){
@@ -163,5 +164,3 @@ $(linkId).click(function(){
 createCanvasLink('#canvas_cat', '#export-cat');
 createCanvasLink('#canvas_mus', '#export-mus');
 
-
-    
