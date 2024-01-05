@@ -144,6 +144,7 @@ module.exports.exportToXlsx = (async (req, res, next) => {
             archival: p.archival,
             description: p.description,
             catalogue_number: p.catalogue,
+            acquisition_date: p.acquiration_date,
             image_url_1: (p.images[0] !== undefined) ? p.images[0].url : null,
             image_url_2: (p.images[1] !== undefined) ? p.images[1].url : null,
             image_url_3: (p.images[2] !== undefined) ? p.images[2].url : null,
@@ -181,7 +182,6 @@ module.exports.showPage = (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
-    console.log(p);
 
     const pageTitle = `${p.title} - artCollector`
     const styleSheet = 'show';
