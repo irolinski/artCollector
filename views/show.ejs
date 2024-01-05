@@ -39,7 +39,8 @@
         <!-- main detail section -->
         <div class="container pt-5" id="detail-section">
             <div class="card-body pb-4">
-                <p id="artist-cat-p"> <span class='fw-bold' id="artist-span"> <%= p.artist %> </span> <% if (p.catalogue) { %>  <span class="ps-5 ms-5 card-subtitle text-muted" id="catalogue-wrapper">Cat. <span id="catalogue-span"><%= p.catalogue %></span></span> <% } %> </p>
+                <p id="artist-cat-p"> <span class='fw-bold' id="artist-span"> <%= p.artist %> </span> 
+                <span class="ps-5 ms-5 card-subtitle text-muted" id="catalogue-span"> <% if (p.catalogue) { %> Cat.<%= p.catalogue %> <% } %></span></p>
 
             <p class="">
                     <span class="fw-bold fst-italic" id="title-span">
@@ -112,7 +113,8 @@
                                             Owner/Holder: <span id="owner-span"><%= `${currentUser.show_name}` %></span> <br><br>
 
                                             <span id="o-contact-span"> <%= `Contact: ${currentUser.contact_info}` %></span> <br><br>
-                                            Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
+                                            <% if (p.acquiration_date) { %>
+                                           Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %> <% } %>
                                         </div>
                                     <% }} else if ( o.name !== undefined && o.name !== '') {%>
                                         <% if (o.contact_info !== '') { %> 
@@ -205,6 +207,8 @@
     </div>
 
 </div>
+
+
 
 <div class="row" >
     <canvas class="canvas" id="canvas_cat" width="1002" height="682"></canvas>

@@ -1,57 +1,25 @@
 debugging #1:
 
+
 back:
-feature: no query redirects to homepage
 
 front:
-fix(register_form) - write that username is UP to 12 characters x
-fix(show):  export doesn't work when there is no cat. num. 
-
+sorting by added doesnt work when hidden and it sorts by acquiration which is bad
     styles: 
+
+    
             All
                 styles(show) hide date when empty instead of showing "date invalid" 
-                styles(forms) delete margin on size label x
                     new form button positioning and padding
-                    ownership checkboxes in forms x
 
-            Firefox
-                styles(collection) 
-                    fix Logout floating left x
-                    search icon too big  x
-
-            mobile
-                styles(show): larger margin between archival and forsale x
+                (homepage) 
+                    jumpy animation login form forgot button
+                    everything moving after confirm idk why
 
 
 
-next to do: 
-
-poprawić funkcje weryfikacji hasła bo wchodzi dopiero od 7 znaków xd 
-
-collection page display:none by defualt so as to prevent flickering  
---> sprawdzic co sie dzieje kiedy tabela pusta
-
-deploy!!
-
-ciemne przyciski w home kiedy logged in 
-
-landscape mode mobile homepage
-
-bonus:
-add inset for shorter owner_info
 
 
-cleanup:
-
-styles for mobile
-
-- main page
-
-accessibility
-
-display none na collection na start lub cos innego zeby zlikwidowac migotanie 
-
-bonus: produce img thumbnails
 
 ukraść color-scheme od zachęty 
 #fcca00 na elementy, które mają się wyrózniac

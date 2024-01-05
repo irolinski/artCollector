@@ -148,7 +148,7 @@ let createCanvas_cat = async function () {
 createCanvas_mus();
 
 if (pImage){
-pImage.onload = createCanvas_cat();
+pImage.onload = setTimeout(createCanvas_cat(), 1000);
 } else {
     createCanvas_cat();
 }

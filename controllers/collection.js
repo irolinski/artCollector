@@ -181,6 +181,7 @@ module.exports.showPage = (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
+    console.log(p);
 
     const pageTitle = `${p.title} - artCollector`
     const styleSheet = 'show';
