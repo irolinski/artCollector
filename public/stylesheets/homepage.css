@@ -37,7 +37,9 @@ h4{
 
 h6:hover,
 .back-button:hover,
-#forgot-button:hover{
+#forgot-wrapper > span,
+#forgot-wrapper > span:hover,
+#forgot-button{
     cursor: pointer;
 }
 
