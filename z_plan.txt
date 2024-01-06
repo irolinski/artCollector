@@ -1,11 +1,7 @@
 
 
 
-back:
 
-front:
-
-edge: backgrounds
 
 
 
@@ -17,7 +13,6 @@ ukraść color-scheme od zachęty
 
 ELECTRON DESKTOP CONVERSION
 
-styles:
 
 
 
