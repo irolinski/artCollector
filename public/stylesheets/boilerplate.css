@@ -2,6 +2,10 @@ body{
     overflow-x: hidden
 }
 
+body.wait:hover{
+    cursor: wait;
+}
+
 nav,
 footer{
     background-color: rgb(233 236 239 / 19%);
@@ -57,6 +61,10 @@ a:focus {
     top: 100px;
     right: 100px;
     color: aliceblue;
+}
+
+.footer span{
+    float: inline-end;
 }
 
 @media all and (min-width: 250px) and (max-width: 480px){

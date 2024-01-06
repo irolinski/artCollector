@@ -1,2 +1,2 @@
 
-delete text-shadow to improve animation fluency
+fix(form_validation): show cursor: waiting only when the form was submitted

@@ -37,13 +37,12 @@
         onclick="toggleClass('active', 'login-email-arrow')"> &bull; E-mail <span class="menu-arrow"
             id="login-email-arrow">&#9660;</span> </b> </div>
 
-      <div id="preferences-email" class="accordion collapse preferences-sub" style="width: fit-content;">
+      <div id="preferences-email" class="accordion collapse preferences-sub">
         <div id="preferences-email-form">
           <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
             <div class="">
               <label for="email" class="form-label">Your e-mail adress:</label>
-              <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
-                value="<%=currentUser.email%>">
+              <input type="email" name="email" class="form-control" id="email" value="<%=currentUser.email%>">
                 <button type="submit" class="confirm-button">Change!</button>
                 </div>
           </form>
@@ -58,7 +57,7 @@
         <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
         <div class="" id="">
           <label for="username" class="form-label">Your login:</span></label>
-          <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
+          <input type="text" name="username" class="form-control" id="username-register" aria-describedby="emailHelp"
             value="<%=currentUser.username%>">
             <button type="submit" class="confirm-button">Change!</button>
         </div>
@@ -77,10 +76,14 @@
         <form class="needs-validation preferences-sub-form" action="/preferences/change_password?_method=PUT" method="POST">
 
           <div class="">
-            <label for="password" class="form-label">Your password:</label>
-            <input type="password" name="new_password" class="form-control" id="password" required>
+            <label for="register_password" class="form-label">Your password:</label>
+            <input type="password" name="new_password" class="form-control" id="register_password"  minlength="6" maxlength="12" required >
             <label for="confirm_password" class="form-label">Confirm password:</label>
-            <input type="password" class="form-control" id="confirm_password" required>
+            <input type="password" class="form-control" id="confirm_password"  minlength="6" maxlength="12" required>
+            <div class="invalid-feedback">
+              Password has to be 6 to 12 characters long <br>
+              (and the fields need to match)
+            </div>
 
           <button type="submit" class="confirm-button"
           onclick="return confirm('Are you sure you want to change your password?')">Change!</button>
@@ -104,13 +107,13 @@
 
         <div class="">
           <label for="show-name" class="form-label">Your name and surname / The name of your enterprise:</label>
-          <input type="text" name="show_name" class="form-control" id="show-name" aria-describedby=""
-            placeholder="e.g. 'John Doe' or 'Reykjavík Vernacular Art Museum'" value="<%=currentUser.show_name%>">
+          <input type="text" name="show_name" class="form-control" id="show-name" 
+            placeholder="e.g. 'John Doe' or 'Reykjavík Vernacular Art Museum'" maxlength="50" value="<%=currentUser.show_name%>">
         </div>
         <div class="">
           <label for="contact-info" class="form-label">Contact info that you want to be visible:</label>
           <input type="text" name="contact_info" class="form-control" id="contact-info"
-            placeholder="e.g. '+48 604 444 245' or 'gallery@art.com'" aria-describedby=""
+            placeholder="e.g. '+48 604 444 245' or 'gallery@art.com'" maxlength="50"
             value="<%=currentUser.contact_info%>">
         </div>
 
@@ -137,7 +140,6 @@
         onclick="return confirm('Are you sure you want to delete your account? All your data will be lost.')">Delete account</a>
     </div>
 
-
   </main>
 
 
@@ -147,32 +149,7 @@
 
 
 
-  <script>
-
-    // password confirm validation
-    const password = document.getElementById("password");
-    const confirm_password = document.getElementById("confirm_password");
-
-    function validatePassword() {
-      if (password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Passwords Don't Match");
-      } else {
-        confirm_password.setCustomValidity('');
-      }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-
-  </script>
-
-  <script>
-
-    const deleteAlert = ` <h6>Please, be careful with this button!</h6>
-   ... or at least, be aware that you can export your collection!`
-
-   const showAlert =  (body) => {
-
-    document.querySelector('#alert-body').innerHTML = body
-   }
-  </script>
+  <script src="public/javascripts/confirm_password.js"></script>
+  <script src="public/javascripts/show_alert.js"></script>
+  <script src="public/javascripts/bootstrap_validations.js"></script>
+  <script src="public/javascripts/username_validation.js"></script>

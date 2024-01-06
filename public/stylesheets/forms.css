@@ -274,6 +274,10 @@ select{
   transform: translateX(50px);
 }
 
+#preferences-email{
+  width: fit-content
+}
+
 #preferences-export-div button{
   padding: 10px 30px 10px 30px;
 }

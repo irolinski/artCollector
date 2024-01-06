@@ -62,7 +62,7 @@
       </div>
       </div>
       <div class="col-md-4 d-flex button-parent">
-        <button type="submit" id="login-button" class="confirm-button my-4">Log in</button>
+        <button type="submit" id="login-button" class="confirm-button my-4" onsubmit="cursorWait()">Log in</button>
       </div>
       <div class="col-md-2"></div>
       <div class="mt-4"  id="forgot-wrapper" data-bs-target=".multi-collapse-0" data-bs-toggle="collapse">
@@ -105,13 +105,13 @@
             <input type="text" name="username" class="form-control mt-3" id="username-register" placeholder="Username" required>
             <div class="invalid-feedback">
               Think of something nice... <br>
-              (also, make it at 4 to 12 characters!)
+              (also, make it the length of 4 to 12 characters!)
             </div>
         </div>
         </div>
         <div class="col-md-2">
-          <input type="password" name="password" class="form-control mt-3" id="register_password" placeholder="Password" minlength="6" required>
-          <input type="password" class="form-control mt-3" id="confirm_password" placeholder="Confirm password" minlength="6" required>
+          <input type="password" name="password" class="form-control mt-3" id="register_password" placeholder="Password" minlength="6" maxlength="12" required>
+          <input type="password" class="form-control mt-3" id="confirm_password" placeholder="Confirm password" minlength="6" maxlength="12" required>
           <div class="invalid-feedback">
             Password has to be 6 to 12 characters long <br>
             (and the fields need to match)
@@ -173,6 +173,5 @@
 
 <script src="public/javascripts/bootstrap_validations.js"></script>
 <script src="public/javascripts/confirm_password.js"></script>
-
 <script src="public/javascripts/username_validation.js"></script>
   
