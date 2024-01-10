@@ -14,12 +14,20 @@ let pCatNum = document.getElementById('catalogue-span').innerHTML.trim();
 let pMedium = document.getElementById('medium-span').innerHTML.trim();
 let pYear = document.getElementById('year-span').innerHTML.trim();
 let pSize = document.getElementById('size-span').innerHTML.trim();
-let pOwner = document.getElementById('owner-span').innerHTML.trim();
-let pOContact = document.getElementById('o-contact-span').innerHTML.trim();
+let pOwner
+let pOContact
+if (document.getElementById('owner-span')) {
+    pOwner = document.getElementById('owner-span').innerHTML.trim();
+    pOContact = document.getElementById('o-contact-span').innerHTML.trim();
+} else {
+    pOwner = null;
+    pOContact = null;
+}
+
 let pPrice = document.getElementById('price-span');
 
     pTitle += ', ';
-let lineMedium = pMedium + ', ' + pSize;
+let lineMedium = pMedium + ' ' + pSize;
 
 
 let createCanvas_mus = function () {
@@ -64,7 +72,7 @@ let createCanvas_cat = async function () {
     pCatNum = 'Cat. ' + pCatNum;
     }
 
-    if (!pOwner == 0){
+    if (pOwner){
         pOwner = 'Property of: ' + pOwner;
     }
 
@@ -112,11 +120,12 @@ let createCanvas_cat = async function () {
     ctx.fillStyle = "#212529bf";
     ctx.fillText(lineMedium, pieceInfo_X, pieceInfo_Y + 2 * dbls);
 
+if (pOwner){
     ctx.font = '20px Lato';
     ctx.fillStyle = "#000000";
     ctx.fillText(pOwner, ownerInfo_X, ownerInfo_Y);
     ctx.fillText(pOContact, ownerInfo_X, ownerInfo_Y + ls);
-
+}
     if (pPrice !== null){
         pPrice = `List price: ${pPrice}`;
     ctx.fillText(pPrice, ownerInfo_X, ownerInfo_Y + 2.5 * ls)

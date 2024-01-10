@@ -60,23 +60,20 @@
 
 
                 <p class="card-subtitle mb-2 text-muted"> 
-                    
-                    <span id="medium-span"><%= p.medium  %></span>
-                    <span id="size-span">
-                
-                            <% for (let s of p.size) { %>
-
-                                <% if (s.x === undefined || s.x === null || s.y === undefined || s.y === null){  %>
-                                    <% break %>
-                               <% } else { %>
-
+                    <% for (let s of p.size) { %>
+                        <% if (s.x === undefined || s.x === null || s.y === undefined || s.y === null){  %>
+                    <span id="medium-span"><%= p.medium %></span>
+                    <span id="size-span"></span>
+                    <% } else { %>
+                        <span id="medium-span"><%= `${p.medium},` %></span>
+                        <span id="size-span">
                             <% if ((s.z === undefined) || (s.z === null)){ %>
-                                <%=  `, ${s.x} x ${s.x} ${s.unit}` %> 
+                                <%= `${s.x} x ${s.y} ${s.unit}` %> 
                         <%  } else { %>
-                            <%=  `, ${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
                             <% } %>
+                        </span>
                         <% break } }%>
-                    </span>
                 </p>
             </div>
             <div>
@@ -129,9 +126,6 @@
                                                             <% } %>
                                                         <% } %>
                                                 <% break } %>
-
-                                                <!-- <% if (o.sta) %> -->
-
                                             <% } else {  %>
                                             <% for (let o of p.owner ) { %> 
                                                 <% if (o.status === 'self') { %>
@@ -140,19 +134,20 @@
                                                             Owner:<span id="owner-span"><%=` ${currentUser.show_name}` %></span> <br>
                                                             Contact:<span id="o-contact-span"><%=` ${currentUser.contact_info}` %></span> </div>
                                                     <% }} else if ( o.name !== undefined && o.name !== '') {%>
-                                                            <div>
+                                                        <div>
                                                         <% if (o.contact_info !== '') { %> 
                                                                 Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>
                                                                 Contact:<span id="o-contact-span"> <%= ` ${o.contact_info}` %></span> 
                                                         <% } else { %>
                                                             Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>                                     
                                                         <% } %>
+                                                    </div>
+
                                                     <% } else { %>
                                                         no info on owner
                                                     <% } %>
-                                                </div>
                                             <% break } %>
-
+                                            <p></p>
                                             <p>
                                                 <% if (p.acquiration_date !== null && p.acquiration_date !== '') { %>
                                                     Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
@@ -162,18 +157,23 @@
                                             <% for (let h of p.holder ) { %> 
                                                 <% if (h.status === 'self') {
                                                     if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                                    <div> <%= `Holder: ${currentUser.show_name}` %> <br>
-                                                    Contact: <%=`${currentUser.contact_info}` %> </div>
+                                                    <div> 
+                                                        <%= `Holder: ${currentUser.show_name}` %> <br>
+                                                        Contact: <%=`${currentUser.contact_info}` %> 
+                                                    </div>
                                                 <% }} else if ( h.name !== undefined && h.name !== '') {%>
                                                     <% if (h.contact_info !== '') { %> 
+                                                    <div>
                                                         <%= `Holder: ${h.name}` %> &emsp; %> <br>
-                                                            <%= `Contact: ${h.contact_info}` %> </div>
+                                                            <%= `Contact: ${h.contact_info}` %> 
+                                                    </div>
                                                     <% } else { %>
                                                         <%= `Holder: ${h.name}` %> &emsp; %> <br>                                    
                                                             <% } %>
                                                             <% } else { %>
                                                                 no info on holder
                                                             <% } %>
+                                                            
                                                 <% break } %>
                                             <% }}} %>
                             </div>

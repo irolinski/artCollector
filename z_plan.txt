@@ -1,17 +1,16 @@
 
-zrobić stronę gościnną dla danego uzytkownika
+zrobić stronę gościnną dla danego uzytkownika:
+opcja generowania linku 
 
 
 debugging: 
 
 front:
 forms:
-umozliwic przecinki w forms-size 
 wydluzyc limit znakow na username i haslo
-naprawić zmianę koloru  inputów w form po wysłaniu
+naprawić zmianę koloru inputów w form po wysłaniu
 
 show:
-cannot export if no pOwner.innerHTML
 dating w xlsx filename
 
 back:
@@ -23,6 +22,9 @@ ife size === unknown => hide size x
 no image naprawić na showpage x
 if date === invalid { hide date } x
 show owner on showpage even if no contact x
+cannot export if no pOwner.innerHTML x
+umozliwic przecinki w forms-size x
+
 
 
 add description to leaflet
