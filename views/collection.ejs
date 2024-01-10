@@ -165,9 +165,9 @@
                             <% for (let s of piece.size) { %>
                                 <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
                             <% if (s.z === undefined || s.z === null){ %>
-                                <%=  `${s.x} x ${s.x} ${s.unit}` %> 
+                                <%=  `${s.y} x ${s.x} ${s.unit}` %> 
                         <%  } else { %>
-                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                            <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
                             <% } %>
                         <% break } %>
                         <% } %>

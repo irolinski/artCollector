@@ -80,7 +80,7 @@
                   onchange="unlockButton()">
           </div>
           </div>
-          <button class=" my-2 confirm-button" id="image-upload-button" disabled>Upload</button>
+          <button class=" my-2 confirm-button" id="image-upload-button" onclick="cursorWait()"disabled>Upload</button>
           <% } %>
 
         </div>
@@ -92,10 +92,19 @@
 
   <script>
 
+addEventListener("pageshow", () => {
+    if (document.body.classList.contains('wait')){
+        document.body.classList.remove('wait')
+    }
+});
+
+const cursorWait = () => document.body.classList.add('wait');
 
     const unlockButton = () => {
       document.querySelector('#image-upload-button').removeAttribute("disabled")
     };
+
+
 
 
   </script>

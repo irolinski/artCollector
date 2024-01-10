@@ -1,34 +1,25 @@
 
 zrobić stronę gościnną dla danego uzytkownika:
-opcja generowania linku 
+opcja generowania linku  -- 'share collection' tam gdzie teraz jest add
+
 
 
 debugging: 
 
-front:
-forms:
-wydluzyc limit znakow na username i haslo
-naprawić zmianę koloru inputów w form po wysłaniu
 
-show:
+    forms:
 
-back:
-w mailu nie załącza się string z adresem na forgotpassword
 
-zwiekszyć limit znaków w description x
-blank image upload x
-ife size === unknown => hide size x
-no image naprawić na showpage x
-if date === invalid { hide date } x
-show owner on showpage even if no contact x
-cannot export if no pOwner.innerHTML x
-umozliwic przecinki w forms-size x
-dating w xlsx filename x
+naprawić zmianę koloru inputów w form po wysłaniu x
+all: change width to the correct format i.e. height x width x
+    cursor wait na upload zdjęcia dodatkowego x
 
 
 
+opcjonalnie: wydluzyc limit znakow na username i haslo
 
-add description to leaflet
+
+
 
 
 

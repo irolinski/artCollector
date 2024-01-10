@@ -89,22 +89,28 @@ main{
   background-image: none !important;
   border-color: #ced4da;
   padding-right: 0.75em;
-  border-color: black !important;
+  border-color: #CFD4DA !important;
 }
 
 .form-control.is-valid, .was-validated .form-control:valid  {
   background-image: none !important;
   border-color: #ced4da;
   padding-right: 0.75em;
-  border-color: black !important;
+  border-color: #CFD4DA !important;
 }
 
 .form-check-input {
-border-color: black !important;
+border-color: rgba(0, 0, 0, 0.75) !important;
 }
 
 .form-select:valid {
 --bs-form-select-bg-img: null; 
+border-color: #CFD4DA;
+}
+
+.form-select .was-validated,
+.form-select:valid:not([multiple]):not([size]) {
+ border-color: #CFD4DA !important;
 }
 
 .was-validated .form-check-input:valid:checked {
@@ -119,10 +125,10 @@ box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
 }
 
 .form-check-input.is-valid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
-  color: black;}
+  color: rgba(0, 0, 0, 0.75);}
 
 .was-validated .form-select:valid{
-  border-color: black
+  border-color: rgba(0, 0, 0, 0.75)
 }
 
 .size-input,

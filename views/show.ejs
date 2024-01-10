@@ -61,16 +61,16 @@
 
                 <p class="card-subtitle mb-2 text-muted"> 
                     <% for (let s of p.size) { %>
-                        <% if (s.x === undefined || s.x === null || s.y === undefined || s.y === null){  %>
+                        <% if (s.y === undefined || s.y === null || s.x === undefined || s.x === null){  %>
                     <span id="medium-span"><%= p.medium %></span>
                     <span id="size-span"></span>
                     <% } else { %>
                         <span id="medium-span"><%= `${p.medium},` %></span>
                         <span id="size-span">
                             <% if ((s.z === undefined) || (s.z === null)){ %>
-                                <%= `${s.x} x ${s.y} ${s.unit}` %> 
+                                <%= `${s.y} x ${s.x} ${s.unit}` %> 
                         <%  } else { %>
-                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                            <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
                             <% } %>
                         </span>
                         <% break } }%>

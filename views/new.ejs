@@ -90,12 +90,12 @@
 
 
           <!-- Size -->
-          <label for="size-x" class="form-label" id="size-label">Size:</label>
+          <label for="size-y" class="form-label" id="size-label">Size:</label>
+          <div class="col-md-2" id="size-y"> 
+            <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step=".01" min="0" max="9999">
+          </div>
           <div class="col-md-2" id="size-x"> 
               <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step=".01" min="0" max="9999" >
-          </div>
-          <div class="col-md-2" id="size-y"> 
-              <input type="number" class="form-control size-input" name="size[0][y]" placeholder="Height"  step=".01" min="0" max="9999">
           </div>
 
           <!-- checkbox to unhide 'size-z' attribute input -->
