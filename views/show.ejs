@@ -27,7 +27,7 @@
             <% } %>
         </div>
         <% } else { %>
-            <img id="no-image-placeholder" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1699818280/artCollector/No_image_xoyq1z.png"> 
+            <img id="no-image-placeholder" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
         <% } %>
         </div>
 
@@ -61,19 +61,19 @@
 
                 <p class="card-subtitle mb-2 text-muted"> 
                     
-                    <span id="medium-span"><%= p.medium  %></span>,
+                    <span id="medium-span"><%= p.medium  %></span>
                     <span id="size-span">
                 
                             <% for (let s of p.size) { %>
 
-                                <% if (s.x === undefined || s.x === null || s.y === undefined || s.y === null){ %>
-                                        Size unknown
+                                <% if (s.x === undefined || s.x === null || s.y === undefined || s.y === null){  %>
+                                    <% break %>
                                <% } else { %>
 
                             <% if ((s.z === undefined) || (s.z === null)){ %>
-                                <%=  `${s.x} x ${s.x} ${s.unit}` %> 
+                                <%=  `, ${s.x} x ${s.x} ${s.unit}` %> 
                         <%  } else { %>
-                            <%=  `${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
+                            <%=  `, ${s.x} x ${s.y} x ${s.z} ${s.unit}` %>
                             <% } %>
                         <% break } }%>
                     </span>
@@ -104,70 +104,78 @@
 
                                 <% for (let o of p.owner) { %>
                                     <% for (let h of p.holder) { %>
-                                <%     if (o.name === h.name) {  %>
+                                            <% if (o.name === h.name) { %>
+                                                <% for (let o of p.owner ) { %> 
+                                                    <% if (o.status === 'self') { %>
+                                                        <% if (currentUser.show_name !== '' && currentUser.show_name !== null) { %>
+                                                            <div> 
+                                                                <% if (currentUser.contact_info !== '' && currentUser.contact_info !== null) { %>
+                                                                    Owner/Holder: <span id="owner-span"><%= `${currentUser.show_name}` %></span> <br><br>
+                                                                    Contact: <span id="o-contact-span"> <%= `${currentUser.contact_info}` %></span> <br><br>
+                                                                <% } else { %>
+                                                                    Owner/Holder: <span id="owner-span"><%= `${currentUser.show_name}` %></span> <br><br>
+                                                                <% } %>  
+                                                                <% if (p.acquiration_date !== null && p.acquiration_date !== '') { %>
+                                                                    Acquisition date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %> 
+                                                                <% } %>
+                                                            </div>
+                                                        <% }} else if ( o.name !== undefined && o.name !== '') {%>
+                                                            <% if (o.contact_info !== '') { %> 
+                                                                <div>  
+                                                                    Owner/Holder: <span id="owner-span"><%= `${o.name}` %></span> &emsp; <br>
+                                                                    <span id="o-contact-span"><%= `Contact: ${o.contact_info}` %></span> </div>
+                                                            <% } else { %>
+                                                                <p> No info on ownership status of this piece </p>                                       
+                                                            <% } %>
+                                                        <% } %>
+                                                <% break } %>
 
-                                <% for (let o of p.owner ) { %> 
-                                    <% if (o.status === 'self') { %>
-                                    <%  if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                        <div> 
-                                            Owner/Holder: <span id="owner-span"><%= `${currentUser.show_name}` %></span> <br><br>
+                                                <!-- <% if (o.sta) %> -->
 
-                                            <span id="o-contact-span"> <%= `Contact: ${currentUser.contact_info}` %></span> <br><br>
-                                            <% if (p.acquiration_date) { %>
-                                           Acquisition date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %> <% } %>
-                                        </div>
-                                    <% }} else if ( o.name !== undefined && o.name !== '') {%>
-                                        <% if (o.contact_info !== '') { %> 
-                                            <div>  
-                                                Owner/Holder: <span id="owner-span"><%= `${o.name}` %></span> &emsp; <br>
-                                                <span id="o-contact-span"><%= `Contact: ${o.contact_info}` %></span> </div>
-                                        <% } else { %>
-                                            <p> No info on ownership status of this piece </p >                                       
+                                            <% } else {  %>
+                                            <% for (let o of p.owner ) { %> 
+                                                <% if (o.status === 'self') { %>
+                                                    <% if (currentUser.show_name !== '' && currentUser.show_name !== null) { %>
+                                                        <div> 
+                                                            Owner:<span id="owner-span"><%=` ${currentUser.show_name}` %></span> <br>
+                                                            Contact:<span id="o-contact-span"><%=` ${currentUser.contact_info}` %></span> </div>
+                                                    <% }} else if ( o.name !== undefined && o.name !== '') {%>
+                                                            <div>
+                                                        <% if (o.contact_info !== '') { %> 
+                                                                Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>
+                                                                Contact:<span id="o-contact-span"> <%= ` ${o.contact_info}` %></span> 
+                                                        <% } else { %>
+                                                            Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>                                     
+                                                        <% } %>
+                                                    <% } else { %>
+                                                        no info on owner
+                                                    <% } %>
+                                                </div>
+                                            <% break } %>
+
+                                            <p>
+                                                <% if (p.acquiration_date !== null && p.acquiration_date !== '') { %>
+                                                    Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %>
                                                 <% } %>
-                                                <% } else { %>
-                                                <% } %>
-                                    <% break } %>
-                                    <% } else {  %>
+                                            </p>
                                         
-                                <% for (let o of p.owner ) { %> 
-                                    <% if (o.status === 'self') {
-                                        if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                        <div> 
-                                            Owner:<span id="owner-span"><%=` ${currentUser.show_name}` %></span> <br>
-                                            <span id="o-contact-span"><%=`Contact: ${currentUser.contact_info}` %></span> </div>
-                                    <% }} else if ( o.name !== undefined && o.name !== '') {%>
-                                        <% if (o.contact_info !== '') { %> 
-                                            <div>
-                                                Owner:<span id="owner-span"><%=` ${o.name}`%></span> &emsp; %> <br>
-                                                <span id="o-contact-span"> <%= `Contact: ${o.contact_info}` %></span> </div>
-                                        <% } else { %>
-                                            <p> No info on Owner </p >                                       
-                                                <% } %>
-                                                <% } else { %>
-                                                <% } %>
-                                    <% break } %>
-                                <p></p>
-
-                                <% if (p.acquiration_date !== false) { %>
-                                <p> Acquiration date: <%=  moment(p.acquiration_date).format("DD/MM/YYYY") %></p>
-                                <% } %>
-                                
-                                <% for (let h of p.holder ) { %> 
-                                    <% if (h.status === 'self') {
-                                        if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
-                                        <div> <%= `Holder: ${currentUser.show_name}` %> <br>
-                                        Contact: <%=`${currentUser.contact_info}` %> </div>
-                                    <% }} else if ( h.name !== undefined && h.name !== '') {%>
-                                        <% if (h.contact_info !== '') { %> 
-                                            <div> <%= `Holder: ${h.name}` %> &emsp; %> <br>
-                                                <%= `Contact: ${h.contact_info}` %> </div>
-                                        <% } else { %>
-                                            <p> No info on holder </p >                                      
-                                                <% } %>
-                                                <% } else { %>
-                                                <% } %>
-                                    <% break } %>
-                                <% }}} %>
+                                            <% for (let h of p.holder ) { %> 
+                                                <% if (h.status === 'self') {
+                                                    if (currentUser.show_name !== '' && currentUser.show_name !== null)  { %>
+                                                    <div> <%= `Holder: ${currentUser.show_name}` %> <br>
+                                                    Contact: <%=`${currentUser.contact_info}` %> </div>
+                                                <% }} else if ( h.name !== undefined && h.name !== '') {%>
+                                                    <% if (h.contact_info !== '') { %> 
+                                                        <%= `Holder: ${h.name}` %> &emsp; %> <br>
+                                                            <%= `Contact: ${h.contact_info}` %> </div>
+                                                    <% } else { %>
+                                                        <%= `Holder: ${h.name}` %> &emsp; %> <br>                                    
+                                                            <% } %>
+                                                            <% } else { %>
+                                                                no info on holder
+                                                            <% } %>
+                                                <% break } %>
+                                            <% }}} %>
                             </div>
 
                             <div class="col-md-3">
@@ -181,7 +189,7 @@
                                        <span id="price-span"><%= `${el.price} ${el.currency}` %></span>  
                                         <% } else { %>
                                             not set
-                                    <% }}} else { %>
+                                <% }}} else { %>
                                             <p id="forsale-p"> For Sale: &#10007; </p> 
                                             <% } %> 
 

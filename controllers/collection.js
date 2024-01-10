@@ -51,7 +51,6 @@ module.exports.collectionPage = (async (req, res, next) => {
 
     const archivalStatus = req.query.archival;
 
-
     let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); 
     
     const archivalPieces = await ArtPiece.find(
@@ -182,6 +181,7 @@ module.exports.showPage = (async (req, res, next) => {
         res.redirect('/campgrounds');
     }
     const p = await ArtPiece.findById(id);
+    console.log(p);
 
     const pageTitle = `${p.title} - artCollector`
     const styleSheet = 'show';

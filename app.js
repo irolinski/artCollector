@@ -99,11 +99,6 @@ app.use('/', usersRouter)
 app.use('/collection', collectionRouter)
 
 
-
-
-
-
-
 app.all('*', (req, res, next) => {      //*star* means 'for every path'
     next(new ExpressError('Page not found', 404))
 })

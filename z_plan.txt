@@ -1,5 +1,28 @@
 
+zrobić stronę gościnną dla danego uzytkownika
 
+
+debugging: 
+
+front:
+forms:
+umozliwic przecinki w forms-size 
+wydluzyc limit znakow na username i haslo
+naprawić zmianę koloru  inputów w form po wysłaniu
+
+show:
+cannot export if no pOwner.innerHTML
+dating w xlsx filename
+
+back:
+w mailu nie załącza się string z adresem na forgotpassword
+
+zwiekszyć limit znaków w description x
+blank image upload x
+ife size === unknown => hide size x
+no image naprawić na showpage x
+if date === invalid { hide date } x
+show owner on showpage even if no contact x
 
 
 add description to leaflet
@@ -14,9 +37,10 @@ ukraść color-scheme od zachęty
 ELECTRON DESKTOP CONVERSION
 
 
-
-
-
+FEATURES FOR 1.1{
+    historia wypozyczen 
+    short description (for leaflet)
+}
 
 
 
