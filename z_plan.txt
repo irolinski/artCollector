@@ -11,7 +11,6 @@ wydluzyc limit znakow na username i haslo
 naprawić zmianę koloru inputów w form po wysłaniu
 
 show:
-dating w xlsx filename
 
 back:
 w mailu nie załącza się string z adresem na forgotpassword
@@ -24,6 +23,8 @@ if date === invalid { hide date } x
 show owner on showpage even if no contact x
 cannot export if no pOwner.innerHTML x
 umozliwic przecinki w forms-size x
+dating w xlsx filename x
+
 
 
 

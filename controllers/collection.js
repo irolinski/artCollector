@@ -111,12 +111,22 @@ module.exports.postNewPiece = (async (req, res, next) => {
     res.redirect('collection')
 
 
-    });
+});
 
 module.exports.exportToXlsx = (async (req, res, next) => {
 
-    let currentDate = new Date()
-    currentDate = `${currentDate.getMonth()}.${currentDate.getFullYear()}`;
+    let currentDate = new Date();
+
+    let currentMonth = currentDate.getMonth() + 1;
+    if (currentMonth < 10) {
+        currentMonth = `0${currentMonth}`
+    } else {
+        currentMonth = `${currentMonth}`
+    }
+
+    let currentYear = `${currentDate.getFullYear()}`;
+
+    currentDate = currentMonth + '.' + currentYear;
 
 
     let exportData = []

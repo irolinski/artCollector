@@ -80,7 +80,7 @@ module.exports.register = (async (req, res, next) => {
         Welcome to our site!
 
         Just wanted to let you know: 
-        if you're having any problems or want to provide info on any bugs: use this e-mail adress.
+        if you're having any problems or want to provide info on any bugs: reach us under artcollector.messages@gmail.com.
 
         This should be the first and the last automatic message you'll ever get from us.
 
