@@ -87,6 +87,27 @@ max-width: 100%;
     
 }
 
+#back-link-div{
+  color: black;
+  text-decoration: none;
+  font-weight: 400;
+  padding: 1vh;
+  font-size: 1.2rem;
+  transition: transform 1s;
+}
+
+#back-link-div > a {
+  float: right;
+  transform: translateX(-80px);
+  text-decoration: none;
+}
+
+#back-link-div:hover{
+  cursor: pointer;
+  transform: translateY(-2.5px);
+  color: rgba(0, 0, 0, 0.382)
+}
+
 
 
 

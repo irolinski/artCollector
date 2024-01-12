@@ -1,9 +1,9 @@
 
-zrobić stronę gościnną dla danego uzytkownika:
 opcja generowania linku  -- 'share collection' tam gdzie teraz jest add
 
-kod dostępu który kazdy user ustala indywidualnie
+dodanie shareCollection (true or false) i shareCollection_pass do schemy
 
+fix(discover_piece): use id for path (instead of username), to prevent tracing username
 
 
 debugging: 

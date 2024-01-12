@@ -43,9 +43,9 @@ router.post('/register', users.register);
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/home' }), users.login);
 
-router.get('/discover/:username', catchAsync(users.discoverCollection));
+router.get('/discover/:username/:pass', catchAsync(users.discoverCollection));
 
-router.get('/discover/:username/:id', catchAsync(users.discoverPiece));
+router.get('/discover/:id/:pass/:id', catchAsync(users.discoverPiece));
 
 router.get('/preferences', isLoggedIn, users.preferences);
 

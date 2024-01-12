@@ -117,19 +117,28 @@ module.exports.discoverCollection = async (req, res, next) => {
     const styleSheet = 'collection'
 
     let username = req.path.split('/')[2];
+    let passPath = req.path.split('/')[3];
 
     await User.findOne({ username: username }).then( async (u) => {
         let user = u;
-        if(u && u.show_name === "John Moe"){ // should be u.showProfile === 1
-            const pageTitle = `${u.show_name}'s Collection - artCollector`
-            let artPieces = await ArtPiece.find({
-                archival: !{$in: [ 'true' ]},
-                user_id: `${u._id}`
-            });
-            res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+        // owner.pass insert below
+        let userPass = '4321' // create a custom pass field in database and get it from there, here
 
+        if(passPath === userPass) {
+            if(u && u.show_name === "John Moe"){ // should be u.showProfile === 1 after creating a custom 
+                const pageTitle = `${u.show_name}'s Collection - artCollector`
+                let artPieces = await ArtPiece.find({
+                    archival: !{$in: [ 'true' ]},
+                    user_id: `${u._id}`
+                });
+                res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+
+            } else {
+                let msg = 'No such user found...'
+                throw new ExpressError(msg, 400)
+            }
         } else {
-            let msg = 'No such user found...'
+            let msg = 'This link is invalid...'
             throw new ExpressError(msg, 400)
         }
     });
@@ -153,21 +162,14 @@ module.exports.discoverPiece = async (req, res, next) => {
     let origin = req.get('Referrer');
     let owner = await User.findById({_id: p.user_id});
         username = owner.username
-        console.log(username)
-
     if (origin && origin.includes('discover') && origin.includes(username)){
-        console.log('pass')
+        res.render('share_piece', { p, moment: moment, pageTitle, styleSheet, owner })
     } else {
-        console.log('no passs')
+        let msg = "Access forbidden"
+        throw new ExpressError(msg, 400)
     }
 
-    // if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
 
-    res.render('share_piece', { p, moment: moment, pageTitle, styleSheet })
-    // } else {
-        // req.flash('error', `I'm sorry but I cannot find such piece in your collection`);
-        // res.redirect('/collection')
-    // }
 
 };
 
