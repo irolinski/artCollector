@@ -138,8 +138,8 @@ module.exports.discoverCollection = async (req, res, next) => {
 module.exports.discoverPiece = async (req, res, next) => {
 
     const { id } =  req.params; 
-
-    console.log(id)
+    
+    // console.log(id)
 
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
@@ -150,6 +150,16 @@ module.exports.discoverPiece = async (req, res, next) => {
     const pageTitle = `${p.title} - artCollector`
     const styleSheet = 'show';
 
+    let origin = req.get('Referrer');
+    let owner = await User.findById({_id: p.user_id});
+        username = owner.username
+        console.log(username)
+
+    if (origin && origin.includes('discover') && origin.includes(username)){
+        console.log('pass')
+    } else {
+        console.log('no passs')
+    }
 
     // if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
 
