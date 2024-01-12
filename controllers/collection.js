@@ -5,8 +5,6 @@ const router = express.Router();
 const moment = require('moment');
 const joi = require('joi');
 
-
-
 const mongoose = require('mongoose');
 
 const multer = require('multer');
@@ -59,8 +57,8 @@ module.exports.collectionPage = (async (req, res, next) => {
     });
 
     if (archivalStatus === 'archival-hide') {
-        artPieces = await ArtPiece.find(
-            { archival: !{$in: [ 'true' ]},
+        artPieces = await ArtPiece.find({
+            archival: !{$in: [ 'true' ]},
             user_id: `${req.user._id}`
         });
 
@@ -72,6 +70,8 @@ module.exports.collectionPage = (async (req, res, next) => {
 
     res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable, pageTitle, styleSheet })
 });
+
+
 
 
 module.exports.newPieceForm = (req, res, next) => {

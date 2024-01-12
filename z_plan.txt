@@ -2,6 +2,8 @@
 zrobić stronę gościnną dla danego uzytkownika:
 opcja generowania linku  -- 'share collection' tam gdzie teraz jest add
 
+kod dostępu który kazdy user ustala indywidualnie
+
 
 
 debugging: 

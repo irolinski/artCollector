@@ -5,10 +5,15 @@ const router = express.Router();
 const ArtPiece = require('../models/artPiece.js');
 const User = require('../models/user.js');
 
+
+const mongoose = require('mongoose');
+const moment = require('moment');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+const ExpressError = require('../utilities/ExpressError');
 
 const JWT = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
@@ -106,6 +111,56 @@ module.exports.login = (req, res) => {
     res.redirect('/collection');
 };
 
+
+module.exports.discoverCollection = async (req, res, next) => {
+
+    const styleSheet = 'collection'
+
+    let username = req.path.split('/')[2];
+
+    await User.findOne({ username: username }).then( async (u) => {
+        let user = u;
+        if(u && u.show_name === "John Moe"){ // should be u.showProfile === 1
+            const pageTitle = `${u.show_name}'s Collection - artCollector`
+            let artPieces = await ArtPiece.find({
+                archival: !{$in: [ 'true' ]},
+                user_id: `${u._id}`
+            });
+            res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+
+        } else {
+            let msg = 'No such user found...'
+            throw new ExpressError(msg, 400)
+        }
+    });
+};
+
+module.exports.discoverPiece = async (req, res, next) => {
+
+    const { id } =  req.params; 
+
+    console.log(id)
+
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
+        res.redirect('/campgrounds');
+    }
+    const p = await ArtPiece.findById(id);
+
+    const pageTitle = `${p.title} - artCollector`
+    const styleSheet = 'show';
+
+
+    // if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
+
+    res.render('share_piece', { p, moment: moment, pageTitle, styleSheet })
+    // } else {
+        // req.flash('error', `I'm sorry but I cannot find such piece in your collection`);
+        // res.redirect('/collection')
+    // }
+
+};
+
 module.exports.preferences = (req, res, next) => {
     const pageTitle = 'Preferences - artCollector';
     const styleSheet = 'forms'
@@ -200,8 +255,6 @@ module.exports.forgottenPassword = (async (req, res, next) => {
 module.exports.sendToken = (req, res, next) => {
 
     const { id, token } = req.params;
-
-
 
     User.findById(id)
     .then((u) => {

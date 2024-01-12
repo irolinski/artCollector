@@ -5,7 +5,7 @@ const ExpressError = require('../utilities/ExpressError');
 const catchAsync = require('../utilities/catchAsync');
 const isLoggedIn  = require('../utilities/isLoggedIn')
 
-const ArtPiece = require('../models/artPiece.js');
+// const ArtPiece = require('../models/artPiece.js');
 const User = require('../models/user.js');
 
 const passport = require('passport');
@@ -42,6 +42,10 @@ router.get('/home', users.home);
 router.post('/register', users.register);
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/home' }), users.login);
+
+router.get('/discover/:username', catchAsync(users.discoverCollection));
+
+router.get('/discover/:username/:id', catchAsync(users.discoverPiece));
 
 router.get('/preferences', isLoggedIn, users.preferences);
 

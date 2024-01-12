@@ -30,7 +30,6 @@ max-width: 100%;
     transform: translateY(1rem);
 }
 
-
 #catalogue-wrapper{
     display: inline-block;
 }
@@ -98,6 +97,14 @@ max-width: 100%;
     transition: transform 1s;
 }
 
+
+#detail-section.discover{
+    padding-top: 90px;
+  }
+
+#discover-details-div{
+    display: inline-flex;
+}
 
 #carousel:active{
     transform: translateY(4vw);

@@ -1,0 +1,147 @@
+<% layout('layouts/boilerplate')%>
+
+
+<%- include('./partials/loading_ellipsis.ejs')  %>
+
+<div class="page-brand hide" id="collection-page-brand">
+<p class="my-auto page-header" id="collection-page-header"><%=`${user.show_name}'s`%> Collection</p>
+</div>    
+
+
+
+
+<main class="container hide" id="collection-main">
+
+   
+
+
+
+    <table id="collection-table" class="table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Artist</th>
+
+                <th>Title</th>
+
+                <th>Image</th>
+
+                <th class="narrow-screen-hide">Medium / Size</th> 
+
+                <th>Year</th>
+
+                <th style="display: none;" class="portrait-hide"> Added </th>
+
+                <th class="portrait-hide">For Sale</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <% for (let piece of artPieces) { %>
+            
+                
+                    <tr>
+                        <td><%= piece.artist %></td>
+
+                        <td> <a class="piece-title-link" href="discover/<%=user.username%>/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
+
+                        <td>
+                            <% if (piece.images.length > 0) { %>
+                            <% for (let img of piece.images) { %>
+                        <img src="<%= img.url %>" style="max-width:100px; width:100%">
+                            <% break } %> 
+                            <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
+                            <% } %>
+
+                        </td>
+
+
+                    
+                        <td class="narrow-screen-hide">
+                            <%= piece.medium %> <br>                     
+                            <% for (let s of piece.size) { %>
+                                <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
+                            <% if (s.z === undefined || s.z === null){ %>
+                                <%=  `${s.y} x ${s.x} ${s.unit}` %> 
+                        <%  } else { %>
+                            <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
+                            <% } %>
+                        <% break } %>
+                        <% } %>
+                        </td>
+
+
+
+                            <% for (let y of piece.year) { %>
+                                <% if (y.year_started != undefined || y.year_stared != null) { %>
+                                    <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
+                            <%  } else { %>
+                                <td><%= y.year_finished %></td>
+                                <% } %>
+                            <% break } %>
+                
+
+                            
+                    
+                
+                        <td class="portrait-hide" style="display: none;" >
+
+                        <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
+                    <%=  moment (piece.createdAt).fromNow() %> 
+                    </td>
+
+
+
+
+
+                            <td class="portrait-hide">
+                                <% if (piece.forSale == true) { %>
+                                    <% for (let el of piece.price) { %>
+                                    <%  if (el.price !== null) { %>
+                                        <%= `${el.price} ${el.currency}` %> 
+                                        <% } else { %>
+                                            not set
+                                    <% }}} else { %>
+                                            &#10007;
+                                            <% } %>                         </td>
+
+
+
+
+                    </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+
+
+</main>
+
+<!-- </body> -->
+
+
+<script src="public/javascripts/dataTables_settings.js"></script>
+<script src="public/javascripts/remove_toggle_class.js"></script>
+<script src='https://code.jquery.com/jquery-3.7.0.js'></script>
+<script src='public/javascripts/dataTables.js'></script>
+<script src='public/javascripts/dataTables_responsive.js'></script>
+<script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
+<script src='public/javascripts/show_loading.js'></script>
+<script>
+
+window.onload = (async function(){
+        await sleep(600);
+    document.getElementById('loading-div').classList.add('hide');
+    document.getElementById('collection-page-brand').classList.remove('hide');
+    document.getElementById('collection-main').classList.remove('hide');
+});
+
+</script>
+
+</body>
+</html> 
+
+
+

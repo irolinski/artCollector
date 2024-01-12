@@ -9,7 +9,6 @@
         <div class='me-auto'>
           <ul class="navbar-nav">
             <% if (currentUser) { %>
-            <!-- <span class="navbar-brand nav-item me-auto opacity-25 px-3">&bull;</span> -->
             <li class="nav-item">
               <a class="nav-link"  href="/collection">My Collection</a>
               <% } %>
@@ -22,19 +21,11 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" href="/home">Sign in!</a>
-            <li class="nav-item">
-              <a class="nav-link" href="/register">Sign up!</a>
-    
-
             <% } else { %>
-
               <li class="nav-item">
                 <a class="nav-link" href="/preferences">Preferences</a>
-
               <li class="nav-item">
                 <a class="nav-link" href="/logout">Log Out!</a>
-
-    
             <% } %>
         </ul>
       </div>
