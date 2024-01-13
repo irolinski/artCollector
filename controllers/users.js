@@ -121,11 +121,11 @@ module.exports.discoverCollection = async (req, res, next) => {
 
     await User.findOne({ username: username }).then( async (u) => {
         let user = u;
-        // owner.pass insert below
-        let userPass = '4321' // create a custom pass field in database and get it from there, here
+
+        let userPass = u.share_pass 
 
         if(passPath === userPass) {
-            if(u && u.show_name === "John Moe"){ // should be u.showProfile === 1 after creating a custom 
+            if(u && u.share_collection === true){ 
                 const pageTitle = `${u.show_name}'s Collection - artCollector`
                 let artPieces = await ArtPiece.find({
                     archival: !{$in: [ 'true' ]},

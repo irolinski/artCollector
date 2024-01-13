@@ -45,7 +45,7 @@
                     <tr>
                         <td><%= piece.artist %></td>
                                                                                     <!-- owner.pass insert below -->
-                        <td> <a class="piece-title-link" href="discover/<%=user._id%>/4321/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
+                        <td> <a class="piece-title-link" href="discover/<%=user._id%>/<%=user.share_pass%>/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
 
                         <td>
                             <% if (piece.images.length > 0) { %>

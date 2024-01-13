@@ -1,7 +1,8 @@
 
-dodanie shareCollection (true or false) i shareCollection_pass do schemy
 
 opcja generowania linku  -- 'share collection' tam gdzie teraz jest add
+
+?strona do wpisania hasła dostępu do kolekcji, która potem przekierowuje do strony kolekcji (do której dostęp mozliwy tylko ze strony hasla albo ze strony discover/showpage)
 
 if path[2] === coś => wyświetl modal z kodem do wpisania
 
@@ -35,32 +36,6 @@ FEATURES FOR 1.1{
 
 
 
-
-<div data-bs-toggle="collapse" data-bs-target="#preferences-share-div" class="menu preferences-menu"
-    onclick="toggleClass('active', 'export-arrow')">Share collection <span class="menu-arrow"
-        id="export-arrow">&#9660;</span></b>
-    </div>
-        <div id="preferences-share-div" class=" accordion collapse">
-            <form class="needs-validation" action="/preferences/edit?_method=PUT" method="POST" novalidate>
-            <div class="col-md-5">
-              <input type="hidden" name="share_collection" <% if (currentUser.share_collection=="1" ) { %> value="1" <% } else { %> value="0" <% } %> > 
-              <input type="checkbox" class="form-check-input" id="share_collection" data-bs-toggle="collapse"
-                    data-bs-target=".share_pass" min="0" 
-                    onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" 
-                    <% if (currentUser.share_collection == "1" ) { %> checked="checked" <% } %> />
-                    <label class="form-check-label" for="share_collection">
-                      I want to make my collection visible for other people
-                    </label>
-              </div>
-              <div class="col-md-5">
-              <div <% if (currentUser.share_collection == "0") { %> class="share_pass collapse" <% } else { %> class="share_pass" <% } %>>
-                <label for="share_pass" class="form-label">Passcode:</label>
-                <input type="number" name="share_pass" class="form-control" id="share_pass" value="<%=currentUser.share_pass%>">
-              </div>
-            </div>
-              <button type="submit" class="confirm-button preferences-button">Share!</button>
-            </form>
-          </div>
 
     
 
