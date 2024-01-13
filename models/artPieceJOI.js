@@ -7,7 +7,7 @@ const pieceSchema = joi.object({
     medium: joi.string().required(),
     year: joi.array().items({
 
-        year_finished: joi.number().min(0).allow(''), // I'd prefer it required, though...
+        year_finished: joi.number().min(0).allow(''), 
         year_started: joi.number().min(0).allow('')
 }),
     images: joi.array().items({

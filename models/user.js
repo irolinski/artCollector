@@ -28,7 +28,21 @@ const UserSchema = new Schema({
         default: null,
         trim: true,
         sparse: true
+    },
+
+    share_collection: {
+        type: Boolean,
+        default: false,
+    },
+
+    share_pass: {
+        type: String,
+        default: null,
+        trim: true,
+        sparse: true
     }
+
+
 })
 
 UserSchema.plugin(passportLocalMongoose);

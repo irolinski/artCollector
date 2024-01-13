@@ -154,11 +154,8 @@
 
 
             <div class="col-md-2">
-              <div <% if (p.forSale=="1" ) { %> class="price collapse show" <% } else { %> class="price collapse" <% }
-                    %>
-                    id="">
-                    <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0"
-                      <% if (p.price[0] !=null) { %> value="<%= p.price[0].price %>" <% } %> >
+              <div <% if (p.forSale=="1" ) { %> class="price collapse show" <% } else { %> class="price collapse" <% } %> id="">
+                <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0" <% if (p.price[0] !=null) { %> value="<%= p.price[0].price %>" <% } %> >
               </div>
             </div>
 

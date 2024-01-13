@@ -169,13 +169,14 @@ module.exports.discoverPiece = async (req, res, next) => {
         throw new ExpressError(msg, 400)
     }
 
-
-
 };
 
 module.exports.preferences = (req, res, next) => {
     const pageTitle = 'Preferences - artCollector';
     const styleSheet = 'forms'
+
+    console.log(req.user)
+
     res.render('preferences', { pageTitle, styleSheet })
 };
 
@@ -191,6 +192,8 @@ module.exports.editUser =  (async (req, res, next) => {
             email: req.body.email,
             show_name: req.body.show_name,
             contact_info: req.body.contact_info,
+            share_collection: req.body.share_collection,
+            share_pass: req.body.share_pass
     })};
     req.flash('success', 'Your changes have been saved!');
     res.redirect('/collection')
