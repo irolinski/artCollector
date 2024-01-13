@@ -277,7 +277,9 @@ select{
 
 #preferences-account-settings-div > div,
 #preferences-personal-data-div div,
-#preferences-personal-data-div button{
+#preferences-personal-data-div button,
+#preferences-share-div div,
+#preferences-share-div button{
   transform: translateX(50px);
 }
 
@@ -301,7 +303,7 @@ select{
 }
 
 .preferences-sub-form input {
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 
 .preferences-sub-form button{
