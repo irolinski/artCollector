@@ -44,8 +44,10 @@ module.exports.collectionPage = (async (req, res, next) => {
     const pageTitle = 'My Collection - artCollector'
     const styleSheet = 'collection'
 
-    let queryString = JSON.stringify(req.query);
+    let host = req.get('host')
     const userTable = (req.user.custom_table);
+
+    let queryString = JSON.stringify(req.query);
 
     const archivalStatus = req.query.archival;
 
@@ -68,7 +70,7 @@ module.exports.collectionPage = (async (req, res, next) => {
 
 
 
-    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable, pageTitle, styleSheet })
+    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable, pageTitle, styleSheet, host })
 });
 
 

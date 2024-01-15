@@ -148,8 +148,6 @@ module.exports.discoverPiece = async (req, res, next) => {
 
     const { id } =  req.params; 
     
-    // console.log(id)
-
     if( !mongoose.Types.ObjectId.isValid(id) ){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect('/campgrounds');
@@ -175,12 +173,11 @@ module.exports.preferences = (req, res, next) => {
     const pageTitle = 'Preferences - artCollector';
     const styleSheet = 'forms'
 
-    console.log(req.user)
-
     res.render('preferences', { pageTitle, styleSheet })
 };
 
 module.exports.editUser =  (async (req, res, next) => {
+
 
     if (req.body.custom_table){
         await User.findOneAndUpdate(req.user._id, {
@@ -195,7 +192,11 @@ module.exports.editUser =  (async (req, res, next) => {
             share_collection: req.body.share_collection,
             share_pass: req.body.share_pass
     })};
+        if(req.body.share_collection === '1') {
+            req.flash('success', 'Now, generate a link by clicking the share icon')
+        } else {
     req.flash('success', 'Your changes have been saved!');
+        }
     res.redirect('/collection')
         
 });

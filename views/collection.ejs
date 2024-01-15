@@ -7,6 +7,26 @@
 <p class="my-auto page-header" id="collection-page-header">My Collection</p>
 </div>    
 
+<div class="modal fade" id="share_modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Share your collection!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="discover-modal-body">
+            <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>/<%=currentUser.share_pass%>" readonly>
+            <button type="button" class="btn btn-outline-secondary" id="discover-modal-button" onclick="copyLink()">
+                <i class="bi bi-copy"></i>
+            </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="confirm-button" data-bs-dismiss="modal">Got it!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 
@@ -106,7 +126,14 @@
     <div class="col-md-3">
         <div id="new-link-div"><a id="new-link" href="collection/new"></a></div>  
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-3">
+        <% if(currentUser.share_collection !== false) { %>
+            <p data-bs-toggle="modal" data-bs-target="#share_modal">
+            SHARE
+            </p>
+        <% } %>
+          
+    </div>
 
     </container>
 
@@ -234,8 +261,18 @@
 
 </main>
 
-<!-- </body> -->
+<script>
 
+        copyLink = async () => {
+            let textInput = document.getElementById("discover-link");
+            textInput.select();
+            textInput.setSelectionRange(0, 99999); 
+            await navigator.clipboard.writeText(textInput.value);
+
+            alert("Your link has been copied to the clipboard");
+        }
+
+</script>
 
 <script src="public/javascripts/dataTables_settings.js"></script>
 <script src="public/javascripts/remove_toggle_class.js"></script>

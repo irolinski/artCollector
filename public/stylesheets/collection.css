@@ -83,6 +83,14 @@
     }
 }
 
+#discover-modal-body{
+    display: inline-flex;
+}
+
+#discover-modal-button{
+    margin-left: 0.5rem;
+    --bs-btn-border-color: #dee2e6;
+}
 
 .page-brand {
 

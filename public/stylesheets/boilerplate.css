@@ -67,6 +67,126 @@ a:focus {
     float: inline-end;
 }
 
+/* confirm btn */
+
+.confirm-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 6px 14px !important;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 6px;    
+    color: whitesmoke;
+    background-color: green;
+    border: none;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    transition: background-color 1s, color 1s;
+  }
+  
+  .confirm-button:focus {
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+  }
+
+  .confirm-button:hover {
+    color: green;
+    background: #fff;
+
+  }
+
+  .confirm-button:disabled{
+    background-color: #3D3D3D;
+  }
+
+  .confirm-button:disabled:hover{
+    color: #fff;
+  }
+
+  /* bs form style override */
+
+  /* change input shadow */
+.form-control:focus {
+    border-color: #069;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  } 
+  
+  /* change checkbox color */
+  .form-check-input:checked {
+    background-color: #069;
+    box-shadow: none;
+  }
+  .form-check-input:focus {
+    box-shadow: none;
+  }
+  
+  .form-control:focus, .bootstrap-select, .btn:focus  {
+    border-color: rgba(40, 99, 128, 0.761);;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+  }
+  
+  .form-select:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid #008080;
+  }
+  
+  /* bootstrap validation styling */
+  
+   
+   .form-control.is-invalid, .was-validated  {
+    background-image: none !important;
+    border-color: #ced4da;
+    padding-right: 0.75em;
+    border-color: #CFD4DA !important;
+  }
+  
+  .form-control.is-valid, .was-validated .form-control:valid  {
+    background-image: none !important;
+    border-color: #ced4da;
+    padding-right: 0.75em;
+    border-color: #CFD4DA !important;
+  }
+  
+  .form-check-input {
+  border-color: rgba(0, 0, 0, 0.75) !important;
+  }
+  
+  .form-select:valid {
+  --bs-form-select-bg-img: null; 
+  border-color: #CFD4DA;
+  }
+  
+  .form-select .was-validated,
+  .form-select:valid:not([multiple]):not([size]) {
+   border-color: #CFD4DA !important;
+  }
+  
+  .was-validated .form-check-input:valid:checked {
+  background-color: #0d6efd;
+  }
+  
+  
+  
+  
+  .form-check-input.is-valid:focus, .was-validated .form-check-input:valid:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
+  }
+  
+  .form-check-input.is-valid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
+    color: rgba(0, 0, 0, 0.75);}
+  
+  .was-validated .form-select:valid{
+    border-color: rgba(0, 0, 0, 0.75)
+  }
+
+
 @media all and (min-width: 250px) and (max-width: 480px){
 
 
