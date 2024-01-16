@@ -111,36 +111,76 @@ module.exports.login = (req, res) => {
     res.redirect('/collection');
 };
 
+module.exports.passCheckForm = async (req, res, next) => {
+    let styleSheet = 'forms'
+    let username = req.path.split('/')[2];
+
+    res.render('discover_pass_check', { styleSheet, username })
+}
+
+module.exports.passCheck = async (req, res, next) => {
+
+    let username = req.body.username;
+    let passCheck = req.body.share_pass_check
+
+    await User.findOne({ username: username }).then( async (u) => {
+  
+        if (u.share_pass !== passCheck){
+            req.flash('error', 'Invalid passcode!')
+            res.redirect(`/discover/${username}/pass_check`)
+
+        } else {
+            console.log('niice')
+
+            const secret = process.env.JWT_SECRET // + passCheck
+            const payload = {
+                username: username
+            }
+            const token = JWT.sign(payload, secret, {expiresIn: '30m'})
+            req.session.token = token
+            console.log(req.session)
+
+            req.flash('success', 'Have a good time!')
+            res.redirect(`/discover/${username}/`)
+        }
+    })
+
+}
+
+
+
 
 module.exports.discoverCollection = async (req, res, next) => {
 
     const styleSheet = 'collection'
+    
 
     let username = req.path.split('/')[2];
-    let passPath = req.path.split('/')[3];
+    
 
     await User.findOne({ username: username }).then( async (u) => {
+
         let user = u;
 
-        let userPass = u.share_pass 
+        if(u && u.share_collection === true){ 
 
-        if(passPath === userPass) {
-            if(u && u.share_collection === true){ 
+            if (u.share_pass && !req.session.token) {
+
+                res.redirect(`/discover/${username}/pass_check`) // and no cookie or sth
+            } else {
                 const pageTitle = `${u.show_name}'s Collection - artCollector`
                 let artPieces = await ArtPiece.find({
                     archival: !{$in: [ 'true' ]},
                     user_id: `${u._id}`
                 });
                 res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+                };
 
-            } else {
-                let msg = 'No such user found...'
-                throw new ExpressError(msg, 400)
-            }
         } else {
-            let msg = 'This link is invalid...'
+            let msg = 'No such user found...'
             throw new ExpressError(msg, 400)
-        }
+        };
+
     });
 };
 
@@ -148,7 +188,7 @@ module.exports.discoverPiece = async (req, res, next) => {
 
     const { id } =  req.params; 
     
-    if( !mongoose.Types.ObjectId.isValid(id) ){
+    if(!mongoose.Types.ObjectId.isValid(id)){
         req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect('/campgrounds');
     }

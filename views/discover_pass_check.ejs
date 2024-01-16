@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate')%>
+
+<%- include('./partials/loading_ellipsis.ejs')  %>
+
+<div id="pass-wrapper">
+    <section class="row border" id="pass-check">
+        <!-- <div class="m-5 p-5"> -->
+            <form id="pass-check-form" action="/discover/<%=username%>/pass_check" method="POST" novalidate>
+                <div class="mb-3" id="pass-check-text">
+                    The owner of this collection wishes for his guests to provide a passcode before being granted the access to his page. <br><br>
+                    Please, provide the passcode using the field below. 
+                </div>
+                <div class="mb-3" id="pass-check-input-div">
+                    <label for="share_pass_check" class="form-label">Passcode:</label>
+                    <input type="number" class="form-control" name="share_pass_check" maxlength="5" oninput="this.value=this.value.slice(0,this.maxLength)">
+                </div>
+
+                <input type="hidden" name="username" value="<%=username%>">
+                <button class="confirm-button">Check!</button>
+            </form>
+        <!-- </div> -->
+        </section>
+</div id="pass-wrapper">

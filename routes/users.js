@@ -43,9 +43,15 @@ router.post('/register', users.register);
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/home' }), users.login);
 
-router.get('/discover/:username/:pass', catchAsync(users.discoverCollection));
+router.get('/discover/:username', catchAsync(users.discoverCollection));
 
-router.get('/discover/:id/:pass/:id', catchAsync(users.discoverPiece));
+router.get('/discover/:username/pass_check', catchAsync(users.passCheckForm));
+
+router.post('/discover/:username/pass_check', catchAsync(users.passCheck))
+
+router.get('discover/:username/verified/:token', catchAsync(users.passVerified))
+
+router.get('/discover/:id/:id', catchAsync(users.discoverPiece));
 
 router.get('/preferences', isLoggedIn, users.preferences);
 
@@ -54,7 +60,6 @@ router.put('/preferences/edit', isLoggedIn, catchAsync (users.editUser));
 router.put('/preferences/change_password', isLoggedIn, catchAsync(users.changePassword));
     
 router.get('/logout', users.logoutUser)
-
 
 router.post('/forgotten', catchAsync(users.forgottenPassword));
 
