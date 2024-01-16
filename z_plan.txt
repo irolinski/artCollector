@@ -1,11 +1,8 @@
 
 
-
-?strona do wpisania hasła dostępu do kolekcji, która potem przekierowuje do strony kolekcji (do której dostęp mozliwy tylko ze strony hasla albo ze strony discover/showpage)
-zamienic path[2] na query bo path wygląda głupio 
-if path[2] === coś => wyświetl modal z kodem do wpisania
-
-wstawić logo gdziekolwiek :>
+dodać podpisy do inputów z share
+dodać loading do share passcode
+uładzić kod
 
 thumbnaile na collection page zeby szybciej sie ladowalo 
 

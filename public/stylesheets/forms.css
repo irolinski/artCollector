@@ -283,6 +283,19 @@ select{
   transform: translateX(50px);
 }
 
+#preferences-share-div{
+  transform: translateX(-85px);
+}
+
+#preferences-share-div > div{
+  max-width: 30em;
+}
+
+#preferences-share-div label{
+  display: table;
+}
+
+
 #preferences-email{
   width: fit-content
 }
@@ -298,9 +311,6 @@ select{
 
 }
 
-.preferences-sub-form > div{
-  margin-bottom: 20px;
-}
 
 .preferences-sub-form input {
   margin-bottom: 1rem;

@@ -14,12 +14,13 @@
           <h1 class="modal-title fs-5">Share your collection!</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body pb-0 text-muted">
-            <h5>Use the link below to give your friends access to your collection.</h5>
-            <p class=""> (Works marked as archival will not be shown.)</p>
+        <div class="modal-body pb-0">
+            <h6>Let your friends see your collection!</h6>
+            <h6>Use the link below!</h6>
+            <p class="text-muted"> (Works marked as archival will not be shown)</p>
         </div>
         <div class="modal-body pt-0" id="discover-modal-body">
-            <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>/<%=currentUser.share_pass%>" readonly>
+            <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>" readonly>
             <button type="button" class="btn btn-outline-secondary" id="discover-modal-button" onclick="copyLink()">
                 <i class="bi bi-copy"></i>
             </button>
@@ -287,7 +288,7 @@
             textInput.setSelectionRange(0, 99999); 
             await navigator.clipboard.writeText(textInput.value);
 
-            alert("Your link has been copied to the clipboard");
+            alert("Your link has been copied to the clipboard!");
         }
 
 </script>

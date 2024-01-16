@@ -1,10 +1,10 @@
 
 
-.hide{
+/*.hide{
     display: none;
 }
 
-/* loading styling */
+loading styling 
 
 #loading-div {
     position: absolute;
@@ -83,6 +83,12 @@
     }
 }
 
+*/
+
+.modal-dialog{
+    top: 25%;
+}
+
 #discover-modal-body{
     display: inline-flex;
 }
@@ -90,6 +96,10 @@
 #discover-modal-button{
     margin-left: 0.5rem;
     --bs-btn-border-color: #dee2e6;
+}
+
+.modal-footer > button {
+    margin-bottom: 0px;
 }
 
 .page-brand {
@@ -153,6 +163,9 @@
     transition: transform 1s ease-in-out;
 }
 
+#search-box{
+    transform: translateX(4px);
+}
 
 
 #new-link-div:hover,
@@ -180,7 +193,7 @@
 }
 
 #new-link:hover {
-    color: #f0f8ff5c !important;
+    color: #f9fbfb !important;
     background-color: black !important;
 
 }
@@ -350,7 +363,7 @@
     opacity: 1;
     color: black;
 
-    transform: translateX(0);
+    transform: translate(-5px, 5px);
     transition: opacity 0.2s
 }
 
@@ -574,11 +587,13 @@ td.dataTables_empty{
     #display-settings-div.active {
         z-index: 10;
     }
+/* 
+    #display-settings-toggle{
+        transform: translateY(23px);
+        transition: none;
+    } */
 
-    #share-box > div{
-        margin: 0;
-    }
- 
+
     #new-link{
         display: none;
     }
@@ -602,6 +617,8 @@ td.dataTables_empty{
         white-space: nowrap;
         position: absolute;
         transform: translate(-70px, 21px) !important;
+        top: -16%;
+
     }
 
   
@@ -634,8 +651,14 @@ td.dataTables_empty{
 
     #share-box{
         display: inline-block;
+        display: flex;
     }
 
+    #share-box > div{
+        margin: 0;
+        transform: translate(-8px,-120px);
+    }
+ 
     #display-settings-div,
     #table-categories-div {
         margin-top: 1rem;

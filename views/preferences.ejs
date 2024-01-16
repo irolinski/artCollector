@@ -126,26 +126,28 @@
     onclick="toggleClass('active', 'share-arrow')">Share collection <span class="menu-arrow"
         id="share-arrow">&#9660;</span></b>
     </div>
-        <div id="preferences-share-div" class=" collapse">
-          <div>
+    
+      <div id="preferences-share-div" class="collapse col-md-12">
+        <div>
           <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
             <div class="preferences-sub">
-            <input type="hidden" name="share_collection" <% if (currentUser.share_collection=="1" ) { %> value="1" <% } else { %> value="0" <% } %> > 
-            <input type="checkbox" class="form-check-input" id="share_collection" data-bs-toggle="collapse"
+              <input type="hidden" name="share_collection" <% if (currentUser.share_collection=="1" ) { %> value="1" <% } else { %> value="0" <% } %> /> 
+              <input type="checkbox" class="form-check-input" id="share_collection" data-bs-toggle="collapse"
                   data-bs-target=".share_pass" min="0" 
                   onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" 
                   <% if (currentUser.share_collection == "1" ) { %> checked="checked" <% } %> />
-                  <label class="form-check-label mb-3" for="share_collection">
+              <label class="form-check-label mb-3" for="share_collection">
                     I want to make my collection visible for other people
-                  </label>
-
-            <div <% if (currentUser.share_collection == "0") { %> class="share_pass collapse" <% } else { %> class="share_pass collapse show" <% } %>>
-              <label for="share_pass" class="form-label">Passcode:</label>
+              </label>
+            </div>
+          <div <% if (currentUser.share_collection == "0") { %> class="share_pass collapse" <% } else { %> class="share_pass collapse show" <% } %>>
+            <div>
+              <label for="share_pass" class="form-label">Passcode:
+                <br><span class="text-muted">(You can also leave it blank and have no passcode if you wish so)</span>
+              </label>
               <input type="number" name="share_pass" class="form-control" id="share_pass" value="<%=currentUser.share_pass%>" maxlength="5" max="99999" oninput="this.value=this.value.slice(0,this.maxLength)">
             </div>
-            <div class="col-md-12">
-              <button type="submit" class="confirm-button">Save settings</button>
-            </div>
+            <button type="submit" class="confirm-button">Save settings</button>
           </div>
           </form>
         </div>

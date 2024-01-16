@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate')%>
-
+<main>
   <div class="row">
     <div class="col-6 offset-3"></div>
   </div>
@@ -14,6 +14,8 @@
     </p>
     <hr>
       <p class="mb-0">
-        <%=err.stack.slice(err.stack.indexOf(':') + 1, err.stack.indexOf('at'))%>
+        <!-- <%=err.stack.slice(err.stack.indexOf(':') + 1, err.stack.indexOf('at'))%> -->
+        <%=err.stack%>
       </p>
   </div>
+</main>

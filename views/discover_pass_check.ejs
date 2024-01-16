@@ -1,14 +1,13 @@
 <% layout('layouts/boilerplate')%>
 
-<%- include('./partials/loading_ellipsis.ejs')  %>
-
 <div id="pass-wrapper">
-    <section class="row border" id="pass-check">
+<%- include('./partials/loading_ellipsis.ejs')  %>
+    <section class="row border hide" id="pass-check">
         <!-- <div class="m-5 p-5"> -->
             <form id="pass-check-form" action="/discover/<%=username%>/pass_check" method="POST" novalidate>
                 <div class="mb-3" id="pass-check-text">
                     The owner of this collection wishes for his guests to provide a passcode before being granted the access to his page. <br><br>
-                    Please, provide the passcode using the field below. 
+                    <b>Please, provide the passcode using the field below. </b>
                 </div>
                 <div class="mb-3" id="pass-check-input-div">
                     <label for="share_pass_check" class="form-label">Passcode:</label>
@@ -21,3 +20,14 @@
         <!-- </div> -->
         </section>
 </div id="pass-wrapper">
+
+<script src='public/javascripts/show_loading.js'></script>
+<script>
+
+window.onload = (async function(){
+        await sleep(600);
+    document.getElementById('loading-div').classList.add('hide');
+    document.getElementById('pass-check').classList.remove('hide');
+});
+
+</script>

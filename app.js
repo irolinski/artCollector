@@ -68,8 +68,9 @@ db.once('open', () => {
 
 const User = require('./models/user.js');
 
-const collectionRouter = require('./routes/collection')
-const usersRouter = require('./routes/users')
+const collectionRouter = require('./routes/collection');
+const usersRouter = require('./routes/users');
+const discoverRouter = require('./routes/discover');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -95,8 +96,9 @@ app.use((req, res, next) => {
 
 
 
-app.use('/', usersRouter)
-app.use('/collection', collectionRouter)
+app.use('/', usersRouter);
+app.use('/collection', collectionRouter);
+app.use('/discover', discoverRouter);
 
 
 app.all('*', (req, res, next) => {      //*star* means 'for every path'
