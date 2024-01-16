@@ -103,7 +103,7 @@ app.all('*', (req, res, next) => {      //*star* means 'for every path'
     next(new ExpressError('Page not found', 404))
 })
 
-//error handling middleware yasss
+//error handling middleware 
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     // in the line above we destructure any error that is passed to this function
@@ -114,6 +114,6 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(process.env.PORT || 3000 , () => {
-    console.log('Serving on port 3000!')
+    console.log('Serving!')
 });
 

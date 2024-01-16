@@ -174,11 +174,14 @@
     padding: 1vh;
     font-size: 1.2rem;
     float: right;
-    background-color: gainsboro !important;
+    background-color: #dddfe05c !important;
+    box-shadow: 2px 2px 2px #00000033;
+
 }
 
 #new-link:hover {
-    background-color: white !important;
+    color: #f0f8ff5c !important;
+    background-color: black !important;
 
 }
 

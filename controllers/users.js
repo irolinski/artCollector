@@ -127,17 +127,21 @@ module.exports.passCheck = async (req, res, next) => {
   
         if (u.share_pass !== passCheck){
             req.flash('error', 'Invalid passcode!')
-            res.redirect(`/discover/${username}/pass_check`)
+            res.redirect(`/home`)
 
         } else {
             console.log('niice')
 
             const secret = process.env.JWT_SECRET // + passCheck
             const payload = {
-                username: username
+                username: username,
+                id: u._id
             }
+
+            let id = u._id;
+
             const token = JWT.sign(payload, secret, {expiresIn: '30m'})
-            req.session.token = token
+            req.session.discoverToken = token + id
             console.log(req.session)
 
             req.flash('success', 'Have a good time!')
@@ -161,23 +165,46 @@ module.exports.discoverCollection = async (req, res, next) => {
     await User.findOne({ username: username }).then( async (u) => {
 
         let user = u;
+        let id = u._id
 
         if(u && u.share_collection === true){ 
 
-            if (u.share_pass && !req.session.token) {
+            if (u.share_pass && !req.session.discoverToken) {
 
                 res.redirect(`/discover/${username}/pass_check`) // and no cookie or sth
-            } else {
+            } 
+            if (req.session.discoverToken && req.session.discoverToken.includes(id)) {
+            
                 const pageTitle = `${u.show_name}'s Collection - artCollector`
                 let artPieces = await ArtPiece.find({
                     archival: !{$in: [ 'true' ]},
                     user_id: `${u._id}`
                 });
+
                 res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+
+            } else {
+                    if (req.session.discoverToken) {
+                        req.flash('error', 'Sorry, you can browse only one collection at a time... Restart your browser if you wish to browse a different collection!')
+                        res.redirect('/home')
+                    } else {
+                        if (u.share_pass === ''){
+                            const pageTitle = `${u.show_name}'s Collection - artCollector`
+                            let artPieces = await ArtPiece.find({
+                                archival: !{$in: [ 'true' ]},
+                                user_id: `${u._id}`
+                            });
+                            res.render('share_collection', { artPieces, user, moment: moment, pageTitle, styleSheet });
+                        } else {
+                            console.log(u.share_pass)
+                        req.flash('error', 'Wrong passcode, sorry...')
+                        res.redirect('/home')
+                        }
+                    }
                 };
 
         } else {
-            let msg = 'No such user found...'
+            let msg = 'No such user found... at least from the ones currently sharing their collections...'
             throw new ExpressError(msg, 400)
         };
 
