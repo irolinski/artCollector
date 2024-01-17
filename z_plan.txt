@@ -1,12 +1,14 @@
 
 
 dodać podpisy do inputów z share
-dodać loading do share passcode
-uładzić kod
+dodać funkcję która daje imię jeśli imię jest na discover/collection
+dodać cursor wait do rzeczy
 
 thumbnaile na collection page zeby szybciej sie ladowalo 
 
 debugging: 
+
+https://cloudinary.com/documentation/admin_api#update_transformation admin api for making transofrmation settings
 
 
 

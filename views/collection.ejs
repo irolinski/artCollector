@@ -197,7 +197,9 @@
                         <td>
                             <% if (piece.images.length > 0) { %>
                             <% for (let img of piece.images) { %>
-                        <img src="<%= img.url %>" style="max-width:100px; width:100%">
+                        <img src="<%= img.url.slice( 0, (img.url.lastIndexOf('upload/') + 'upload/'.length)) + 'w_380/' + (img.url.slice(img.url.lastIndexOf('upload/') + 'upload/'.length)); 
+
+                        %>" style="max-width:100px; width:100%">
                             <% break } %> 
                             <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
                             <% } %>
