@@ -1,5 +1,8 @@
 <% layout('layouts/boilerplate')%>
 
+<%- include('./partials/loading_ellipsis.ejs')  %>
+
+
 
   <div class="page-brand" id="preferences-page-brand">
     <p class="my-auto page-header" id="preferences-page-header">Preferences</p>
@@ -145,7 +148,7 @@
               <label for="share_pass" class="form-label">Passcode:
                 <br><span class="text-muted">(You can also leave it blank and have no passcode if you wish so)</span>
               </label>
-              <input type="number" name="share_pass" class="form-control" id="share_pass" value="<%=currentUser.share_pass%>" maxlength="5" max="99999" oninput="this.value=this.value.slice(0,this.maxLength)">
+              <input type="number" name="share_pass" class="form-control" id="share_pass" placeholder="Enter up to 5 numbers" value="<%=currentUser.share_pass%>" maxlength="5" max="99999" oninput="this.value=this.value.slice(0,this.maxLength)">
             </div>
             <button type="submit" class="confirm-button">Save settings</button>
           </div>
@@ -185,3 +188,5 @@
   <script src="public/javascripts/show_alert.js"></script>
   <script src="public/javascripts/bootstrap_validations.js"></script>
   <script src="public/javascripts/username_validation.js"></script>
+  <script src="./public/javascripts/show_loading.js"></script>
+

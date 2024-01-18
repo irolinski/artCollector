@@ -1,5 +1,8 @@
 <% layout('layouts/boilerplate')%>
 
+<%- include('./partials/loading_ellipsis.ejs')  %>
+
+
   <div class="page-brand" id="edit-images-brand">
     <p class="my-auto page-header" id="edit-images-header">Edit Images</p>
   </div>
@@ -104,7 +107,6 @@ const cursorWait = () => document.body.classList.add('wait');
       document.querySelector('#image-upload-button').removeAttribute("disabled")
     };
 
-
-
-
   </script>
+
+<script src="./public/javascripts/show_loading.js"></script>

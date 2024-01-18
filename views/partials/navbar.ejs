@@ -11,7 +11,7 @@
           <ul class="navbar-nav">
             <% if (currentUser) { %>
             <li class="nav-item">
-              <a class="nav-link"  href="/collection">My Collection</a>
+              <a class="nav-link" id="nav-collection-link"  href="/collection">My Collection</a>
               <% } %>
             </li>
           </ul>
@@ -21,12 +21,12 @@
           <ul class="navbar-nav">
             <% if (!currentUser) { %>
             <li class="nav-item">
-              <a class="nav-link" href="/home">Sign in!</a>
+              <a class="nav-link" id="nav-sign-in" href="/home">Sign in!</a>
             <% } else { %>
               <li class="nav-item">
-                <a class="nav-link" href="/preferences">Preferences</a>
+                <a class="nav-link" id="nav-preferences-link" href="/preferences">Preferences</a>
               <li class="nav-item">
-                <a class="nav-link" href="/logout">Log Out!</a>
+                <a class="nav-link" id="nav-log-out" href="/logout">Log Out!</a>
             <% } %>
         </ul>
       </div>

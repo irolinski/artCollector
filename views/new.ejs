@@ -1,7 +1,9 @@
 <% layout('layouts/boilerplate')%>
 
+<%- include('./partials/loading_ellipsis.ejs')  %>
 
-  <div class="page-brand" id="new-page-brand">
+
+  <div class="page-brand hide" id="new-page-brand">
     <p class="my-auto page-header" id="new-page-header">Add a new piece</p>
   </div>   
   <div id="edit-nav" class="row py-2 form-nav">
@@ -11,7 +13,8 @@
       </a>
     </div>
   </div>
-<main class="container">
+
+<main class="container hide">
 
   <div class="row">
     <div class="col-8 offset-2">
@@ -115,7 +118,7 @@
 
           <div class="col-md-3" id="size-unit">
             <select class="form-select size-input" id="unit" aria-label="" name="size[0][unit]">
-              <option  value="null" disabled selected>Choose unit</option>
+              <option  value="null" disabled selected>Unit</option>
               <option value="cm">cm</option>
               <option value="in">in</option>
             </select>
@@ -147,7 +150,7 @@
           <div class=" col-md-4">
             <div class="collapse price" id="">
               <select class="form-select" aria-label="Small select example" name="price[0][currency]">
-                <option value=null selected disabled>Choose currency</option>
+                <option value=null selected disabled>Currency</option>
                 <option value="PLN">      PLN      </option>
                 <option value="&#x20AC;"> &#x20AC; </option>
                 <option value="&#36;"> 	  &#36;    </option>
@@ -326,13 +329,10 @@
 
 
 
-
-<script src="./public/javascripts/bootstrap_validations.js"> </script>
-
+<script src="./public/javascripts/bootstrap_validations.js"></script>
 <script src="./public/javascripts/jquery.dirty.js"></script>
-
 <script> $("#new-form").dirty({preventLeaving: true}); </script>
-
 <script src="./public/javascripts/toggleCollapse.js"></script>
+<script src="./public/javascripts/show_loading.js"></script>
 
 

@@ -297,6 +297,19 @@ opacity: 0.8;
     }
 }
 
+@media all and (max-width: 767px){
+  #nav-collection-link{
+    padding: 4em 0em 2em 0em;
+  }
+
+  #nav-preferences-link,
+  #nav-sign-in,
+  #nav-log-out{
+    padding: 2em 0em 2em 0em;
+
+  }
+}
+
 .success{
     background-color: green;
 }

@@ -1,13 +1,10 @@
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
+  window.onload = (async function(){
+    await sleep(600);
+  document.getElementById('loading-div').classList.add('hide');
+  document.querySelector('main').classList.remove('hide');
+  document.querySelector('.page-brand').classList.remove('hide');
 
-const showLoading = () => {
-
-document.querySelector('main').style.display = 'none'
-document.querySelector('#loading-div').style.display = 'block'
-document.querySelector('#collection-page-header').style.display = 'none'
-document.querySelector('.page-brand').style.display = 'none'
-    
-};
-
+  });

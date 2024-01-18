@@ -1,6 +1,9 @@
 <% layout('layouts/boilerplate')%>
 
-  <div class="page-brand" id="edit-page-brand">
+<%- include('./partials/loading_ellipsis.ejs')  %>
+
+
+  <div class="page-brand hide" id="edit-page-brand">
     <p class="my-auto page-header" id="edit-page-header">Edit</p>
   </div>
 
@@ -15,7 +18,7 @@
     </div>
   </div>
 
-  <main class="container">
+  <main class="container hide">
 
 
 
@@ -368,21 +371,16 @@
 
   </main>
 
-  <script>
 
-  console.log('<%- JSON.stringify(p.archival) %>');
-
-    
-  </script>
 
   <script src="./public/javascripts/bootstrap_validations.js"> </script>
   <script src="./public/javascripts/clear_fields.js"></script>
   <script src="./public/javascripts/toggleCollapse.js"></script>
   <script src="./public/javascripts/hide_nav_onScroll.js"></script>
   <script src="./public/javascripts/jquery.dirty.js"></script>
-  <script>
-    $("#edit-form").dirty({preventLeaving: true});
-  </script>
+  <script> $("#edit-form").dirty({preventLeaving: true}); </script>
+  <script src="./public/javascripts/show_loading.js"></script>
+
 
 
   </body>

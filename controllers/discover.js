@@ -81,8 +81,16 @@ module.exports.discoverCollection = async (req, res, next) => {
                 return;
             } 
             if (req.session.discoverToken && req.session.discoverToken.includes(id)) {
-            
-                const pageTitle = `${u.show_name}'s Collection - artCollector`
+                
+                let pageTitle
+
+                if (u.show_name){
+                    pageTitle = `${u.show_name}'s Collection - artCollector`
+                } else {
+                    pageTitle = `${u.username}'s Collection - artCollector`
+                };
+
+                
                 let artPieces = await ArtPiece.find({
                     archival: !{$in: [ 'true' ]},
                     user_id: `${u._id}`

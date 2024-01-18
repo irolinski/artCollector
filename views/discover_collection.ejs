@@ -4,7 +4,7 @@
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
 <div class="page-brand hide" id="collection-page-brand">
-<p class="my-auto page-header" id="collection-page-header"><%=`${user.username}'s`%> Collection</p>
+<p class="my-auto page-header" id="collection-page-header"><% if (user.show_name) { %> <%=`${user.show_name}'s Collection` %>  <% } else { %> <%=`${user.username}'s Collection` %> <% } %></p>
 </div>    
 
 
@@ -50,8 +50,8 @@
                         <td>
                             <% if (piece.images.length > 0) { %>
                             <% for (let img of piece.images) { %>
-                                <img src="<%= img.url.slice( 0, (img.url.lastIndexOf('upload/') + 'upload/'.length)) + 'w_380/' + (img.url.slice(img.url.lastIndexOf('upload/') + 'upload/'.length)); 
-                            <% break } %> 
+                                <img src="<%= img.url.slice( 0, (img.url.lastIndexOf('upload/') + 'upload/'.length)) + 'w_380/' + (img.url.slice(img.url.lastIndexOf('upload/') + 'upload/'.length)); %>" style="max-width:100px; width:100%">
+                                <% break } %> 
                             <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
                             <% } %>
 
@@ -128,8 +128,9 @@
 <script src='public/javascripts/dataTables.js'></script>
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
-<script src='public/javascripts/show_loading.js'></script>
-<script>
+<!-- <script src='public/javascripts/collection_show_loading.js'></script> -->
+
+<script> 
 
 window.onload = (async function(){
         await sleep(600);

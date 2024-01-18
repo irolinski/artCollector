@@ -134,7 +134,7 @@ module.exports.editUser =  (async (req, res, next) => {
             share_pass: req.body.share_pass
     })};
         if(req.body.share_collection === '1') {
-            req.flash('success', 'Now, generate a link by clicking the share icon')
+            req.flash('success', 'Now, generate a link by clicking the share icon!')
         } else {
     req.flash('success', 'Your changes have been saved!');
         }
