@@ -28,8 +28,7 @@ toggleClass = function(className, id1, id2, id3, id4) {
             if (el.classList.contains(className)) {
                 el.classList.remove(className)
             }}
-        // let el = document.getElementById(id);
-        // el.classList.remove(className);
+
     };
     
     

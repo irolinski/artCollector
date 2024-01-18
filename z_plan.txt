@@ -1,11 +1,12 @@
 
-refresh page to download leaflet if filesize is > 90kb
 
-dodać cursor wait do rzeczy
+sprawdzic czy export juz dziala po dodaniu await (ew zrobic funkcje ktora sama odswieza i pobiera jeszcze raz jesli rozmiar jest ponizej 90kb)
 
+^ refresh page
 
 debugging: 
 
+https://cloudinary.com/documentation/admin_api#update_transformation admin api for making transofrmation settings
 
 
 

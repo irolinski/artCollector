@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <main class="row">
+  <main class="row hide">
     <div class="col-md-2"></div>
     <div class="col-md-4" id="edit-images-col">
       <!-- image options -->
@@ -93,20 +93,6 @@
     <div class="col-md-2"></div>
   </main>
 
-  <script>
 
-addEventListener("pageshow", () => {
-    if (document.body.classList.contains('wait')){
-        document.body.classList.remove('wait')
-    }
-});
-
-const cursorWait = () => document.body.classList.add('wait');
-
-    const unlockButton = () => {
-      document.querySelector('#image-upload-button').removeAttribute("disabled")
-    };
-
-  </script>
-
+<script src="./public/javascripts/cursor_wait.js"></script>
 <script src="./public/javascripts/show_loading.js"></script>

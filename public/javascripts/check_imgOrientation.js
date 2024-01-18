@@ -16,8 +16,7 @@ check_imgOrientation = function () {
 const carousel = document.querySelector('#carousel');
 
 
-window.onload = () => {
-
+transform_imgOrientation = function () {
     let activeItem = document.querySelector('.carousel-item.active');
 
 
@@ -32,10 +31,6 @@ window.onload = () => {
         carousel.classList.remove('drop')
     }
 }
-
-
-
-
 
 
 let btn_check_landscape_next = () => {
@@ -83,3 +78,7 @@ let btn_check_landscape_prev = () => {
 
 
 };
+
+
+
+

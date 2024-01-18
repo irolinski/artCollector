@@ -303,12 +303,20 @@ opacity: 0.8;
   }
 
   #nav-preferences-link,
-  #nav-sign-in,
-  #nav-log-out{
+  #nav-sign-in{
     padding: 2em 0em 2em 0em;
-
   }
+
+  #nav-log-out{
+    padding: 2em 0em 4em 0em;
+  }
+
+  .navbar-toggler{
+    border: 0;
+  };
+
 }
+
 
 .success{
     background-color: green;

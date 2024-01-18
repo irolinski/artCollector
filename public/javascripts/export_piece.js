@@ -1,12 +1,8 @@
 
-
-
-
-
     
+createCanvas_both = function () {
 
 
-let pImage = document.querySelector('.image');
 
 let pArtist = document.getElementById('artist-span').innerHTML.trim();
 let pTitle = document.getElementById('title-span').innerHTML.trim();
@@ -63,6 +59,9 @@ let createCanvas_mus = function () {
 }
 
 let createCanvas_cat = async function () {
+
+    let pImage = document.querySelector('.image');
+
 
     let canvas = document.getElementById("canvas_cat");
     let ctx = canvas.getContext("2d");
@@ -149,9 +148,9 @@ if (pOwner){
         };
 
         if (pImage.complete) {
-            ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)        
+            await ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)        
         } else {
-            pImage.onload = function () {
+            pImage.onload = function async () {
             ctx.drawImage(pImage, pieceImg_X, pieceImg_Y, imageWidth , imageHeight)            
             };
         }
@@ -172,4 +171,6 @@ $(linkId).click(function(){
 
 createCanvasLink('#canvas_cat', '#export-cat');
 createCanvasLink('#canvas_mus', '#export-mus');
+
+}
 
