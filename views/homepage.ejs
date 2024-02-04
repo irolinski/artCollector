@@ -27,8 +27,6 @@
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <%- include('./partials/flash.ejs')  %>
 
-
-
 <main>
 
   <!-- this is the row in which everything shall take place -->
@@ -120,7 +118,7 @@
            </div>
         </div>
         <div class="col-md-2 d-flex button-parent mt-3">
-          <button type="submit" class="confirm-button" id="register-submit-button">Submit</button>
+          <button type="submit" class="confirm-button" id="register-submit-button" onsubmit="cursorWait()">Submit</button>
         </div>
       </div>
       </div>

@@ -33,7 +33,6 @@ footer{
   display: none;
 }
 
-/* loading styling */
 
 #loading-div {
   position: absolute;
@@ -286,18 +285,20 @@ opacity: 0.8;
     border-color: rgba(0, 0, 0, 0.75)
   }
 
+/* media queries */
 
 @media all and (min-width: 250px) and (max-width: 480px){
 
+  .toast{
+      top: 80px;
+      transform: translateX(85px);
+      font-size: 3vw;
+  }
 
-    .toast{
-        top: 80px;
-        transform: translateX(85px);
-        font-size: 3vw;
-    }
 }
 
 @media all and (max-width: 767px){
+
   #nav-collection-link{
     padding: 4em 0em 2em 0em;
   }
@@ -313,6 +314,8 @@ opacity: 0.8;
 
   .navbar-toggler{
     border: 0;
+    box-shadow: none !important;
+
   };
 
 }

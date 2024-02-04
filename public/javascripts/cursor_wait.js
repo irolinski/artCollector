@@ -6,6 +6,6 @@ addEventListener("pageshow", () => {
 
 const cursorWait = () => document.body.classList.add('wait');
 
-    const unlockButton = () => {
-      document.querySelector('#image-upload-button').removeAttribute("disabled")
-    };
+const unlockButton = () => {
+    document.querySelector('#image-upload-button').removeAttribute("disabled")
+};

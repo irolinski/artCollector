@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate')%>
+<%- include('./partials/loading_ellipsis.ejs')  %>
 
 <div id="pass-wrapper">
-<%- include('./partials/loading_ellipsis.ejs')  %>
     <section class="row border hide" id="pass-check">
         <!-- <div class="m-5 p-5"> -->
             <form id="pass-check-form" action="/discover/<%=username%>/pass_check" method="POST" novalidate>
@@ -15,12 +15,13 @@
                 </div>
 
                 <input type="hidden" name="username" value="<%=username%>">
-                <button class="confirm-button">Check!</button>
+                <button type="submit" class="confirm-button" onclick="cursorWait()">Check!</button>
             </form>
         <!-- </div> -->
         </section>
 </div id="pass-wrapper">
 
+<script src='public/javascripts/cursor_wait.js'></script>
 <script src='public/javascripts/show_loading.js'></script>
 <script>
 
