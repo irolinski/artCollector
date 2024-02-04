@@ -497,9 +497,15 @@ td.dataTables_empty{
         display: inline-block;
     }
 
-    #table-categories-div,
-    #display-settings-div {
-        transform: translateY(20px);
+    #table-categories-div{
+        transform: translateY(75px);
+    }
+
+    #display-settings-div{
+        transform: translateY(100px); /* 50 */
+        z-index: 10;
+        max-width: 50%;
+        padding-bottom: 1em;
     }
 
     #display-settings-div.active {
@@ -582,9 +588,7 @@ td.dataTables_empty{
         margin-top: 1rem;
     }
 
-    main {
-        margin-top: 2rem;
-    }
+
 }
 
 @media all and (min-width: 1220px) {
