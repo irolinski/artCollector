@@ -21,8 +21,8 @@
   <div class="col-md-8">
     <div class="alert alert-warning" id="alert-wrapper" >
       <div>
-      <div id="alert-body"></div>
-    </div>
+        <div id="alert-body"></div>
+      </div>
     </div>
   </div>
   <div class="col-md-2"></div>
@@ -126,8 +126,8 @@
     </div>
 
     <div data-bs-toggle="collapse" data-bs-target="#preferences-share-div" class="menu preferences-menu"
-    onclick="toggleClass('active', 'share-arrow')">Share collection <span class="menu-arrow"
-        id="share-arrow">&#9660;</span></b>
+        onclick="toggleClass('active', 'share-arrow')">Share collection 
+        <span class="menu-arrow" id="share-arrow">&#9660;</span>
     </div>
     
       <div id="preferences-share-div" class="collapse col-md-12">
@@ -150,8 +150,8 @@
               </label>
               <input type="number" name="share_pass" class="form-control" id="share_pass" placeholder="Enter up to 5 numbers" value="<%=currentUser.share_pass%>" maxlength="5" max="99999" oninput="this.value=this.value.slice(0,this.maxLength)">
             </div>
-            <button type="submit" class="confirm-button">Save settings</button>
           </div>
+          <button type="submit" class="confirm-button">Save settings</button>
           </form>
         </div>
       </div>
