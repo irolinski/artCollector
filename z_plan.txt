@@ -1,30 +1,19 @@
 
+Bugs:
+	front:
+		Collection:
+				- on shorter devices the table doesn't unfold upon flipping
+				- 'flip the device' moves icons when shown
+		All: 
+				- Page moves on form submit
 
-sprawdzic czy export juz dziala po dodaniu await (ew zrobic funkcje ktora sama odswieza i pobiera jeszcze raz jesli rozmiar jest ponizej 90kb)
-
-^ refresh page
-
-debugging: 
-
-https://cloudinary.com/documentation/admin_api#update_transformation admin api for making transofrmation settings
-
-
-
-
-
-opcjonalnie: wydluzyc limit znakow na username i haslo
+		Homepage: 
+				- the sign visibility is bad on small devices because white sign on 					white element of the background image 
+		Manage images: 
+				- 'Upload more images' is too wide on mobile 
 
 
 
-
-
-
-ukraść color-scheme od zachęty 
-#fcca00 na elementy, które mają się wyrózniac
-#141414 na ikony normalne
-#131313 na tekst
-
-ELECTRON DESKTOP CONVERSION
 
 
 FEATURES FOR 1.1{
@@ -36,4 +25,7 @@ FEATURES FOR 1.1{
 
 
     
+For the future:
+ELECTRON DESKTOP CONVERSION
+
 
