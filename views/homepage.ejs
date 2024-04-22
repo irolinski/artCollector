@@ -1,177 +1,384 @@
-
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Homepage - artCollector</title>
-  <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704544814/artCollector/app_images/Projekt_bez_nazwy-removebg-preview_2_g6mg0s.png">
+  <link
+    rel="icon"
+    type="image/x-icon"
+    href="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704544814/artCollector/app_images/Projekt_bez_nazwy-removebg-preview_2_g6mg0s.png"
+  />
 
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>       
-    <link rel='stylesheet' href='https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css'>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" type="text/css" href='public/stylesheets/boilerplate.css'/>
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+    integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+    crossorigin="anonymous"
+  ></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="public/stylesheets/boilerplate.css"
+  />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="/public/stylesheets/homepage.css">
-    
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="/public/stylesheets/homepage.css"
+  />
+
   <!-- <link rel="stylesheet" href="/stylesheets/home.css"> -->
 </head>
 
-
-
 <body class="d-flex text-center text-white bg-dark">
-
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <%- include('./partials/flash.ejs')  %>
+    <%- include('./partials/flash.ejs') %>
 
-<main>
+    <main>
+      <!-- this is the row in which everything shall take place -->
+      <div id="home-box">
+        <div id="main-content">
+          <!-- brand exposition -->
+          <div
+            class="row collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3"
+            id="brand-row"
+          >
+            <div class="col-md-2"></div>
+            <div class="col-md-4"><h1 class="pb-5">artCollector</h1></div>
+            <div class="col-md-4">
+              <p class="lead">
+                Welcome to artCollector! <br />
+                Jump right in and see how easy cataloguing can be.
+              </p>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
 
-  <!-- this is the row in which everything shall take place -->
-<div id="home-box">
+          <!-- login form -->
+          <form
+            class="needs-validation"
+            action="/login"
+            method="POST"
+            novalidate
+          >
+            <div
+              class="row collapse multi-collapse-1 multi-collapse-0"
+              id="login-row"
+            >
+              <!-- label for login form -->
+              <div class="col-md-4"></div>
+              <div class="col-md-4 mt-3" id="login-label"><h4>Login</h4></div>
+              <div class="col-md-4"></div>
+              <!-- form body -->
+              <div class="col-md-2"></div>
+              <div class="col-md-4 login-inputs">
+                <div>
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control mt-3"
+                    id="username-login"
+                    placeholder="Username"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please, enter your username. You remember it, don't you?
+                  </div>
+                </div>
+                <div>
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control mt-3"
+                    id="login-password"
+                    placeholder="Password"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please don't tell me that you forgot your password! <br />
+                    (If you did, though, just click the link below!)
+                  </div>
+                </div>
+              </div>
+              <div class="login-button col-md-4 d-grid">
+                <button
+                  type="submit"
+                  id="login-button"
+                  class="confirm-button my-4"
+                  onsubmit="cursorWait()"
+                >
+                  Log in
+                </button>
+              </div>
+              <div class="col-md-2"></div>
+              <div
+                class="mt-4"
+                id="forgot-wrapper"
+                data-bs-target=".multi-collapse-0"
+                data-bs-toggle="collapse"
+              >
+                <span>I forgot my password!</span>
+              </div>
+            </div>
+          </form>
 
-<div id="main-content"> 
+          <form
+            class="needs-validation"
+            action="/forgotten"
+            method="POST"
+            novalidate
+          >
+            <div class="row collapse multi-collapse-0" id="forgotten-div">
+              <div class="col-md-4"></div>
+              <div class="col-md-4 mb-3" id="forgotten-label">
+                <h4>Forgot your password?</h4>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4 mb-3 multi-collapse-1">
+                <input
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  placeholder="Your e-mail adress"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please, don't tell me you've forgotten your e-mail adress
+                  too..?
+                </div>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-5"></div>
+              <div class="col-md-2 my-3">
+                <button
+                  class="confirm-button"
+                  id="forgot-button"
+                  type="submit"
+                  name="email"
+                >
+                  Help me out!
+                </button>
+              </div>
+              <div class="col-md-5"></div>
+            </div>
+          </form>
 
-  <!-- brand exposition -->
-    <div class="row collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3"id="brand-row">
-      <div class="col-md-2"></div><div class="col-md-4"><h1 class="pb-5">artCollector</h1></div>
-      <div class="col-md-4"><p class="lead"> Welcome to artCollector! <br> Jump right in and see how easy cataloguing can be.</p></div><div class="col-md-2"></div>
-    </div>
+          <!-- register form -->
+          <form
+            class="needs-validation"
+            action="/register"
+            method="POST"
+            novalidate
+          >
+            <div class="collapse accordion multi-collapse-2" id="register-row">
+              <div class="row">
+                <!-- label for register form -->
+                <div class="col-md-4"></div>
+                <div class="col-md-4" id="register-label">
+                  <h4>Register</h4>
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      class="form-control mt-3"
+                      id=""
+                      placeholder="Your e-mail adress"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      It's just an e-mail that you have to fill-in here! You'll
+                      be fine!
+                    </div>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      name="username"
+                      class="form-control mt-3"
+                      id="username-register"
+                      placeholder="Username"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Think of something nice... <br />
+                      (also, make it 4 to 12 characters long!)
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control mt-3"
+                    id="register_password"
+                    placeholder="Password"
+                    minlength="6"
+                    maxlength="12"
+                    required
+                  />
+                  <input
+                    type="password"
+                    class="form-control mt-3"
+                    id="confirm_password"
+                    placeholder="Confirm password"
+                    minlength="6"
+                    maxlength="12"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Password has to be 6 to 12 characters long <br />
+                    (and the fields need to match)
+                  </div>
+                </div>
+                <div class="col-md-2 d-flex button-parent mt-3">
+                  <button
+                    type="submit"
+                    class="confirm-button"
+                    id="register-submit-button"
+                    onsubmit="cursorWait()"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
 
-  <!-- login form -->
-  <form class="needs-validation" action="/login" method="POST" novalidate>
-    <div class="row collapse multi-collapse-1 multi-collapse-0" id="login-row">
-<!-- label for login form -->
-      <div class="col-md-4"></div>      <div class="col-md-4 mt-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
-<!-- form body -->
-      <div class="col-md-2"></div>
-      <div class="col-md-4">
-        <div>
-            <input type="text" name="username" class="form-control mt-3"  id="username-login" placeholder="Username" required>
-            <div class="invalid-feedback" >
-              Please, enter your username. You remember it, don't you?  
+          <!-- info -->
+          <div class="row collapse multi-collapse-3" id="info-row">
+            <div class="col md-2"></div>
+            <div class="col-md-4"><h4>About</h4></div>
+            <div class="col-md-4" id="info-div">
+              <div>
+                artCollector is a one-man project webapp meant for easy art
+                cataloguing. <br /><br />
+                It's going to be expanded further in the near-future.
+                <br /><br />
+                I hope you'll have a fine experience here. <br /><br />
+                In case you want to report anything, you can write me at:
+                artcollector.messages@gmail.com.
+              </div>
+            </div>
+            <div class="col-md-2"></div>
           </div>
         </div>
-        <div>
-          <input type="password" name="password" class="form-control mt-3" id="login-password" placeholder="Password"  required>
-          <div class="invalid-feedback">
-            Please don't tell me that you forgot your password! <br> (If you did, though, just click the link below!)
-        </div>
-      </div>
-      </div>
-      <div class="col-md-4 d-flex button-parent">
-        <button type="submit" id="login-button" class="confirm-button my-4" onsubmit="cursorWait()">Log in</button>
-      </div>
-      <div class="col-md-2"></div>
-      <div class="mt-4"  id="forgot-wrapper" data-bs-target=".multi-collapse-0" data-bs-toggle="collapse">
-        <span>I forgot my password!</span>
-      </div>
-    </div>
-  </form>
 
- <form class="needs-validation" action="/forgotten" method="POST" novalidate>  
-  <div class="row collapse multi-collapse-0" id="forgotten-div">
-    <div class="col-md-4"></div>      <div class="col-md-4 mb-3" id="forgotten-label"><h4>Forgot your password?</h4></div>      <div class="col-md-4"></div>
-  <div class="col-md-4"></div>
-  <div class="col-md-4 mb-3 multi-collapse-1"> 
-    <input type="email" class="form-control" name="email" placeholder="Your e-mail adress" required>  
-    <div class="invalid-feedback">
-    Please, don't tell me you've forgotten your e-mail adress too..?
-  </div>
-  </div> 
-  <div class="col-md-4"></div>
-  <div class="col-md-5"></div> <div class="col-md-2 my-3"> <button class="confirm-button" id="forgot-button" type="submit" name="email">Help me out!</button> </div>  <div class="col-md-5"></div>
-  </div>
-  </form>
-
-    <!-- register form -->
-    <form class="needs-validation" action="/register" method="POST" novalidate>
-      <div class="collapse accordion multi-collapse-2" id="register-row">
-
-      <div class="row">
-        <!-- label for register form -->
-      <div class="col-md-4"></div>      <div class="col-md-4" id="register-label"><h4>Register</h4></div>      <div class="col-md-4"></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-          <div>
-            <input type="email" name="email" class="form-control mt-3" id="" placeholder="Your e-mail adress" required>
-            <div class="invalid-feedback">
-            It's just an e-mail that you have to fill-in here! You'll be fine!
-            </div>
+        <!-- navigation -->
+        <div
+          class="row mx-5 collapse multi-collapse-1 multi-collapse-2 multi-collapse-3"
+          id="back-button-row"
+        >
+          <div class="col-md-5 pb-5"></div>
+          <div
+            class="col-md-2 pb-5 collapse multi-collapse-0 back-button"
+            id="back-button-0"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-0"
+          >
+            &#8249;&#8249;
           </div>
-          <div>
-            <input type="text" name="username" class="form-control mt-3" id="username-register" placeholder="Username" required>
-            <div class="invalid-feedback">
-              Think of something nice... <br>
-              (also, make it the length of 4 to 12 characters!)
-            </div>
+          <div class="col-md-5 pb-5"></div>
+          <div class="col-md-5 pb-5"></div>
+          <div
+            class="col-md-2 pb-5 collapse multi-collapse-1 multi-collapse-0 back-button"
+            id="back-button-1"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-1"
+          >
+            &#8249;&#8249;
+          </div>
+          <div class="col-md-5 pb-5"></div>
+          <div class="col-md-5 pb-5"></div>
+          <div
+            class="col-md-2 pb-5 collapse multi-collapse-2 back-button"
+            id="back-button-2"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-2"
+          >
+            &#8249;&#8249;
+          </div>
+          <div class="col-md-5 pb-5"></div>
+          <div class="col-md-5 pb-5"></div>
+          <div
+            class="col-md-2 pb-5 collapse multi-collapse-3 back-button"
+            id="back-button-3"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-3"
+          >
+            &#8249;&#8249;
+          </div>
+          <div class="col-md-5 pb-5"></div>
         </div>
-        </div>
-        <div class="col-md-2">
-          <input type="password" name="password" class="form-control mt-3" id="register_password" placeholder="Password" minlength="6" maxlength="12" required>
-          <input type="password" class="form-control mt-3" id="confirm_password" placeholder="Confirm password" minlength="6" maxlength="12" required>
-          <div class="invalid-feedback">
-            Password has to be 6 to 12 characters long <br>
-            (and the fields need to match)
-           </div>
-        </div>
-        <div class="col-md-2 d-flex button-parent mt-3">
-          <button type="submit" class="confirm-button" id="register-submit-button" onsubmit="cursorWait()">Submit</button>
+
+        <div
+          class="row mx-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3"
+          id="nav-button-row"
+        >
+          <div class="col-md-3 pb-5"></div>
+          <% if (!currentUser) { %>
+          <div
+            class="col-md-2 pb-5"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-1"
+          >
+            <h6>Login</h6>
+          </div>
+          <div
+            class="col-md-2 pb-5"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-2"
+          >
+            <h6>Register</h6>
+          </div>
+          <% } else { %>
+          <div class="col-md-2 pb-5">
+            <h6><a href="/collection">Start</a></h6>
+          </div>
+          <div class="col-md-2 pb-5">
+            <h6><a href="/logout">Log Out</a></h6>
+          </div>
+
+          <% } %>
+          <div
+            class="col-md-2 pb-5"
+            data-bs-toggle="collapse"
+            data-bs-target=".multi-collapse-3"
+          >
+            <h6>Info</h6>
+          </div>
+          <div class="col-md-3 pb-5"></div>
         </div>
       </div>
-      </div>
+    </main>
 
-  </form>
+    <script>
+      $(document).ready(function () {
+        $(".toast").toast("show");
+      });
+    </script>
 
-
-
-
-
-  <!-- info -->
-    <div class="row collapse multi-collapse-3" id="info-row">
-      <div class="col md-2"></div><div class="col-md-4"><h4>About</h4></div>
-      <div class="col-md-4" id="info-div"><div>artCollector is a one-man project webapp meant for easy art cataloguing. <br><br> It's going to be expanded further in the near-future. <br><br> I hope you'll have a fine experience here. <br><br> In case you want to report anything, you can write me at: artcollector.messages@gmail.com.
-      </div></div> <div class="col-md-2"></div>
-    </div>
-
-</div>
-
-<!-- navigation -->
-  <div class="row mx-5 collapse multi-collapse-1 multi-collapse-2 multi-collapse-3" id="back-button-row">
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-0 back-button" id="back-button-0"  data-bs-toggle="collapse" data-bs-target=".multi-collapse-0">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-1 multi-collapse-0 back-button" id="back-button-1" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-2 back-button" id="back-button-2" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div>
-      <div class="col-md-5 pb-5 "></div>  <div class="col-md-2 pb-5 collapse multi-collapse-3 back-button" id="back-button-3" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3">&#8249;&#8249;</div>  <div class="col-md-5 pb-5"></div> 
+    <script src="public/javascripts/bootstrap_validations.js"></script>
+    <script src="public/javascripts/confirm_password.js"></script>
+    <script src="public/javascripts/username_validation.js"></script>
   </div>
-
-  <div class="row mx-5 collapse show multi-collapse-1 multi-collapse-2 multi-collapse-3" id="nav-button-row">
-      <div class="col-md-3 pb-5"></div>
-      <% if (!currentUser) { %>
-      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-1"><h6>Login</h6></div>
-      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-2" ><h6>Register</h6></div>
-      <% } else { %>
-        <div class="col-md-2 pb-5"><h6> <a href="/collection">Start</a></h6></div>
-        <div class="col-md-2 pb-5"><h6> <a href="/logout">Log Out</a></h6></div>
-
-        <% } %>
-      <div class="col-md-2 pb-5" data-bs-toggle="collapse" data-bs-target=".multi-collapse-3"><h6>Info</h6></div>
-      <div class="col-md-3 pb-5"></div>
-  </div>
-
-
-
-</div>
-</main>
-
-<script>
-  $(document).ready(function() {
-       $(".toast").toast('show');
-   });
-</script>
-
-<script src="public/javascripts/bootstrap_validations.js"></script>
-<script src="public/javascripts/confirm_password.js"></script>
-<script src="public/javascripts/username_validation.js"></script>
-  
+</body>
