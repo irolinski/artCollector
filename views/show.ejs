@@ -138,7 +138,7 @@ include('./partials/loading_ellipsis.ejs') %>
         <!-- ownership details section -->
         <div>
           <span
-            class="accordion pb-2 d-block"
+            class="accordion d-block"
             data-bs-toggle="collapse"
             id="owner_detail_accordion"
             href="#collapseOne"
@@ -162,9 +162,9 @@ include('./partials/loading_ellipsis.ejs') %>
                   <div>
                     <% if (currentUser.contact_info !== '' &&
                     currentUser.contact_info !== null) { %> Owner/Holder:
-                    <span id="owner-span"
-                      ><%= `${currentUser.show_name}` %></span
-                    >
+                    <span id="owner-span" class="pb-2">
+                      <%= `${currentUser.show_name}` %>
+                    </span>
                     <br /><br />
                     Contact:
                     <span id="o-contact-span">
