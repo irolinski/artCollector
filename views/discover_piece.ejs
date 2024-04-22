@@ -50,10 +50,10 @@
             <!-- main detail section -->
             <div class="container discover" id="detail-section">
                 <div class="card-body pb-4">
-                    <p id="artist-cat-p"> <span class='fw-bold' id="artist-span"> <%= p.artist %> </span> 
-                    <span class="ps-5 ms-5 card-subtitle text-muted" id="catalogue-span"> <% if (p.catalogue) { %> Cat. <%= p.catalogue %> <% } %></span></p>
+                    <span id="artist-cat-p" class="mb-2 d-block"> <span class='fw-bold' id="artist-span"> <%= p.artist %> </span> 
+                    <span class="ps-5 ms-5 card-subtitle text-muted" id="catalogue-span"> <% if (p.catalogue) { %> Cat. <%= p.catalogue %> <% } %></span></span>
 
-                <p class="">
+                <span class="d-block mb-2">
                         <span class="fw-bold fst-italic" id="title-span">
                             <%= p.title %></span>,
                         
@@ -66,11 +66,11 @@
                                 <% } %>
                             <% break } %>
                         </span>
-                    </p>
+                    </span>
 
 
 
-                    <p class="card-subtitle mb-2 text-muted"> 
+                    <span class="card-subtitle mb-2 text-muted mb-2 d-block"> 
                         <% for (let s of p.size) { %>
                             <% if (s.y === undefined || s.y === null || s.x === undefined || s.x === null){  %>
                         <span id="medium-span"><%= p.medium %></span>
@@ -85,16 +85,16 @@
                                 <% } %>
                             </span>
                             <% break } }%>
-                    </p>
+                    </span>
                 </div>
                 <div>
-                <p class="accordion pb-2" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo" onclick="toggleClass('active', 'description-arrow')"> Description <span class="menu-arrow" id="description-arrow">&#9660;</span></p> 
+                <span class="accordion pb-2 mb-2 d-block" data-bs-toggle="collapse" id="description_accordion" href="#collapseTwo" onclick="toggleClass('active', 'description-arrow')"> Description <span class="menu-arrow" id="description-arrow">&#9660;</span></p> 
                 <div id="description_wrapper" class="pb-4">
                         <div id="collapseTwo" class="collapse container" data-bs-parent="#description_accordion">
                             <% if (p.description !== '') { %>
                             <span id="description-span"><%= p.description %></span> 
                             <% } else { %>
-                                <p class="text-muted"> No description of this piece has been provided by the owner. </p>
+                                <span class="text-muted"> No description of this piece has been provided by the owner. </p>
                         <%  } %>
                         </div>
                     </div>
@@ -103,18 +103,18 @@
 
                 <!-- Details section -->
                     <div>
-                        <p class="accordion pb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne" onclick="toggleClass('active', 'ownership-detail-arrow')"> Details <span class="menu-arrow" id="ownership-detail-arrow">&#9660;</span> </p>
+                        <span class="accordion pb-2 d-block mb-2" data-bs-toggle="collapse" id="owner_detail_accordion" href="#collapseOne" onclick="toggleClass('active', 'ownership-detail-arrow')"> Details <span class="menu-arrow" id="ownership-detail-arrow">&#9660;</span> </span>
                         <div class="pb-4"  id="piece-info-div">
                         <div id="collapseOne" class="collapse container " data-bs-parent="#owner_detail_accordion">
                             <div class="row pb-4">
                                 <div class="col-md-12 pb-4" id="discover-details-div">
                                 <div class="col-md-3">
                                     <% if (p.forSale == true) { %>
-                                        <p id="forsale-p"> For Sale: &#10003; </p> 
+                                        <span id="forsale-p d-block mb-2"> For Sale: &#10003; </p> 
                                 </div>
                                 <div class="col-md-1"></div>
                                 <div class="col-md-3">
-                                        <p id="price-p"> Price: <% for (let el of p.price) { %>
+                                        <span id="price-p d-block mb-2"> Price: <% for (let el of p.price) { %>
                                         <%  if (el.price !== null) { %>
                                         <span id="price-span"><%= `${el.price} ${el.currency}` %></span>  
                                 </div>

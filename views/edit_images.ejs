@@ -4,7 +4,7 @@
 
 
   <div class="page-brand" id="edit-images-brand">
-    <p class="my-auto page-header" id="edit-images-header">Edit Images</p>
+    <h1 class="my-auto page-header mb-2" id="edit-images-header">Edit Images</h1>
   </div>
 
   <div id="edit-nav" class="row py-2 form-nav">
@@ -76,8 +76,8 @@
               <h6>You have reached the max allowed image number.</h6>
                 In order to upload new images, delete some of the ones already uploaded!</div>
               <% } else { %>
-                <p class="text-muted image-edit-text"> If done one at a time, you can upload up to four images... </p><br>
-               <p class="subtext text-muted"> (max size per image: 5mb; allowed formats: jpg, png, gif) </p>
+                <span class="text-muted image-edit-text d-block"> If done one at a time, you can upload up to four images... </span><br>
+               <span class="subtext text-muted d-block"> (max size per image: 5mb; allowed formats: jpg, png, gif) </span>
                 <input type="file" class="form-control" id="upload-images-input" name="images"
                   accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length>= 4) { %> disabled <% } %>
                   onchange="unlockButton()">

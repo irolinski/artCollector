@@ -1,38 +1,35 @@
-body{
-    overflow-x: hidden
+body {
+  overflow-x: hidden;
 }
 
-body.wait:hover{
-    cursor: wait;
+body.wait:hover {
+  cursor: wait;
 }
 
 nav,
-footer{
-    background-color: rgb(233 236 239 / 19%);
+footer {
+  background-color: rgb(233 236 239 / 19%);
 }
-
 
 #navbar {
-    transition: 0.6s;
-    top: 0;
-    width: 100% ;
+  transition: 0.6s;
+  top: 0;
+  width: 100%;
 }
 
-.navbar-brand{
- color:rgba(33, 37, 41, 0.79)
+.navbar-brand {
+  color: rgba(33, 37, 41, 0.79);
 }
 
-.navbar-toggler{
-    border-radius: 0 !important;
+.navbar-toggler {
+  border-radius: 0 !important;
 }
-
 
 /* loading animation */
 
-.hide{
+.hide {
   display: none;
 }
-
 
 #loading-div {
   position: absolute;
@@ -42,7 +39,6 @@ footer{
   background-color: rgba(50, 50, 50, 0.15);
   border-radius: 5px;
 }
-
 
 .lds-ellipsis {
   display: inline-block;
@@ -83,248 +79,247 @@ footer{
 
 @keyframes lds-ellipsis1 {
   0% {
-      transform: scale(0);
+    transform: scale(0);
   }
 
   100% {
-      transform: scale(1);
+    transform: scale(1);
   }
 }
 
 @keyframes lds-ellipsis3 {
   0% {
-      transform: scale(1);
+    transform: scale(1);
   }
 
   100% {
-      transform: scale(0);
+    transform: scale(0);
   }
 }
 
 @keyframes lds-ellipsis2 {
   0% {
-      transform: translate(0, 0);
+    transform: translate(0, 0);
   }
 
   100% {
-      transform: translate(24px, 0);
+    transform: translate(24px, 0);
   }
 }
 
 /* main body */
 
 a {
-    color: black;
-    transition: color 0.1s;
-    font-weight: 400;
-    
+  color: black;
+  transition: color 0.1s;
+  font-weight: 400;
 }
 
 a:hover,
 a:focus {
-    color: rgba(0, 0, 0, 0.382)
-} 
-
-
+  color: rgba(0, 0, 0, 0.382);
+}
 
 a {
-    color: black;
-    transition: color 0.1s;
-    font-weight: 400;
-
+  color: black;
+  transition: color 0.1s;
+  font-weight: 400;
 }
 
 a:hover,
 a:focus {
-    color: rgba(0, 0, 0, 0.382)
+  color: rgba(0, 0, 0, 0.382);
 }
 
-.ac-icon{
-background-image: url('https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704544814/artCollector/app_images/Projekt_bez_nazwy-removebg-preview_2_g6mg0s.png');
-background-size: 50px;
-width: 50px;
-height: 50px;
-display: block;
-opacity: 0.8;
+.ac-icon {
+  background-image: url("https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704544814/artCollector/app_images/Projekt_bez_nazwy-removebg-preview_2_g6mg0s.png");
+  background-size: 50px;
+  width: 50px;
+  height: 50px;
+  display: block;
+  opacity: 0.8;
 }
 
 /* toast styling */
 
-.toast{
-    position:absolute;
-    z-index: 5;
-    top: 100px;
-    right: 100px;
-    color: aliceblue;
+.toast {
+  position: absolute;
+  z-index: 5;
+  top: 100px;
+  right: 100px;
+  color: aliceblue;
 }
 
-.footer span{
-    float: inline-end;
+.footer span {
+  float: inline-end;
 }
 
-.page-header{
-  font-family: 'Roboto';
+.page-header {
+  font-family: "Roboto";
 }
 
 /* confirm btn */
 
 .confirm-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 6px 14px !important;
-    font-family: 'Roboto', sans-serif;
-    border-radius: 6px;    
-    color: whitesmoke;
-    background-color: green;
-    border: none;
-    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 6px 14px !important;
+  font-family: "Roboto", sans-serif;
+  border-radius: 6px;
+  color: whitesmoke;
+  background-color: green;
+  border: none;
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.8);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 
-    transition: background-color 1s, color 1s;
-  }
-  
-  .confirm-button:focus {
-    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
-    outline: 0;
-  }
+  transition: background-color 1s, color 1s;
+}
 
-  .confirm-button:hover {
-    color: green;
-    background: #fff;
+.confirm-button:focus {
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1),
+    0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
 
-  }
+.confirm-button:hover {
+  color: green;
+  background: #fff;
+}
 
-  .confirm-button:disabled{
-    background-color: #3D3D3D;
-  }
+.confirm-button:disabled {
+  background-color: #3d3d3d;
+}
 
-  .confirm-button:disabled:hover{
-    color: #fff;
-  }
+.confirm-button:disabled:hover {
+  color: #fff;
+}
 
-  /* bs form style override */
+/* bs form style override */
 
-  /* change input shadow */
+/* change input shadow */
 .form-control:focus {
-    border-color: #069;
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-  } 
-  
-  /* change checkbox color */
-  .form-check-input:checked {
-    background-color: #069;
-    box-shadow: none;
-  }
-  .form-check-input:focus {
-    box-shadow: none;
-  }
-  
-  .form-control:focus, .bootstrap-select, .btn:focus  {
-    border-color: rgba(40, 99, 128, 0.761);;
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
-  }
-  
-  .form-select:focus{
-    outline: none !important;
-    box-shadow: none !important;
-    border: 1px solid #008080;
-  }
-  
-  /* bootstrap validation styling */
-  
-   
-   .form-control.is-invalid, .was-validated  {
-    background-image: none !important;
-    border-color: #ced4da;
-    padding-right: 0.75em;
-    border-color: #CFD4DA !important;
-  }
-  
-  .form-control.is-valid, .was-validated .form-control:valid  {
-    background-image: none !important;
-    border-color: #ced4da;
-    padding-right: 0.75em;
-    border-color: #CFD4DA !important;
-  }
-  
-  .form-check-input {
+  border-color: #069;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* change checkbox color */
+.form-check-input:checked {
+  background-color: #069;
+  box-shadow: none;
+}
+.form-check-input:focus {
+  box-shadow: none;
+}
+
+.form-control:focus,
+.bootstrap-select,
+.btn:focus {
+  border-color: rgba(40, 99, 128, 0.761);
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.form-select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: 1px solid #008080;
+}
+
+/* bootstrap validation styling */
+
+.form-control.is-invalid,
+.was-validated {
+  background-image: none !important;
+  border-color: #ced4da;
+  padding-right: 0.75em;
+  border-color: #cfd4da !important;
+}
+
+.form-control.is-valid,
+.was-validated .form-control:valid {
+  background-image: none !important;
+  border-color: #ced4da;
+  padding-right: 0.75em;
+  border-color: #cfd4da !important;
+}
+
+.form-check-input {
   border-color: rgba(0, 0, 0, 0.75) !important;
-  }
-  
-  .form-select:valid {
-  --bs-form-select-bg-img: null; 
-  border-color: #CFD4DA;
-  }
-  
-  .form-select .was-validated,
-  .form-select:valid:not([multiple]):not([size]) {
-   border-color: #CFD4DA !important;
-  }
-  
-  .was-validated .form-check-input:valid:checked {
+}
+
+.form-select:valid {
+  --bs-form-select-bg-img: null;
+  border-color: #cfd4da;
+}
+
+.form-select .was-validated,
+.form-select:valid:not([multiple]):not([size]) {
+  border-color: #cfd4da !important;
+}
+
+.was-validated .form-check-input:valid:checked {
   background-color: #0d6efd;
-  }
-  
-  
-  
-  
-  .form-check-input.is-valid:focus, .was-validated .form-check-input:valid:focus {
-  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb),.25);
-  }
-  
-  .form-check-input.is-valid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
-    color: rgba(0, 0, 0, 0.75);}
-  
-  .was-validated .form-select:valid{
-    border-color: rgba(0, 0, 0, 0.75)
-  }
+}
+
+.form-check-input.is-valid:focus,
+.was-validated .form-check-input:valid:focus {
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.form-check-input.is-valid ~ .form-check-label,
+.was-validated .form-check-input:valid ~ .form-check-label {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.was-validated .form-select:valid {
+  border-color: rgba(0, 0, 0, 0.75);
+}
 
 /* media queries */
 
-@media all and (min-width: 250px) and (max-width: 480px){
-
-  .toast{
-      top: 80px;
-      transform: translateX(85px);
-      font-size: 3vw;
+@media all and (min-width: 250px) and (max-width: 480px) {
+  .toast {
+    top: 80px;
+    transform: translateX(85px);
+    font-size: 3vw;
   }
-
 }
 
-@media all and (max-width: 767px){
+@media all and (max-width: 767px) {
+  #navbar {
+    margin-left: 0.3em;
+  }
 
-  #nav-collection-link{
+  #nav-collection-link {
     padding: 4em 0em 2em 0em;
   }
 
   #nav-preferences-link,
-  #nav-sign-in{
+  #nav-sign-in {
     padding: 2em 0em 2em 0em;
   }
 
-  #nav-log-out{
+  #nav-log-out {
     padding: 2em 0em 4em 0em;
   }
 
-  .navbar-toggler{
+  .navbar-toggler {
     border: 0;
     box-shadow: none !important;
-
-  };
-
+  }
 }
 
-
-.success{
-    background-color: green;
+.success {
+  background-color: green;
 }
 
-.error{
-    background-color: red;
+.error {
+  background-color: red;
 }
