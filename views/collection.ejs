@@ -4,7 +4,7 @@
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
 <div class="page-brand hide" id="collection-page-brand">
-<p class="my-auto page-header" id="collection-page-header">My Collection</p>
+<span class="my-auto page-header" id="collection-page-header">My Collection</span>
 </div>    
 
 <div class="modal fade" id="share_modal" tabindex="-1">
@@ -16,7 +16,7 @@
         </div>
         <div class="modal-body pb-0">
             <h6>Let your friends see your collection - use the link below!</h6>
-            <p class="text-muted"> (Works marked as archival will not be shown)</p>
+            <span class="text-muted"> (Works marked as archival will not be shown)</span>
         </div>
         <div class="modal-body pt-0" id="discover-modal-body">
             <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>" readonly>
@@ -41,7 +41,7 @@
 
         <!-- category settings -->
         <div class="col-md-3" id="table-categories-div">
-        <p id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></p> 
+        <div class="toggle-button" id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></div> 
 
         <div id="category-settings" class="collapse">
             <form id="collection_form" class="to_be">
@@ -54,7 +54,7 @@
                     </select><br><br>
                 
             <section id="categories-container">
-                <p id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings'); removeClass('active', 'display-arrow')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
+                <div class="toggle-button" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings'); removeClass('active', 'display-arrow')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
                 
                     <div id="categories-checklist" class="categories-checklist">
                         <div>
@@ -85,7 +85,7 @@
             </div>
             </div>
             <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
-                <p id="categories-checklist-mobile-placeholder-sign">Flip your device!</p>
+                <span>Flip your device!</span>
             </div>
         </section>
             </form>
@@ -100,7 +100,7 @@
 
         <!-- display settings -->
         <div class="col-md-3" id="display-settings-div">
-        <p class="text-nowrap" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow', 'display-settings-div'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></p>
+        <div class="text-nowrap toggle-button" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow', 'display-settings-div'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></div>
 
 
         <div id="display-settings" class="collapse">

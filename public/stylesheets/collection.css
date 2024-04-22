@@ -29,6 +29,10 @@
 
 /* menu styling */
 
+.toggle-button {
+  margin-bottom: 1em;
+}
+
 .category-check,
 #table-info-checkbox {
   margin: 0.3em;
@@ -395,7 +399,7 @@ td.dataTables_empty {
   }
 
   #categories-checklist.active {
-    transform: translateX(2px) translateY(-0.9vw);
+    transform: translateX(2px);
   }
 
   #categories-checklist-mobile-placeholder {
@@ -425,9 +429,7 @@ td.dataTables_empty {
     display: none !important;
   }
 
-  #categories-checklist-mobile-placeholder.show > p {
-    display: inline-block;
-  }
+
 
   #table-categories-div {
     transform: translateY(75px);
@@ -526,8 +528,8 @@ td.dataTables_empty {
     cursor: pointer;
     transform: translate(-40px, -2.5px);
   }
-  
-  #categories-container{
+
+  #categories-container {
     flex-wrap: wrap;
-}
+  }
 }
