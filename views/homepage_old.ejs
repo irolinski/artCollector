@@ -1,0 +1,30 @@
+  <!-- login form -->
+  <form class="needs-validation" action="/login" method="POST" novalidate>
+    <div class="row collapse multi-collapse-1 multi-collapse-0" id="login-row">
+<!-- label for login form -->
+      <div class="col-md-4"></div>      <div class="col-md-4 mt-3" id="login-label"><h4>Login</h4></div>      <div class="col-md-4"></div>
+<!-- form body -->
+      <div class="col-md-2"></div>
+      <div class="col-md-4">
+        <div>
+            <input type="text" name="username" class="form-control mt-3"  id="username-login" placeholder="Username" required>
+            <div class="invalid-feedback" >
+              Please, enter your username. You remember it, don't you?  
+          </div>
+        </div>
+        <div>
+          <input type="password" name="password" class="form-control mt-3" id="login-password" placeholder="Password"  required>
+          <div class="invalid-feedback">
+            Please don't tell me that you forgot your password! <br> (If you did, though, just click the link below!)
+        </div>
+      </div>
+      </div>
+      <div class="col-md-4 d-flex button-parent">
+        <button type="submit" id="login-button" class="confirm-button my-4" onsubmit="cursorWait()">Log in</button>
+      </div>
+      <div class="col-md-2"></div>
+      <div class="mt-4"  id="forgot-wrapper" data-bs-target=".multi-collapse-0" data-bs-toggle="collapse">
+        <span>I forgot my password!</span>
+      </div>
+    </div>
+  </form>
