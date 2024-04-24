@@ -1,22 +1,23 @@
 
 <h1 align="center">
-  artCollector
+  artCollector <img width="55px" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704544814/artCollector/app_images/Projekt_bez_nazwy-removebg-preview_2_g6mg0s.png" />
   <br>
 </h1>
 
 <h4 align="center">Art catalogue webapp built in Node.js</h4>
+<br>
 <p align="center">
   <img src="https://github.com/szczek/artCollector/assets/66899019/bd59ff43-696b-4110-b642-4d9abff3910a" />
 </p>
 
+<br> 
 
 artCollector is a webapp meant for cataloguing art. As of now, it is still in its early stage and the plan is that it will be further developed.
 It was built in javascript w/ jquery using nodeJs w/ express and various labraries needed for particular backend tasks. It uses bootstrap for the front end. 
 MongoDB was used as a database. 
 
-Features include:
 
-## Key Features
+## Features include:
 
 * Fully-fledged art catalogue app - suitable for both desktop and mobile use
 * Data table w/ rich customization options and a search function
@@ -36,16 +37,16 @@ To run the cloned application on ones machine, one must have node.js installed; 
 
 This software uses the following open source packages:
 
-- bootstrap
+- Bootstrap
 - joi
-- jquery datatables
+- jquery Datatables
 - jsonwebtoken
-- moment
-- mongoose
-- mongo-xlsx
-- multer
-- nodemailer
-- passport
+- Moment
+- Mongoose
+- Mongo-xlsx
+- Multer
+- Nodemailer
+- Passport
 - xlsx
 
 
