@@ -7,7 +7,7 @@
 <h4 align="center">Art catalogue webapp built in Node.js</h4>
 <br>
 <p align="center">
-  <img src="https://github.com/szczek/artCollector/assets/66899019/bd59ff43-696b-4110-b642-4d9abff3910a" />
+  <img src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1714001420/artCollector/app_images/wrfubqkk6hujvyhqarkb.gif" />
 </p>
 
 <br> 
