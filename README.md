@@ -7,7 +7,8 @@
 <h4 align="center">Art catalogue webapp built in Node.js</h4>
 <br>
 <p align="center">
-  <img src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1714001420/artCollector/app_images/wrfubqkk6hujvyhqarkb.gif" />
+  <img height="350px" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1714001420/artCollector/app_images/wrfubqkk6hujvyhqarkb.gif" />
+  <img height="350px" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1714051761/artCollector/app_images/dit3f3jvcqgv6vkiygxi.gif"/>
 </p>
 
 <br> 
