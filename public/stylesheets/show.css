@@ -46,6 +46,10 @@ span {
   transform: rotate(270deg);
 }
 
+#description_wrapper{
+  max-width: 85%;
+}
+
 #piece-info-div {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
