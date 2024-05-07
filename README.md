@@ -51,8 +51,4 @@ This software uses the following open source packages:
 - xlsx
 
 
-## License
-
-MIT
-
 ---
