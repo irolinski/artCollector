@@ -8,7 +8,7 @@ const joi = require('joi');
 const mongoose = require('mongoose');
 
 const multer = require('multer');
-const {storage} = require('../cloudinary/index.js');
+const {storage} = require('./../cloudinary/index.js');
 const upload = multer({ 
     storage: storage,
     limits: { 
@@ -23,7 +23,7 @@ const upload = multer({
       }
      
 }); 
-const { cloudinary } = require('../cloudinary');
+const { cloudinary } = require('./../cloudinary');
 
 const fs = require('fs');
 const XLSX = require('xlsx');
