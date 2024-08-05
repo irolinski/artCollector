@@ -12,6 +12,7 @@
     "preserveConstEnums": true
   },
   "lib": ["es2015"],
+  "type": "module",
   "include": [
     "./**/*.ts",
     "models/user.js",
