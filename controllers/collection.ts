@@ -100,15 +100,13 @@ module.exports.exportToXlsx = async (
 ) => {
   // get date for the filename
   const currentDate = new Date();
-
   let currentMonth: string = ``;
   const getMonth = currentDate.getMonth() + 1;
   if (getMonth < 10) {
-    currentMonth = `0${currentMonth}`;
+    currentMonth = `0${getMonth}`;
   } else {
-    currentMonth = `${currentMonth}`;
+    currentMonth = `${getMonth}`;
   }
-
   const currentYear = `${currentDate.getFullYear()}`;
   const date = currentMonth + "." + currentYear;
 
