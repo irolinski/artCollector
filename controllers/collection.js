@@ -1,272 +1,239 @@
+const moment = require("moment");
+const mongoose = require("mongoose");
+const { cloudinary } = require("../cloudinary");
+const fs = require("fs");
+const XLSX = require("xlsx");
+const ExpressError = require("../utilities/ExpressError");
+const ArtPiece = require("../models/artPiece.js");
+const artPieceJOI = require("../models/artPieceJOI.js");
 
-const express = require('express');
-const router = express.Router();
+module.exports.collectionPage = async (req, res, next) => {
+  const pageTitle = "My Collection - artCollector";
+  const styleSheet = "collection";
 
-const moment = require('moment');
-const joi = require('joi');
+  const host = req.get("host");
+  const userTable = req.user.custom_table;
 
-const mongoose = require('mongoose');
+  const queryString = JSON.stringify(req.query);
 
-const multer = require('multer');
-const {storage} = require('../cloudinary/index.js');
-const upload = multer({ 
-    storage: storage,
-    limits: { 
-        fileSize: 5000000,
-        files: 1,
-    },
-    fileFilter: function (req, file, cb) {
-        if (!file.originalname.match(/\.(jpg|JPG|jpeg|png|gif)$/)) {
-            return cb(new Error('Only image files are allowed!'));
-        }
-        cb(null, true);
-      }
-     
-}); 
-const { cloudinary } = require('../cloudinary');
+  const archivalStatus = req.query.archival;
 
-const fs = require('fs');
-const XLSX = require('xlsx');
+  const artPieces = await ArtPiece.find({ user_id: `${req.user._id}` });
 
-const ExpressError = require('../utilities/ExpressError');
-const isLoggedIn  = require('../utilities/isLoggedIn')
-const catchAsync = require('../utilities/catchAsync');
+  const archivalPieces = await ArtPiece.find({
+    archival: { $in: ["true"] },
+    user_id: `${req.user._id}`,
+  });
 
-const ArtPiece = require('../models/artPiece.js');
-const artPieceJOI = require('../models/artPieceJOI.js');
-
-
-
-
-
-module.exports.collectionPage = (async (req, res, next) => {
-
-    const pageTitle = 'My Collection - artCollector'
-    const styleSheet = 'collection'
-
-    let host = req.get('host')
-    const userTable = (req.user.custom_table);
-
-    let queryString = JSON.stringify(req.query);
-
-    const archivalStatus = req.query.archival;
-
-    let artPieces = await ArtPiece.find({user_id: `${req.user._id}`}); 
-    
-    const archivalPieces = await ArtPiece.find(
-        { archival: {$in: [ 'true' ]},
-        user_id: `${req.user._id}`
+  if (archivalStatus === "archival-hide") {
+    artPieces = await ArtPiece.find({
+      archival: !{ $in: ["true"] },
+      user_id: `${req.user._id}`,
     });
+  } else if (archivalStatus === "archival-showOnly") {
+    artPieces = archivalPieces;
+  }
 
-    if (archivalStatus === 'archival-hide') {
-        artPieces = await ArtPiece.find({
-            archival: !{$in: [ 'true' ]},
-            user_id: `${req.user._id}`
-        });
-
-    } else if (archivalStatus === 'archival-showOnly') {
-        artPieces = archivalPieces
-    }
-
-
-
-    res.render('collection', { artPieces, moment: moment, archivalStatus, queryString, userTable, pageTitle, styleSheet, host })
-});
-
-
-
-
-module.exports.newPieceForm = (req, res, next) => {
-
-    const pageTitle = 'Add a new piece - artCollector';
-    const styleSheet = 'forms';
-
-    res.render('new', { pageTitle, styleSheet })
+  res.render("collection", {
+    artPieces,
+    moment: moment,
+    archivalStatus,
+    queryString,
+    userTable,
+    pageTitle,
+    styleSheet,
+    host,
+  });
 };
 
+module.exports.newPieceForm = (req, res) => {
+  const pageTitle = "Add a new piece - artCollector";
+  const styleSheet = "forms";
 
-module.exports.postNewPiece = (async (req, res, next) => {
+  res.render("new", { pageTitle, styleSheet });
+};
 
+module.exports.postNewPiece = async (req, res) => {
+  const pieceSchema = artPieceJOI;
 
+  const { error } = pieceSchema.validate(req.body);
 
-    const pieceSchema =  artPieceJOI
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  }
 
-    const { error } = pieceSchema.validate(req.body);
+  const newPiece = new ArtPiece(req.body);
+  newPiece.images = req.files.map((f) => ({
+    url: f.path,
+    filename: f.filename,
+  }));
 
-    
-    if (error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    }
+  if (req.body.acquiration_date) {
+    newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
+  }
 
+  await newPiece.save();
 
-    
-    const newPiece = new ArtPiece(req.body);
-    newPiece.images = req.files.map(f => ({url: f.path, filename: f.filename }))
+  req.flash("success", "Successfully added your new piece!");
+  res.redirect("collection");
+};
 
-    if (req.body.acquiration_date) { newPiece.acquiration_date = new Date( `${req.body.acquiration_date}` ) }
+module.exports.exportToXlsx = async (req, res) => {
+  let currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  if (currentMonth < 10) {
+    currentMonth = `0${currentMonth}`;
+  } else {
+    currentMonth = `${currentMonth}`;
+  }
+  const currentYear = `${currentDate.getFullYear()}`;
+  currentDate = currentMonth + "." + currentYear;
+  const exportData = [];
 
-    await newPiece.save();
-
-    req.flash('success', 'Successfully added your new piece!');
-
-    res.redirect('collection')
-
-
-});
-
-module.exports.exportToXlsx = (async (req, res, next) => {
-
-    let currentDate = new Date();
-
-    let currentMonth = currentDate.getMonth() + 1;
-    if (currentMonth < 10) {
-        currentMonth = `0${currentMonth}`
-    } else {
-        currentMonth = `${currentMonth}`
-    }
-
-    let currentYear = `${currentDate.getFullYear()}`;
-
-    currentDate = currentMonth + '.' + currentYear;
-
-
-    let exportData = []
-
-
-    for await (let p of ArtPiece.find({ user_id: req.user._id })) {
-
-        let data = ({
-            title: p.title,
-            artist: p.artist,
-            medium: p.medium,
-            year_started: p.year[0].year_started,
-            year_finished: p.year[0].year_finished,
-            size_x:  p.size[0].x,
-            size_y:  p.size[0].y,
-            size_z:  p.size[0].z,
-            owner_name: (p.owner[0].status === 'self') ? req.user.show_name : p.owner[0].name,
-            owner_contact: (p.owner[0].status === 'self') ? req.user.contact_info : p.owner[0].contact_info,
-            holder_name:(p.holder[0].status === 'self') ? req.user.show_name : p.holder[0].name,
-            holder_contact: (p.holder[0].status === 'self') ? req.user.contact_info : p.holder[0].contact_info,
-            forSale: p.forSale,
-            price: p.price[0].price,
-            price_currency: p.price[0].currency,
-            archival: p.archival,
-            description: p.description,
-            catalogue_number: p.catalogue,
-            acquisition_date: p.acquiration_date,
-            image_url_1: (p.images[0] !== undefined) ? p.images[0].url : null,
-            image_url_2: (p.images[1] !== undefined) ? p.images[1].url : null,
-            image_url_3: (p.images[2] !== undefined) ? p.images[2].url : null,
-            image_url_4: (p.images[3] !== undefined) ? p.images[3].url : null,
-        })
-
-        exportData.unshift(data);
+  for await (let p of ArtPiece.find({ user_id: req.user._id })) {
+    const data = {
+      title: p.title,
+      artist: p.artist,
+      medium: p.medium,
+      year_started: p.year[0].year_started,
+      year_finished: p.year[0].year_finished,
+      size_x: p.size[0].x,
+      size_y: p.size[0].y,
+      size_z: p.size[0].z,
+      owner_name:
+        p.owner[0].status === "self" ? req.user.show_name : p.owner[0].name,
+      owner_contact:
+        p.owner[0].status === "self"
+          ? req.user.contact_info
+          : p.owner[0].contact_info,
+      holder_name:
+        p.holder[0].status === "self" ? req.user.show_name : p.holder[0].name,
+      holder_contact:
+        p.holder[0].status === "self"
+          ? req.user.contact_info
+          : p.holder[0].contact_info,
+      forSale: p.forSale,
+      price: p.price[0].price,
+      price_currency: p.price[0].currency,
+      archival: p.archival,
+      description: p.description,
+      catalogue_number: p.catalogue,
+      acquisition_date: p.acquiration_date,
+      image_url_1: p.images[0] !== undefined ? p.images[0].url : null,
+      image_url_2: p.images[1] !== undefined ? p.images[1].url : null,
+      image_url_3: p.images[2] !== undefined ? p.images[2].url : null,
+      image_url_4: p.images[3] !== undefined ? p.images[3].url : null,
     };
 
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(exportData);
-    ws['!ref'] = ws['!ref'].replace('S','R'); 
+    exportData.unshift(data);
+  }
 
-    const file = `public/${req.user.username}-artCollection(${currentDate}).xlsx`
-    XLSX.utils.book_append_sheet(wb,ws,'sheet1');
-    XLSX.writeFile(wb, file);
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(exportData);
+  ws["!ref"] = ws["!ref"].replace("S", "R");
 
-    res.download(file, (err) => {
-        if (err) {
-            console.log('problem with export ' + err)
-        }
-        fs.unlink(file, () => {
-            console.log('export successful')
-        })});
+  const file = `public/${req.user.username}-artCollection(${currentDate}).xlsx`;
+  XLSX.utils.book_append_sheet(wb, ws, "sheet1");
+  XLSX.writeFile(wb, file);
 
+  res.download(file, (err) => {
+    if (err) {
+      console.log("problem with export " + err);
+    }
+    fs.unlink(file, () => {
+      console.log("export successful");
     });
+  });
+};
 
-module.exports.showPage = (async (req, res, next) => {
+module.exports.showPage = async (req, res) => {
+  const { id } = req.params;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    req.flash(
+      "error",
+      `I'm sorry but I don't think what you're looking for exists in our database!`
+    );
+    res.redirect("/campgrounds");
+  }
+  const p = await ArtPiece.findById(id);
 
-    const { id } =  req.params; 
+  const pageTitle = `${p.title} - artCollector`;
+  const styleSheet = "show";
 
-    if( !mongoose.Types.ObjectId.isValid(id) ){
-        req.flash('error', `I'm sorry but I don't think what you're looking for exists in our database!`);
-        res.redirect('/campgrounds');
+  if (JSON.stringify(req.user._id) == `"${p.user_id}"`) {
+    res.render("show", { p, moment: moment, pageTitle, styleSheet });
+  } else {
+    req.flash(
+      "error",
+      `I'm sorry but I cannot find such piece in your collection`
+    );
+    res.redirect("/collection");
+  }
+};
+
+module.exports.editPieceForm = async (req, res, next) => {
+  const pageTitle = "Edit piece - artCollector";
+  const styleSheet = "forms";
+
+  const { id } = req.params;
+  const p = await ArtPiece.findById(id);
+  res.render("edit", { p, moment: moment, pageTitle, styleSheet });
+};
+
+module.exports.editImages = async (req, res) => {
+  const pageTitle = "Edit images - artCollector";
+  const styleSheet = "forms";
+
+  const { id } = req.params;
+  const p = await ArtPiece.findById(id);
+  res.render("edit_images", { p, pageTitle, styleSheet });
+};
+
+module.exports.editPiece = async (req, res) => {
+  const { id } = req.params;
+  const p = await ArtPiece.findByIdAndUpdate(id, { ...req.body });
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  p.images.push(...imgs);
+
+  if (req.body.makeDefault) {
+    for (let imgFileName of req.body.makeDefault) {
+      const index = p.images
+        .map((image) => image.filename)
+        .indexOf(imgFileName);
+
+      const img = p.images[index];
+      p.images.splice(index, 1);
+      p.images.unshift(img);
     }
-    const p = await ArtPiece.findById(id);
+  }
 
-    const pageTitle = `${p.title} - artCollector`
-    const styleSheet = 'show';
-
-
-    if ( JSON.stringify(req.user._id) == `"${p.user_id}"`) {
-
-    res.render('show', { p, moment: moment, pageTitle, styleSheet })
-    } else {
-        req.flash('error', `I'm sorry but I cannot find such piece in your collection`);
-        res.redirect('/collection')
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
     }
-});
+    await p.updateOne({
+      $pull: { images: { filename: { $in: req.body.deleteImages } } },
+    });
+  }
 
-module.exports.editPieceForm = (async (req, res, next) => {
+  await p.save();
 
-    const pageTitle = 'Edit piece - artCollector'
-    const styleSheet = 'forms'
+  req.flash("success", "Successfully made changes to your piece!");
+  res.redirect(`/collection/show/${id}`);
+};
 
-    const { id } = req.params;
-    const p = await ArtPiece.findById(id);
-    res.render('edit', { p, moment: moment, pageTitle, styleSheet } )
-});
+module.exports.deletePiece = async (req, res) => {
+  const { id } = req.params;
 
-module.exports.editImages = (async (req, res, next) => {
+  const p = await ArtPiece.findByIdAndDelete(id);
 
-    const pageTitle = 'Edit images - artCollector';
-    const styleSheet = 'forms';
+  for (let i of p.images) {
+    await cloudinary.uploader.destroy(i.filename);
+  }
 
-    const { id } = req.params;
-    const p = await ArtPiece.findById(id);
-    res.render('edit_images', { p, pageTitle, styleSheet } )
-});
+  req.flash("success", "Successfully deleted your piece!");
 
-module.exports.editPiece = (async (req, res, next) => {
-    const { id } = req.params;
-    const p = await ArtPiece.findByIdAndUpdate(id, {...req.body});
-    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
-    p.images.push(...imgs);
-
-    if (req.body.makeDefault){
-        for (let imgFileName of req.body.makeDefault) {
-
-            const index = p.images.map((image) => image.filename).indexOf(imgFileName)
-
-            let img = p.images[index] 
-            p.images.splice(index, 1)
-            p.images.unshift(img)
-    }}
-
-    if (req.body.deleteImages){
-        for (let filename of req.body.deleteImages){
-            await cloudinary.uploader.destroy(filename);
-        }
-        await  p.updateOne({$pull: { images: { filename: { $in: req.body.deleteImages } } } });
-       }
-
-    await p.save();
-
-    req.flash('success', 'Successfully made changes to your piece!');
-    res.redirect(`/collection/show/${id}`);
-});
-
-module.exports.deletePiece = (async (req, res, next) => {
-    const { id } = req.params;
-
-    const p = await ArtPiece.findByIdAndDelete(id);
-
-    for (let i of p.images){
-        await cloudinary.uploader.destroy(i.filename);
-    }
-
-    req.flash('success', 'Successfully deleted your piece!');
-
-    res.redirect('/collection');
-});
-
+  res.redirect("/collection");
+};

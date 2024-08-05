@@ -1,22 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const ExpressError = require('../utilities/ExpressError');
-const catchAsync = require('../utilities/catchAsync');
+const ExpressError = require("../utilities/ExpressError");
+const catchAsync = require("../utilities/catchAsync");
 
-const discover = require('../controllers/discover.js');
+const discover = require("../controllers/discover.js");
 
+router.get("/:username", catchAsync(discover.discoverCollection));
 
-router.get('/:username', catchAsync(discover.discoverCollection));
+router.get("/:username/pass_check", catchAsync(discover.passCheckForm));
 
-router.get('/:username/pass_check', catchAsync(discover.passCheckForm));
+router.post("/:username/pass_check", catchAsync(discover.passCheck));
 
-router.post('/:username/pass_check', catchAsync(discover.passCheck))
+router.get("/:username/verified/:token", catchAsync(discover.passVerified));
 
-router.get('/:username/verified/:token', catchAsync(discover.passVerified))
-
-router.get('/:id/:id', catchAsync(discover.discoverPiece));
-
-
+router.get("/:id/:id", catchAsync(discover.discoverPiece));
 
 module.exports = router;
