@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "lib": ["es6"],
+    "moduleDetection": "force",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true
+  },
+  "lib": ["es2015"],
+  "include": [
+    "./**/*.ts",
+    "models/user.js",
+    "app.js",
+    "controllers/collection.ts",
+    "controllers/discover.ts",
+    "controllers/users.ts",
+    "routes/collection.ts",
+    "routes/discover.ts",
+    "routes/users.ts",
+    "utilities/catchAsync.js",
+    "utilities/isLoggedIn.ts",
+    "utilities/sendEmail.ts",
+    "utilities/validatePiece.ts"
+  ],
+  "outDir": "./dist",
+  "exclude": ["node_modules"]
+}
