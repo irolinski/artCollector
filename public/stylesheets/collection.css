@@ -95,18 +95,18 @@
   margin: auto;
 }
 
-#new-link {
-  color: black;
+.new-piece-button {
+  color: whitesmoke;
   text-decoration: none;
   font-weight: 400;
   padding: 1vh;
   font-size: 1.2rem;
   float: right;
-  background-color: #fbfbfb !important;
+  background-color: green;
   box-shadow: 2px 2px 2px #00000033;
 }
 
-#new-link:hover {
+.new-piece-button:hover {
   color: #f9fbfb !important;
   background-color: #797b7e !important;
 }
