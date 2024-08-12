@@ -1,51 +1,45 @@
-const mongoose = require('mongoose');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const passportLocalMongoose = require('passport-local-mongoose');
-const express = require; 
-
+const passportLocalMongoose = require("passport-local-mongoose");
+const express = require;
 const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     show_name: {
         type: String,
         default: null,
         trim: true,
-        sparse: true
+        sparse: true,
     },
-
     contact_info: {
         type: String,
         default: null,
         trim: true,
-        sparse: true
+        sparse: true,
     },
-
-    custom_table: { 
+    custom_table: {
         type: String,
         default: null,
         trim: true,
-        sparse: true
+        sparse: true,
     },
-
     share_collection: {
         type: Boolean,
         default: false,
     },
-
     share_pass: {
         type: String,
         default: null,
         trim: true,
-        sparse: true
-    }
-
-
-})
-
+        sparse: true,
+    },
+});
 UserSchema.plugin(passportLocalMongoose);
-//this is going to add a username and a password!!!
-
-module.exports = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
+exports.default = User;
+//# sourceMappingURL=user.js.map

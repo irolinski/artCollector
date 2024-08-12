@@ -323,3 +323,15 @@ a:focus {
 .error {
   background-color: red;
 }
+
+.error-screen {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.handle-p-overflow {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

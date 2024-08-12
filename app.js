@@ -1,121 +1,86 @@
-if(process.env.NODE_ENV !== "production") {
-    require('dotenv').config();
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
+const express_session_1 = __importDefault(require("express-session"));
+const connect_flash_1 = __importDefault(require("connect-flash"));
+const passport_1 = __importDefault(require("passport"));
+const ExpressError_1 = __importDefault(require("./utilities/ExpressError"));
+const user_1 = __importDefault(require("./models/mongoose/user"));
+const collection_1 = __importDefault(require("./routes/collection"));
+const users_1 = __importDefault(require("./routes/users"));
+const discover_1 = __importDefault(require("./routes/discover"));
+const LocalStrategy = require("passport-local");
+const mongoose = require("mongoose");
+const ejsMate = require("ejs-mate");
+const methodOverride = require("method-override");
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
 }
 const dbUrl = process.env.DB_URL;
-
-
-const express = require('express');
-const path = require('path');
-
-const ejsMate = require ('ejs-mate');
-const $ = require('jquery');
-const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
-const joi = require('joi');
-const session = require('express-session');
-const flash = require('connect-flash');
-const mongoStore = require('connect-mongo');
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-
-const ExpressError = require('./utilities/ExpressError');
-
-
-const app = express();
-
-app.set('views', path.join(__dirname, 'views'));
-app.engine('ejs', ejsMate);
-app.set('view engine', 'ejs');
-
-
-app.use(session({secret: process.env.SESSION_SECRET, resave: true, saveUninitialized: true}));
-
-
-app.use('/public', express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride ('_method'));
-app.use(
-    express.static(path.join(__dirname, "node_modules/bootstrap/dist/"))
-  );
-
+const app = (0, express_1.default)();
+app.set("views", path_1.default.join(__dirname, "views"));
+app.engine("ejs", ejsMate);
+app.set("view engine", "ejs");
+app.use((0, express_session_1.default)({
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+}));
+app.use("/public", express_1.default.static("public"));
+app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(express_1.default.static(path_1.default.join(__dirname, "node_modules/bootstrap/dist/")));
 app.use(function (err, req, res, next) {
-    const { status = 500, message = 'Something went wrong! :('} = err; 
-    res.status(status).send(message);
-})
-
-
-app.use(flash());
-
-const mongoose = require('mongoose');
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,})
-.then(() => {
-    console.log('connection open!')
-})
-.catch(err => {
-    console.log('oh no!')
-    console.log(err)
+    const { statusCode = 500, message = "Something went wrong! :(" } = err;
+    res.status(statusCode).send(message);
 });
-
+app.use((0, connect_flash_1.default)());
+mongoose
+    .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => {
+    console.log("connection open!");
+})
+    .catch((err) => {
+    console.log("oh no!");
+    console.log(err);
+});
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', () => {
-    console.log('database connected');
-})
-
-
-const User = require('./models/user.js');
-
-const collectionRouter = require('./routes/collection');
-const usersRouter = require('./routes/users');
-const discoverRouter = require('./routes/discover');
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new LocalStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+    console.log("database connected");
+});
+app.use(passport_1.default.initialize());
+app.use(passport_1.default.session());
+passport_1.default.use(new LocalStrategy(user_1.default.authenticate()));
+passport_1.default.serializeUser(user_1.default.serializeUser());
+passport_1.default.deserializeUser(user_1.default.deserializeUser());
 app.use((req, res, next) => {
-
     res.locals.currentUser = req.user;
-
-    res.locals.success = req.flash('success');
- //this middleware is here so that on every single request, we're going to take whatever is in locals under 'succes' and have access to it
- // so we don't have to pass through msg.flash("success") everytime
-     res.locals.error = req.flash('error');
- //res.locals makes it so that we don't have to pass it through and it's available to every page
- next();
- })
- 
-
-
-
-
-app.use('/', usersRouter);
-app.use('/collection', collectionRouter);
-app.use('/discover', discoverRouter);
-
-
-app.all('*', (req, res, next) => {      //*star* means 'for every path'
-    next(new ExpressError('Page not found', 404))
-})
-
-//error handling middleware 
+    res.locals.success = req.flash("success")[0];
+    res.locals.error = req.flash("error")[0];
+    next();
+});
+app.use("/", users_1.default);
+app.use("/collection", collection_1.default);
+app.use("/discover", discover_1.default);
+app.all("*", (req, res, next) => {
+    next(new ExpressError_1.default("Page not found", 404));
+});
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
-    // in the line above we destructure any error that is passed to this function
-    // and also set a default error
-    if (!err.message) err.message = 'Oh no, Something went wrong!'
-    res.status(statusCode).render('./error', { err });
-    //here, we set a status code to appear in the console and send a message 
-})
-
-app.listen(process.env.PORT || 3000 , () => {
-    console.log('Serving!')
+    if (!err.message)
+        err.message = "Oh no, Something went wrong!";
+    res.status(statusCode).render("./error", { err });
 });
-
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`Serving on port ${process.env.PORT || 3000}!`);
+});
+//# sourceMappingURL=app.js.map

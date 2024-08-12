@@ -1,36 +1,36 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
-    url: String,
-    filename: String
+  url: String,
+  filename: String,
 });
 
-
 const yearSchema = new Schema({
-    year_finished: Number,
-    year_started: Number
-})
+  year_finished: Number,
+  year_started: Number,
+});
 
 const sizeSchema = new Schema({
-    x: Number,
-    y: Number,
-    z: Number,
-    unit: String
-})
+  x: Number,
+  y: Number,
+  z: Number,
+  unit: String,
+});
 
 const personSchema = new Schema({
-    status: String,
-    name: String,
-    contact_info: String
-})
+  status: String,
+  name: String,
+  contact_info: String,
+});
 
 const priceSchema = new Schema({
-    price: Number,
-    currency: String
-})
+  price: Number,
+  currency: String,
+});
 
-const artPieceSchema = new Schema({
+const artPieceSchema = new Schema(
+  {
     title: String,
     artist: String,
     medium: String,
@@ -46,12 +46,11 @@ const artPieceSchema = new Schema({
     forSale: Boolean,
     price: [priceSchema],
     catalogue: String,
-},
-{
-    timestamps: true, 
-
-}
+  },
+  {
+    timestamps: true,
+  }
 );
 
-const ArtPiece = mongoose.model('ArtPiece', artPieceSchema, 'artpieces');
-module.exports = ArtPiece; 
+const ArtPiece = mongoose.model("ArtPiece", artPieceSchema, "artpieces");
+export default ArtPiece;
