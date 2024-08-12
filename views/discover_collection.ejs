@@ -20,33 +20,20 @@
         <thead>
             <tr>
                 <th>Artist</th>
-
                 <th>Title</th>
-
                 <th>Image</th>
-
                 <th class="narrow-screen-hide">Medium / Size</th> 
-
                 <th>Year</th>
-
                 <th style="display: none;" class="portrait-hide"> Added </th>
-
                 <th class="portrait-hide">For Sale</th>
-
-
-
             </tr>
         </thead>
         <tbody>
-
             <% for (let piece of artPieces) { %>
-            
-                
                     <tr>
                         <td><%= piece.artist %></td>
-                                                                                    <!-- owner.pass insert below -->
+                                                              <!-- owner.pass insert below -->
                         <td> <a class="piece-title-link" href="discover/<%=user._id%>/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
-
                         <td>
                             <% if (piece.images.length > 0) { %>
                             <% for (let img of piece.images) { %>
@@ -54,11 +41,7 @@
                                 <% break } %> 
                             <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
                             <% } %>
-
-                        </td>
-
-
-                    
+                        </td>                    
                         <td class="narrow-screen-hide">
                             <%= piece.medium %> <br>                     
                             <% for (let s of piece.size) { %>
@@ -71,9 +54,6 @@
                         <% break } %>
                         <% } %>
                         </td>
-
-
-
                             <% for (let y of piece.year) { %>
                                 <% if (y.year_started != undefined || y.year_stared != null) { %>
                                     <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
@@ -81,21 +61,10 @@
                                 <td><%= y.year_finished %></td>
                                 <% } %>
                             <% break } %>
-                
-
-                            
-                    
-                
                         <td class="portrait-hide" style="display: none;" >
-
                         <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
                     <%=  moment (piece.createdAt).fromNow() %> 
                     </td>
-
-
-
-
-
                             <td class="portrait-hide">
                                 <% if (piece.forSale == true) { %>
                                     <% for (let el of piece.price) { %>
@@ -106,21 +75,11 @@
                                     <% }}} else { %>
                                             &#10007;
                                             <% } %>                         </td>
-
-
-
-
                     </tr>
             <% } %>
         </tbody>
     </table>
-
-
-
 </main>
-
-<!-- </body> -->
-
 
 <script src="public/javascripts/dataTables_settings.js"></script>
 <script src="public/javascripts/remove_toggle_class.js"></script>
@@ -128,8 +87,6 @@
 <script src='public/javascripts/dataTables.js'></script>
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
-<!-- <script src='public/javascripts/collection_show_loading.js'></script> -->
-
 <script> 
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
@@ -142,7 +99,6 @@ window.onload = (async function(){
 });
 
 </script>
-
 </body>
 </html> 
 

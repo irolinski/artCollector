@@ -324,6 +324,7 @@ a:focus {
   background-color: red;
 }
 
+.password-reset-screen,
 .error-screen {
   height: 100%;
   display: flex;

@@ -2,7 +2,6 @@
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
-
   <div class="page-brand" id="edit-images-brand">
     <h1 class="my-auto page-header mb-2" id="edit-images-header">Edit Images</h1>
   </div>
@@ -56,7 +55,6 @@
         <% } %>
     </div>
 
-
     <!-- upload new images -->
     <div class="col-md-4" id="image-upload-wrapper">
       <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
@@ -69,7 +67,6 @@
         <div id="upload-more-div" class="accordion collapse">
           <div>
           <div class="col-md-12">
-
 
             <% if (p.images.length>= 4) { %> 
               <div class="feedback-message-warning">
@@ -85,14 +82,12 @@
           </div>
           <button class=" my-2 confirm-button" id="image-upload-button" onclick="cursorWait()"disabled>Upload</button>
           <% } %>
-
         </div>
       </div>
       </form>
     </div>
     <div class="col-md-2"></div>
   </main>
-
 
 <script src="./public/javascripts/cursor_wait.js"></script>
 <script src="./public/javascripts/show_loading.js"></script>

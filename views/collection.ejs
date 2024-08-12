@@ -115,12 +115,9 @@
             <br><br>
             <label for="table-info-checkbox">Show display info</label>
             <input type="checkbox" id="table-info-checkbox" onclick="toggleClass('active', 'collection-table_info')">
-
         </div>
         </div>
-        
         <div class="col-md-3" id="col-nav-space"></div> <div class="col-md-2" id="preferences-link-div"><a id="preferences-link" class="nav-landscape-el" href='/preferences'>User preferences <i class="bi bi-person-fill-gear"></i></a></div> <div class="col-md-1" id="logout-link-div"><a class="nav-landscape-el" id="logout-link" href="/logout">Logout <i class="bi bi-door-open"></i></a></div>
-
     <div class="row pt-3">
         <div id="new-link-div">
             <a class="confirm-button" id="new-link" href="collection/new"><span>New piece</span></i>
@@ -154,38 +151,22 @@
         <thead>
             <tr>
                 <th>Artist</th>
-
                 <th>Title</th>
-
                 <th>Image</th>
-
                 <th class="narrow-screen-hide">Medium / Size</th> 
-
                 <th>Year</th>
-
                 <th <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> class="portrait-hide"> Added </th>
-
                 <th class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display:none;"  <% } %> >Acquired</th>
-
                 <% if (queryString.includes('forSale')){ %> <th class="portrait-hide">For Sale</th> <% } %>
-
                 <% if(queryString.includes('arch-col')){ %> <th class="portrait-hide">Archival</th> <% } %>
-
                 <% if(queryString.includes('catalogue')){ %> <th class="portrait-hide">Cat. Num.</th> <% } %>
-
-
             </tr>
         </thead>
         <tbody>
-
             <% for (let piece of artPieces) { %>
-            
-                
                     <tr>
                         <td><%= piece.artist %></td>
-
                         <td> <a class="piece-title-link" href="collection/show/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
-
                         <td>
                             <% if (piece.images.length > 0) { %>
                             <% for (let img of piece.images) { %>
@@ -193,11 +174,7 @@
                             <% break } %> 
                             <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
                             <% } %>
-
                         </td>
-
-
-                    
                         <td class="narrow-screen-hide">
                             <%= piece.medium %> <br>                     
                             <% for (let s of piece.size) { %>
@@ -210,9 +187,6 @@
                         <% break } %>
                         <% } %>
                         </td>
-
-
-
                             <% for (let y of piece.year) { %>
                                 <% if (y.year_started != undefined || y.year_stared != null) { %>
                                     <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
@@ -220,26 +194,16 @@
                                 <td><%= y.year_finished %></td>
                                 <% } %>
                             <% break } %>
-                
-
-                            
-                    
-                
                         <td class="portrait-hide" <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> >
-
                         <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
                     <%=  moment (piece.createdAt).fromNow() %> 
                     </td>
-
-
-
                             <td class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
                                 <% if (piece.acquiration_date) { %>
                             <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
                                 <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
                                 <% } else { %> n/a <% } %>
                             </td>
-
                         <% if (queryString.includes('forSale')){ %> 
                             <td class="portrait-hide">
                                 <% if (piece.forSale == true) { %>
@@ -252,39 +216,27 @@
                                             &#10007;
                                             <% } %>                         </td>
                         <% } %>
-
                         <% if (queryString.includes('arch-col')) { %>
                         <td class="portrait-hide"><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
                         <% } %>
-
-
                         <% if (queryString.includes('catalogue')) { %>
                             <td class="portrait-hide"><%=  piece.catalogue %></td>
                             <% } %>
-
-
                     </tr>
             <% } %>
         </tbody>
     </table>
-
-
-
 </main>
 
 <script>
-
         copyLink = async () => {
             let textInput = document.getElementById("discover-link");
             textInput.select();
             textInput.setSelectionRange(0, 99999); 
             await navigator.clipboard.writeText(textInput.value);
-
             alert("Your link has been copied to the clipboard!");
         }
-
 </script>
-
 <script src="public/javascripts/dataTables_settings.js"></script>
 <script src="public/javascripts/remove_toggle_class.js"></script>
 <script src='https://code.jquery.com/jquery-3.7.0.js'></script>
@@ -294,7 +246,6 @@
 <script src='public/javascripts/collection_show_loading.js'></script>
 
 <script>
-
 const setDefault = async function() { 
 
     document.getElementById('loading-div').classList.add('hide');
@@ -339,16 +290,10 @@ const setDefault = async function() {
     localStorage.removeItem('defaultCollectionSettings');
 }};
 
-
-
 window.onload = (function(){
     setDefault()
 });
 
 </script>
-
 </body>
 </html> 
-
-
-
