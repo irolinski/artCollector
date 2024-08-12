@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import { UserModel } from "./models/definitions";
 import { Session } from "express-session";
+import { LogOutOptions } from "passport";
 
 export interface RequestWithLocalVariables extends Request {
   session: Session & { discoverToken: string };
-  user: UserModel;
-  flash: (isSuccess: "success" | "error", msg?: string) => void;
-  login: (
-    registeredUser: { user: string; password: string },
-    cb: (err: Error) => void
-  ) => void;
-  logout: (callback?: (err: Error) => void) => void;
-  isAuthenticated: () => boolean;
+  user?: UserModel;
+  // flash: (isSuccess?: "success" | "error", msg?: string) => string | void
+  login: (registeredUser: { user: string; password: string }, cb: any) => any;
+  logout: {
+    (option: LogOutOptions, done: (err: any) => void): void;
+    (done: (err: any) => void): void;
+  };
+  // isAuthenticated: () => any;
 }
 
 export interface RequestWithFiles extends RequestWithLocalVariables {

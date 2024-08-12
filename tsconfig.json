@@ -4,30 +4,17 @@
     "esModuleInterop": true,
     "target": "es6",
     "lib": ["es6"],
+    "outDir": "./dist",
     "moduleDetection": "force",
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": true,
     "removeComments": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "allowJs": true
   },
   "lib": ["es2015"],
   "type": "module",
-  "include": [
-    "./**/*.ts",
-    "models/mongoose/user.js",
-    "app.js",
-    "controllers/collection.ts",
-    "controllers/discover.ts",
-    "controllers/users.ts",
-    "routes/collection.ts",
-    "routes/discover.ts",
-    "routes/users.ts",
-    "utilities/catchAsync.js",
-    "utilities/isLoggedIn.ts",
-    "utilities/sendEmail.ts",
-    "utilities/validatePiece.ts"
-, "public/javascripts/bootstrap_validations.js", "models/mongoose/artPiece.js"  ],
-  "outDir": "./dist",
+  "include": ["./**/*.ts"],
   "exclude": ["node_modules"]
 }
