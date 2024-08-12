@@ -15,7 +15,7 @@
   "type": "module",
   "include": [
     "./**/*.ts",
-    "models/user.js",
+    "models/mongoose/user.js",
     "app.js",
     "controllers/collection.ts",
     "controllers/discover.ts",
@@ -27,7 +27,7 @@
     "utilities/isLoggedIn.ts",
     "utilities/sendEmail.ts",
     "utilities/validatePiece.ts"
-  ],
+, "public/javascripts/bootstrap_validations.js", "models/mongoose/artPiece.js"  ],
   "outDir": "./dist",
   "exclude": ["node_modules"]
 }

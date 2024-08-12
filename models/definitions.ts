@@ -39,10 +39,6 @@ export type ArtPieceModel = {
 };
 
 export interface UserModelWithMongooseMethods extends UserModel {
-  // login: (
-  //   user: { user: string; password: string },
-  //   cb: (err: Error) => void
-  // ) => void;
   setPassword: (
     new_password: string,
     cb: (err: Error, u: UserModelWithMongooseMethods) => void

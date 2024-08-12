@@ -68,7 +68,7 @@ db.once("open", () => {
   console.log("database connected");
 });
 
-const User = require("./models/user");
+const User = require("./models/mongoose/user");
 
 const collectionRouter = require("./routes/collection");
 const usersRouter = require("./routes/users");

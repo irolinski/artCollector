@@ -7,8 +7,8 @@ import {
 } from "../definitions";
 import { UserModel, UserModelWithMongooseMethods } from "../models/definitions";
 
-const ArtPiece = require("../models/artPiece");
-const User = require("../models/user");
+const ArtPiece = require("../models/mongoose/artPiece");
+const User = require("../models/mongoose/user");
 
 const passport = require("passport");
 passport.serializeUser(User.serializeUser());

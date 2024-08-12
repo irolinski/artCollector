@@ -4,7 +4,7 @@ const router = express.Router();
 const catchAsync = require("../utilities/catchAsync");
 const isLoggedIn = require("../utilities/isLoggedIn");
 
-const User = require("../models/user");
+const User = require("../models/mongoose/user");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local");

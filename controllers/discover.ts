@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { RequestWithLocalVariables } from "../definitions";
 import { UserModel } from "../models/definitions";
 
-const ArtPiece = require("../models/artPiece");
-const User = require("../models/user");
+const ArtPiece = require("../models/mongoose/artPiece");
+const User = require("../models/mongoose/user");
 const mongoose = require("mongoose");
 const moment = require("moment");
 const ExpressError = require("../utilities/ExpressError");

@@ -13,8 +13,8 @@ const { cloudinary } = require("../cloudinary/index");
 const fs = require("fs");
 const XLSX = require("xlsx");
 const ExpressError = require("../utilities/ExpressError");
-const ArtPiece = require("../models/artPiece");
-const artPieceJOI = require("../models/artPieceJOI");
+const ArtPiece = require("../models/mongoose/artPiece");
+const artPieceJOI = require("../models/mongoose/artPieceJOI");
 
 module.exports.collectionPage = async (
   req: RequestWithLocalVariables,
