@@ -4,17 +4,18 @@
     "esModuleInterop": true,
     "target": "es6",
     "lib": ["es6"],
-    "outDir": "./dist",
+    "outDir": "./",
     "moduleDetection": "force",
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "allowJs": true
+    "allowJs": true,
+    "skipLibCheck": true,
   },
   "lib": ["es2015"],
   "type": "module",
-  "include": ["./**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "./dist"]
 }
