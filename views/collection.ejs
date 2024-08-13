@@ -31,31 +31,30 @@
       </div>
     </div>
   </div>
-
-
-
-
 <main class="container hide" id="collection-main">
-
     <container id="collection-nav" class="row">
-
         <!-- category settings -->
         <div class="col-md-3" id="table-categories-div">
         <div class="toggle-button" id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></div> 
-
         <div id="category-settings" class="collapse">
             <form id="collection_form" class="to_be">
                 <label for="archival-select">Archival:</label>
-                    <select name="archival" id="archival-select" onchange="this.form.submit()">
-                        <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %> >Hide</option>
-                        <option value="archival-show" <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>Show</option>
-                        <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
+                    <select name="archival" class="mb-4" id="archival-select" onchange="this.form.submit()">
+                                                    <!-- prettier-ignore-start -->
 
-                    </select><br><br>
-                
+                        <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %>>
+                            Hide
+                        </option>
+                                                    <!-- prettier-ignore-end -->
+
+                        <option value="archival-show" 
+                        <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>
+                        >Show
+                        </option>
+                        <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
+                    </select>
             <section id="categories-container">
                 <div class="toggle-button" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings'); removeClass('active', 'display-arrow')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
-                
                     <div id="categories-checklist" class="categories-checklist">
                         <div>
                 <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
