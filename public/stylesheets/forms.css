@@ -186,11 +186,11 @@ select {
 #preferences-personal-data-div button,
 #preferences-share-div div,
 #preferences-share-div button {
-  transform: translateX(50px);
+  margin-left: 50px;
 }
 
 #preferences-share-div {
-  transform: translateX(-85px);
+  margin-left: -85px;
 }
 
 #preferences-share-div > div {

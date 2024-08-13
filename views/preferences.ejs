@@ -1,17 +1,16 @@
 <% layout('layouts/boilerplate')%>
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
-  <div class="page-brand" id="preferences-page-brand">
-    <h1 class="my-auto page-header mb-2" id="preferences-page-header">Preferences</h1>
+<div class="page-brand" id="preferences-page-brand">
+  <h1 class="my-auto page-header mb-2" id="preferences-page-header">Preferences</h1>
+</div>
+<div id="edit-nav" class="row py-2">
+  <div class="col-md-9"></div>
+  <div class="col-md-3" id="back-link-div">
+    <a href="/collection/" class="nav-landscape-el back-button">Go back <i class="bi bi-backspace"></i>
+    </a>
   </div>
-  <div id="edit-nav" class="row py-2">
-    <div class="col-md-9"></div>
-    <div class="col-md-3" id="back-link-div">
-      <a href="/collection/" class="nav-landscape-el back-button">Go back <i class="bi bi-backspace"></i>
-      </a>
-    </div>
-  </div>
-
+</div>
 <div class="row" id="alert-row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
@@ -24,75 +23,69 @@
   <div class="col-md-2"></div>
 </div>
 <main class="container hide" id="preferences-main">
-    <div data-bs-toggle="collapse" data-bs-target="#preferences-account-settings-div" class="menu preferences-menu"
-      onclick="toggleClass('active', 'account-settings-arrow')">Account info <span class="menu-arrow"
-          id="account-settings-arrow">&#9660;</span></b></div>
-    <section id="preferences-account-settings-div" class="accordion collapse">
-      <div data-bs-toggle="collapse" data-bs-target="#preferences-email" class="menu preferences-menu"
-        onclick="toggleClass('active', 'login-email-arrow')"> &bull; E-mail <span class="menu-arrow"
-            id="login-email-arrow">&#9660;</span> </b> </div>
-      <div id="preferences-email" class="accordion collapse preferences-sub">
-        <div id="preferences-email-form">
-          <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
-            <div class="">
-              <label for="email" class="form-label">Your e-mail adress:</label>
-              <input type="email" name="email" class="form-control" id="email" value="<%=currentUser.email%>">
-                <button type="submit" class="confirm-button">Change!</button>
-                </div>
-          </form>
-        </div>
-        </div>
-
-        <div data-bs-toggle="collapse" data-bs-target="#preferences-login-form" class="menu preferences-menu"
-        onclick="toggleClass('active', 'preferences-login-arrow')">&bull; Login <span class="menu-arrow"
-            id="preferences-login-arrow">&#9660;</span> </b> </div>
-        <div id="preferences-login-form" class="accordion collapse preferences-sub">
-          <div>
-        <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
-        <div class="" id="">
-          <label for="username" class="form-label">Your login:</span></label>
-          <input type="text" name="username" class="form-control" id="username-register" aria-describedby="emailHelp"
-            value="<%=currentUser.username%>">
-            <button type="submit" class="confirm-button">Change!</button>
-        </div>
-      </div>
-      </form>
-    </div>
+  <div data-bs-toggle="collapse" data-bs-target="#preferences-account-settings-div" class="menu preferences-menu"
+    onclick="toggleClass('active', 'account-settings-arrow')">Account info <span class="menu-arrow"
+        id="account-settings-arrow">&#9660;</span></b>
   </div>
-
-      
-      <div data-bs-toggle="collapse" data-bs-target="#preferences-change-password-div" class="menu preferences-menu"
-        onclick="toggleClass('active', 'password-arrow')">&bull; Password <span class="menu-arrow"
-            id="password-arrow">&#9660;</span></b> </div>
-
-      <div id="preferences-change-password-div" class="accordion collapse preferences-sub">
-        <form class="needs-validation preferences-sub-form" action="/preferences/change_password?_method=PUT" method="POST">
+  <section id="preferences-account-settings-div" class="accordion collapse">
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-email" class="menu preferences-menu"
+      onclick="toggleClass('active', 'login-email-arrow')"> &bull; E-mail <span class="menu-arrow"
+          id="login-email-arrow">&#9660;</span> </b>
+    </div>
+    <div id="preferences-email" class="accordion collapse preferences-sub">
+      <div id="preferences-email-form">
+        <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
           <div class="">
-            <label for="register_password" class="form-label">Your password:</label>
-            <input type="password" name="new_password" class="form-control" id="register_password"  minlength="6" maxlength="12" required >
-            <label for="confirm_password" class="form-label">Confirm password:</label>
-            <input type="password" class="form-control" id="confirm_password"  minlength="6" maxlength="12" required>
-            <div class="invalid-feedback">
-              Password has to be 6 to 12 characters long <br>
-              (and the fields need to match)
-            </div>
-
-          <button type="submit" class="confirm-button"
-          onclick="return confirm('Are you sure you want to change your password?')">Change!</button>
+            <label for="email" class="form-label">Your e-mail adress:</label>
+            <input type="email" name="email" class="form-control" id="email" value="<%=currentUser.email%>">
+              <button type="submit" class="confirm-button">Change!</button>
           </div>
         </form>
       </div>
-
+    </div>
+    <div data-bs-toggle="collapse" data-bs-target="#preferences-login-form" class="menu preferences-menu"
+    onclick="toggleClass('active', 'preferences-login-arrow')">&bull; Login <span class="menu-arrow"
+        id="preferences-login-arrow">&#9660; 
+    </div>
+    <div id="preferences-login-form" class="accordion collapse preferences-sub">
+    <div>
+      <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
+      <div class="" id="">
+        <label for="username" class="form-label">Your login:</label>
+        <input type="text" name="username" class="form-control" id="username-register" aria-describedby="emailHelp"
+        value="<%=currentUser.username%>">
+        <button type="submit" class="confirm-button">Change!</button>
       </div>
-    </section>
-
+    </div>
+    </form>
+  </div>
+  <div data-bs-toggle="collapse" data-bs-target="#preferences-change-password-div" class="menu preferences-menu"
+    onclick="toggleClass('active', 'password-arrow')">&bull; Password <span class="menu-arrow"
+        id="password-arrow">&#9660;</span>
+  </div>
+  <div id="preferences-change-password-div" class="accordion collapse preferences-sub">
+    <form class="needs-validation preferences-sub-form" action="/preferences/change_password?_method=PUT" method="POST">
+      <div class="">
+        <label for="register_password" class="form-label">Your password:</label>
+        <input type="password" name="new_password" class="form-control" id="register_password"  minlength="6" maxlength="12" required >
+        <label for="confirm_password" class="form-label">Confirm password:</label>
+        <input type="password" class="form-control" id="confirm_password"  minlength="6" maxlength="12" required>
+        <div class="invalid-feedback">
+          Password has to be 6 to 12 characters long <br>
+          (and the fields need to match)
+        </div>
+        <button type="submit" class="confirm-button"
+        onclick="return confirm('Are you sure you want to change your password?')">Change!</button>
+      </div>
+    </form>
+  </div>
+</section>
     <div data-bs-toggle="collapse" data-bs-target="#preferences-personal-data-div" class="menu preferences-menu"
       onclick="toggleClass('active', 'personal-data-arrow')">Personal data
       <span class="menu-arrow" id="personal-data-arrow">&#9660;</span> <br>
       <span class="subtext text-muted">(to auto-fill the data of the pieces that you own)</span>
     </div>
     <div class=" accordion collapse" id="preferences-personal-data-div" >
-
     <form class="needs-validation preferences-sub-form" id="personal-data-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
       <div  class="preferences-sub">
         <div class="">
@@ -114,7 +107,6 @@
         onclick="toggleClass('active', 'share-arrow')">Share collection 
         <span class="menu-arrow" id="share-arrow">&#9660;</span>
     </div>
-    
       <div id="preferences-share-div" class="collapse col-md-12">
         <div>
           <form class="needs-validation preferences-sub-form" action="/preferences/edit?_method=PUT" method="POST" novalidate>
@@ -140,14 +132,12 @@
           </form>
         </div>
       </div>
-
     <div data-bs-toggle="collapse" data-bs-target="#preferences-export-div" class="menu preferences-menu"
       onclick="toggleClass('active', 'export-arrow')">Export collection <span class="menu-arrow"
           id="export-arrow">&#9660;</span></b></div>
     <div id="preferences-export-div" class=" accordion collapse">
       <form action="/collection/export_collection" method="POST"><button class="confirm-button preferences-button" id="export-button">Export to .xlsx</button></form>
     </div>
-
     <div data-bs-toggle="collapse" data-bs-target="#preferences-delete-account-div" class="menu preferences-menu"
       onclick=" showAlert(deleteAlert), toggleClass('active', 'delete-account-arrow', 'alert-wrapper', 'preferences-main'), removeClass('show', 'preferences-export-div', 'preferences-personal-data-div', 'preferences-account-settings-div')">Delete account <span class="menu-arrow"
           id="delete-account-arrow">&#9660;</span></b></div>
@@ -155,18 +145,10 @@
       <a class="delete-button" href="preferences/deleteAcc"
         onclick="return confirm('Are you sure you want to delete your account? All your data will be lost.')">Delete account</a>
     </div>
-  </main>
-
-
-
-
-
-
-
+</main>
 
   <script src="public/javascripts/confirm_password.js"></script>
   <script src="public/javascripts/show_alert.js"></script>
   <script src="public/javascripts/bootstrap_validations.js"></script>
   <script src="public/javascripts/username_validation.js"></script>
   <script src="./public/javascripts/show_loading.js"></script>
-
