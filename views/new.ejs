@@ -2,7 +2,6 @@
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
-
   <div class="page-brand" id="new-page-brand">
     <h1 class="my-auto page-header mb-2" id="new-page-header">Add a new piece</h1>
   </div>   
@@ -15,15 +14,12 @@
   </div>
 
 <main class="container hide">
-
   <div class="row">
     <div class="col-8 offset-2">
-
       <form class="row g-3 needs-validation" id="new-form" action="/collection" method="POST" enctype="multipart/form-data" novalidate >
         <section id="basic-info-wrapper" class="row accordion collapse show form-section menu-content">
           <h5 class="form-page-header">Basic info</h5>
             <div class="menu-content"></div>
-
           <!-- Artist name -->
           <div class="col-md-6">
               <label for="artist" class="form-label"><span class="required-star">*</span>Artist name:</label>
@@ -33,7 +29,6 @@
               </div>
           </div>
           <div class="col-md-6"></div>
-
           <!-- Title, Year -->
           <div class="col-md-6">
               <label for="title" class="form-label"><span class="required-star">*</span>Title:</label>
@@ -50,7 +45,6 @@
                 Please, enter a year!
             </div>
           </div>
-
           <!-- to be unhidden with the checkbox below-->
           <div class="col-md-5 " id="">
             <div class="collapse" id="year-started">
@@ -59,9 +53,7 @@
               maxlength="4" oninput="this.value=this.value.slice(0,this.maxLength)">
             </div>
           </div>
-
       <div class="col-md-2"></div>
-
           <!-- checkbox to unhide 'year started' attribute input -->
           <div class=" col-md-5" >
             <label class="form-check-label text-dark cb-format" for="multiyear">
@@ -69,10 +61,6 @@
               Assign a period of years
             </label>
           </div>
-
-
-
-
           <!-- Medium -->
           <div class="col-md-6">
               <label for="medium" class="form-label"><span class="required-star">*</span>Medium:</label>
@@ -88,8 +76,6 @@
             </label>
             <input type="file" class="form-control" id="images" name="images" accept=".jpg, .png, .jpeg, .gif"  >
           </div>
-
-
           <!-- Size -->
           <label for="size-y" class="form-label" id="size-label">Size:</label>
           <div class="col-md-2" id="size-y"> 
@@ -98,7 +84,6 @@
           <div class="col-md-2" id="size-x"> 
               <input type="number" class="form-control size-input" name="size[0][x]" placeholder="Width"  step=".01" min="0" max="9999" >
           </div>
-
           <!-- checkbox to unhide 'size-z' attribute input -->
           <div class=" col-md-2" >
             <input class="form-check-input" type="checkbox" id="is-3d" data-bs-toggle="collapse" data-bs-target="#size-z" max="9999">
@@ -106,14 +91,12 @@
               Add 'Depth' 
             </label>
           </div>
-
           <!-- to be uncollapsed with the checkbox above -->
           <div class="col-md-2 " id=""> 
             <div class ="collapse" id="size-z">
               <input type="number" class="form-control size-input" name="size[0][z]" placeholder="Depth"  step=".01" min="0">
               </div>
           </div>
-
           <div class="col-md-3" id="size-unit">
             <select class="form-select size-input" id="unit" aria-label="" name="size[0][unit]">
               <option  value="null" disabled selected>Unit</option>
@@ -121,30 +104,21 @@
               <option value="in">in</option>
             </select>
           </div>
-
           <div class="col-md-1"></div>
-
-
           <!-- For sale checkbox, Price -->
           <label for="#for-sale-indent">For Sale:</label>
-
           <div class="col-md-1" id="for-sale-indent"></div>
                   <div class=" col-md-4">
-              
                     <input type="hidden" name="forSale" value="0"><input class="form-check-input" type="checkbox" id="is_forsale" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value" data-bs-toggle="collapse" data-bs-target=".price"> 
                     <label class="form-check-label" for="is_forsale">
                       Is it, possibly, for sale?
                     </label>
-                    
                   </div>
-                  
-
           <div class="col-md-2">
             <div class="collapse price" id="">
               <input type="number" class="form-control" id="" name="price[0][price]" placeholder="Price" min="0" max="999999999">
             </div>
           </div>
-
           <div class=" col-md-4">
             <div class="collapse price" id="">
               <select class="form-select" aria-label="Small select example" name="price[0][currency]">
@@ -156,181 +130,140 @@
           </div>
           </div>
       </section>
-
       <section id="additional-info-wrapper" class="row accordion collapse form-section menu-content">
-
         <h5 class="form-page-header">Additional info</h5>
-
             <!-- Description -->
         <div data-bs-target="#description-div" data-bs-toggle="collapse" class="menu"
         onclick="toggleClass('active', 'description-arrow')">Description <span id="description-arrow"
           class="menu-arrow">&#9660;</span></div>
       <div class=" menu-content">    
-
       <div class="accordion collapse col-md-12 "  id="description-div">
         <label for="description" class="form-label text-dark"> Description / Additional info: </label>
         <textarea type="text" class="form-control" id="" name="description" style="resize: none; height: 100px;" maxlength="600"></textarea>
         </div>
-
       </div>
-
-
       <!-- Owner-holder wrapper  -->
       <div data-bs-toggle="collapse" data-bs-target="#owner-holder-wrapper" class="menu"
-              onclick="toggleClass('active', 'owner-holder-arrow')">Ownership 
-              <span id="owner-holder-arrow" class="menu-arrow">&#9660;</span></div>
-              <div class="menu-content">
-                <div id="owner-holder-wrapper" class="row accordion collapse">
-                <label for="owner-check" class="form-check-label">Owner:</label>
-                  <div class="col-md-4" id="owner-check">
-                    <label class="form-check-label cb-format" for="self-owned">
-                      <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="self" id="self-owned"  checked="checked"  onchange="toggleCollapse('.owner-check')" >
-                      I am the owner of this piece
-                    </label>
-                  </div>
-
-                  <div class="col-md-6">
-                    <label class="form-check-label cb-format" for="else-owned">
-                      <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="else" id="else-owned" onchange="toggleCollapse('.owner-check')" >
-                      Someone else is the owner of this piece
-                    </label>
-                  </div>
-
-                      <!-- if someone else is the owner  -->
-                  <div class=" col-md-5 ">
-                    <div class="owner-check collapse">
-                      <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50">
-                    </div>
-                  </div>
-
-
-                  <div class="col-md-6 ">
-                    <div class="owner-check collapse">
-                    <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info" maxlength="50">
-                    </div>
-                  </div>
-
-                  <div class="col-md-1"></div>
-
-
-                    <!-- Holder -->
-                    <label for="holder-div" class="form-check-label">Holder:</label>
-
-                    <div class="col-md-4" id="holder-div">
-                      <label class="form-check-label cb-format" for="self-held">
-                        <input class="form-check-input cb-format" type="radio" name="holder[0][status]" value="self" id="self-held" checked="checked" onchange="toggleCollapse('.holder-check')" >
-                        I am the holder of this piece
-                      </label>
-                    </div>
-
-                    <div class=" col-md-6">
-                      <label class="form-check-label cb-format" for="else-held">
-                        <input class="form-check-input cb-format" type="radio" name="holder[0][status]" value="else-held" id="else-held" onchange="toggleCollapse('.holder-check')">
-                        Someone else is the holder of this piece
-                      </label>
-                    </div>
-
-
-
-                        <!-- If someone else is the holder  -->
-                    <div class=" col-md-5">
-                      <div class="holder-check collapse">
-                        <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" maxlength="40">
-                      </div>
-                    </div>
-
-                    <div class=" col-md-6">
-                      <div class="holder-check collapse">
-                        <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" maxlength="40">
-                      </div>
-                    </div>
-
-                    <div class="col-md-1"></div>
-
-
-
-
-                  <!-- Date of acquisition -->
-                    <label class="form-check-label" for="acquiration-date-field"> Acquisitition Date: </label>
-                    <div class="col-md-5" name="acquiration-date-field"id="acquiration-date-field">
-                    <input type="date" class="form-control" name="acquiration_date" />
-                    </div>
-
-                  <div class="col-md-7"></div>
-                </div>
+      onclick="toggleClass('active', 'owner-holder-arrow')">
+        Ownership 
+        <span id="owner-holder-arrow" class="menu-arrow">&#9660;</span>
       </div>
-
+      <div class="menu-content">
+        <div id="owner-holder-wrapper" class="row accordion collapse">
+        <label for="owner-check" class="form-check-label">Owner:</label>
+          <div class="col-md-4" id="owner-check">
+            <label class="form-check-label cb-format" for="self-owned">
+              <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="self" id="self-owned"  checked="checked"  onchange="toggleCollapse('.owner-check')" >
+              I am the owner of this piece
+            </label>
+          </div>
+          <div class="col-md-6">
+            <label class="form-check-label cb-format" for="else-owned">
+              <input class="form-check-input cb-format" type="radio" name="owner[0][status]" value="else" id="else-owned" onchange="toggleCollapse('.owner-check')" >
+              Someone else is the owner of this piece
+            </label>
+          </div>
+              <!-- if someone else is the owner  -->
+          <div class=" col-md-5 ">
+            <div class="owner-check collapse">
+              <input type="text" class="form-control" name="owner[0][name]" id="owner" placeholder="Owner name" maxlength="50">
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="owner-check collapse">
+            <input type="text" class="form-control" name="owner[0][contact_info]" id="owner_contact" placeholder="Contact info" maxlength="50">
+            </div>
+          </div>
+          <div class="col-md-1">
+          </div>
+            <!-- Holder -->
+            <label for="holder-div" class="form-check-label">Holder:</label>
+            <div class="col-md-4" id="holder-div">
+              <label class="form-check-label cb-format" for="self-held">
+                <input class="form-check-input cb-format" type="radio" name="holder[0][status]" value="self" id="self-held" checked="checked" onchange="toggleCollapse('.holder-check')" >
+                I am the holder of this piece
+              </label>
+            </div>
+            <div class=" col-md-6">
+              <label class="form-check-label cb-format" for="else-held">
+                <input class="form-check-input cb-format" type="radio" name="holder[0][status]" value="else-held" id="else-held" onchange="toggleCollapse('.holder-check')">
+                Someone else is the holder of this piece
+              </label>
+            </div>
+                <!-- If someone else is the holder  -->
+            <div class=" col-md-5">
+              <div class="holder-check collapse">
+                <input type="text" class="form-control" name="holder[0][name]" id="holder" placeholder="Holder name" maxlength="40">
+              </div>
+            </div>
+            <div class=" col-md-6">
+              <div class="holder-check collapse">
+                <input type="text" class="form-control" name="holder[0][contact_info]" id="holder_contact" placeholder="Contact info" maxlength="40">
+              </div>
+            </div>
+            <div class="col-md-1"></div>
+          <!-- Date of acquisition -->
+            <label class="form-check-label" for="acquiration-date-field"> Acquisitition Date: </label>
+            <div class="col-md-5" name="acquiration-date-field"id="acquiration-date-field">
+            <input type="date" class="form-control" name="acquiration_date" />
+            </div>
+          <div class="col-md-7"></div>
+        </div>
+      </div>
       <!-- Details -->
       <div data-bs-target="#details-wrapper" data-bs-toggle="collapse" class="menu"
       onclick="toggleClass('active', 'details-arrow')">Details <span id="details-arrow"
-        class="menu-arrow">&#9660;</span></div>
+        class="menu-arrow">&#9660;</span>
+      </div>
       <div class="menu-content">
         <div id="details-wrapper" class=" row accordion collapse">
-
-
-      <!-- Catalogue number -->
-      <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
-      <!-- <div class="col-md-1" id="catalogue-number-indent"></div> -->
-        <div class="col-md-5" name="">
-          <label class="form-check-label cb-format" for="catalogue-check" id="has-catalogue-number">
-            <input class="form-check-input cb-format" type="checkbox" name="" value="" id="catalogue-check" data-bs-toggle="collapse" data-bs-target="#catalogue">
-            Do you want to enter a catalogue number?
-          </label>
-        </div>
-        <div class="col-md-6">
-          <div id="catalogue" class="collapse">
-            <input type="text" class="form-control"  name="catalogue" placeholder="Catalogue number" maxlength="20">
+          <!-- Catalogue number -->
+          <label class="form-check-label" for="catalogue-number-indent">Catalogue Number:</label>
+          <!-- <div class="col-md-1" id="catalogue-number-indent"></div> -->
+            <div class="col-md-5" name="">
+              <label class="form-check-label cb-format" for="catalogue-check" id="has-catalogue-number">
+                <input class="form-check-input cb-format" type="checkbox" name="" value="" id="catalogue-check" data-bs-toggle="collapse" data-bs-target="#catalogue">
+                Do you want to enter a catalogue number?
+              </label>
+            </div>
+            <div class="col-md-6">
+              <div id="catalogue" class="collapse">
+                <input type="text" class="form-control"  name="catalogue" placeholder="Catalogue number" maxlength="20">
+              </div>
+            </div> 
+          <!-- Archival checkbox -->
+          <div class="col-md-7"></div>
+          <div class=" col-md-5">
+            <label class="form-check-label text-dark cb-format"  for="archival-check">
+              <input type="hidden" name="archival" value="0"><input class="form-check-input text-dark cb-format" type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
+                Mark this release as archival
+            </label>
           </div>
         </div> 
-
-
-
-
-
-      <!-- Archival checkbox -->
-      <div class="col-md-7"></div>
-
-      <div class=" col-md-5">
-        <label class="form-check-label text-dark cb-format"  for="archival-check">
-          <input type="hidden" name="archival" value="0"><input class="form-check-input text-dark cb-format" type="checkbox" id="archival-check" onclick="this.previousElementSibling.value=1-this.previousElementSibling.value"> 
-            Mark this release as archival
-        </label>
       </div>
-  </div> 
-  </div>
-          </div>
-
-      <!-- Send form button -->
-      <div class="row form-section collapse form-section" id="new-confirm-button-row">
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-          <button form="new-form" type="submit" class="confirm-button mb-2">Create a new piece</button>
+    </div>
+    <!-- Send form button -->
+    <div class="row form-section collapse form-section" id="new-confirm-button-row">
+      <div class="col-md-9"></div>
+      <div class="col-md-3">
+        <button form="new-form" type="submit" class="confirm-button mb-2">Create a new piece</button>
+      </div>
+    </div>
+      <!-- Input that passes currentUser._id  -->
+      <input type="hidden" name="user_id" value="<%= currentUser._id.toString() %>">
+      </form>
+      <div class="row accordion collapse show" id="new-confirm-button-row">
+        <div class="col-md-12">
+          <div class=" mb-2 form-section accordion collapse show form-page-button" id="new-next-button" data-bs-toggle="collapse" data-bs-target=".form-section">Next ≫</div>       
+          <div class=" mb-2 accordion collapse form-section form-page-button" id="new-prev-button" data-bs-toggle="collapse" data-bs-target=".form-section">≪ Previous</div>
         </div>
       </div>
-
-
-
-          <!-- Input that passes currentUser._id  -->
-          <input type="hidden" name="user_id" value="<%= currentUser._id.toString() %>">
-        </form>
-        <div class="row accordion collapse show" id="new-confirm-button-row">
-          <div class="col-md-12">
-            <div class=" mb-2 form-section accordion collapse show form-page-button" id="new-next-button" data-bs-toggle="collapse" data-bs-target=".form-section">Next ≫</div>       
-            <div class=" mb-2 accordion collapse form-section form-page-button" id="new-prev-button" data-bs-toggle="collapse" data-bs-target=".form-section">≪ Previous</div>
-
-          </div>
-        </div>
-      </div>
+    </div>
   </section>
 </main>
-
-
-
 
 <script src="./public/javascripts/bootstrap_validations.js"></script>
 <script src="./public/javascripts/jquery.dirty.js"></script>
 <script> $("#new-form").dirty({preventLeaving: true}); </script>
 <script src="./public/javascripts/toggleCollapse.js"></script>
 <script src="./public/javascripts/show_loading.js"></script>
-
-
