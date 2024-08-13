@@ -87,10 +87,14 @@
           <span class="card-subtitle mb-2 text-muted d-block">
             <% for (let s of p.size) { %> <% if (s.y === undefined || s.y ===
             null || s.x === undefined || s.x === null){ %>
-            <span id="medium-span"><%= p.medium %></span>
+            <span id="medium-span">
+              <%= p.medium %>
+            </span>
             <span id="size-span"></span>
             <% } else { %>
-            <span id="medium-span"><%= `${p.medium},` %></span>
+            <span id="medium-span">
+              <%= `${p.medium},` %>
+            </span>
             <span id="size-span">
               <% if ((s.z === undefined) || (s.z === null)){ %> <%= `${s.y} x
               ${s.x} ${s.unit}` %> <% } else { %> <%= `${s.y} x ${s.x} x ${s.z}
@@ -256,19 +260,19 @@
                 </div>
               </div>
             </div>
-            <button
+            <a
               href="/collection/show/<%= p._id %>/edit"
               class="card-link mb-2"
             >
               Edit Piece
-            </button>
+            </a>
             &emsp;
-            <button
+            <a
               href="/collection/show/<%=p._id%>/edit/images"
               class="card-link mb-4"
             >
               Edit images <i class="bi bi-images"></i>
-            </button>
+            </a>
             <button
               class="mb-4 card-link export-link"
               id="export-wrapper"
@@ -279,18 +283,22 @@
               Export
             </button>
             <div class="accordion collapse" id="export-div">
-              <button
-                class="card-link export-link d-block mb-2"
-                id="export-cat"
-              >
-                Create a catalogue leflet
-              </button>
-              <button
-                class="card-link export-link d-block mb-2"
-                id="export-mus"
-              >
-                Create a label
-              </button>
+              <a>
+                <span
+                  class="card-link export-link d-block my-2"
+                  id="export-cat"
+                >
+                  Create a catalogue leflet
+                </span>
+              </a>
+              <a>
+                <span
+                  class="card-link export-link d-block mb-2"
+                  id="export-mus"
+                >
+                  Create a label
+                </span>
+            </a>
             </div>
           </div>
         </div>

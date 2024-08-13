@@ -2,27 +2,30 @@
 
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
-  <div class="page-brand" id="edit-images-brand">
-    <h1 class="my-auto page-header mb-2" id="edit-images-header">Edit Images</h1>
-  </div>
+<div class="page-brand" id="edit-images-brand">
+  <h1 class="my-auto page-header mb-2" id="edit-images-header">
+    Edit Images
+  </h1>
+</div>
 
-  <div id="edit-nav" class="row py-2 form-nav">
-    <div class="col-md-9"></div>
-    <div class="col-md-3" id="back-link-div">
-      <a href="/collection/show/<%=p._id%>" class="nav-landscape-el">Go back <i class="bi bi-backspace"></i>
-      </a>
-    </div>
+<div id="edit-nav" class="row py-2 form-nav">
+  <div class="col-md-9">
   </div>
+  <div class="col-md-3" id="back-link-div">
+    <a href="/collection/show/<%=p._id%>" class="nav-landscape-el">
+      Go back 
+      <i class="bi bi-backspace"></i>
+    </a>
+  </div>
+</div>
 
-  <main class="row hide">
-    <div class="col-md-2"></div>
+<main class="row hide">
+  <div class="col-md-2">
+  </div>
     <div class="col-md-4" id="edit-images-col">
       <!-- image options -->
-
       <% if (p.images.length) { %>
-
         <div class="col-md-12" id="image-edit-wrapper">
-
           <div class="menu menu-image-edit" for="deleteImageDiv" data-bs-toggle="collapse"
             data-bs-target="#manage-images-div" onclick="toggleClass('active', 'manage-images-arrow')">
             Manage images <span class="menu-arrow" id="manage-images-arrow">&#9660;</span>
@@ -54,40 +57,48 @@
         </div>
         <% } %>
     </div>
-
     <!-- upload new images -->
     <div class="col-md-4" id="image-upload-wrapper">
       <form class="row g-3" action="/collection/show/<%= p._id %>?_method=PUT" method="POST"
         enctype="multipart/form-data">
-
-
         <div class="menu menu-image-edit image-edit-text" data-bs-toggle="collapse" data-bs-target="#upload-more-div"
           onclick="toggleClass('active', 'upload-images-arrow')">
-          Upload more images <span class="menu-arrow" id="upload-images-arrow">&#9660;</span></div>
+          Upload more images 
+          <span class="menu-arrow" id="upload-images-arrow">
+            &#9660;
+          </span>
+        </div>
         <div id="upload-more-div" class="accordion collapse">
           <div>
-          <div class="col-md-12">
-
-            <% if (p.images.length>= 4) { %> 
-              <div class="feedback-message-warning">
-              <h6>You have reached the max allowed image number.</h6>
-                In order to upload new images, delete some of the ones already uploaded!</div>
-              <% } else { %>
-                <span class="text-muted image-edit-text d-block"> If done one at a time, you can upload up to four images... </span><br>
-               <span class="subtext text-muted d-block"> (max size per image: 5mb; allowed formats: jpg, png, gif) </span>
-                <input type="file" class="form-control" id="upload-images-input" name="images"
-                  accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length>= 4) { %> disabled <% } %>
-                  onchange="unlockButton()">
+            <div class="col-md-12">
+              <% if (p.images.length>= 4) { %> 
+                <div class="feedback-message-warning">
+                  <h6>You have reached the max allowed image number.</h6>
+                    In order to upload new images, delete some of the ones already uploaded!
+                </div>
+                <% } else { %>
+                  <span class="text-muted image-edit-text d-block">
+                     If done one at a time, you can upload up to four images... 
+                  </span>
+                  <br>
+                  <span class="subtext text-muted d-block">
+                    (max size per image: 5mb; allowed formats: jpg, png, gif) 
+                  </span>
+                  <input type="file" class="form-control" id="upload-images-input" name="images"
+                    accept=".jpg, .png, .jpeg, .gif" <% if (p.images.length>= 4) { %> disabled <% } %>
+                    onchange="unlockButton()">
+            </div>
           </div>
-          </div>
-          <button class=" my-2 confirm-button" id="image-upload-button" onclick="cursorWait()"disabled>Upload</button>
+          <button class=" my-2 confirm-button" id="image-upload-button"
+            onclick="cursorWait()"disabled>Upload
+          </button>
           <% } %>
         </div>
       </div>
-      </form>
-    </div>
-    <div class="col-md-2"></div>
-  </main>
+    </form>
+  </div>
+  <div class="col-md-2"></div>
+</main>
 
 <script src="./public/javascripts/cursor_wait.js"></script>
 <script src="./public/javascripts/show_loading.js"></script>

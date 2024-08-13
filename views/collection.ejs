@@ -1,150 +1,171 @@
 <% layout('layouts/boilerplate')%>
-
-
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
 <div class="page-brand hide" id="collection-page-brand">
-<h1 class="my-auto page-header mb-2" id="collection-page-header">My Collection</h1>
+    <h1 class="my-auto page-header mb-2" id="collection-page-header">
+        My Collection
+    </h1>
 </div>    
-
 <div class="modal fade" id="share_modal" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Share your collection!</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Share your collection!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body pb-0">
+                <h6>Let your friends see your collection - use the link below!</h6>
+                <span class="text-muted"> (Works marked as archival will not be shown)</span>
+            </div>
+            <div class="modal-body pt-0" id="discover-modal-body">
+                <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>" readonly>
+                <button type="button" class="btn btn-outline-secondary" id="discover-modal-button" onclick="copyLink()">
+                    <i class="bi bi-copy"></i>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="confirm-button" data-bs-dismiss="modal">Got it!</button>
+            </div>
         </div>
-        <div class="modal-body pb-0">
-            <h6>Let your friends see your collection - use the link below!</h6>
-            <span class="text-muted"> (Works marked as archival will not be shown)</span>
-        </div>
-        <div class="modal-body pt-0" id="discover-modal-body">
-            <input type="text" class="form-control" id="discover-link" value="http://<%=host%>/discover/<%=currentUser.username%>" readonly>
-            <button type="button" class="btn btn-outline-secondary" id="discover-modal-button" onclick="copyLink()">
-                <i class="bi bi-copy"></i>
-            </button>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="confirm-button" data-bs-dismiss="modal">Got it!</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
 <main class="container hide" id="collection-main">
     <container id="collection-nav" class="row">
-        <!-- category settings -->
+            <!-- category settings -->
         <div class="col-md-3" id="table-categories-div">
-        <div class="toggle-button" id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')" >Category Settings <span id="category-arrow" class="menu-arrow">&#9660;</span></div> 
-        <div id="category-settings" class="collapse">
-            <form id="collection_form" class="to_be">
-                <label for="archival-select">Archival:</label>
+            <div class="toggle-button" id="table-categories-toggle" data-bs-toggle="collapse" data-bs-target="#category-settings" onclick="toggleClass('active', 'category-arrow', 'collection-table_length')">
+                Category Settings
+                <span id="category-arrow" class="menu-arrow">
+                    &#9660;
+                </span>
+            </div> 
+            <div id="category-settings" class="collapse">
+                <form id="collection_form" class="to_be">
+                    <label for="archival-select">
+                        Archival:
+                    </label>
                     <select name="archival" class="mb-4" id="archival-select" onchange="this.form.submit()">
-                                                    <!-- prettier-ignore-start -->
-
                         <option value="archival-hide" <% if (archivalStatus === "archival-hide" ) { %> selected="selected" <% } %>>
                             Hide
                         </option>
-                                                    <!-- prettier-ignore-end -->
-
                         <option value="archival-show" 
-                        <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>
-                        >Show
+                        <% if ((archivalStatus === "archival-show") || (archivalStatus === undefined)) { %> selected="selected" <% } %>>
+                        Show
                         </option>
-                        <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>Show Only </option>
+                        <option value="archival-showOnly" <% if (archivalStatus === "archival-showOnly") { %> selected="selected" <% } %>>
+                            Show Only 
+                        </option>
                     </select>
-            <section id="categories-container">
-                <div class="toggle-button" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings'); removeClass('active', 'display-arrow')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
-                    <div id="categories-checklist" class="categories-checklist">
-                        <div>
-                <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
-                <label class="category-label" for="#checkbox0"> Added </label>
+                    <section id="categories-container">
+                        <div class="toggle-button" id="categories-label" for="categories" data-bs-toggle="collapse" data-bs-target="#categories-checklist-mobile-placeholder" onclick="toggleClass('active', 'categories-checklist', 'manage-arrow'); removeClass('show', 'display-settings'); removeClass('active', 'display-arrow')">Manage Categories <span id="manage-arrow" class="menu-arrow">&#9660;</span></label>
+                            <div id="categories-checklist" class="categories-checklist">
+                                <div>
+                                    <input type="checkbox" class="category-check" value="1"  name="added" id="checkbox0" onchange="this.form.submit()" <% if (queryString.includes('added')) { %> checked="checked" <% } %>/>
+                                    <label class="category-label" for="#checkbox0"> 
+                                        Added 
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
+                                    <label class="category-label" for="#checkbox1"> 
+                                        Date acquired 
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
+                                    <label class="category-label" for="#checkbox2"> 
+                                        For Sale 
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
+                                    <label class="category-label" for="#checkbox3"> Archival </label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
+                                    <label class="category-label" for="#checkbox4"> Catalogue Number </label>
+                                </div>
                         </div>
-                        <div>
-                <input type="checkbox" class="category-check" value="1" name="acquired" id="checkbox1" onchange="this.form.submit()" <% if (queryString.includes('acquired')) { %> checked="checked" <% } %>/>
-                <label class="category-label" for="#checkbox1"> Date acquired </label>
+                        <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
+                            <span class="d-block">Flip your device!</span>
+                        </div>
+                    </section>
+                </form>
+                <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
+                    <input type="hidden" name="custom_table" value="<%=queryString%>"/>
+                    <button type="submit" class="collection-categories" id="categories-save"> Save as default </button> 
+                </form>
             </div>
-
-                <div>
-
-                <input type="checkbox" class="category-check" value="1" name="forSale" id="checkbox2" onchange="this.form.submit()" <% if (queryString.includes('forSale')) { %> checked="checked" <% } %> />
-                <label class="category-label" for="#checkbox2"> For Sale </label>
-            </div>
-
-                <div>
-
-                <input type="checkbox" class="category-check" value="1" name="arch-col" id="checkbox3" onchange="this.form.submit()" <% if (queryString.includes('arch-col')) { %> checked="checked" <% } %> />
-                <label class="category-label" for="#checkbox3"> Archival </label>
-            </div>
-
-                <div>
-
-                <input type="checkbox" class="category-check" value="1" name="catalogue" id="checkbox4" onchange="this.form.submit()" <% if (queryString.includes('catalogue')) { %> checked="checked" <% } %> />
-                <label class="category-label" for="#checkbox4"> Catalogue Number </label>
-            </div>
-            </div>
-            <div id="categories-checklist-mobile-placeholder" class="categories-checklist collapse"> <br>
-                <span class="d-block">Flip your device!</span>
-            </div>
-        </section>
-            </form>
-
-            <form action="/preferences/edit?_method=PUT" method="POST" novalidate>
-            <input type="hidden" name="custom_table" value="<%=queryString%>"/>
-            <button type="submit" class="collection-categories" id="categories-save"> Save as default </button> 
-            </form>
-        </div>
         </div> 
-
-
         <!-- display settings -->
         <div class="col-md-3" id="display-settings-div">
-        <div class="text-nowrap toggle-button" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow', 'display-settings-div'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">Display Settings <span id="display-arrow" class="menu-arrow">&#9660;</span></div>
-
-
-        <div id="display-settings" class="collapse">
-
-            <label for="length_change" class="mb-2">Pieces per page:</label>
-            <select name='length_change' id='length_change'>
-                <option value='5'>5</option>
-                <option value='10'>10</option>
-                <option value='15'>15</option>
-                <option value='200'>200</option>
-            </select>
-            <br><br>
-            <label for="table-info-checkbox">Show display info</label>
-            <input type="checkbox" id="table-info-checkbox" onclick="toggleClass('active', 'collection-table_info')">
+            <div class="text-nowrap toggle-button" id="display-settings-toggle" data-bs-toggle="collapse" data-bs-target="#display-settings" onclick="toggleClass('active', 'display-arrow', 'display-settings-div'); removeClass('active','categories-checklist'); removeClass('active', 'manage-arrow')">
+                Display Settings
+                <span id="display-arrow" class="menu-arrow">
+                    &#9660;
+                </span>
+            </div>
+            <div id="display-settings" class="collapse">
+                <label for="length_change" class="mb-2">
+                    Pieces per page:
+                </label>
+                <select name='length_change' id='length_change'>
+                    <option value='5'>5</option>
+                    <option value='10'>10</option>
+                    <option value='15'>15</option>
+                    <option value='200'>200</option>
+                </select>
+                <br><br>
+                <label for="table-info-checkbox">
+                    Show display info
+                </label>
+                <input type="checkbox" id="table-info-checkbox" onclick="toggleClass('active', 'collection-table_info')">
+            </div>
         </div>
-        </div>
-        <div class="col-md-3" id="col-nav-space"></div> <div class="col-md-2" id="preferences-link-div"><a id="preferences-link" class="nav-landscape-el" href='/preferences'>User preferences <i class="bi bi-person-fill-gear"></i></a></div> <div class="col-md-1" id="logout-link-div"><a class="nav-landscape-el" id="logout-link" href="/logout">Logout <i class="bi bi-door-open"></i></a></div>
-    <div class="row pt-3">
-        <div id="new-link-div">
-            <a class="confirm-button" id="new-link" href="collection/new"><span>New piece</span></i>
+        <div class="col-md-3" id="col-nav-space">
+        </div> 
+        <div class="col-md-2" id="preferences-link-div">
+            <a id="preferences-link" class="nav-landscape-el" href='/preferences'>User preferences 
+                <i class="bi bi-person-fill-gear"></i>
             </a>
-            <a id="new-link-mobile" href="collection/new"></a>
-        </div>  
-    </div>
-
-    <div class="row" id="search-row">
-        <div class="col-md-6" id="search-box">
-            <span id="search-icon" class="search-icon" onclick="toggleClass('active', 'search-accordion'), toggleClass('active', 'search-icon')"></span>
-            <span id="search-accordion" class="search-accordion"><input type="text" id="table-search" placeholder="What are you looking for?"> </span> 
         </div>
-        <% if(currentUser.share_collection !== false) { %>
-        <div class="col-md-3" id="share-box">
+        <div class="col-md-1" id="logout-link-div">
+            <a class="nav-landscape-el" id="logout-link" href="/logout">Logout 
+                <i class="bi bi-door-open"></i>
+            </a>
+        </div>
+        <div class="row pt-3">
+            <div id="new-link-div">
+                <a class="confirm-button" id="new-link" href="collection/new">
+                    <span>New piece</span>
+                </a>
+                <a id="new-link-mobile" href="collection/new"></a>
+            </div>  
+        </div>
+        <div class="row" id="search-row">
+            <div class="col-md-6" id="search-box">
+                <span id="search-icon" class="search-icon" 
+                onclick="toggleClass('active', 'search-accordion'), toggleClass('active', 'search-icon')">
+                </span>
+                <span id="search-accordion" class="search-accordion"><input type="text" id="table-search" 
+                placeholder="What are you looking for?"> 
+                </span> 
+            </div>
+            <% if(currentUser.share_collection !== false) { %>
+            <div class="col-md-3" id="share-box">
                 <div data-bs-toggle="modal" data-bs-target="#share_modal">
                     <span id="share-link"></i></span>
                 </div>
-        </div>
-        <% } else { %>
+            </div>
+            <% } else { %>
+                <div class="col-md-3">
+                </div>   
+            <% } %>
             <div class="col-md-3">
-            </div>   
-        <% } %>
-        <div class="col-md-3"></div>
-    </div>
+            </div>
+        </div>
     </container>
-
-
 
     <table id="collection-table" class="table-hover" style="width:100%">
         <thead>
@@ -163,65 +184,80 @@
         </thead>
         <tbody>
             <% for (let piece of artPieces) { %>
-                    <tr>
-                        <td><%= piece.artist %></td>
-                        <td> <a class="piece-title-link" href="collection/show/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
-                        <td>
-                            <% if (piece.images.length > 0) { %>
+                <tr>
+                    <td><%= piece.artist %></td>
+                    <td> 
+                        <a class="piece-title-link" href="collection/show/<%=piece.id%>">
+                            <span class="piece-title"><%= piece.title %></span>
+                        </a> 
+                    </td>
+                    <td>
+                        <% if (piece.images.length > 0) { %>
                             <% for (let img of piece.images) { %>
-                        <img src="<%= img.url.slice( 0, (img.url.lastIndexOf('upload/') + 'upload/'.length)) + 's--caQdDxhX--/t_ac_thmbnl/' + (img.url.slice(img.url.lastIndexOf('upload/') + 'upload/'.length)); %>" style="max-width:100px; width:100%">
-                            <% break } %> 
-                            <% } else { %> <img class="" style="width:100px; height:100px;" src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"> 
-                            <% } %>
-                        </td>
-                        <td class="narrow-screen-hide">
-                            <%= piece.medium %> <br>                     
-                            <% for (let s of piece.size) { %>
-                                <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
-                            <% if (s.z === undefined || s.z === null){ %>
-                                <%=  `${s.y} x ${s.x} ${s.unit}` %> 
-                        <%  } else { %>
-                            <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
-                            <% } %>
-                        <% break } %>
+                                <img src="<%= img.url.slice( 0, (img.url.lastIndexOf('upload/') + 'upload/'.length)) + 's--caQdDxhX--/t_ac_thmbnl/' + (img.url.slice(img.url.lastIndexOf('upload/') + 'upload/'.length)); %>" 
+                                style="max-width:100px; width:100%"
+                                >
+                                <% break } %> 
+                            <% } else { %> 
+                                <img class="" style="width:100px; height:100px;" 
+                                src="https://res.cloudinary.com/dtjtqp7r1/image/upload/v1704838383/artCollector/app_images/No_image_qxymjl.jpg"
+                                > 
                         <% } %>
-                        </td>
-                            <% for (let y of piece.year) { %>
-                                <% if (y.year_started != undefined || y.year_stared != null) { %>
-                                    <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
-                            <%  } else { %>
-                                <td><%= y.year_finished %></td>
+                    </td>
+                    <td class="narrow-screen-hide">
+                        <%= piece.medium %> 
+                        <br>                     
+                        <% for (let s of piece.size) { %>
+                            <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
+                                <% if (s.z === undefined || s.z === null){ %>
+                                    <%=  `${s.y} x ${s.x} ${s.unit}` %> 
+                                <%  } else { %>
+                                    <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
                                 <% } %>
                             <% break } %>
-                        <td class="portrait-hide" <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> >
-                        <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
-                    <%=  moment (piece.createdAt).fromNow() %> 
+                        <% } %>
                     </td>
-                            <td class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
-                                <% if (piece.acquiration_date) { %>
-                            <span style="display: none">   <%= piece.acquiration_date.getTime() %>    </span> 
-                                <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
-                                <% } else { %> n/a <% } %>
-                            </td>
-                        <% if (queryString.includes('forSale')){ %> 
-                            <td class="portrait-hide">
-                                <% if (piece.forSale == true) { %>
-                                    <% for (let el of piece.price) { %>
-                                    <%  if (el.price !== null) { %>
-                                        <%= `${el.price} ${el.currency}` %> 
-                                        <% } else { %>
-                                            not set
-                                    <% }}} else { %>
-                                            &#10007;
-                                            <% } %>                         </td>
-                        <% } %>
-                        <% if (queryString.includes('arch-col')) { %>
-                        <td class="portrait-hide"><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
-                        <% } %>
-                        <% if (queryString.includes('catalogue')) { %>
-                            <td class="portrait-hide"><%=  piece.catalogue %></td>
+                        <% for (let y of piece.year) { %>
+                            <% if (y.year_started != undefined || y.year_stared != null) { %>
+                                <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
+                            <%  } else { %>
+                                <td>
+                                    <%= y.year_finished %>
+                                </td>
                             <% } %>
-                    </tr>
+                        <% break } %>
+                    <td class="portrait-hide" <% if (!queryString.includes('added')) { %> style="display: none;" <% } %> >
+                        <span style="display: none"> 
+                            <%= piece.createdAt.getTime() %> 
+                        </span> 
+                        <%=  moment (piece.createdAt).fromNow() %> 
+                    </td>
+                    <td class="portrait-hide" <% if (!queryString.includes('acquired')){ %> style="display: none;"  <% } %> >
+                        <% if (piece.acquiration_date) { %>
+                            <span style="display: none">   <%= piece.acquiration_date.getTime() %> </span> 
+                            <%=  moment(piece.acquiration_date).format("DD/MM/YYYY")%>
+                        <% } else { %> n/a <% } %>
+                    </td>
+                    <% if (queryString.includes('forSale')){ %> 
+                        <td class="portrait-hide">
+                            <% if (piece.forSale == true) { %>
+                                <% for (let el of piece.price) { %>
+                                <%  if (el.price !== null) { %>
+                                    <%= `${el.price} ${el.currency}` %> 
+                                    <% } else { %>
+                                        not set
+                                <% }}} else { %>
+                                        &#10007;
+                                        <% } %>                         
+                        </td>
+                    <% } %>
+                    <% if (queryString.includes('arch-col')) { %>
+                        <td class="portrait-hide"><% if (piece.archival == true) { %> &#10003; <% } else { %> &#10007; <% } %></td>
+                    <% } %>
+                    <% if (queryString.includes('catalogue')) { %>
+                        <td class="portrait-hide"><%=  piece.catalogue %></td>
+                    <% } %>
+                </tr>
             <% } %>
         </tbody>
     </table>
@@ -243,18 +279,13 @@
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
 <script src='public/javascripts/collection_show_loading.js'></script>
-
 <script>
-const setDefault = async function() { 
-
+    const setDefault = async function() { 
     document.getElementById('loading-div').classList.add('hide');
     document.getElementById('collection-page-brand').classList.remove('hide');
     document.getElementById('collection-main').classList.remove('hide');
-
-
-    let userTable = '<%- JSON.stringify(userTable) %>'
-    let queryString = '<%- JSON.stringify(queryString) %>'
-
+    const userTable = '<%- JSON.stringify(userTable) %>'
+    const queryString = '<%- JSON.stringify(queryString) %>'
 
     if 
     (((!queryString.includes('added') && !queryString.includes('catalogue') && !queryString.includes('acquired') && !queryString.includes('arch-col') && !queryString.includes('forSale')) && (queryString.includes('archival-hide') || queryString.includes('archival-show') || queryString.includes('archival-showOnly')))) {
@@ -263,9 +294,7 @@ const setDefault = async function() {
     if (localStorage.getItem("defaultCollectionSettings") === null && localStorage.getItem("noBoxesChecked") === null) {
 
         showLoading();
-
         await sleep(600);
-
         const checkboxes = document.querySelectorAll(".category-check");
 
         for (let el of document.querySelectorAll('.category-check')) {
@@ -281,10 +310,8 @@ const setDefault = async function() {
                 o.selected = 0
             }
         }};
-
     document.querySelector('#collection_form').submit();
     localStorage.setItem("defaultCollectionSettings", true);
-
     } else {
     localStorage.removeItem('defaultCollectionSettings');
 }};

@@ -1,21 +1,13 @@
 <% layout('layouts/boilerplate')%>
-
-
 <%- include('./partials/loading_ellipsis.ejs')  %>
 
 <div class="page-brand hide" id="collection-page-brand">
-<h1 class="my-auto page-header mb-2" id="collection-page-header"><% if (user.show_name) { %> <%=`${user.show_name}'s Collection` %>  <% } else { %> <%=`${user.username}'s Collection` %> <% } %></h1>
+    <h1 class="my-auto page-header mb-2" id="collection-page-header">
+    <% if (user.show_name) { %> <%=`${user.show_name}'s Collection` %>  <% } else { %> <%=`${user.username}'s Collection` %> <% } %>
+    </h1>
 </div>    
 
-
-
-
 <main class="container hide" id="collection-main">
-
-   
-
-
-
     <table id="collection-table" class="table-hover" style="width:100%">
         <thead>
             <tr>
@@ -32,7 +24,7 @@
             <% for (let piece of artPieces) { %>
                     <tr>
                         <td><%= piece.artist %></td>
-                                                              <!-- owner.pass insert below -->
+                         <!-- owner.pass insert below -->
                         <td> <a class="piece-title-link" href="discover/<%=user._id%>/<%=piece.id%>"><span class="piece-title"><%= piece.title %></span> </a> </td>
                         <td>
                             <% if (piece.images.length > 0) { %>
@@ -43,38 +35,40 @@
                             <% } %>
                         </td>                    
                         <td class="narrow-screen-hide">
-                            <%= piece.medium %> <br>                     
+                            <%= piece.medium %>
+                            <br>                     
                             <% for (let s of piece.size) { %>
                                 <% if ((s.x === null || s.y === null) || (s.x === undefined || s.y === undefined)) {  null  } else { %>
-                            <% if (s.z === undefined || s.z === null){ %>
-                                <%=  `${s.y} x ${s.x} ${s.unit}` %> 
+                                    <% if (s.z === undefined || s.z === null){ %>
+                                        <%=  `${s.y} x ${s.x} ${s.unit}` %> 
+                                    <%  } else { %>
+                                        <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
+                                <% } %>
+                                <% break } %>
+                            <% } %>
+                        </td>
+                        <% for (let y of piece.year) { %>
+                            <% if (y.year_started != undefined || y.year_stared != null) { %>
+                                <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
                         <%  } else { %>
-                            <%=  `${s.y} x ${s.x} x ${s.z} ${s.unit}` %>
+                            <td><%= y.year_finished %></td>
                             <% } %>
                         <% break } %>
-                        <% } %>
-                        </td>
-                            <% for (let y of piece.year) { %>
-                                <% if (y.year_started != undefined || y.year_stared != null) { %>
-                                    <td> <%= `${y.year_started} - ${y.year_finished}` %> </td>
-                            <%  } else { %>
-                                <td><%= y.year_finished %></td>
-                                <% } %>
-                            <% break } %>
                         <td class="portrait-hide" style="display: none;" >
-                        <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
-                    <%=  moment (piece.createdAt).fromNow() %> 
-                    </td>
-                            <td class="portrait-hide">
-                                <% if (piece.forSale == true) { %>
-                                    <% for (let el of piece.price) { %>
-                                    <%  if (el.price !== null) { %>
-                                        <%= `${el.price} ${el.currency}` %> 
-                                        <% } else { %>
-                                            not set
-                                    <% }}} else { %>
-                                            &#10007;
-                                            <% } %>                         </td>
+                            <span style="display: none"> <%= piece.createdAt.getTime() %> </span> 
+                            <%=  moment (piece.createdAt).fromNow() %> 
+                        </td>
+                        <td class="portrait-hide">
+                            <% if (piece.forSale == true) { %>
+                                <% for (let el of piece.price) { %>
+                                <% if (el.price !== null) { %>
+                                    <%= `${el.price} ${el.currency}` %> 
+                                <% } else { %>
+                                        not set
+                                <% }}} else { %>
+                                    &#10007;
+                            <% } %>                         
+                        </td>
                     </tr>
             <% } %>
         </tbody>
@@ -88,9 +82,7 @@
 <script src='public/javascripts/dataTables_responsive.js'></script>
 <script src='https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js'></script>
 <script> 
-
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-
 window.onload = (async function(){
         await sleep(600);
     document.getElementById('loading-div').classList.add('hide');
