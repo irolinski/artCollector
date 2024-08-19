@@ -9,7 +9,7 @@ import passport from "passport";
 import JWT from "jsonwebtoken";
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-const { cloudinary } = require("../cloudinary/index");
+import { cloudinary } from "../cloudinary/index";
 
 export const serverCheck = (req: Request, res: Response) => {
   res.status(200).json({ message: "running" });

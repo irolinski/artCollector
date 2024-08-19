@@ -14,8 +14,7 @@ import XLSX from "xlsx";
 import ExpressError from "../utilities/ExpressError";
 import ArtPiece from "../models/mongoose/artPiece";
 import artPieceJOI from "../models/mongoose/artPieceJOI";
-
-const { cloudinary } = require("../cloudinary/index");
+import { cloudinary } from "../cloudinary/index";
 
 export const collectionPage = async (
   req: RequestWithLocalVariables,

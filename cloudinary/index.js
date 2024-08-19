@@ -1,24 +1,22 @@
-const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.storage = exports.cloudinary = void 0;
+const cloudinary_1 = require("cloudinary");
+const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+    require("dotenv").config();
 }
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+exports.cloudinary = cloudinary_1.v2;
+exports.cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
 });
-
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "artCollector",
-    allowedFormats: ["jpeg", "png", "jpg"],
-  },
+exports.storage = new multer_storage_cloudinary_1.CloudinaryStorage({
+    cloudinary: exports.cloudinary,
+    params: {
+        folder: "artCollector",
+        allowedFormats: ["jpeg", "png", "jpg"],
+    },
 });
-
-module.exports = {
-  cloudinary,
-  storage,
-};
+//# sourceMappingURL=index.js.map

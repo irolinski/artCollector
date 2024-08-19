@@ -28,7 +28,7 @@ const xlsx_1 = __importDefault(require("xlsx"));
 const ExpressError_1 = __importDefault(require("../utilities/ExpressError"));
 const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
 const artPieceJOI_1 = __importDefault(require("../models/mongoose/artPieceJOI"));
-const { cloudinary } = require("../cloudinary/index");
+const index_1 = require("../cloudinary/index");
 const collectionPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const pageTitle = "My Collection - artCollector";
     const styleSheet = "collection";
@@ -222,7 +222,7 @@ const editPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     if (req.body.deleteImages) {
         for (let filename of req.body.deleteImages) {
-            yield cloudinary.uploader.destroy(filename);
+            yield index_1.cloudinary.uploader.destroy(filename);
         }
         yield p.updateOne({
             $pull: { images: { filename: { $in: req.body.deleteImages } } },
@@ -237,7 +237,7 @@ const deletePiece = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { id } = req.params;
     const p = yield artPiece_1.default.findByIdAndDelete(id);
     for (let i of p.images) {
-        yield cloudinary.uploader.destroy(i.filename);
+        yield index_1.cloudinary.uploader.destroy(i.filename);
     }
     req.flash("success", "Successfully deleted your piece!");
     res.redirect("/collection");

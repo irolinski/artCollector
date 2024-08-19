@@ -21,7 +21,7 @@ const passport_1 = __importDefault(require("passport"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
-const { cloudinary } = require("../cloudinary/index");
+const index_1 = require("../cloudinary/index");
 const serverCheck = (req, res) => {
     res.status(200).json({ message: "running" });
 };
@@ -232,7 +232,7 @@ const deleteAccConfirmed = (req, res, next) => __awaiter(void 0, void 0, void 0,
     const pieces = yield artPiece_1.default.find({ user_id: req.user._id });
     for (let p of pieces) {
         for (let img of p.images) {
-            yield cloudinary.uploader.destroy(img.filename);
+            yield index_1.cloudinary.uploader.destroy(img.filename);
         }
     }
     yield artPiece_1.default.deleteMany({ user_id: req.user._id });
