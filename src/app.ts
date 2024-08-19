@@ -14,7 +14,6 @@ import User from "./models/mongoose/user";
 import collectionRouter from "./routes/collection";
 import usersRouter from "./routes/users";
 import discoverRouter from "./routes/discover";
-import mongoose, { ConnectOptions } from "mongoose";
 
 const LocalStrategy = require("passport-local");
 const ejsMate = require("ejs-mate");
@@ -46,26 +45,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(statusCode).send(message);
 });
 app.use(flash());
-
-// const dbUrl = process.env.DB_URL;
-// mongoose
-//   .connect(dbUrl, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   } as ConnectOptions)
-//   .then(() => {
-//     console.log("connection open!");
-//   })
-//   .catch((err: Error) => {
-//     console.log("oh no!");
-//     console.log(err);
-//   });
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error"));
-// db.once("open", () => {
-//   console.log("database connected");
-// });
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
