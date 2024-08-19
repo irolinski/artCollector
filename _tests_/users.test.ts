@@ -5,7 +5,7 @@ const server = require("./../server");
 require("dotenv").config();
 const dbUrl = process.env.DB_URL ?? "";
 
-beforeEach(async () => {
+beforeAll(async () => {
   await mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -17,4 +17,9 @@ describe("Checks whether the server works at all", () => {
     const res = await request(server).get("/home");
     expect(res.statusCode).toBe(200);
   });
+});
+
+afterAll(async () => {
+  await server.close();
+  await mongoose.connection.close();
 });

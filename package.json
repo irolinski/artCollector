@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc && echo \"Everything compiled successfuly\"",
     "test": "npm run build && cross-env NODE_ENV=test jest --testTimeout=5000",
+    "detectOpenHandles": "cross-env NODE_ENV=test jest --detectOpenHandles",
     "dev": "npm run build && nodemon server.js"
   },
   "author": "irolinski",
