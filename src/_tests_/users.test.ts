@@ -13,8 +13,8 @@ beforeAll(async () => {
 });
 
 describe("Checks whether the server works at all", () => {
-  it("should return statusCode 200", async () => {
-    const res = await request(server).get("/home");
+  it("Should return statusCode 200", async () => {
+    const res = await request(server).get("/server-check");
     expect(res.statusCode).toBe(200);
   });
 });
