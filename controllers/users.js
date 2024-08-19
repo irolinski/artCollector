@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = exports.serverCheck = void 0;
+exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = void 0;
 const userCheckUndefined_1 = __importDefault(require("../utilities/userCheckUndefined"));
 const sendEmail_1 = __importDefault(require("../utilities/sendEmail"));
 const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
@@ -22,10 +22,6 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
 const index_1 = require("../cloudinary/index");
-const serverCheck = (req, res) => {
-    res.status(200).json({ message: "running" });
-};
-exports.serverCheck = serverCheck;
 const redirectHome = (req, res) => {
     res.redirect("/home");
 };

@@ -20,6 +20,8 @@ describe("Checks whether the server works at all", () => {
   });
 });
 
+
+
 afterAll(async () => {
   await server.close();
   await mongoose.connection.close();

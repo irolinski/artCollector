@@ -49,6 +49,9 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error")[0];
     next();
 });
+app.get("/server-check", (req, res) => {
+    res.status(200).json({ message: "running" });
+});
 app.use("/", users_1.default);
 app.use("/collection", collection_1.default);
 app.use("/discover", discover_1.default);

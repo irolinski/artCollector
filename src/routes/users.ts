@@ -20,12 +20,10 @@ import {
   resetPassword,
   deleteAcc,
   deleteAccConfirmed,
-  serverCheck,
 } from "../controllers/users";
 
 const router = express.Router();
 
-router.get("/server-check", serverCheck);
 router.get("/", redirectHome);
 router.get("/home", home);
 router.post("/register", register);

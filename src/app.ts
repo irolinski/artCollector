@@ -63,6 +63,11 @@ app.use(
     next();
   }
 );
+
+app.get("/server-check", (req: Request, res: Response) => {
+  res.status(200).json({ message: "Server is running" });
+});
+
 app.use("/", usersRouter);
 app.use("/collection", collectionRouter);
 app.use("/discover", discoverRouter);

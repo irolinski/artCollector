@@ -26,5 +26,5 @@ const db = mongoose_1.default.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
 });
-module.exports = serverFunction;
+exports.default = serverFunction;
 //# sourceMappingURL=server.js.map
