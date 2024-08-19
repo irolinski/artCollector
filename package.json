@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "build": "tsc && echo \"Everything compiled successfuly\"",
-    "test": "npm run build && cross-env NODE_ENV=test jest --config ./jest.config.js --testTimeout=5000",
+    "test": "cross-env NODE_ENV=test jest --config ./jest.config.js --testTimeout=5000",
     "detectOpenHandles": "cross-env NODE_ENV=test jest --detectOpenHandles",
     "dev": "npm run build && nodemon server.js"
   },
@@ -17,6 +17,7 @@
     "@types/connect-flash": "^0.0.40",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.18.0",
+    "@types/supertest": "^6.0.2",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
     "cloudinary": "^1.41.0",

@@ -1,15 +1,16 @@
-const request = require("supertest");
-const app = require("./../app");
-const mongoose = require("mongoose");
-const server = require("./../server");
+import request from "supertest";
+import app from "./../app";
+import mongoose, { ConnectOptions } from "mongoose";
+import server from "./../server";
 require("dotenv").config();
+
 const dbUrl = process.env.DB_URL ?? "";
 
 beforeAll(async () => {
   await mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  });
+  } as ConnectOptions);
 });
 
 describe("Checks whether the server works at all", () => {

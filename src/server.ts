@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 const dbUrl = process.env.DB_URL;
 
- const serverFunction = app.listen(process.env.PORT || 3000, () => {
+const serverFunction = app.listen(process.env.PORT || 3000, () => {
   // console.log(`Serving on port ${process.env.PORT || 3000}!`);
 });
 
@@ -28,4 +28,4 @@ db.once("open", () => {
   // console.log("database connected");
 });
 
-module.exports = serverFunction
+export default serverFunction;
