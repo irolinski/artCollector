@@ -12,10 +12,10 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "lib": ["es2015"],
   "type": "module",
   "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "./dist"]
+  "exclude": ["node_modules", "./dist", "_tests_", "./src/_mocks_"]
 }

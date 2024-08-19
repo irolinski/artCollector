@@ -1,12 +1,8 @@
 import express from "express";
-
 import catchAsync from "../utilities/catchAsync";
 import isLoggedIn from "../utilities/isLoggedIn";
-
 import User from "../models/mongoose/user";
-
 import passport from "passport";
-import LocalStrategy from "passport-local";
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -24,10 +20,12 @@ import {
   resetPassword,
   deleteAcc,
   deleteAccConfirmed,
+  serverCheck,
 } from "../controllers/users";
 
 const router = express.Router();
 
+router.get("/server-check", serverCheck);
 router.get("/", redirectHome);
 router.get("/home", home);
 router.post("/register", register);

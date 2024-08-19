@@ -11,11 +11,11 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 const { cloudinary } = require("../cloudinary/index");
 
-export const redirectHome = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const serverCheck = (req: Request, res: Response) => {
+  res.status(200).json({ message: "running" });
+};
+
+export const redirectHome = (req: Request, res: Response) => {
   res.redirect("/home");
 };
 
@@ -53,13 +53,14 @@ export const register = async (
     );
 
     req.login(registeredUser, (err: Error) => {
-      if (err) return next(err);
+      if (err) throw err;
       req.flash("success", "Welcome!");
       res.redirect("/collection");
     });
   } catch (err) {
     req.flash("error", `${err.message}. Try again, please!`);
     res.redirect("/home");
+    next(err);
   }
 };
 
@@ -68,11 +69,7 @@ export const login = (req: RequestWithLocalVariables, res: Response) => {
   res.redirect("/collection");
 };
 
-export const preferences = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const preferences = (req: Request, res: Response) => {
   const pageTitle = "Preferences - artCollector";
   const styleSheet = "forms";
 
@@ -84,28 +81,34 @@ export const editUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  userCheckUndefined(req);
+  try {
+    userCheckUndefined(req);
 
-  if (req.body.custom_table) {
-    await User.findOneAndUpdate(req.user._id, {
-      custom_table: req.body.custom_table,
-    });
-  } else {
-    await User.findOneAndUpdate(req.user._id, {
-      username: req.body.username,
-      email: req.body.email,
-      show_name: req.body.show_name,
-      contact_info: req.body.contact_info,
-      share_collection: req.body.share_collection,
-      share_pass: req.body.share_pass,
-    });
+    if (req.body.custom_table) {
+      await User.findOneAndUpdate(req.user._id, {
+        custom_table: req.body.custom_table,
+      });
+    } else {
+      await User.findOneAndUpdate(req.user._id, {
+        username: req.body.username,
+        email: req.body.email,
+        show_name: req.body.show_name,
+        contact_info: req.body.contact_info,
+        share_collection: req.body.share_collection,
+        share_pass: req.body.share_pass,
+      });
+    }
+    if (req.body.share_collection === "1") {
+      req.flash("success", "Now, generate a link by clicking the share icon!");
+    } else {
+      req.flash("success", "Your changes have been saved!");
+    }
+    res.redirect("/collection");
+  } catch (err) {
+    req.flash("error", `${err.message}. Try again, please!`);
+    res.redirect("/preferences");
+    next(err);
   }
-  if (req.body.share_collection === "1") {
-    req.flash("success", "Now, generate a link by clicking the share icon!");
-  } else {
-    req.flash("success", "Your changes have been saved!");
-  }
-  res.redirect("/collection");
 };
 
 export const changePassword = async (
@@ -114,24 +117,30 @@ export const changePassword = async (
   next: NextFunction
 ) => {
   userCheckUndefined(req);
-
-  User.findOne({ username: req.user.username }).then(
-    (u: UserModelWithMongooseMethods) => {
-      u.setPassword(
-        req.body.new_password,
-        (err: Error, u: UserModelWithMongooseMethods) => {
-          if (err) return next(err);
-          u.save();
-          res.status(200).json({ message: "password change successful" });
-        }
-      );
-      req.flash(
-        "success",
-        "Your password has been changed. Next time you log in, use your new password!"
-      );
-      res.redirect("/collection");
-    }
-  );
+  try {
+    User.findOne({ username: req.user.username }).then(
+      (u: UserModelWithMongooseMethods) => {
+        u.setPassword(
+          req.body.new_password,
+          (err: Error, u: UserModelWithMongooseMethods) => {
+            if (err) {
+              throw err;
+            } else {
+              u.save();
+              res.status(200).json({ message: "password change successful" });
+            }
+          }
+        );
+        req.flash(
+          "success",
+          "Your password has been changed. Next time you log in, use your new password!"
+        );
+        res.redirect("/collection");
+      }
+    );
+  } catch (err) {
+    next(err);
+  }
 };
 
 export const logoutUser = (
@@ -141,10 +150,11 @@ export const logoutUser = (
 ) => {
   req.logout(function (err: Error) {
     if (err) {
-      return next(err);
+      next(err);
+    } else {
+      req.flash("success", "Goodbye!");
+      res.redirect("/home");
     }
-    req.flash("success", "Goodbye!");
-    res.redirect("/home");
   });
 };
 
@@ -237,7 +247,7 @@ export const resetPassword = (
     u.setPassword(
       req.body.new_password,
       (err: Error, u: UserModelWithMongooseMethods) => {
-        if (err) return next(err);
+        if (err) next(err);
         u.save();
         res.status(200).json({ message: "password change successful" });
       }
@@ -250,11 +260,7 @@ export const resetPassword = (
   });
 };
 
-export const deleteAcc = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteAcc = (req: Request, res: Response, next: NextFunction) => {
   const pageTitle = "Delete account - art Collector";
   const styleSheet = "forms";
   res.render("preferences_deleteAcc", { pageTitle, styleSheet });

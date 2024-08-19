@@ -14,16 +14,16 @@ import User from "./models/mongoose/user";
 import collectionRouter from "./routes/collection";
 import usersRouter from "./routes/users";
 import discoverRouter from "./routes/discover";
+import mongoose, { ConnectOptions } from "mongoose";
 
 const LocalStrategy = require("passport-local");
-const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-const dbUrl = process.env.DB_URL;
+
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
@@ -41,29 +41,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "node_modules/bootstrap/dist/")));
-app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const { statusCode = 500, message = "Something went wrong! :(" } = err;
   res.status(statusCode).send(message);
 });
 app.use(flash());
 
-mongoose
-  .connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("connection open!");
-  })
-  .catch((err: Error) => {
-    console.log("oh no!");
-    console.log(err);
-  });
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-  console.log("database connected");
-});
+// const dbUrl = process.env.DB_URL;
+// mongoose
+//   .connect(dbUrl, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   } as ConnectOptions)
+//   .then(() => {
+//     console.log("connection open!");
+//   })
+//   .catch((err: Error) => {
+//     console.log("oh no!");
+//     console.log(err);
+//   });
+// const db = mongoose.connection;
+// db.on("error", console.error.bind(console, "connection error"));
+// db.once("open", () => {
+//   console.log("database connected");
+// });
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -97,6 +98,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   res.status(statusCode).render("./error", { err });
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Serving on port ${process.env.PORT || 3000}!`);
-});
+export default app;

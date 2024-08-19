@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = void 0;
+exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = exports.serverCheck = void 0;
 const userCheckUndefined_1 = __importDefault(require("../utilities/userCheckUndefined"));
 const sendEmail_1 = __importDefault(require("../utilities/sendEmail"));
 const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
@@ -22,7 +22,11 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
 const { cloudinary } = require("../cloudinary/index");
-const redirectHome = (req, res, next) => {
+const serverCheck = (req, res) => {
+    res.status(200).json({ message: "running" });
+};
+exports.serverCheck = serverCheck;
+const redirectHome = (req, res) => {
     res.redirect("/home");
 };
 exports.redirectHome = redirectHome;
@@ -50,7 +54,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
       `);
         req.login(registeredUser, (err) => {
             if (err)
-                return next(err);
+                throw err;
             req.flash("success", "Welcome!");
             res.redirect("/collection");
         });
@@ -58,6 +62,7 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     catch (err) {
         req.flash("error", `${err.message}. Try again, please!`);
         res.redirect("/home");
+        next(err);
     }
 });
 exports.register = register;
@@ -66,59 +71,76 @@ const login = (req, res) => {
     res.redirect("/collection");
 };
 exports.login = login;
-const preferences = (req, res, next) => {
+const preferences = (req, res) => {
     const pageTitle = "Preferences - artCollector";
     const styleSheet = "forms";
     res.render("preferences", { pageTitle, styleSheet });
 };
 exports.preferences = preferences;
 const editUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, userCheckUndefined_1.default)(req);
-    if (req.body.custom_table) {
-        yield user_1.default.findOneAndUpdate(req.user._id, {
-            custom_table: req.body.custom_table,
-        });
+    try {
+        (0, userCheckUndefined_1.default)(req);
+        if (req.body.custom_table) {
+            yield user_1.default.findOneAndUpdate(req.user._id, {
+                custom_table: req.body.custom_table,
+            });
+        }
+        else {
+            yield user_1.default.findOneAndUpdate(req.user._id, {
+                username: req.body.username,
+                email: req.body.email,
+                show_name: req.body.show_name,
+                contact_info: req.body.contact_info,
+                share_collection: req.body.share_collection,
+                share_pass: req.body.share_pass,
+            });
+        }
+        if (req.body.share_collection === "1") {
+            req.flash("success", "Now, generate a link by clicking the share icon!");
+        }
+        else {
+            req.flash("success", "Your changes have been saved!");
+        }
+        res.redirect("/collection");
     }
-    else {
-        yield user_1.default.findOneAndUpdate(req.user._id, {
-            username: req.body.username,
-            email: req.body.email,
-            show_name: req.body.show_name,
-            contact_info: req.body.contact_info,
-            share_collection: req.body.share_collection,
-            share_pass: req.body.share_pass,
-        });
+    catch (err) {
+        req.flash("error", `${err.message}. Try again, please!`);
+        res.redirect("/preferences");
+        next(err);
     }
-    if (req.body.share_collection === "1") {
-        req.flash("success", "Now, generate a link by clicking the share icon!");
-    }
-    else {
-        req.flash("success", "Your changes have been saved!");
-    }
-    res.redirect("/collection");
 });
 exports.editUser = editUser;
 const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, userCheckUndefined_1.default)(req);
-    user_1.default.findOne({ username: req.user.username }).then((u) => {
-        u.setPassword(req.body.new_password, (err, u) => {
-            if (err)
-                return next(err);
-            u.save();
-            res.status(200).json({ message: "password change successful" });
+    try {
+        user_1.default.findOne({ username: req.user.username }).then((u) => {
+            u.setPassword(req.body.new_password, (err, u) => {
+                if (err) {
+                    throw err;
+                }
+                else {
+                    u.save();
+                    res.status(200).json({ message: "password change successful" });
+                }
+            });
+            req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
+            res.redirect("/collection");
         });
-        req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
-        res.redirect("/collection");
-    });
+    }
+    catch (err) {
+        next(err);
+    }
 });
 exports.changePassword = changePassword;
 const logoutUser = (req, res, next) => {
     req.logout(function (err) {
         if (err) {
-            return next(err);
+            next(err);
         }
-        req.flash("success", "Goodbye!");
-        res.redirect("/home");
+        else {
+            req.flash("success", "Goodbye!");
+            res.redirect("/home");
+        }
     });
 };
 exports.logoutUser = logoutUser;
@@ -190,7 +212,7 @@ const resetPassword = (req, res, next) => {
     user_1.default.findById(id).then((u) => {
         u.setPassword(req.body.new_password, (err, u) => {
             if (err)
-                return next(err);
+                next(err);
             u.save();
             res.status(200).json({ message: "password change successful" });
         });

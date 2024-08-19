@@ -12,6 +12,7 @@ passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
 const users_1 = require("../controllers/users");
 const router = express_1.default.Router();
+router.get("/server-check", users_1.serverCheck);
 router.get("/", users_1.redirectHome);
 router.get("/home", users_1.home);
 router.post("/register", users_1.register);
