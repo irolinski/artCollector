@@ -28,12 +28,6 @@ MongoDB was used as a database.
 * Each user can choose to make their collection either public, private or only visible upon entering a passcode
 * Forgot Password service using auto-generated token sent on user's email
 
-## How To Use
-
-Usage of the live build is self-explanatory. 
-
-To run the cloned application on ones machine, one must have node.js installed; then install dependencies with 'npm install' 
-
 ## Credits
 
 This software uses the following open source packages:
