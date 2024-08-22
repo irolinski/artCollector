@@ -5,14 +5,14 @@ import {
   RequestWithFiles,
   RequestWithLocalVariables,
 } from "../definitions";
-import { ArtPieceModel } from "../models/definitions";
+import { ArtPieceExportModel } from "../models/definitions";
 import userCheckUndefined from "../utilities/userCheckUndefined";
 import moment from "moment";
 import mongoose from "mongoose";
 import fs from "fs";
 import XLSX from "xlsx";
 import ExpressError from "../utilities/ExpressError";
-import ArtPiece from "../models/mongoose/artPiece";
+import ArtPiece from "../models/mongoose/ArtPiece";
 import artPieceJOI from "../models/mongoose/artPieceJOI";
 import { cloudinary } from "../cloudinary/index";
 
@@ -65,7 +65,6 @@ export const newPieceForm = (req: Request, res: Response) => {
 
 export const postNewPiece = async (req: RequestWithFiles, res: Response) => {
   const pieceSchema = artPieceJOI;
-
   const { error } = pieceSchema.validate(req.body);
   if (error) {
     const msg = error.details
@@ -83,6 +82,7 @@ export const postNewPiece = async (req: RequestWithFiles, res: Response) => {
   if (req.body.acquiration_date) {
     newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
   }
+  res.statusCode = 200;
 
   await newPiece.save();
   req.flash("success", "Successfully added your new piece!");
@@ -107,10 +107,10 @@ export const exportToXlsx = async (
   const currentYear = `${currentDate.getFullYear()}`;
   const date = currentMonth + "." + currentYear;
 
-  const exportData: ArtPieceModel[] = [];
+  const exportData: ArtPieceExportModel[] = [];
 
   for await (let p of ArtPiece.find({ user_id: req.user._id })) {
-    const data: ArtPieceModel = {
+    const data: ArtPieceExportModel = {
       title: p.title,
       artist: p.artist,
       medium: p.medium,
@@ -157,11 +157,11 @@ export const exportToXlsx = async (
 
   res.download(file, (err: Error) => {
     if (err) {
-      console.log("problem with export " + err);
+      // console.log("problem with export " + err);
       res.send("Error occured!");
     }
     fs.unlink(file, () => {
-      console.log("export successful");
+      // console.log("export successful");
     });
   });
 };

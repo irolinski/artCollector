@@ -6,10 +6,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 const dbUrl = process.env.DB_URL;
 
-const serverFunction = app.listen(process.env.PORT || 3000, () => {
-  // console.log(`Serving on port ${process.env.PORT || 3000}!`);
-});
-
 mongoose
   .connect(dbUrl, {
     useNewUrlParser: true,
@@ -26,6 +22,15 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
   // console.log("database connected");
+});
+
+let port = process.env.PORT || 3000;
+if (process.env.NODE_ENV === "test") {
+  port = 0;
+}
+
+const serverFunction = app.listen(port, () => {
+  console.log(`Running on port ${port}!`);
 });
 
 export default serverFunction;

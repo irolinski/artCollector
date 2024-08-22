@@ -3,16 +3,16 @@ import { Error, RequestWithLocalVariables } from "../definitions";
 import { UserModel, UserModelWithMongooseMethods } from "../models/definitions";
 import userCheckUndefined from "../utilities/userCheckUndefined";
 import sendEmail from "../utilities/sendEmail";
-import ArtPiece from "../models/mongoose/artPiece";
+import ArtPiece from "../models/mongoose/ArtPiece";
 import User from "../models/mongoose/user";
 import passport from "passport";
-import JWT from "jsonwebtoken";
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+import JWT from "jsonwebtoken";
 import { cloudinary } from "../cloudinary/index";
 
 export const redirectHome = (req: Request, res: Response) => {
-  res.redirect("/home");
+  res.redirect(200, "/home");
 };
 
 export const home = (req: Request, res: Response, next: NextFunction) => {
@@ -27,15 +27,14 @@ export const register = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { username, email, password } = req.body;
-    const user = new User({ email: `${email}`, username: `${username}` });
-    const registeredUser = await User.register(user, password);
+  const { username, email, password } = req.body;
+  const user = new User({ email: `${email}`, username: `${username}` });
+  const registeredUser = await User.register(user, password);
 
-    sendEmail(
-      email,
-      "Welcome to artCollector",
-      `Hi,
+  sendEmail(
+    email,
+    "Welcome to artCollector",
+    `Hi,
         Welcome to our site!
 
         Just wanted to let you know: 
@@ -46,29 +45,22 @@ export const register = async (
         We wish you all the best, 
         artCollector team
       `
-    );
-
-    req.login(registeredUser, (err: Error) => {
-      if (err) throw err;
-      req.flash("success", "Welcome!");
-      res.redirect("/collection");
-    });
-  } catch (err) {
-    req.flash("error", `${err.message}. Try again, please!`);
-    res.redirect("/home");
-    next(err);
-  }
+  );
+  req.login(registeredUser, (err: Error) => {
+    if (err) throw err;
+    req.flash("success", "Welcome!");
+    res.redirect(200, "/collection");
+  });
 };
 
 export const login = (req: RequestWithLocalVariables, res: Response) => {
   req.flash("success", "Welcome back!");
-  res.redirect("/collection");
+  res.redirect(200, "/collection");
 };
 
 export const preferences = (req: Request, res: Response) => {
   const pageTitle = "Preferences - artCollector";
   const styleSheet = "forms";
-
   res.render("preferences", { pageTitle, styleSheet });
 };
 
@@ -77,34 +69,28 @@ export const editUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    userCheckUndefined(req);
+  // userCheckUndefined(req);
 
-    if (req.body.custom_table) {
-      await User.findOneAndUpdate(req.user._id, {
-        custom_table: req.body.custom_table,
-      });
-    } else {
-      await User.findOneAndUpdate(req.user._id, {
-        username: req.body.username,
-        email: req.body.email,
-        show_name: req.body.show_name,
-        contact_info: req.body.contact_info,
-        share_collection: req.body.share_collection,
-        share_pass: req.body.share_pass,
-      });
-    }
-    if (req.body.share_collection === "1") {
-      req.flash("success", "Now, generate a link by clicking the share icon!");
-    } else {
-      req.flash("success", "Your changes have been saved!");
-    }
-    res.redirect("/collection");
-  } catch (err) {
-    req.flash("error", `${err.message}. Try again, please!`);
-    res.redirect("/preferences");
-    next(err);
+  if (req.body.custom_table) {
+    await User.findOneAndUpdate(req.user._id, {
+      custom_table: req.body.custom_table,
+    });
+  } else {
+    await User.findOneAndUpdate(req.user._id, {
+      username: req.body.username,
+      email: req.body.email,
+      show_name: req.body.show_name,
+      contact_info: req.body.contact_info,
+      share_collection: req.body.share_collection,
+      share_pass: req.body.share_pass,
+    });
   }
+  if (req.body.share_collection === "1") {
+    req.flash("success", "Now, generate a link by clicking the share icon!");
+  } else {
+    req.flash("success", "Your changes have been saved!");
+  }
+  res.redirect(200, "/collection");
 };
 
 export const changePassword = async (
@@ -113,30 +99,25 @@ export const changePassword = async (
   next: NextFunction
 ) => {
   userCheckUndefined(req);
-  try {
-    User.findOne({ username: req.user.username }).then(
-      (u: UserModelWithMongooseMethods) => {
-        u.setPassword(
-          req.body.new_password,
-          (err: Error, u: UserModelWithMongooseMethods) => {
-            if (err) {
-              throw err;
-            } else {
-              u.save();
-              res.status(200).json({ message: "password change successful" });
-            }
+  User.findOne({ username: req.user.username }).then(
+    (u: UserModelWithMongooseMethods) => {
+      u.setPassword(
+        req.body.new_password,
+        (err: Error, u: UserModelWithMongooseMethods) => {
+          if (err) {
+            throw err;
+          } else {
+            u.save();
           }
-        );
-        req.flash(
-          "success",
-          "Your password has been changed. Next time you log in, use your new password!"
-        );
-        res.redirect("/collection");
-      }
-    );
-  } catch (err) {
-    next(err);
-  }
+        }
+      );
+      req.flash(
+        "success",
+        "Your password has been changed. Next time you log in, use your new password!"
+      );
+      res.redirect(200, "/collection");
+    }
+  );
 };
 
 export const logoutUser = (
@@ -144,12 +125,12 @@ export const logoutUser = (
   res: Response,
   next: NextFunction
 ) => {
-  req.logout(function (err: Error) {
+  req.logout((err: Error) => {
     if (err) {
       next(err);
     } else {
       req.flash("success", "Goodbye!");
-      res.redirect("/home");
+      res.redirect(200, "/home");
     }
   });
 };
@@ -190,7 +171,7 @@ export const forgottenPassword = async (
         "success",
         "An email with furhter instructions has been sent to the provided adress."
       );
-      res.redirect("/home");
+      res.redirect(200, "/home");
     } else {
       req.flash("error", "Invalid e-mail adress. Try again!");
       res.redirect("/home");
@@ -228,7 +209,7 @@ export const sendToken = (
         "error",
         "We encountered a mistake: no such user id. Please, try again."
       );
-      res.redirect("/home");
+      res.redirect(500, "/home");
     }
   });
 };
@@ -252,7 +233,7 @@ export const resetPassword = (
       "success",
       "Your password has been changed. Next time you log in, use your new password!"
     );
-    res.redirect("/home");
+    res.redirect(200, "/home");
   });
 };
 
@@ -278,5 +259,5 @@ export const deleteAccConfirmed = async (
   await ArtPiece.deleteMany({ user_id: req.user._id });
   await User.findByIdAndDelete(req.user._id);
   req.flash("success", "Goodbye :(");
-  res.redirect("/home");
+  res.redirect(200, "/home");
 };

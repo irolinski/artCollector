@@ -46,4 +46,4 @@ const artPieceSchema = new Schema({
 });
 const ArtPiece = mongoose.model("ArtPiece", artPieceSchema, "artpieces");
 exports.default = ArtPiece;
-//# sourceMappingURL=artPiece.js.map
+//# sourceMappingURL=ArtPiece.js.map

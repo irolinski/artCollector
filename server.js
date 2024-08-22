@@ -9,8 +9,6 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 const dbUrl = process.env.DB_URL;
-const serverFunction = app_1.default.listen(process.env.PORT || 3000, () => {
-});
 mongoose_1.default
     .connect(dbUrl, {
     useNewUrlParser: true,
@@ -25,6 +23,13 @@ mongoose_1.default
 const db = mongoose_1.default.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
+});
+let port = process.env.PORT || 3000;
+if (process.env.NODE_ENV === "test") {
+    port = 0;
+}
+const serverFunction = app_1.default.listen(port, () => {
+    console.log(`Running on port ${port}!`);
 });
 exports.default = serverFunction;
 //# sourceMappingURL=server.js.map

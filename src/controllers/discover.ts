@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { RequestWithLocalVariables } from "../definitions";
 import { UserModel } from "../models/definitions";
-import ArtPiece from "../models/mongoose/artPiece";
+import ArtPiece from "../models/mongoose/ArtPiece";
 import User from "../models/mongoose/user";
 import mongoose from "mongoose";
 import moment from "moment";

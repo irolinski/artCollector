@@ -26,7 +26,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const fs_1 = __importDefault(require("fs"));
 const xlsx_1 = __importDefault(require("xlsx"));
 const ExpressError_1 = __importDefault(require("../utilities/ExpressError"));
-const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
+const ArtPiece_1 = __importDefault(require("../models/mongoose/ArtPiece"));
 const artPieceJOI_1 = __importDefault(require("../models/mongoose/artPieceJOI"));
 const index_1 = require("../cloudinary/index");
 const collectionPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,13 +37,13 @@ const collectionPage = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const userTable = req.user.custom_table;
     const queryString = JSON.stringify(req.query);
     const archivalStatus = req.query.archival;
-    let artPieces = yield artPiece_1.default.find({ user_id: `${req.user._id}` });
-    const archivalPieces = yield artPiece_1.default.find({
+    let artPieces = yield ArtPiece_1.default.find({ user_id: `${req.user._id}` });
+    const archivalPieces = yield ArtPiece_1.default.find({
         archival: { $in: ["true"] },
         user_id: `${req.user._id}`,
     });
     if (archivalStatus === "archival-hide") {
-        artPieces = yield artPiece_1.default.find({
+        artPieces = yield ArtPiece_1.default.find({
             archival: !{ $in: ["true"] },
             user_id: `${req.user._id}`,
         });
@@ -78,7 +78,7 @@ const postNewPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             .join(",");
         throw new ExpressError_1.default(msg, 400);
     }
-    const newPiece = new artPiece_1.default(req.body);
+    const newPiece = new ArtPiece_1.default(req.body);
     newPiece.images = req.files.map((f) => ({
         url: f.path,
         filename: f.filename,
@@ -86,6 +86,7 @@ const postNewPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     if (req.body.acquiration_date) {
         newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
     }
+    res.statusCode = 200;
     yield newPiece.save();
     req.flash("success", "Successfully added your new piece!");
     res.redirect("collection");
@@ -107,7 +108,7 @@ const exportToXlsx = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const date = currentMonth + "." + currentYear;
     const exportData = [];
     try {
-        for (var _d = true, _e = __asyncValues(artPiece_1.default.find({ user_id: req.user._id })), _f; _f = yield _e.next(), _a = _f.done, !_a; _d = true) {
+        for (var _d = true, _e = __asyncValues(ArtPiece_1.default.find({ user_id: req.user._id })), _f; _f = yield _e.next(), _a = _f.done, !_a; _d = true) {
             _c = _f.value;
             _d = false;
             let p = _c;
@@ -158,11 +159,9 @@ const exportToXlsx = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     xlsx_1.default.writeFile(wb, file);
     res.download(file, (err) => {
         if (err) {
-            console.log("problem with export " + err);
             res.send("Error occured!");
         }
         fs_1.default.unlink(file, () => {
-            console.log("export successful");
         });
     });
 });
@@ -173,7 +172,7 @@ const showPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         req.flash("error", `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect("/campgrounds");
     }
-    const p = yield artPiece_1.default.findById(id);
+    const p = yield ArtPiece_1.default.findById(id);
     const pageTitle = `${p.title} - artCollector`;
     const styleSheet = "show";
     (0, userCheckUndefined_1.default)(req);
@@ -190,7 +189,7 @@ const editPieceForm = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const pageTitle = "Edit piece - artCollector";
     const styleSheet = "forms";
     const { id } = req.params;
-    const p = yield artPiece_1.default.findById(id);
+    const p = yield ArtPiece_1.default.findById(id);
     res.render("edit", { p, moment: moment_1.default, pageTitle, styleSheet });
 });
 exports.editPieceForm = editPieceForm;
@@ -198,13 +197,13 @@ const editImages = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const pageTitle = "Edit images - artCollector";
     const styleSheet = "forms";
     const { id } = req.params;
-    const p = yield artPiece_1.default.findById(id);
+    const p = yield ArtPiece_1.default.findById(id);
     res.render("edit_images", { p, pageTitle, styleSheet });
 });
 exports.editImages = editImages;
 const editPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const p = yield artPiece_1.default.findByIdAndUpdate(id, Object.assign({}, req.body));
+    const p = yield ArtPiece_1.default.findByIdAndUpdate(id, Object.assign({}, req.body));
     const imgs = req.files.map((f) => ({
         url: f.path,
         filename: f.filename,
@@ -235,7 +234,7 @@ const editPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.editPiece = editPiece;
 const deletePiece = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const p = yield artPiece_1.default.findByIdAndDelete(id);
+    const p = yield ArtPiece_1.default.findByIdAndDelete(id);
     for (let i of p.images) {
         yield index_1.cloudinary.uploader.destroy(i.filename);
     }

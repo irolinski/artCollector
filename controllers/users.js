@@ -15,15 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = void 0;
 const userCheckUndefined_1 = __importDefault(require("../utilities/userCheckUndefined"));
 const sendEmail_1 = __importDefault(require("../utilities/sendEmail"));
-const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
+const ArtPiece_1 = __importDefault(require("../models/mongoose/ArtPiece"));
 const user_1 = __importDefault(require("../models/mongoose/user"));
 const passport_1 = __importDefault(require("passport"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const index_1 = require("../cloudinary/index");
 const redirectHome = (req, res) => {
-    res.redirect("/home");
+    res.redirect(200, "/home");
 };
 exports.redirectHome = redirectHome;
 const home = (req, res, next) => {
@@ -33,11 +33,10 @@ const home = (req, res, next) => {
 };
 exports.home = home;
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { username, email, password } = req.body;
-        const user = new user_1.default({ email: `${email}`, username: `${username}` });
-        const registeredUser = yield user_1.default.register(user, password);
-        (0, sendEmail_1.default)(email, "Welcome to artCollector", `Hi,
+    const { username, email, password } = req.body;
+    const user = new user_1.default({ email: `${email}`, username: `${username}` });
+    const registeredUser = yield user_1.default.register(user, password);
+    (0, sendEmail_1.default)(email, "Welcome to artCollector", `Hi,
         Welcome to our site!
 
         Just wanted to let you know: 
@@ -48,23 +47,17 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         We wish you all the best, 
         artCollector team
       `);
-        req.login(registeredUser, (err) => {
-            if (err)
-                throw err;
-            req.flash("success", "Welcome!");
-            res.redirect("/collection");
-        });
-    }
-    catch (err) {
-        req.flash("error", `${err.message}. Try again, please!`);
-        res.redirect("/home");
-        next(err);
-    }
+    req.login(registeredUser, (err) => {
+        if (err)
+            throw err;
+        req.flash("success", "Welcome!");
+        res.redirect(200, "/collection");
+    });
 });
 exports.register = register;
 const login = (req, res) => {
     req.flash("success", "Welcome back!");
-    res.redirect("/collection");
+    res.redirect(200, "/collection");
 };
 exports.login = login;
 const preferences = (req, res) => {
@@ -74,68 +67,54 @@ const preferences = (req, res) => {
 };
 exports.preferences = preferences;
 const editUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        (0, userCheckUndefined_1.default)(req);
-        if (req.body.custom_table) {
-            yield user_1.default.findOneAndUpdate(req.user._id, {
-                custom_table: req.body.custom_table,
-            });
-        }
-        else {
-            yield user_1.default.findOneAndUpdate(req.user._id, {
-                username: req.body.username,
-                email: req.body.email,
-                show_name: req.body.show_name,
-                contact_info: req.body.contact_info,
-                share_collection: req.body.share_collection,
-                share_pass: req.body.share_pass,
-            });
-        }
-        if (req.body.share_collection === "1") {
-            req.flash("success", "Now, generate a link by clicking the share icon!");
-        }
-        else {
-            req.flash("success", "Your changes have been saved!");
-        }
-        res.redirect("/collection");
+    if (req.body.custom_table) {
+        yield user_1.default.findOneAndUpdate(req.user._id, {
+            custom_table: req.body.custom_table,
+        });
     }
-    catch (err) {
-        req.flash("error", `${err.message}. Try again, please!`);
-        res.redirect("/preferences");
-        next(err);
+    else {
+        yield user_1.default.findOneAndUpdate(req.user._id, {
+            username: req.body.username,
+            email: req.body.email,
+            show_name: req.body.show_name,
+            contact_info: req.body.contact_info,
+            share_collection: req.body.share_collection,
+            share_pass: req.body.share_pass,
+        });
     }
+    if (req.body.share_collection === "1") {
+        req.flash("success", "Now, generate a link by clicking the share icon!");
+    }
+    else {
+        req.flash("success", "Your changes have been saved!");
+    }
+    res.redirect(200, "/collection");
 });
 exports.editUser = editUser;
 const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, userCheckUndefined_1.default)(req);
-    try {
-        user_1.default.findOne({ username: req.user.username }).then((u) => {
-            u.setPassword(req.body.new_password, (err, u) => {
-                if (err) {
-                    throw err;
-                }
-                else {
-                    u.save();
-                    res.status(200).json({ message: "password change successful" });
-                }
-            });
-            req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
-            res.redirect("/collection");
+    user_1.default.findOne({ username: req.user.username }).then((u) => {
+        u.setPassword(req.body.new_password, (err, u) => {
+            if (err) {
+                throw err;
+            }
+            else {
+                u.save();
+            }
         });
-    }
-    catch (err) {
-        next(err);
-    }
+        req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
+        res.redirect(200, "/collection");
+    });
 });
 exports.changePassword = changePassword;
 const logoutUser = (req, res, next) => {
-    req.logout(function (err) {
+    req.logout((err) => {
         if (err) {
             next(err);
         }
         else {
             req.flash("success", "Goodbye!");
-            res.redirect("/home");
+            res.redirect(200, "/home");
         }
     });
 };
@@ -164,7 +143,7 @@ const forgottenPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             artCollector team
           `);
             req.flash("success", "An email with furhter instructions has been sent to the provided adress.");
-            res.redirect("/home");
+            res.redirect(200, "/home");
         }
         else {
             req.flash("error", "Invalid e-mail adress. Try again!");
@@ -198,7 +177,7 @@ const sendToken = (req, res, next) => {
         }
         else {
             req.flash("error", "We encountered a mistake: no such user id. Please, try again.");
-            res.redirect("/home");
+            res.redirect(500, "/home");
         }
     });
 };
@@ -213,7 +192,7 @@ const resetPassword = (req, res, next) => {
             res.status(200).json({ message: "password change successful" });
         });
         req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
-        res.redirect("/home");
+        res.redirect(200, "/home");
     });
 };
 exports.resetPassword = resetPassword;
@@ -225,16 +204,16 @@ const deleteAcc = (req, res, next) => {
 exports.deleteAcc = deleteAcc;
 const deleteAccConfirmed = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, userCheckUndefined_1.default)(req);
-    const pieces = yield artPiece_1.default.find({ user_id: req.user._id });
+    const pieces = yield ArtPiece_1.default.find({ user_id: req.user._id });
     for (let p of pieces) {
         for (let img of p.images) {
             yield index_1.cloudinary.uploader.destroy(img.filename);
         }
     }
-    yield artPiece_1.default.deleteMany({ user_id: req.user._id });
+    yield ArtPiece_1.default.deleteMany({ user_id: req.user._id });
     yield user_1.default.findByIdAndDelete(req.user._id);
     req.flash("success", "Goodbye :(");
-    res.redirect("/home");
+    res.redirect(200, "/home");
 });
 exports.deleteAccConfirmed = deleteAccConfirmed;
 //# sourceMappingURL=users.js.map

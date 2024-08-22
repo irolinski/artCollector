@@ -52,5 +52,43 @@ const artPieceSchema = new Schema(
   }
 );
 
+type Person = [
+  {
+    status: string;
+    name: string;
+    contact_info: string;
+    _id?: string;
+  }
+];
+
+export type ArtPieceType = {
+  title: string;
+  artist: string;
+  medium: string;
+  year?: [
+    { year_started: number | null; year_finished: number | null; _id?: string }
+  ];
+  images?: [{ url: string; filename: string; _id?: string }];
+  size: [
+    {
+      x?: number | null;
+      y?: number | null;
+      z?: number | null;
+      unit: "cm" | "in" | null;
+      _id?: string;
+    }
+  ];
+  owner?: Person;
+  holder?: Person;
+  acquiration_date?: Date;
+  archival: boolean;
+  description?: string;
+  user_id: string;
+  forSale?: boolean;
+  price?: [{ price: number; currency: "PLN" | "$" | "€" | null; _id?: string }];
+  catalogue?: string;
+  _id?: string;
+};
+
 const ArtPiece = mongoose.model("ArtPiece", artPieceSchema, "artpieces");
 export default ArtPiece;
