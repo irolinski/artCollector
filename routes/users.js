@@ -24,7 +24,10 @@ router.put("/preferences/edit", isLoggedIn_1.default, (0, catchAsync_1.default)(
 router.put("/preferences/change_password", isLoggedIn_1.default, (0, catchAsync_1.default)(users_1.changePassword));
 router.get("/logout", users_1.logoutUser);
 router.post("/forgotten", (0, catchAsync_1.default)(users_1.forgottenPassword));
-router.route("/password_reset/:id/:token").get(users_1.sendToken).post(users_1.resetPassword);
+router
+    .route("/password_reset/:id/:token")
+    .get((0, catchAsync_1.default)(users_1.sendToken))
+    .post((0, catchAsync_1.default)(users_1.resetPassword));
 router
     .route("/preferences/deleteAcc")
     .get(isLoggedIn_1.default, users_1.deleteAcc)

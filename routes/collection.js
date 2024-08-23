@@ -7,12 +7,12 @@ const express_1 = __importDefault(require("express"));
 const isLoggedIn_1 = __importDefault(require("../utilities/isLoggedIn"));
 const catchAsync_1 = __importDefault(require("../utilities/catchAsync"));
 const multer_1 = __importDefault(require("multer"));
+const index_1 = require("../cloudinary/index");
 const collection_1 = require("../controllers/collection");
 const app = (0, express_1.default)();
 const router = express_1.default.Router();
-const { storage } = require("../cloudinary/index");
 const upload = (0, multer_1.default)({
-    storage: storage,
+    storage: index_1.storage,
     limits: {
         fileSize: 5000000,
         files: 1,
@@ -24,7 +24,6 @@ const upload = (0, multer_1.default)({
         cb(null, true);
     },
 });
-const { cloudinary } = require("../cloudinary/index");
 router
     .route("/")
     .get(isLoggedIn_1.default, (0, catchAsync_1.default)(collection_1.collectionPage))

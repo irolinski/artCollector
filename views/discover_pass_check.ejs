@@ -3,32 +3,29 @@
 
 <div id="pass-wrapper">
     <section class="row border hide" id="pass-check">
-        <!-- <div class="m-5 p-5"> -->
-            <form id="pass-check-form" action="/discover/<%=username%>/pass_check" method="POST" novalidate>
-                <div class="mb-3" id="pass-check-text">
-                    The owner of this collection wishes for his guests to provide a passcode before being granted the access to his page. <br><br>
-                    <b>Please, provide the passcode using the field below. </b>
-                </div>
-                <div class="mb-3" id="pass-check-input-div">
-                    <label for="share_pass_check" class="form-label">Passcode:</label>
-                    <input type="number" class="form-control" name="share_pass_check" maxlength="5" oninput="this.value=this.value.slice(0,this.maxLength)">
-                </div>
-
-                <input type="hidden" name="username" value="<%=username%>">
-                <button type="submit" class="confirm-button" onclick="cursorWait()">Check!</button>
-            </form>
-        <!-- </div> -->
-        </section>
-</div id="pass-wrapper">
+        <form id="pass-check-form" action="/discover/<%=username%>/pass_check" method="POST" novalidate>
+            <div class="mb-3" id="pass-check-text">
+                The owner of this collection wishes for his guests to provide a passcode before being granted the access to his page. <br><br>
+                <b>Please, provide the passcode using the field below. </b>
+            </div>
+            <div class="mb-3" id="pass-check-input-div">
+                <label for="share_pass_check" class="form-label">Passcode:</label>
+                <input type="number" class="form-control" name="share_pass_check" maxlength="5" oninput="this.value=this.value.slice(0,this.maxLength)">
+            </div>
+            <input type="hidden" name="username" value="<%=username%>">
+            <button type="submit" class="confirm-button" onclick="cursorWait()">
+                Check!
+            </button>
+        </form>
+    </section>
+</div>
 
 <script src='public/javascripts/cursor_wait.js'></script>
 <script src='public/javascripts/show_loading.js'></script>
 <script>
-
 window.onload = (async function(){
         await sleep(600);
     document.getElementById('loading-div').classList.add('hide');
     document.getElementById('pass-check').classList.remove('hide');
 });
-
 </script>

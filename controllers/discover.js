@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.discoverPiece = exports.discoverCollection = exports.passCheck = exports.passCheckForm = void 0;
-const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
+const ArtPiece_1 = __importDefault(require("../models/mongoose/ArtPiece"));
 const user_1 = __importDefault(require("../models/mongoose/user"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const moment_1 = __importDefault(require("moment"));
@@ -73,7 +73,7 @@ const discoverCollection = (req, res, next) => __awaiter(void 0, void 0, void 0,
                 else {
                     pageTitle = `${u.username}'s Collection - artCollector`;
                 }
-                const artPieces = yield artPiece_1.default.find({
+                const artPieces = yield ArtPiece_1.default.find({
                     archival: !{ $in: ["true"] },
                     user_id: `${u._id}`,
                 });
@@ -93,7 +93,7 @@ const discoverCollection = (req, res, next) => __awaiter(void 0, void 0, void 0,
                 else {
                     if (u.share_pass === "") {
                         const pageTitle = `${u.show_name}'s Collection - artCollector`;
-                        const artPieces = yield artPiece_1.default.find({
+                        const artPieces = yield ArtPiece_1.default.find({
                             archival: !{ $in: ["true"] },
                             user_id: `${u._id}`,
                         });
@@ -121,7 +121,7 @@ const discoverPiece = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         req.flash("error", `I'm sorry but I don't think what you're looking for exists in our database!`);
         res.redirect("/campgrounds");
     }
-    const p = yield artPiece_1.default.findById(id);
+    const p = yield ArtPiece_1.default.findById(id);
     const pageTitle = `${p.title} - artCollector`;
     const styleSheet = "show";
     const origin = req.get("Referrer");

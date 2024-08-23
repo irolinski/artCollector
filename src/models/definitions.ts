@@ -4,15 +4,15 @@ export type UserModel = {
   email: string;
   username: string;
   password: string;
-  show_name: string;
-  contact_info: string;
-  custom_table: string;
-  share_collection: boolean;
-  share_pass: string;
-  _id: string;
+  show_name?: string;
+  contact_info?: string;
+  custom_table?: string;
+  share_collection?: boolean;
+  share_pass?: string;
+  _id?: string;
 };
 
-export type ArtPieceModel = {
+export type ArtPieceExportModel = {
   title: string;
   artist: string;
   medium: string;

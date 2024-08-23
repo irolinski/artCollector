@@ -3,19 +3,15 @@ import { Error, RequestWithLocalVariables } from "../definitions";
 import { UserModel, UserModelWithMongooseMethods } from "../models/definitions";
 import userCheckUndefined from "../utilities/userCheckUndefined";
 import sendEmail from "../utilities/sendEmail";
-import ArtPiece from "../models/mongoose/artPiece";
+import ArtPiece from "../models/mongoose/ArtPiece";
 import User from "../models/mongoose/user";
 import passport from "passport";
-import JWT from "jsonwebtoken";
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-const { cloudinary } = require("../cloudinary/index");
+import JWT from "jsonwebtoken";
+import { cloudinary } from "../cloudinary/index";
 
-export const redirectHome = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const redirectHome = (req: Request, res: Response) => {
   res.redirect("/home");
 };
 
@@ -31,15 +27,14 @@ export const register = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const { username, email, password } = req.body;
-    const user = new User({ email: `${email}`, username: `${username}` });
-    const registeredUser = await User.register(user, password);
+  const { username, email, password } = req.body;
+  const user = new User({ email: `${email}`, username: `${username}` });
+  const registeredUser = await User.register(user, password);
 
-    sendEmail(
-      email,
-      "Welcome to artCollector",
-      `Hi,
+  sendEmail(
+    email,
+    "Welcome to artCollector",
+    `Hi,
         Welcome to our site!
 
         Just wanted to let you know: 
@@ -50,17 +45,12 @@ export const register = async (
         We wish you all the best, 
         artCollector team
       `
-    );
-
-    req.login(registeredUser, (err: Error) => {
-      if (err) return next(err);
-      req.flash("success", "Welcome!");
-      res.redirect("/collection");
-    });
-  } catch (err) {
-    req.flash("error", `${err.message}. Try again, please!`);
-    res.redirect("/home");
-  }
+  );
+  req.login(registeredUser, (err: Error) => {
+    if (err) throw err;
+    req.flash("success", "Welcome!");
+    res.redirect("/collection");
+  });
 };
 
 export const login = (req: RequestWithLocalVariables, res: Response) => {
@@ -68,14 +58,9 @@ export const login = (req: RequestWithLocalVariables, res: Response) => {
   res.redirect("/collection");
 };
 
-export const preferences = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const preferences = (req: Request, res: Response) => {
   const pageTitle = "Preferences - artCollector";
   const styleSheet = "forms";
-
   res.render("preferences", { pageTitle, styleSheet });
 };
 
@@ -84,7 +69,7 @@ export const editUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  userCheckUndefined(req);
+  // userCheckUndefined(req);
 
   if (req.body.custom_table) {
     await User.findOneAndUpdate(req.user._id, {
@@ -114,15 +99,16 @@ export const changePassword = async (
   next: NextFunction
 ) => {
   userCheckUndefined(req);
-
   User.findOne({ username: req.user.username }).then(
     (u: UserModelWithMongooseMethods) => {
       u.setPassword(
         req.body.new_password,
         (err: Error, u: UserModelWithMongooseMethods) => {
-          if (err) return next(err);
-          u.save();
-          res.status(200).json({ message: "password change successful" });
+          if (err) {
+            throw err;
+          } else {
+            u.save();
+          }
         }
       );
       req.flash(
@@ -139,12 +125,13 @@ export const logoutUser = (
   res: Response,
   next: NextFunction
 ) => {
-  req.logout(function (err: Error) {
+  req.logout((err: Error) => {
     if (err) {
-      return next(err);
+      next(err);
+    } else {
+      req.flash("success", "Goodbye!");
+      res.redirect("/home");
     }
-    req.flash("success", "Goodbye!");
-    res.redirect("/home");
   });
 };
 
@@ -182,7 +169,7 @@ export const forgottenPassword = async (
       );
       req.flash(
         "success",
-        "An email with furhter instructions has been sent to the provided adress."
+        "An e-mail with furhter instructions has been sent to the provided adress."
       );
       res.redirect("/home");
     } else {
@@ -213,8 +200,8 @@ export const sendToken = (
             pageTitle: "Password reset - artCollector",
             styleSheet: "forms",
           });
-        } catch (error) {
-          res.send(error.message);
+        } catch (err) {
+          throw err;
         }
       }
     } else {
@@ -237,7 +224,7 @@ export const resetPassword = (
     u.setPassword(
       req.body.new_password,
       (err: Error, u: UserModelWithMongooseMethods) => {
-        if (err) return next(err);
+        if (err) next(err);
         u.save();
         res.status(200).json({ message: "password change successful" });
       }
@@ -250,11 +237,7 @@ export const resetPassword = (
   });
 };
 
-export const deleteAcc = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteAcc = (req: Request, res: Response, next: NextFunction) => {
   const pageTitle = "Delete account - art Collector";
   const styleSheet = "forms";
   res.render("preferences_deleteAcc", { pageTitle, styleSheet });

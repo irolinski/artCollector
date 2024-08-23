@@ -13,7 +13,7 @@ export type RequestWithLocalVariables = Request & {
     (done: (err: any) => void): void;
   };
   // isAuthenticated: () => any;
-}
+};
 
 export interface RequestWithFiles extends RequestWithLocalVariables {
   files?: any;

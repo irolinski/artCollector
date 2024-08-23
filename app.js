@@ -13,14 +13,13 @@ const user_1 = __importDefault(require("./models/mongoose/user"));
 const collection_1 = __importDefault(require("./routes/collection"));
 const users_1 = __importDefault(require("./routes/users"));
 const discover_1 = __importDefault(require("./routes/discover"));
+const tests_1 = __importDefault(require("./routes/testRoutes/tests"));
 const LocalStrategy = require("passport-local");
-const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-const dbUrl = process.env.DB_URL;
 const app = (0, express_1.default)();
 app.set("views", path_1.default.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
@@ -35,28 +34,11 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express_1.default.static(path_1.default.join(__dirname, "node_modules/bootstrap/dist/")));
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong! :(" } = err;
     res.status(statusCode).send(message);
 });
 app.use((0, connect_flash_1.default)());
-mongoose
-    .connect(dbUrl, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-    .then(() => {
-    console.log("connection open!");
-})
-    .catch((err) => {
-    console.log("oh no!");
-    console.log(err);
-});
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", () => {
-    console.log("database connected");
-});
 app.use(passport_1.default.initialize());
 app.use(passport_1.default.session());
 passport_1.default.use(new LocalStrategy(user_1.default.authenticate()));
@@ -71,6 +53,9 @@ app.use((req, res, next) => {
 app.use("/", users_1.default);
 app.use("/collection", collection_1.default);
 app.use("/discover", discover_1.default);
+if (process.env.NODE_ENV === "test") {
+    app.use("/test", tests_1.default);
+}
 app.all("*", (req, res, next) => {
     next(new ExpressError_1.default("Page not found", 404));
 });
@@ -80,7 +65,5 @@ app.use((err, req, res, next) => {
         err.message = "Oh no, Something went wrong!";
     res.status(statusCode).render("./error", { err });
 });
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Serving on port ${process.env.PORT || 3000}!`);
-});
+exports.default = app;
 //# sourceMappingURL=app.js.map

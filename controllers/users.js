@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAccConfirmed = exports.deleteAcc = exports.resetPassword = exports.sendToken = exports.forgottenPassword = exports.logoutUser = exports.changePassword = exports.editUser = exports.preferences = exports.login = exports.register = exports.home = exports.redirectHome = void 0;
 const userCheckUndefined_1 = __importDefault(require("../utilities/userCheckUndefined"));
 const sendEmail_1 = __importDefault(require("../utilities/sendEmail"));
-const artPiece_1 = __importDefault(require("../models/mongoose/artPiece"));
+const ArtPiece_1 = __importDefault(require("../models/mongoose/ArtPiece"));
 const user_1 = __importDefault(require("../models/mongoose/user"));
 const passport_1 = __importDefault(require("passport"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 passport_1.default.serializeUser(user_1.default.serializeUser());
 passport_1.default.deserializeUser(user_1.default.deserializeUser());
-const { cloudinary } = require("../cloudinary/index");
-const redirectHome = (req, res, next) => {
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const index_1 = require("../cloudinary/index");
+const redirectHome = (req, res) => {
     res.redirect("/home");
 };
 exports.redirectHome = redirectHome;
@@ -33,11 +33,10 @@ const home = (req, res, next) => {
 };
 exports.home = home;
 const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { username, email, password } = req.body;
-        const user = new user_1.default({ email: `${email}`, username: `${username}` });
-        const registeredUser = yield user_1.default.register(user, password);
-        (0, sendEmail_1.default)(email, "Welcome to artCollector", `Hi,
+    const { username, email, password } = req.body;
+    const user = new user_1.default({ email: `${email}`, username: `${username}` });
+    const registeredUser = yield user_1.default.register(user, password);
+    (0, sendEmail_1.default)(email, "Welcome to artCollector", `Hi,
         Welcome to our site!
 
         Just wanted to let you know: 
@@ -48,17 +47,12 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         We wish you all the best, 
         artCollector team
       `);
-        req.login(registeredUser, (err) => {
-            if (err)
-                return next(err);
-            req.flash("success", "Welcome!");
-            res.redirect("/collection");
-        });
-    }
-    catch (err) {
-        req.flash("error", `${err.message}. Try again, please!`);
-        res.redirect("/home");
-    }
+    req.login(registeredUser, (err) => {
+        if (err)
+            throw err;
+        req.flash("success", "Welcome!");
+        res.redirect("/collection");
+    });
 });
 exports.register = register;
 const login = (req, res) => {
@@ -66,14 +60,13 @@ const login = (req, res) => {
     res.redirect("/collection");
 };
 exports.login = login;
-const preferences = (req, res, next) => {
+const preferences = (req, res) => {
     const pageTitle = "Preferences - artCollector";
     const styleSheet = "forms";
     res.render("preferences", { pageTitle, styleSheet });
 };
 exports.preferences = preferences;
 const editUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, userCheckUndefined_1.default)(req);
     if (req.body.custom_table) {
         yield user_1.default.findOneAndUpdate(req.user._id, {
             custom_table: req.body.custom_table,
@@ -102,10 +95,12 @@ const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     (0, userCheckUndefined_1.default)(req);
     user_1.default.findOne({ username: req.user.username }).then((u) => {
         u.setPassword(req.body.new_password, (err, u) => {
-            if (err)
-                return next(err);
-            u.save();
-            res.status(200).json({ message: "password change successful" });
+            if (err) {
+                throw err;
+            }
+            else {
+                u.save();
+            }
         });
         req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
         res.redirect("/collection");
@@ -113,12 +108,14 @@ const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.changePassword = changePassword;
 const logoutUser = (req, res, next) => {
-    req.logout(function (err) {
+    req.logout((err) => {
         if (err) {
-            return next(err);
+            next(err);
         }
-        req.flash("success", "Goodbye!");
-        res.redirect("/home");
+        else {
+            req.flash("success", "Goodbye!");
+            res.redirect("/home");
+        }
     });
 };
 exports.logoutUser = logoutUser;
@@ -145,7 +142,7 @@ const forgottenPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             Take care, 
             artCollector team
           `);
-            req.flash("success", "An email with furhter instructions has been sent to the provided adress.");
+            req.flash("success", "An e-mail with furhter instructions has been sent to the provided adress.");
             res.redirect("/home");
         }
         else {
@@ -173,8 +170,8 @@ const sendToken = (req, res, next) => {
                         styleSheet: "forms",
                     });
                 }
-                catch (error) {
-                    res.send(error.message);
+                catch (err) {
+                    throw err;
                 }
             }
         }
@@ -190,7 +187,7 @@ const resetPassword = (req, res, next) => {
     user_1.default.findById(id).then((u) => {
         u.setPassword(req.body.new_password, (err, u) => {
             if (err)
-                return next(err);
+                next(err);
             u.save();
             res.status(200).json({ message: "password change successful" });
         });
@@ -207,13 +204,13 @@ const deleteAcc = (req, res, next) => {
 exports.deleteAcc = deleteAcc;
 const deleteAccConfirmed = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, userCheckUndefined_1.default)(req);
-    const pieces = yield artPiece_1.default.find({ user_id: req.user._id });
+    const pieces = yield ArtPiece_1.default.find({ user_id: req.user._id });
     for (let p of pieces) {
         for (let img of p.images) {
-            yield cloudinary.uploader.destroy(img.filename);
+            yield index_1.cloudinary.uploader.destroy(img.filename);
         }
     }
-    yield artPiece_1.default.deleteMany({ user_id: req.user._id });
+    yield ArtPiece_1.default.deleteMany({ user_id: req.user._id });
     yield user_1.default.findByIdAndDelete(req.user._id);
     req.flash("success", "Goodbye :(");
     res.redirect("/home");

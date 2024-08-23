@@ -1,12 +1,8 @@
 import express from "express";
-
 import catchAsync from "../utilities/catchAsync";
 import isLoggedIn from "../utilities/isLoggedIn";
-
 import User from "../models/mongoose/user";
-
 import passport from "passport";
-import LocalStrategy from "passport-local";
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -48,7 +44,10 @@ router.put(
 );
 router.get("/logout", logoutUser);
 router.post("/forgotten", catchAsync(forgottenPassword));
-router.route("/password_reset/:id/:token").get(sendToken).post(resetPassword);
+router
+  .route("/password_reset/:id/:token")
+  .get(catchAsync(sendToken))
+  .post(catchAsync(resetPassword));
 router
   .route("/preferences/deleteAcc")
   .get(isLoggedIn, deleteAcc)

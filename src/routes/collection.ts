@@ -4,6 +4,7 @@ import express from "express";
 import isLoggedIn from "../utilities/isLoggedIn";
 import catchAsync from "../utilities/catchAsync";
 import multer from "multer";
+import { storage } from "../cloudinary/index";
 import {
   collectionPage,
   postNewPiece,
@@ -18,7 +19,6 @@ import {
 
 const app = express();
 const router = express.Router();
-const { storage } = require("../cloudinary/index");
 const upload = multer({
   storage: storage,
   limits: {
@@ -36,8 +36,6 @@ const upload = multer({
     cb(null, true);
   },
 });
-
-const { cloudinary } = require("../cloudinary/index");
 
 router
   .route("/")
