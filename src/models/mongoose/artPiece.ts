@@ -66,14 +66,14 @@ export type ArtPieceType = {
   artist: string;
   medium: string;
   year?: [
-    { year_started: number | null; year_finished: number | null; _id?: string }
+    { year_started: number | ""; year_finished: number | ""; _id?: string }
   ];
-  images?: [{ url: string; filename: string; _id?: string }];
+  images?: [{ url: string; filename: string; _id?: string }] | [];
   size: [
     {
-      x?: number | null;
-      y?: number | null;
-      z?: number | null;
+      x?: number | "";
+      y?: number | "";
+      z?: number | "";
       unit: "cm" | "in" | null;
       _id?: string;
     }

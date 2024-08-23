@@ -74,19 +74,20 @@ export const postNewPiece = async (req: RequestWithFiles, res: Response) => {
   }
 
   const newPiece = new ArtPiece(req.body);
-  newPiece.images = req.files.map((f: CustomFile) => ({
-    url: f.path,
-    filename: f.filename,
-  }));
+  if (req.files) {
+    newPiece.images = req.files.map((f: CustomFile) => ({
+      url: f.path,
+      filename: f.filename,
+    }));
+  }
 
   if (req.body.acquiration_date) {
     newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
   }
-  res.statusCode = 200;
-
   await newPiece.save();
+  console.log(newPiece);
   req.flash("success", "Successfully added your new piece!");
-  res.redirect("collection");
+  res.redirect("/collection");
 };
 
 export const exportToXlsx = async (
