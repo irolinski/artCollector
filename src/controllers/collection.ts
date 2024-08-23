@@ -157,12 +157,9 @@ export const exportToXlsx = async (
 
   res.download(file, (err: Error) => {
     if (err) {
-      // console.log("problem with export " + err);
       res.send("Error occured!");
     }
-    fs.unlink(file, () => {
-      // console.log("export successful");
-    });
+    fs.unlink(file, () => {});
   });
 };
 

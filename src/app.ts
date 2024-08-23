@@ -14,6 +14,7 @@ import User from "./models/mongoose/user";
 import collectionRouter from "./routes/collection";
 import usersRouter from "./routes/users";
 import discoverRouter from "./routes/discover";
+import testsRouter from "./routes/testRoutes/tests";
 
 const LocalStrategy = require("passport-local");
 const ejsMate = require("ejs-mate");
@@ -64,13 +65,12 @@ app.use(
   }
 );
 
-// app.get("/server-check", (req: Request, res: Response) => {
-//   res.status(200).json({ message: "Server is running" });
-// });
-
 app.use("/", usersRouter);
 app.use("/collection", collectionRouter);
 app.use("/discover", discoverRouter);
+if (process.env.NODE_ENV === "test") {
+  app.use("/test", testsRouter);
+}
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new ExpressError("Page not found", 404));
 });

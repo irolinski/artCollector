@@ -11,7 +11,7 @@ require("dotenv").config();
 const dbUrl = process.env.DB_URL;
 process.env.NODE_ENV = "test";
 
-const promisedAuthRequest = (
+const requestAuth = (
   route: string,
   user: { username: string; password: string }
 ) => {
@@ -36,7 +36,7 @@ beforeAll(async () => {
 
 describe("Check if authentication and route protection middleware (isLoggedIn) work", () => {
   it("allows authenticated user onto private routes", () => {
-    return promisedAuthRequest("/login", testUserLogin).then(
+    return requestAuth("/login", testUserLogin).then(
       (authenticatedagent: any) => {
         return (
           authenticatedagent.get("/collection").expect(200) &&
@@ -47,7 +47,7 @@ describe("Check if authentication and route protection middleware (isLoggedIn) w
   });
 
   it("redirects from private routes if the authentication fails", () => {
-    return promisedAuthRequest("/login", fakeUserLogin).then(
+    return requestAuth("/login", fakeUserLogin).then(
       (authenticatedagent: any) => {
         return (
           authenticatedagent.get("/collection").expect(302) &&
@@ -74,14 +74,14 @@ describe("Check if user registration/updating works", () => {
       .send(newUser)
       .set("Content-Type", "application/json")
       .set("Accept", "application/json");
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(302);
     expect(res.header.location).toBe("/collection");
   });
 
   newUser.username += "new";
   newUser.password += "new";
   it("edits user data", async () => {
-    return promisedAuthRequest("/login", testUserRegister).then(
+    return requestAuth("/login", testUserRegister).then(
       (authenticatedagent: any) => {
         const usernameChange = authenticatedagent
           .put("/preferences/edit")
@@ -103,37 +103,33 @@ describe("Check if user registration/updating works", () => {
           .set("Accept", "application/json");
 
         usernameChange.then((res: any) => {
-          expect(res.statusCode).toBe(200);
+          expect(res.statusCode).toBe(302);
           expect(res.headers.location).toBe("/collection");
         });
 
         passwordChange.then((res: any) => {
-          expect(res.statusCode).toBe(200);
+          expect(res.statusCode).toBe(302);
           expect(res.headers.location).toBe("/collection");
         });
       }
     );
   });
 
-  // ^^ have to log in before that, because otherwise it'll always return 404 smh
-
   it("deletes the newly created user", async () => {
-    return promisedAuthRequest("/login", newUser).then(
-      (authenticatedagent: any) => {
-        return authenticatedagent
-          .delete("/preferences/deleteAcc")
-          .send({
-            username: newUser.username,
-            password: newUser.password,
-          })
-          .then((res: any) => {
-            // console.log(res.statusCode + "   " + res.headers.location);
-            expect(res.statusCode).toBe(200);
-            expect(res.headers.location).toBe("/home");
-            expect(res.headers).not.toBe("/preferences");
-          });
-      }
-    );
+    return requestAuth("/login", newUser).then((authenticatedagent: any) => {
+      return authenticatedagent
+        .delete("/preferences/deleteAcc")
+        .send({
+          username: newUser.username,
+          password: newUser.password,
+        })
+        .then((res: any) => {
+          // console.log(res.statusCode + "   " + res.headers.location);
+          expect(res.statusCode).toBe(302);
+          expect(res.headers.location).toBe("/home");
+          expect(res.headers).not.toBe("/preferences");
+        });
+    });
   });
 });
 

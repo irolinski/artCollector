@@ -13,6 +13,7 @@ const user_1 = __importDefault(require("./models/mongoose/user"));
 const collection_1 = __importDefault(require("./routes/collection"));
 const users_1 = __importDefault(require("./routes/users"));
 const discover_1 = __importDefault(require("./routes/discover"));
+const tests_1 = __importDefault(require("./routes/testRoutes/tests"));
 const LocalStrategy = require("passport-local");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
@@ -52,6 +53,9 @@ app.use((req, res, next) => {
 app.use("/", users_1.default);
 app.use("/collection", collection_1.default);
 app.use("/discover", discover_1.default);
+if (process.env.NODE_ENV === "test") {
+    app.use("/test", tests_1.default);
+}
 app.all("*", (req, res, next) => {
     next(new ExpressError_1.default("Page not found", 404));
 });

@@ -161,8 +161,7 @@ const exportToXlsx = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (err) {
             res.send("Error occured!");
         }
-        fs_1.default.unlink(file, () => {
-        });
+        fs_1.default.unlink(file, () => { });
     });
 });
 exports.exportToXlsx = exportToXlsx;

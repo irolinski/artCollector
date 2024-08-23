@@ -23,7 +23,7 @@ passport_1.default.deserializeUser(user_1.default.deserializeUser());
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const index_1 = require("../cloudinary/index");
 const redirectHome = (req, res) => {
-    res.redirect(200, "/home");
+    res.redirect("/home");
 };
 exports.redirectHome = redirectHome;
 const home = (req, res, next) => {
@@ -51,13 +51,13 @@ const register = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         if (err)
             throw err;
         req.flash("success", "Welcome!");
-        res.redirect(200, "/collection");
+        res.redirect("/collection");
     });
 });
 exports.register = register;
 const login = (req, res) => {
     req.flash("success", "Welcome back!");
-    res.redirect(200, "/collection");
+    res.redirect("/collection");
 };
 exports.login = login;
 const preferences = (req, res) => {
@@ -88,7 +88,7 @@ const editUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     else {
         req.flash("success", "Your changes have been saved!");
     }
-    res.redirect(200, "/collection");
+    res.redirect("/collection");
 });
 exports.editUser = editUser;
 const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -103,7 +103,7 @@ const changePassword = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             }
         });
         req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
-        res.redirect(200, "/collection");
+        res.redirect("/collection");
     });
 });
 exports.changePassword = changePassword;
@@ -114,7 +114,7 @@ const logoutUser = (req, res, next) => {
         }
         else {
             req.flash("success", "Goodbye!");
-            res.redirect(200, "/home");
+            res.redirect("/home");
         }
     });
 };
@@ -143,7 +143,7 @@ const forgottenPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             artCollector team
           `);
             req.flash("success", "An email with furhter instructions has been sent to the provided adress.");
-            res.redirect(200, "/home");
+            res.redirect("/home");
         }
         else {
             req.flash("error", "Invalid e-mail adress. Try again!");
@@ -177,7 +177,7 @@ const sendToken = (req, res, next) => {
         }
         else {
             req.flash("error", "We encountered a mistake: no such user id. Please, try again.");
-            res.redirect(500, "/home");
+            res.redirect("/home");
         }
     });
 };
@@ -192,7 +192,7 @@ const resetPassword = (req, res, next) => {
             res.status(200).json({ message: "password change successful" });
         });
         req.flash("success", "Your password has been changed. Next time you log in, use your new password!");
-        res.redirect(200, "/home");
+        res.redirect("/home");
     });
 };
 exports.resetPassword = resetPassword;
@@ -213,7 +213,7 @@ const deleteAccConfirmed = (req, res, next) => __awaiter(void 0, void 0, void 0,
     yield ArtPiece_1.default.deleteMany({ user_id: req.user._id });
     yield user_1.default.findByIdAndDelete(req.user._id);
     req.flash("success", "Goodbye :(");
-    res.redirect(200, "/home");
+    res.redirect("/home");
 });
 exports.deleteAccConfirmed = deleteAccConfirmed;
 //# sourceMappingURL=users.js.map

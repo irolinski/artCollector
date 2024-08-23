@@ -12,7 +12,7 @@ import JWT from "jsonwebtoken";
 import { cloudinary } from "../cloudinary/index";
 
 export const redirectHome = (req: Request, res: Response) => {
-  res.redirect(200, "/home");
+  res.redirect("/home");
 };
 
 export const home = (req: Request, res: Response, next: NextFunction) => {
@@ -49,13 +49,13 @@ export const register = async (
   req.login(registeredUser, (err: Error) => {
     if (err) throw err;
     req.flash("success", "Welcome!");
-    res.redirect(200, "/collection");
+    res.redirect("/collection");
   });
 };
 
 export const login = (req: RequestWithLocalVariables, res: Response) => {
   req.flash("success", "Welcome back!");
-  res.redirect(200, "/collection");
+  res.redirect("/collection");
 };
 
 export const preferences = (req: Request, res: Response) => {
@@ -90,7 +90,7 @@ export const editUser = async (
   } else {
     req.flash("success", "Your changes have been saved!");
   }
-  res.redirect(200, "/collection");
+  res.redirect("/collection");
 };
 
 export const changePassword = async (
@@ -115,7 +115,7 @@ export const changePassword = async (
         "success",
         "Your password has been changed. Next time you log in, use your new password!"
       );
-      res.redirect(200, "/collection");
+      res.redirect("/collection");
     }
   );
 };
@@ -130,7 +130,7 @@ export const logoutUser = (
       next(err);
     } else {
       req.flash("success", "Goodbye!");
-      res.redirect(200, "/home");
+      res.redirect("/home");
     }
   });
 };
@@ -171,7 +171,7 @@ export const forgottenPassword = async (
         "success",
         "An email with furhter instructions has been sent to the provided adress."
       );
-      res.redirect(200, "/home");
+      res.redirect("/home");
     } else {
       req.flash("error", "Invalid e-mail adress. Try again!");
       res.redirect("/home");
@@ -209,7 +209,7 @@ export const sendToken = (
         "error",
         "We encountered a mistake: no such user id. Please, try again."
       );
-      res.redirect(500, "/home");
+      res.redirect("/home");
     }
   });
 };
@@ -233,7 +233,7 @@ export const resetPassword = (
       "success",
       "Your password has been changed. Next time you log in, use your new password!"
     );
-    res.redirect(200, "/home");
+    res.redirect("/home");
   });
 };
 
@@ -259,5 +259,5 @@ export const deleteAccConfirmed = async (
   await ArtPiece.deleteMany({ user_id: req.user._id });
   await User.findByIdAndDelete(req.user._id);
   req.flash("success", "Goodbye :(");
-  res.redirect(200, "/home");
+  res.redirect("/home");
 };
