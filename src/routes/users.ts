@@ -44,7 +44,10 @@ router.put(
 );
 router.get("/logout", logoutUser);
 router.post("/forgotten", catchAsync(forgottenPassword));
-router.route("/password_reset/:id/:token").get(sendToken).post(resetPassword);
+router
+  .route("/password_reset/:id/:token")
+  .get(catchAsync(sendToken))
+  .post(catchAsync(resetPassword));
 router
   .route("/preferences/deleteAcc")
   .get(isLoggedIn, deleteAcc)

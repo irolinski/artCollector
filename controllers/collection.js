@@ -89,8 +89,8 @@ const postNewPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
     }
     yield newPiece.save();
-    console.log(newPiece);
     req.flash("success", "Successfully added your new piece!");
+    res.append("newPiece_id", newPiece._id);
     res.redirect("/collection");
 });
 exports.postNewPiece = postNewPiece;
@@ -161,7 +161,7 @@ const exportToXlsx = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     xlsx_1.default.writeFile(wb, file);
     res.download(file, (err) => {
         if (err) {
-            res.send("Error occured!");
+            throw err;
         }
         fs_1.default.unlink(file, () => { });
     });
@@ -205,11 +205,13 @@ exports.editImages = editImages;
 const editPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const p = yield ArtPiece_1.default.findByIdAndUpdate(id, Object.assign({}, req.body));
-    const imgs = req.files.map((f) => ({
-        url: f.path,
-        filename: f.filename,
-    }));
-    p.images.push(...imgs);
+    if (req.files) {
+        const imgs = req.files.map((f) => ({
+            url: f.path,
+            filename: f.filename,
+        }));
+        p.images.push(...imgs);
+    }
     if (req.body.makeDefault) {
         for (let imgFileName of req.body.makeDefault) {
             const index = p.images

@@ -2,8 +2,8 @@ import { ArtPieceType } from "../../src/models/mongoose/ArtPiece";
 import { testUserLogin } from "./user_mock";
 
 const artpiece_mock: ArtPieceType = {
-  title: "Probono",
-  artist: "Frendon",
+  title: (Math.random() + 1).toString(36).substring(7),
+  artist: (Math.random() + 1).toString(36).substring(7),
   medium: "Oil on Canvas",
   year: [
     {
@@ -21,7 +21,6 @@ const artpiece_mock: ArtPieceType = {
       // _id: "66c353c6f2a4db27ef042485",
     },
   ],
-  images: [],
   owner: [
     {
       status: "self",
@@ -52,14 +51,8 @@ const artpiece_mock: ArtPieceType = {
     },
   ],
   catalogue: "2000",
-  // _id: "66c353c6f2a4db27ef042443",
-  // images: [
-  //   {
-  //     url: "https://res.cloudinary.com/dtjtqp7r1/image/upload/v1724076998/artCollector/knj7qsujrp48ul9hbvld.png",
-  //     filename: "artCollector/knj7qsujrp48ul9hbvld",
-  //     // _id: "66c353c6f2a4db27ef042489",
-  //   },
-  // ],
+  // _id: "10001test",
+  images: [],
   user_id: testUserLogin.user_id,
 };
 

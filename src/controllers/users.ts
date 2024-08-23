@@ -169,7 +169,7 @@ export const forgottenPassword = async (
       );
       req.flash(
         "success",
-        "An email with furhter instructions has been sent to the provided adress."
+        "An e-mail with furhter instructions has been sent to the provided adress."
       );
       res.redirect("/home");
     } else {
@@ -200,8 +200,8 @@ export const sendToken = (
             pageTitle: "Password reset - artCollector",
             styleSheet: "forms",
           });
-        } catch (error) {
-          res.send(error.message);
+        } catch (err) {
+          throw err;
         }
       }
     } else {

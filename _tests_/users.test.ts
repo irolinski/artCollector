@@ -65,9 +65,8 @@ describe("Check if authentication and route protection middleware (isLoggedIn) w
   });
 });
 
-describe("Check if user registration/updating works", () => {
-  const newUser = testUserRegister;
-
+const newUser = testUserRegister;
+describe("Check if user registration works", () => {
   it("registers a new user", async () => {
     const res = await request(server)
       .post("/register")
@@ -77,9 +76,11 @@ describe("Check if user registration/updating works", () => {
     expect(res.statusCode).toBe(302);
     expect(res.header.location).toBe("/collection");
   });
+});
 
-  newUser.username += "new";
-  newUser.password += "new";
+newUser.username += "new";
+newUser.password += "new";
+describe("Check if user updating works", () => {
   it("edits user data", async () => {
     return requestAuth("/login", testUserRegister).then(
       (authenticatedagent: any) => {
@@ -124,12 +125,23 @@ describe("Check if user registration/updating works", () => {
           password: newUser.password,
         })
         .then((res: any) => {
-          // console.log(res.statusCode + "   " + res.headers.location);
           expect(res.statusCode).toBe(302);
           expect(res.headers.location).toBe("/home");
           expect(res.headers).not.toBe("/preferences");
         });
     });
+  });
+});
+
+describe("Check special features", () => {
+  it("sends token", async () => {
+    const res = await request(server)
+      .post(`/forgotten`)
+      .send("example.mail@mail.com")
+      .then((res: any) => {
+        expect(res.statusCode).toBe(302);
+        expect(res.headers.location).toBe("/home");
+      });
   });
 });
 

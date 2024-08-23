@@ -142,7 +142,7 @@ const forgottenPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, 
             Take care, 
             artCollector team
           `);
-            req.flash("success", "An email with furhter instructions has been sent to the provided adress.");
+            req.flash("success", "An e-mail with furhter instructions has been sent to the provided adress.");
             res.redirect("/home");
         }
         else {
@@ -170,8 +170,8 @@ const sendToken = (req, res, next) => {
                         styleSheet: "forms",
                     });
                 }
-                catch (error) {
-                    res.send(error.message);
+                catch (err) {
+                    throw err;
                 }
             }
         }

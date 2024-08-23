@@ -4,6 +4,7 @@ export const testUserLogin = {
   username: process.env.TEST_USER!,
   password: process.env.TEST_USER_PASS!,
   user_id: process.env.TEST_USER_ID!,
+  email: process.env.TEST_USER_EMAIL!,
 };
 
 export const fakeUserLogin = {

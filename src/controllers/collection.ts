@@ -5,7 +5,6 @@ import {
   RequestWithFiles,
   RequestWithLocalVariables,
 } from "../definitions";
-import { ArtPieceExportModel } from "../models/definitions";
 import userCheckUndefined from "../utilities/userCheckUndefined";
 import moment from "moment";
 import mongoose from "mongoose";
@@ -14,6 +13,7 @@ import XLSX from "xlsx";
 import ExpressError from "../utilities/ExpressError";
 import ArtPiece from "../models/mongoose/ArtPiece";
 import artPieceJOI from "../models/mongoose/artPieceJOI";
+import { ArtPieceExportModel } from "../models/definitions";
 import { cloudinary } from "../cloudinary/index";
 
 export const collectionPage = async (
@@ -85,8 +85,8 @@ export const postNewPiece = async (req: RequestWithFiles, res: Response) => {
     newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
   }
   await newPiece.save();
-  console.log(newPiece);
   req.flash("success", "Successfully added your new piece!");
+  res.append("newPiece_id", newPiece._id);
   res.redirect("/collection");
 };
 
@@ -107,9 +107,7 @@ export const exportToXlsx = async (
   }
   const currentYear = `${currentDate.getFullYear()}`;
   const date = currentMonth + "." + currentYear;
-
   const exportData: ArtPieceExportModel[] = [];
-
   for await (let p of ArtPiece.find({ user_id: req.user._id })) {
     const data: ArtPieceExportModel = {
       title: p.title,
@@ -144,7 +142,6 @@ export const exportToXlsx = async (
       image_url_3: p.images[2] !== undefined ? p.images[2].url : null,
       image_url_4: p.images[3] !== undefined ? p.images[3].url : null,
     };
-
     exportData.unshift(data);
   }
 
@@ -158,7 +155,7 @@ export const exportToXlsx = async (
 
   res.download(file, (err: Error) => {
     if (err) {
-      res.send("Error occured!");
+      throw err;
     }
     fs.unlink(file, () => {});
   });
@@ -169,7 +166,6 @@ export const showPage = async (
   res: Response
 ) => {
   const { id } = req.params;
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     req.flash(
       "error",
@@ -178,7 +174,6 @@ export const showPage = async (
     res.redirect("/campgrounds");
   }
   const p = await ArtPiece.findById(id);
-
   const pageTitle = `${p.title} - artCollector`;
   const styleSheet = "show";
 
@@ -198,7 +193,6 @@ export const showPage = async (
 export const editPieceForm = async (req: Request, res: Response) => {
   const pageTitle = "Edit piece - artCollector";
   const styleSheet = "forms";
-
   const { id } = req.params;
   const p = await ArtPiece.findById(id);
   res.render("edit", { p, moment: moment, pageTitle, styleSheet });
@@ -207,7 +201,6 @@ export const editPieceForm = async (req: Request, res: Response) => {
 export const editImages = async (req: Request, res: Response) => {
   const pageTitle = "Edit images - artCollector";
   const styleSheet = "forms";
-
   const { id } = req.params;
   const p = await ArtPiece.findById(id);
   res.render("edit_images", { p, pageTitle, styleSheet });
@@ -216,12 +209,13 @@ export const editImages = async (req: Request, res: Response) => {
 export const editPiece = async (req: RequestWithFiles, res: Response) => {
   const { id } = req.params;
   const p = await ArtPiece.findByIdAndUpdate(id, { ...req.body });
-  const imgs = req.files.map((f: CustomFile) => ({
-    url: f.path,
-    filename: f.filename,
-  }));
-  p.images.push(...imgs);
-
+  if (req.files) {
+    const imgs = req.files.map((f: CustomFile) => ({
+      url: f.path,
+      filename: f.filename,
+    }));
+    p.images.push(...imgs);
+  }
   if (req.body.makeDefault) {
     for (let imgFileName of req.body.makeDefault) {
       const index = p.images
@@ -233,7 +227,6 @@ export const editPiece = async (req: RequestWithFiles, res: Response) => {
       p.images.unshift(img);
     }
   }
-
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
       await cloudinary.uploader.destroy(filename);
@@ -242,9 +235,7 @@ export const editPiece = async (req: RequestWithFiles, res: Response) => {
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
     });
   }
-
   await p.save();
-
   req.flash("success", "Successfully made changes to your piece!");
   res.redirect(`/collection/show/${id}`);
 };
@@ -254,13 +245,10 @@ export const deletePiece = async (
   res: Response
 ) => {
   const { id } = req.params;
-
   const p = await ArtPiece.findByIdAndDelete(id);
-
   for (let i of p.images) {
     await cloudinary.uploader.destroy(i.filename);
   }
-
   req.flash("success", "Successfully deleted your piece!");
   res.redirect("/collection");
 };
