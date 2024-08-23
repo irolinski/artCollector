@@ -1,4 +1,5 @@
 import { ArtPieceType } from "../../src/models/mongoose/ArtPiece";
+import { testUserLogin } from "./user_mock";
 
 const artpiece_mock: ArtPieceType = {
   title: "Probono",
@@ -6,8 +7,8 @@ const artpiece_mock: ArtPieceType = {
   medium: "Oil on Canvas",
   year: [
     {
-      year_finished: 2000,
-      year_started: null,
+      year_finished: "",
+      year_started: 1998,
       // _id: "66c353c6f2a4db27ef042484",
     },
   ],
@@ -15,11 +16,12 @@ const artpiece_mock: ArtPieceType = {
     {
       x: 400,
       y: 200,
-      z: null,
+      z: "",
       unit: "cm",
       // _id: "66c353c6f2a4db27ef042485",
     },
   ],
+  images: [],
   owner: [
     {
       status: "self",
@@ -40,7 +42,7 @@ const artpiece_mock: ArtPieceType = {
   archival: false,
   description:
     "As Gregor Samsa awoke one morning from uneasy dreams he found himself transformed in his bed into a gigantic insect.",
-  user_id: "6595bee8e15d921df771a205",
+  // user_id: "6595bee8e15d921df771a205",
   forSale: true,
   price: [
     {
@@ -51,13 +53,14 @@ const artpiece_mock: ArtPieceType = {
   ],
   catalogue: "2000",
   // _id: "66c353c6f2a4db27ef042443",
-  images: [
-    {
-      url: "https://res.cloudinary.com/dtjtqp7r1/image/upload/v1724076998/artCollector/knj7qsujrp48ul9hbvld.png",
-      filename: "artCollector/knj7qsujrp48ul9hbvld",
-      // _id: "66c353c6f2a4db27ef042489",
-    },
-  ],
+  // images: [
+  //   {
+  //     url: "https://res.cloudinary.com/dtjtqp7r1/image/upload/v1724076998/artCollector/knj7qsujrp48ul9hbvld.png",
+  //     filename: "artCollector/knj7qsujrp48ul9hbvld",
+  //     // _id: "66c353c6f2a4db27ef042489",
+  //   },
+  // ],
+  user_id: testUserLogin.user_id,
 };
 
 export default artpiece_mock;

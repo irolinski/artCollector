@@ -79,17 +79,19 @@ const postNewPiece = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         throw new ExpressError_1.default(msg, 400);
     }
     const newPiece = new ArtPiece_1.default(req.body);
-    newPiece.images = req.files.map((f) => ({
-        url: f.path,
-        filename: f.filename,
-    }));
+    if (req.files) {
+        newPiece.images = req.files.map((f) => ({
+            url: f.path,
+            filename: f.filename,
+        }));
+    }
     if (req.body.acquiration_date) {
         newPiece.acquiration_date = new Date(`${req.body.acquiration_date}`);
     }
-    res.statusCode = 200;
     yield newPiece.save();
+    console.log(newPiece);
     req.flash("success", "Successfully added your new piece!");
-    res.redirect("collection");
+    res.redirect("/collection");
 });
 exports.postNewPiece = postNewPiece;
 const exportToXlsx = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -3,6 +3,7 @@ import { UserModel } from "../../src/models/definitions";
 export const testUserLogin = {
   username: process.env.TEST_USER!,
   password: process.env.TEST_USER_PASS!,
+  user_id: process.env.TEST_USER_ID!,
 };
 
 export const fakeUserLogin = {
